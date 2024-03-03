@@ -1,4 +1,4 @@
-#include "math.h"
+#include "math.hpp"
 #include <type_traits>
 #include <utility>
 
@@ -21,6 +21,9 @@ namespace lm {
       unsigned int amount = 0;
       T** list = new T*[0];
     public:
+      /// @brief Retorna um elemento da lista
+      /// @param index o íncide do elemento
+      /// @return o elemento encontrado
       inline T* get(unsigned int index) {
         return this->list[index % this->amount];
       };
@@ -40,6 +43,10 @@ namespace lm {
           return NULL;
         };
 
+      /// @brief Retorna um id live para ser usado por uma insância
+      /// @tparam condition essa função só pode ser chamada por classes que herdam
+      /// a classe Instantiable
+      /// @return um id livre
       template<class = enable_if<is_base_of<Instantiable, T>::value>>
         inline unsigned int getFreeId() {
           for(unsigned int i = 0; i < this->length(); i++) {
@@ -51,10 +58,14 @@ namespace lm {
           return this->length() + 1;
         };
       
+      /// @brief Permite acessar o tamanho da lista
+      /// @return o tamanho da lista
       inline unsigned int length() {
         return this->amount;
       };
 
+      /// @brief Adicona um elemento na lista
+      /// @param item o elemento
       inline void push(T* item) {
         this->amount++;
 
@@ -70,5 +81,10 @@ namespace lm {
         this->list = items;
       };
 
+    /// @brief Ordena a lista de acordo com a função de comparação dos elementos
+    /// @param compare a função de comparação dos elementos
+    inline void sort(bool (*compare)(T* one, T* two)) {
+      std::sort(this->list, this->list + this->amount, compare);
+    };
   };
 };

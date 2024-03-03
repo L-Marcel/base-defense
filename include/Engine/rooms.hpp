@@ -1,4 +1,4 @@
-#include "objects.h"
+#include "objects.hpp"
 
 namespace lm {
   class Room : public Instantiable {

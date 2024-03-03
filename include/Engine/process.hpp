@@ -1,4 +1,4 @@
-#include "rooms.h"
+#include "rooms.hpp"
 
 namespace lm {
   class GameProcess {

@@ -1,24 +1,33 @@
 COMPILE_FLAGS = -Wall -c
 INCLUDED_FILES = ./build/main.o \
-	./build/src/list.o \
-	./build/src/process.o \
-	./build/src/objects.o \
-	./build/src/rooms.o
+	./build/src/Engine/list.o \
+	./build/src/Engine/process.o \
+	./build/src/Engine/objects.o \
+	./build/src/Engine/rooms.o \
+	./build/src/Engine/math.o \
+	./build/src/Input/input.o \
+	./build/src/Mouse/mouse.o
 	
 dev:
 	make compile && make run
-compile: ./main.cpp compile_process compile_objects compile_rooms compile_list
+compile: ./main.cpp compile_process compile_objects compile_rooms compile_list compile_math compile_input compile_mouse
 	g++ ${COMPILE_FLAGS} main.cpp -Ilibs/sfml/include -o ./build/main.o \
 	&& g++ -Wall -Llibs/sfml/lib ${INCLUDED_FILES} -o game -lsfml-system -lsfml-window \
 	-lsfml-audio -lsfml-graphics
-compile_process: ./src/process.cpp ./include/process.h
-	g++ ${COMPILE_FLAGS} src/process.cpp -Ilibs/sfml/include -o ./build/src/process.o
-compile_objects: ./src/objects.cpp ./include/rooms.h
-	g++ ${COMPILE_FLAGS} src/objects.cpp -Ilibs/sfml/include -o ./build/src/objects.o
-compile_rooms: ./src/rooms.cpp ./include/rooms.h
-	g++ ${COMPILE_FLAGS} src/rooms.cpp -Ilibs/sfml/include -o ./build/src/rooms.o
-compile_list: ./src/list.cpp ./include/list.h
-	g++ ${COMPILE_FLAGS} src/list.cpp -Ilibs/sfml/include -o ./build/src/list.o
+compile_process: ./src/Engine/process.cpp ./include/Engine/process.hpp
+	g++ ${COMPILE_FLAGS} src/Engine/process.cpp -Ilibs/sfml/include -o ./build/src/Engine/process.o
+compile_objects: ./src/Engine/objects.cpp ./include/Engine/rooms.hpp
+	g++ ${COMPILE_FLAGS} src/Engine/objects.cpp -Ilibs/sfml/include -o ./build/src/Engine/objects.o
+compile_rooms: ./src/Engine/rooms.cpp ./include/Engine/rooms.hpp
+	g++ ${COMPILE_FLAGS} src/Engine/rooms.cpp -Ilibs/sfml/include -o ./build/src/Engine/rooms.o
+compile_list: ./src/Engine/list.cpp ./include/Engine/list.hpp
+	g++ ${COMPILE_FLAGS} src/Engine/list.cpp -Ilibs/sfml/include -o ./build/src/Engine/list.o
+compile_math: ./src/Engine/math.cpp ./include/Engine/math.hpp
+	g++ ${COMPILE_FLAGS} src/Engine/math.cpp -Ilibs/sfml/include -o ./build/src/Engine/math.o
+compile_input: ./src/Input/input.cpp ./include/Input/input.hpp
+	g++ ${COMPILE_FLAGS} src/Input/input.cpp -Ilibs/sfml/include -o ./build/src/Input/input.o
+compile_mouse: ./src/Mouse/mouse.cpp ./include/Mouse/mouse.hpp
+	g++ ${COMPILE_FLAGS} src/Mouse/mouse.cpp -Ilibs/sfml/include -o ./build/src/Mouse/mouse.o
 run: ./game.exe
 	"./game.exe"
 	

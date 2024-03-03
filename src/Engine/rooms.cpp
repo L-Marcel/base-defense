@@ -1,4 +1,4 @@
-#include "../include/lm.h"
+#include "../../include/Engine.hpp"
 
 namespace lm {
   Room::Room() {
@@ -14,6 +14,10 @@ namespace lm {
   };
 
   void Room::step(GameProcess* gp, RenderWindow* window, unsigned short int frame) {
+    this->objects.sort([](Object* one, Object* two) {
+      return one->depth < two->depth;
+    });
+
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
       object->draw(window, frame);
