@@ -2,7 +2,7 @@
 
 namespace lm {
   namespace Input {
-    Coord keyboard(
+    Vector<float> keyboard(
       Keyboard::Key left,
       Keyboard::Key top,
       Keyboard::Key right,
@@ -18,13 +18,13 @@ namespace lm {
       short int vertical = downPressed - topPressed;
 
       if(horizontal != 0 || vertical != 0) {
-        return Coord(
+        return Vector<float>(
           horizontal * speed,
           vertical * speed
         );
       };
 
-      return Coord(0,0);
+      return Vector<float>(0,0);
     };
   };
 };

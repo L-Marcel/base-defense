@@ -20,8 +20,25 @@ namespace lm {
 
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
-      object->draw(window, frame);
-      object->onStep(object, this, gp);
+
+      object->step(this, gp);
+
+      sf::IntRect old = object->sprite->getTextureRect();
+      Vector<unsigned int> size = object->sprite->getTexture()->getSize();
+      object->image += object->fps/60.f;
+
+      int image = int(floor(object->image)) * old.width;
+
+      if(!object->loop) {
+        image = min(image, int(size.x) - old.width);
+      };
+      
+      object->animationFinished = image == int(size.x) - old.width;
+      object->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
+      object->sprite->setPosition(object->x, object->y);
+      object->sprite->setRotation(object->rotation);
+      
+      window->draw(*object->sprite);
     };
   };
 

@@ -16,7 +16,7 @@ namespace lm {
     this->width = width;
     this->height = height;
 
-    this->window.setSize(sf::Vector2u(width, height));
+    this->window.setSize(Vector<unsigned int>(width, height));
     this->window.setTitle(title);
     this->redraw = true;
     this->window.setFramerateLimit(60);
@@ -36,7 +36,7 @@ namespace lm {
 
   void GameProcess::step() {
     while(this->isRunning()) {
-      sf::Time elapsed = this->clock.getElapsedTime();
+      Time elapsed = this->clock.getElapsedTime();
 
       if((this->frame)/60 <= elapsed.asSeconds()) {
         this->nextFrame();

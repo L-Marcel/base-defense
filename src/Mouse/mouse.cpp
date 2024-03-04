@@ -2,14 +2,14 @@
 
 namespace lm {
   namespace Mouse {
-    Coord position(Window* window) {
-      sf::Vector2i pos = sf::Mouse::getPosition();
+    Vector<float> position(Window* window) {
+      Vector<int> pos = sf::Mouse::getPosition();
 
       if(window != nullptr) {
-        pos = sf::Mouse::getPosition(*((sf::RenderWindow*) window));
+        pos = sf::Mouse::getPosition(*window);
       };
 
-      return Coord(pos.x, pos.y);
+      return Vector<float>(pos.x, pos.y);
     };
   
     bool left() {

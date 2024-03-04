@@ -5,7 +5,7 @@ namespace lm {
   /// @param radious o raio do círculo
   /// @param angle o ângulo
   /// @return o par de coordenadas do ponto
-  Coord pointInRadious(double radious, double angle);
+  Vector<float> pointInRadious(double radious, double angle);
 
   /// @brief Retorna o arco tangente da reta que passa entre o ponto (0,0)
   /// e o ponto formado pelas coordenadas (x, y)

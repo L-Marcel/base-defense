@@ -1,5 +1,6 @@
 #include "list.hpp"
 #include <cstring>
+#include <functional>
 
 namespace lm {
   union Mask {
@@ -35,6 +36,7 @@ namespace lm {
       double direction = 0;
       float fps = 0;
       bool loop = true;
+      bool animationFinished = false;
 
       Object();
       Object(string spriteSheet, Box box);
@@ -42,12 +44,7 @@ namespace lm {
       void animate(float fps, unsigned short int textureRow, bool loop = true, float image = 0);
       void scale(float scale);
       void scale(float xScale, float yScale);
-      
-      void draw(Window* window, unsigned short int frame);
 
-      /// @brief Define a função "onStep" do objeto
-      /// @param func a função
-      void step(void (*func)(Object* self, Room* room, GameProcess* gp));
-      void (*onStep)(Object* self, Room* room, GameProcess* gp);
+      function<void(Room*, GameProcess*)> step = [](Room* room, GameProcess* gp){};
   } typedef Object;
 };

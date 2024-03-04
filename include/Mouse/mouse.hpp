@@ -2,7 +2,7 @@
 
 namespace lm {
   namespace Mouse {
-    Coord position(Window* window = nullptr);
+    Vector<float> position(Window* window = nullptr);
 
     bool left();
     bool right();

@@ -9,17 +9,20 @@ class Player : public Object {
     public:
         short unsigned int life = 10;
         using Object::Object;
+        bool firstAttack = true;
 };
  
 int main() {
     GameProcess gp;
-    Room room("Menu", 800, 600);
+    Room room("Room 01", 800, 600);
+
     Player player("assets/player.png", Box(12, 14, 24, 28));
+
     player.scale(4);
     player.animate(8, 1, false);
     
-    player.step([](Object* self, Room* room, GameProcess* gp){
-        Coord movement = Input::keyboard(
+    player.step = [&player](Room* room, GameProcess* gp) {
+        Vector<float> movement = Input::keyboard(
             Keyboard::A,
             Keyboard::W,
             Keyboard::D,
@@ -27,12 +30,21 @@ int main() {
             2
         );
         
-        self->x+=movement.x;
-        self->y+=movement.y;
+        player.x+=movement.x;
+        player.y+=movement.y;
         
-        Coord pos = Mouse::position(&gp->window);
-        self->rotation = pointDirection(pos.x - self->x, pos.y - self->y);
-    });
+        Vector<float> pos = Mouse::position(&gp->window);
+        player.rotation = pointDirection(pos.x - player.x, pos.y - player.y) - 90;
+
+        if(player.animationFinished) {
+            if(Mouse::left()) {
+                if(player.firstAttack) player.animate(8, 0, false);
+                else player.animate(8, 1, false);
+
+                player.firstAttack = !player.firstAttack;
+            };
+        };
+    };
 
     room.addObject(&player);
 
