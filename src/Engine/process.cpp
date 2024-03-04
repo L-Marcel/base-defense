@@ -16,7 +16,7 @@ namespace lm {
     this->width = width;
     this->height = height;
 
-    this->window.setSize(Vector2u(width, height));
+    this->window.setSize(sf::Vector2u(width, height));
     this->window.setTitle(title);
     this->redraw = true;
     this->window.setFramerateLimit(60);
@@ -36,7 +36,7 @@ namespace lm {
 
   void GameProcess::step() {
     while(this->isRunning()) {
-      Time elapsed = this->clock.getElapsedTime();
+      sf::Time elapsed = this->clock.getElapsedTime();
 
       if((this->frame)/60 <= elapsed.asSeconds()) {
         this->nextFrame();
@@ -63,7 +63,7 @@ namespace lm {
         this->window.clear();
         
         if(this->room > 0) {
-          RoomType* currentRoom = this->rooms.find(this->room);
+          Room* currentRoom = this->rooms.find(this->room);
 
           if(currentRoom != NULL) {
             currentRoom->step(this, &this->window, this->frame);

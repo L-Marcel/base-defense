@@ -1,6 +1,8 @@
 #include "../Engine/math.hpp"
 
 namespace lm {
+  class Keyboard : public sf::Keyboard {};
+
   namespace Input {
     Coord keyboard(
       Keyboard::Key left,

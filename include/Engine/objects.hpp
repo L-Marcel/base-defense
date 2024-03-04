@@ -2,19 +2,10 @@
 #include <cstring>
 
 namespace lm {
-  class Box : public IntRect {
-    public:
-      /// @brief cria uma caixa
-      /// @param x a posição x origem da caixa
-      /// @param y a posição y origem da caixa
-      /// @param w a largura da caixa
-      /// @param h a altura da caixa
-      Box(int x, int y, int w, int h);
-  };
-
   union Mask {
-    RectangleShape rect;
-    CircleShape circ;
+    Rectangle rectangle;
+    Circle circle;
+
     short int state = 0;
 
     Mask() {};
@@ -52,11 +43,11 @@ namespace lm {
       void scale(float scale);
       void scale(float xScale, float yScale);
       
-      void draw(RenderWindow* window, unsigned short int frame);
+      void draw(Window* window, unsigned short int frame);
 
       /// @brief Define a função "onStep" do objeto
       /// @param func a função
       void step(void (*func)(Object* self, Room* room, GameProcess* gp));
       void (*onStep)(Object* self, Room* room, GameProcess* gp);
-  } typedef ObjectType;
+  } typedef Object;
 };

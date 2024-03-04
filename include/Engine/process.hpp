@@ -6,7 +6,6 @@ namespace lm {
         unsigned short int width = 800;
         unsigned short int height = 600;
         string title = "L-Marcel's Game Engine";
-        RenderWindow window = RenderWindow(VideoMode(800, 600), "L-Marcel's Game Engine");
         unsigned short int frame = 0;
         Clock clock;
         unsigned int room = 0;
@@ -14,7 +13,8 @@ namespace lm {
         void (*events)(Event::EventType);
 
       public:
-        List<RoomType> rooms;
+        Window window = Window(VideoMode(800, 600), "L-Marcel's Game Engine");
+        List<Room> rooms;
         bool running = true;
 
         GameProcess();

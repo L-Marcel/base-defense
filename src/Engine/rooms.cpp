@@ -13,7 +13,7 @@ namespace lm {
     this->height = height;
   };
 
-  void Room::step(GameProcess* gp, RenderWindow* window, unsigned short int frame) {
+  void Room::step(GameProcess* gp, Window* window, unsigned short int frame) {
     this->objects.sort([](Object* one, Object* two) {
       return one->depth < two->depth;
     });

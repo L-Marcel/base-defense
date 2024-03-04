@@ -1,17 +1,17 @@
-#include "../../include/mouse.hpp"
+#include "../../include/Mouse.hpp"
 
 namespace lm {
   namespace Mouse {
-    Coord position() {
-      Vector2i pos = sf::Mouse::getPosition();
+    Coord position(Window* window) {
+      sf::Vector2i pos = sf::Mouse::getPosition();
+
+      if(window != nullptr) {
+        pos = sf::Mouse::getPosition(*((sf::RenderWindow*) window));
+      };
+
       return Coord(pos.x, pos.y);
     };
-
-    Coord position(RenderWindow* window) {
-      Vector2i pos = sf::Mouse::getPosition(*window);
-      return Coord(pos.x, pos.y);
-    };
-
+  
     bool left() {
       return sf::Mouse::isButtonPressed(sf::Mouse::Left);
     };

@@ -4,7 +4,6 @@
 #include "include/Mouse.hpp"
 
 using namespace lm;
-using namespace sf;
 
 class Player : public Object {
     public:
@@ -30,8 +29,9 @@ int main() {
         
         self->x+=movement.x;
         self->y+=movement.y;
-        Coord pos = lm::Mouse::position();
-        self->sprite->rotate(pointDirection(pos.x - self->x, pos.y - self->y));
+        
+        Coord pos = Mouse::position(&gp->window);
+        self->rotation = pointDirection(pos.x - self->x, pos.y - self->y);
     });
 
     room.addObject(&player);

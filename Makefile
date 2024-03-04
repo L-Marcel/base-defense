@@ -6,11 +6,12 @@ INCLUDED_FILES = ./build/main.o \
 	./build/src/Engine/rooms.o \
 	./build/src/Engine/math.o \
 	./build/src/Input/input.o \
-	./build/src/Mouse/mouse.o
+	./build/src/Mouse/mouse.o \
+	./build/src/Engine/base.o
 	
 dev:
 	make compile && make run
-compile: ./main.cpp compile_process compile_objects compile_rooms compile_list compile_math compile_input compile_mouse
+compile: ./main.cpp compile_process compile_objects compile_rooms compile_list compile_math compile_input compile_mouse compile_base
 	g++ ${COMPILE_FLAGS} main.cpp -Ilibs/sfml/include -o ./build/main.o \
 	&& g++ -Wall -Llibs/sfml/lib ${INCLUDED_FILES} -o game -lsfml-system -lsfml-window \
 	-lsfml-audio -lsfml-graphics
@@ -28,6 +29,8 @@ compile_input: ./src/Input/input.cpp ./include/Input/input.hpp
 	g++ ${COMPILE_FLAGS} src/Input/input.cpp -Ilibs/sfml/include -o ./build/src/Input/input.o
 compile_mouse: ./src/Mouse/mouse.cpp ./include/Mouse/mouse.hpp
 	g++ ${COMPILE_FLAGS} src/Mouse/mouse.cpp -Ilibs/sfml/include -o ./build/src/Mouse/mouse.o
+compile_base: ./src/Engine/base.cpp ./include/Engine/base.hpp
+	g++ ${COMPILE_FLAGS} src/Engine/base.cpp -Ilibs/sfml/include -o ./build/src/Engine/base.o
 run: ./game.exe
 	"./game.exe"
 	

@@ -1,7 +1,7 @@
 #include "../../include/Engine.hpp"
 
 namespace lm {
-  Box::Box(int x, int y, int w, int h) : IntRect(Vector2(x, y), Vector2(w, h)) {};
+  Box::Box(int x, int y, int w, int h) : sf::IntRect(sf::Vector2(x, y), sf::Vector2(w, h)) {};
 
   Object::Object() {
     this->onStep = [](Object* self, Room* room, GameProcess* gp) {};
@@ -13,7 +13,7 @@ namespace lm {
 
     if(this->texture->loadFromFile(spriteSheet)){
       this->sprite->setTexture(*this->texture);
-      Vector2 pos = box.getPosition();
+      sf::Vector2 pos = box.getPosition();
       box.top = 0;
       box.left = 0;
 
@@ -30,8 +30,8 @@ namespace lm {
     this->image = image;
     this->loop = loop;
     this->fps = fps;
-    IntRect old = this->sprite->getTextureRect();
-    Vector2u size = this->sprite->getTexture()->getSize();
+    sf::IntRect old = this->sprite->getTextureRect();
+    sf::Vector2u size = this->sprite->getTexture()->getSize();
 
     this->sprite->setTextureRect(Box((int(floor(this->image)) * old.width) % size.x, (textureRow * old.height) % size.y, old.width, old.height));
   };
@@ -44,9 +44,9 @@ namespace lm {
     this->sprite->setScale(xScale, yScale);
   };
 
-  void Object::draw(RenderWindow* window, unsigned short int frame) {
-    IntRect old = this->sprite->getTextureRect();
-    Vector2u size = this->sprite->getTexture()->getSize();
+  void Object::draw(Window* window, unsigned short int frame) {
+    sf::IntRect old = this->sprite->getTextureRect();
+    sf::Vector2u size = this->sprite->getTexture()->getSize();
     this->image += this->fps/60.f;
 
     int image = int(floor(this->image)) * old.width;
@@ -55,6 +55,8 @@ namespace lm {
 
     this->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
     this->sprite->setPosition(this->x, this->y);
+    this->sprite->setRotation(this->rotation);
+    
     window->draw(*this->sprite);
   };
 
