@@ -13,7 +13,7 @@ dev:
 	make compile && make run
 compile: ./main.cpp compile_process compile_objects compile_rooms compile_list compile_math compile_input compile_mouse compile_base
 	g++ ${COMPILE_FLAGS} main.cpp -Ilibs/sfml/include -o ./build/main.o \
-	&& g++ -Wall -Llibs/sfml/lib ${INCLUDED_FILES} -o game -lsfml-system -lsfml-window \
+	&& g++ -Wall -Llibs/sfml/lib ${INCLUDED_FILES} -o ./build/game/game.exe -lsfml-system -lsfml-window \
 	-lsfml-audio -lsfml-graphics
 compile_process: ./src/Engine/process.cpp ./include/Engine/process.hpp
 	g++ ${COMPILE_FLAGS} src/Engine/process.cpp -Ilibs/sfml/include -o ./build/src/Engine/process.o
@@ -31,6 +31,6 @@ compile_mouse: ./src/Mouse/mouse.cpp ./include/Mouse/mouse.hpp
 	g++ ${COMPILE_FLAGS} src/Mouse/mouse.cpp -Ilibs/sfml/include -o ./build/src/Mouse/mouse.o
 compile_base: ./src/Engine/base.cpp ./include/Engine/base.hpp
 	g++ ${COMPILE_FLAGS} src/Engine/base.cpp -Ilibs/sfml/include -o ./build/src/Engine/base.o
-run: ./game.exe
-	"./game.exe"
+run: ./build/game/game.exe
+	"./build/game/game.exe"
 	

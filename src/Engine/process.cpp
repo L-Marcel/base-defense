@@ -34,7 +34,7 @@ namespace lm {
     return room->getId();
   };
 
-  void GameProcess::step() {
+  void GameProcess::execute() {
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 

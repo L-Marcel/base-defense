@@ -9,7 +9,14 @@ namespace lm {
     protected:
       unsigned int id = 0;
     public:
+      /// @brief Retorna o id da instância
+      /// @return o id
       unsigned int getId();
+
+      /// @brief Define o id da instância, se for possível
+      /// @tparam o objeto
+      /// @tparam se objeto é instânciável
+      /// @param list a lista que informará o id
       template<typename T, class = enable_if<is_base_of<Instantiable, T>::value>> 
         inline void defineId(List<T>* list) {   
           if(this->id <= 0) this->id = list->getFreeId();
@@ -28,7 +35,7 @@ namespace lm {
         return this->list[index % this->amount];
       };
 
-      /// @brief faz uma busca por uma instância de algum objeto na sala
+      /// @brief Faz uma busca por uma instância de algum objeto na sala
       /// @param id instância do objeto
       /// @return o ponteiro da instância, se existir, nulo caso contrário
       template<class = enable_if<is_base_of<Instantiable, T>::value>>

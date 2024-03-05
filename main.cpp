@@ -49,7 +49,8 @@ int main() {
     room.addObject(&player);
 
     gp.addRoom(&room);
-    gp.step();
+    
+    gp.execute();
 
     return EXIT_SUCCESS;
 }
