@@ -27,13 +27,6 @@ namespace lm {
     this->events = func;
   };
 
-  unsigned int GameProcess::addRoom(Room* room) {
-    room->defineId(&this->rooms);
-    this->rooms.push(room);
-    if(this->room <= 0) this->room = room->getId();
-    return room->getId();
-  };
-
   void GameProcess::execute() {
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
@@ -62,18 +55,43 @@ namespace lm {
       if(this->redraw) {
         this->window.clear();
         
-        if(this->room > 0) {
-          Room* currentRoom = this->rooms.find(this->room);
+        for(unsigned int i = 0; i < this->objects.length(); i++) {
+          Object* object = this->objects.get(i);
 
-          if(currentRoom != NULL) {
-            currentRoom->step(this, &this->window, this->frame);
-          };
+          object->step(this);
+          this->animateObject(object);
+          
+          this->window.draw(*object->sprite);
         };
 
         this->redraw = false;
         this->window.display();
       };
     };
+  };
+
+  void GameProcess::animateObject(Object* object) {
+    sf::IntRect old = object->sprite->getTextureRect();
+    Vector<unsigned int> size = object->sprite->getTexture()->getSize();
+    object->image += object->fps/60.f;
+
+    int image = int(floor(object->image)) * old.width;
+
+    if(!object->loop) {
+      image = min(image, int(size.x) - old.width);
+    };
+    
+    object->animationFinished = image == int(size.x) - old.width;
+    object->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
+    object->sprite->setPosition(object->x, object->y);
+    object->sprite->setRotation(object->rotation);
+  };
+
+  void GameProcess::addObject(Object* object) {
+    this->objects.add(object);
+    // this->objects.sort([](Object* one, Object* two) {
+    //   return one->depth < two->depth;
+    // });
   };
 
   unsigned short int GameProcess::getFrame() {

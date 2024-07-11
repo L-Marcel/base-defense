@@ -1,21 +1,19 @@
-#include "rooms.hpp"
+#include "objects.hpp"
 
 namespace lm {
   class GameProcess {
       private:
         unsigned short int width = 800;
         unsigned short int height = 600;
-        string title = "L-Marcel's Game Engine";
+        string title = "Base Defense";
         unsigned short int frame = 0;
         Clock clock;
-        unsigned int room = 0;
         bool redraw = false;
         void (*events)(Event::EventType);
 
       public:
-        Window window = Window(VideoMode(800, 600), "L-Marcel's Game Engine");
-        List<Room> rooms;
-        bool running = true;
+        Window window = Window(VideoMode(800, 600), "Base Defense");
+        List<Object> objects;
 
         /// @brief Cria uma instância de processo do jogo
         GameProcess();
@@ -29,14 +27,17 @@ namespace lm {
           unsigned short int height,
           string title
         );
-
-        /// @brief Adiciona uma sala ao jogo
-        /// @param room o ponteiro da sala
-        /// @return o id da sala no jogo
-        unsigned int addRoom(Room* room);
-
+        
         /// @brief Inicia o loop do jogo
         void execute();
+
+        /// @brief Adiciona um objeto
+        /// @param object o objeto
+        void addObject(Object* object);
+
+        /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
+        /// @param object o objeto
+        void animateObject(Object* object);
 
         /// @brief Retorna o frame atual do jogo
         /// @return o frame

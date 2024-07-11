@@ -20,7 +20,4 @@ namespace lm {
 
   template <typename T> 
     using Vector = sf::Vector2<T>;
-  
-  template <typename T> 
-    using Vector3 = sf::Vector3<T>;
 };

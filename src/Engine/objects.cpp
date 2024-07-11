@@ -19,6 +19,10 @@ namespace lm {
     };
   };
 
+  string Object::type() {
+    return "Object";
+  };
+
   void Object::animate(float fps, unsigned short int textureRow, bool loop, float image) {
     this->image = image;
     this->loop = loop;

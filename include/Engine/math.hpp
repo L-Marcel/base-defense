@@ -11,6 +11,6 @@ namespace lm {
   /// e o ponto formado pelas coordenadas (x, y)
   /// @param x a coordenada do eixo x
   /// @param y a coordenada do eixo y
-  /// @return 
+  /// @return o arco tangente da reta
   double pointDirection(float x, float y);
 };

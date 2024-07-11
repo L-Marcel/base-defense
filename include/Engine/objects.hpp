@@ -15,9 +15,8 @@ namespace lm {
     };
   };
 
-  class Room;
   class GameProcess;
-  class Object : public Instantiable {
+  class Object {
     public:
       Sprite* sprite;
       Texture* texture;
@@ -46,6 +45,11 @@ namespace lm {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       Object(string spriteSheet, Box box);
 
+      /// @brief Retorna o tipo de objeto, que deve ser uma string associada a classe
+      /// que herdar o tipo Object
+      /// @return uma string representando o tipo do objeto
+      virtual string type();
+
       /// @brief Inicia uma das animações disponíveis para o objeto
       /// @param fps o número de frames por segundo
       /// @param textureRow a linha da animação na textura (do sprite)
@@ -64,6 +68,6 @@ namespace lm {
 
       /// @brief Função executada a cada frame do jogo, ou seja: é executada
       /// 60 vezes por segundo
-      function<void(Room*, GameProcess*)> step = [](Room* room, GameProcess* gp){};
+      function<void(GameProcess*)> step = [](GameProcess* gp){};
   } typedef Object;
 };

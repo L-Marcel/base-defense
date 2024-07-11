@@ -1,36 +1,42 @@
-COMPILE_FLAGS = -Wall -c
-INCLUDED_FILES = ./build/main.o \
+FLAGS = -g -Wall -pedantic -Iinclude
+BUILD = ./build/main.o \
 	./build/src/Engine/list.o \
 	./build/src/Engine/process.o \
 	./build/src/Engine/objects.o \
-	./build/src/Engine/rooms.o \
 	./build/src/Engine/math.o \
 	./build/src/Input/input.o \
 	./build/src/Mouse/mouse.o \
 	./build/src/Engine/base.o
-	
-dev:
-	make compile && make run
-compile: ./main.cpp compile_process compile_objects compile_rooms compile_list compile_math compile_input compile_mouse compile_base
-	g++ ${COMPILE_FLAGS} main.cpp -Ilibs/sfml/include -o ./build/main.o \
-	&& g++ -Wall -Llibs/sfml/lib ${INCLUDED_FILES} -o ./build/game/game.exe -lsfml-system -lsfml-window \
-	-lsfml-audio -lsfml-graphics
-compile_process: ./src/Engine/process.cpp ./include/Engine/process.hpp
-	g++ ${COMPILE_FLAGS} src/Engine/process.cpp -Ilibs/sfml/include -o ./build/src/Engine/process.o
-compile_objects: ./src/Engine/objects.cpp ./include/Engine/rooms.hpp
-	g++ ${COMPILE_FLAGS} src/Engine/objects.cpp -Ilibs/sfml/include -o ./build/src/Engine/objects.o
-compile_rooms: ./src/Engine/rooms.cpp ./include/Engine/rooms.hpp
-	g++ ${COMPILE_FLAGS} src/Engine/rooms.cpp -Ilibs/sfml/include -o ./build/src/Engine/rooms.o
-compile_list: ./src/Engine/list.cpp ./include/Engine/list.hpp
-	g++ ${COMPILE_FLAGS} src/Engine/list.cpp -Ilibs/sfml/include -o ./build/src/Engine/list.o
-compile_math: ./src/Engine/math.cpp ./include/Engine/math.hpp
-	g++ ${COMPILE_FLAGS} src/Engine/math.cpp -Ilibs/sfml/include -o ./build/src/Engine/math.o
-compile_input: ./src/Input/input.cpp ./include/Input/input.hpp
-	g++ ${COMPILE_FLAGS} src/Input/input.cpp -Ilibs/sfml/include -o ./build/src/Input/input.o
-compile_mouse: ./src/Mouse/mouse.cpp ./include/Mouse/mouse.hpp
-	g++ ${COMPILE_FLAGS} src/Mouse/mouse.cpp -Ilibs/sfml/include -o ./build/src/Mouse/mouse.o
-compile_base: ./src/Engine/base.cpp ./include/Engine/base.hpp
-	g++ ${COMPILE_FLAGS} src/Engine/base.cpp -Ilibs/sfml/include -o ./build/src/Engine/base.o
-run: ./build/game/game.exe
-	"./build/game/game.exe"
-	
+
+ifeq ($(OS),Windows_NT)
+	EXEC=./release/main.exe
+	ENV=set LD_LIBRARY_PATH=./release/lib
+else
+	EXEC=./release/main
+	ENV=export LD_LIBRARY_PATH=./release/lib
+endif
+
+valgrind: compile
+	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
+run:
+	$(ENV) && $(EXEC)
+dev: compile
+	$(ENV) && $(EXEC)
+compile: $(BUILD)
+	g++ -o $(EXEC) $(BUILD) -L./release/lib -lsfml-graphics -lsfml-window -lsfml-system
+build/main.o: main.cpp #src/includes/list.hpp
+	g++ $(FLAGS) -c main.cpp -Iinclude -o build/main.o
+build/src/Engine/list.o: src/Engine/list.cpp include/Engine/list.hpp
+	g++ $(FLAGS) -c src/Engine/list.cpp -Iinclude -o build/src/Engine/list.o
+build/src/Engine/process.o: src/Engine/process.cpp include/Engine/process.hpp
+	g++ $(FLAGS) -c src/Engine/process.cpp -Iinclude -o build/src/Engine/process.o
+build/src/Engine/objects.o: src/Engine/objects.cpp include/Engine/objects.hpp
+	g++ $(FLAGS) -c src/Engine/objects.cpp -Iinclude -o build/src/Engine/objects.o
+build/src/Engine/math.o: src/Engine/math.cpp include/Engine/math.hpp
+	g++ $(FLAGS) -c src/Engine/math.cpp -Iinclude -o build/src/Engine/math.o
+build/src/Input/input.o: src/Input/input.cpp include/Input/input.hpp
+	g++ $(FLAGS) -c src/Input/input.cpp -Iinclude -o build/src/Input/input.o
+build/src/Mouse/mouse.o: src/Mouse/mouse.cpp include/Mouse/mouse.hpp
+	g++ $(FLAGS) -c src/Mouse/mouse.cpp -Iinclude -o build/src/Mouse/mouse.o
+build/src/Engine/base.o: src/Engine/base.cpp include/Engine/base.hpp
+	g++ $(FLAGS) -c src/Engine/base.cpp -Iinclude -o build/src/Engine/base.o
