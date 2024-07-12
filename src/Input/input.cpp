@@ -1,6 +1,6 @@
-#include "../../include/Input.hpp"
+#include <Input.hpp>
 
-namespace lm {
+namespace Game {
   namespace Input {
     Vector<float> keyboard(
       Keyboard::Key left,
@@ -26,5 +26,5 @@ namespace lm {
 
       return Vector<float>(0,0);
     };
-  };
+  }
 };

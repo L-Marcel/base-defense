@@ -1,6 +1,6 @@
-#include "objects.hpp"
+#include <Engine/objects.hpp>
 
-namespace lm {
+namespace Game {
   class GameProcess {
       private:
         unsigned short int width = 800;

@@ -1,6 +1,6 @@
-#include "../Engine/math.hpp"
+#include <Engine/math.hpp>
 
-namespace lm {
+namespace Game {
   namespace Input {
     /// @brief Retorna um vetor (x, y) que aponta um deslocamento 
     /// com base na velocidade informada e botões apertados do teclado
