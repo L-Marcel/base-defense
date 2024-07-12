@@ -1,3 +1,3 @@
-#include "../../include/Engine.hpp"
+#include <Engine.hpp>
 
-namespace lm {};
+namespace Game {};

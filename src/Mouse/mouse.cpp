@@ -1,6 +1,6 @@
-#include "../../include/Mouse.hpp"
+#include <Mouse.hpp>
 
-namespace lm {
+namespace Game {
   namespace Mouse {
     Vector<float> position(Window* window) {
       Vector<int> pos = sf::Mouse::getPosition();
@@ -11,7 +11,7 @@ namespace lm {
 
       return Vector<float>(pos.x, pos.y);
     };
-  
+
     bool left() {
       return sf::Mouse::isButtonPressed(sf::Mouse::Left);
     };

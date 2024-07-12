@@ -1,42 +1,65 @@
-FLAGS = -g -Wall -pedantic -Iinclude
-BUILD = ./_build/main.o \
-	./_build/src/Engine/list.o \
-	./_build/src/Engine/process.o \
-	./_build/src/Engine/objects.o \
-	./_build/src/Engine/math.o \
-	./_build/src/Input/input.o \
-	./_build/src/Mouse/mouse.o \
-	./_build/src/Engine/base.o
+## ============= AVISO ============= ##
+## Isso aqui foi gerado usando IA, ok?
+## ================================= ##
+
+FLAGS=-g -Wall -pedantic -Iinclude
+SRC_DIR=src
+BUILD_DIR=_build
+RELEASE_DIR=_release
+TEST_DIR=tests
+
+SRC_FILES=$(wildcard $(SRC_DIR)/**/*.cpp)
+OBJ_FILES=$(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRC_FILES))
+OBJ_FILES+=_build/main.o
+OBJ_FILES_WITHOUT_MAIN=$(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRC_FILES))
+TEST_SRC_FILES=$(wildcard $(TEST_DIR)/*.cpp)
+TEST_OBJ_FILES=$(patsubst $(TEST_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(TEST_SRC_FILES))
 
 ifeq ($(OS),Windows_NT)
-	EXEC=./_release/main.exe
-	ENV=set LD_LIBRARY_PATH=./_release/lib
+EXEC=$(RELEASE_DIR)/main.exe
+TEST_EXEC=$(RELEASE_DIR)/test_main.exe
+ENV=set LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 else
-	EXEC=./_release/main
-	ENV=export LD_LIBRARY_PATH=./_release/lib
+EXEC=$(RELEASE_DIR)/main
+TEST_EXEC=$(RELEASE_DIR)/test_main
+ENV=export LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 endif
 
-valgrind: compile
+all: $(EXEC) $(TEST_EXEC)
+
+valgrind: $(EXEC)
 	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
-run:
+
+run: $(EXEC)
 	$(ENV) && $(EXEC)
-dev: compile
+
+dev: $(EXEC)
 	$(ENV) && $(EXEC)
-compile: $(BUILD)
-	g++ -o $(EXEC) $(BUILD) -L./_release/lib -lsfml-graphics -lsfml-window -lsfml-system
-_build/main.o: main.cpp #src/includes/list.hpp
-	g++ $(FLAGS) -c main.cpp -Iinclude -o _build/main.o
-_build/src/Engine/list.o: src/Engine/list.cpp include/Engine/list.hpp
-	g++ $(FLAGS) -c src/Engine/list.cpp -Iinclude -o _build/src/Engine/list.o
-_build/src/Engine/process.o: src/Engine/process.cpp include/Engine/process.hpp
-	g++ $(FLAGS) -c src/Engine/process.cpp -Iinclude -o _build/src/Engine/process.o
-_build/src/Engine/objects.o: src/Engine/objects.cpp include/Engine/objects.hpp
-	g++ $(FLAGS) -c src/Engine/objects.cpp -Iinclude -o _build/src/Engine/objects.o
-_build/src/Engine/math.o: src/Engine/math.cpp include/Engine/math.hpp
-	g++ $(FLAGS) -c src/Engine/math.cpp -Iinclude -o _build/src/Engine/math.o
-_build/src/Input/input.o: src/Input/input.cpp include/Input/input.hpp
-	g++ $(FLAGS) -c src/Input/input.cpp -Iinclude -o _build/src/Input/input.o
-_build/src/Mouse/mouse.o: src/Mouse/mouse.cpp include/Mouse/mouse.hpp
-	g++ $(FLAGS) -c src/Mouse/mouse.cpp -Iinclude -o _build/src/Mouse/mouse.o
-_build/src/Engine/base.o: src/Engine/base.cpp include/Engine/base.hpp
-	g++ $(FLAGS) -c src/Engine/base.cpp -Iinclude -o _build/src/Engine/base.o
+
+compile: $(OBJ_FILES)
+	g++ -o $(EXEC) $^ -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+test: $(TEST_EXEC)
+	$(ENV) && $(TEST_EXEC)
+
+$(EXEC): $(OBJ_FILES)
+	g++ -o $@ $^ -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+$(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
+	g++ -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgtest -lgmock -pthread -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(dir $@)
+	g++ $(FLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp
+	mkdir -p $(dir $@)
+	g++ $(FLAGS) -c $< -o $@
+
+_build/main.o: main.cpp
+	g++ $(FLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(BUILD_DIR) $(EXEC) $(TEST_EXEC)
+
+.PHONY: all valgrind run dev compile test clean

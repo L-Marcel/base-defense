@@ -1,6 +1,6 @@
-#include "../../include/Engine.hpp"
+#include <Engine.hpp>
 
-namespace lm {
+namespace Game {
   GameProcess::GameProcess() {
     this->redraw = true;
     this->window.setFramerateLimit(60);
@@ -10,7 +10,7 @@ namespace lm {
   GameProcess::GameProcess(
     unsigned short int width = 800,
     unsigned short int height = 600,
-    string title = "L-Marcel's Game Engine"
+    string title = "Base Defense"
   ) {
     this->title = title;
     this->width = width;

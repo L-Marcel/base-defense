@@ -1,26 +1,35 @@
-#include "list.hpp"
+#include <Engine/list.hpp>
 #include <cstring>
 #include <functional>
 
-namespace lm {
-  union Mask {
-    Rectangle rectangle;
-    Circle circle;
+namespace Game {
+  // union Mask {
+  //   Rectangle rectangle;
+  //   Circle circle;
 
-    short int state = 0;
+  //   short int state = 0;
 
-    Mask() {};
-    ~Mask() {
-      delete this;
-    };
-  };
+  //   Mask() {};
+  //   ~Mask() {
+  //     delete this;
+  //   };
+  // };
 
   class GameProcess;
   class Object {
     public:
+      /// @brief Função executada a cada frame do jogo, ou seja: é executada
+      /// 60 vezes por segundo
+      virtual void step(GameProcess* gp);
+      
+      /// @brief Retorna o tipo de objeto, que deve ser uma string associada a classe
+      /// que herdar o tipo Object
+      /// @return uma string representando o tipo do objeto
+      virtual string type();
+      
       Sprite* sprite;
       Texture* texture;
-      Mask mask;
+      //Mask mask;
 
       float x = 0;
       float y = 0;
@@ -37,6 +46,9 @@ namespace lm {
       bool loop = true;
       bool animationFinished = false;
 
+      /// @brief Destroi objeto
+      ~Object();
+
       /// @brief Cria uma instância do objeto
       Object();
 
@@ -44,11 +56,6 @@ namespace lm {
       /// @param spriteSheet a página de textura do sprite do objeto
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       Object(string spriteSheet, Box box);
-
-      /// @brief Retorna o tipo de objeto, que deve ser uma string associada a classe
-      /// que herdar o tipo Object
-      /// @return uma string representando o tipo do objeto
-      virtual string type();
 
       /// @brief Inicia uma das animações disponíveis para o objeto
       /// @param fps o número de frames por segundo
@@ -65,9 +72,5 @@ namespace lm {
       /// @param xScale a escala x
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
-
-      /// @brief Função executada a cada frame do jogo, ou seja: é executada
-      /// 60 vezes por segundo
-      function<void(GameProcess*)> step = [](GameProcess* gp){};
   } typedef Object;
 };

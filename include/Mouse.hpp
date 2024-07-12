@@ -1,2 +1,2 @@
 #pragma once
-#include "Mouse/mouse.hpp"
+#include <Mouse/mouse.hpp>

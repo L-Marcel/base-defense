@@ -1,6 +1,6 @@
-#include "../Engine/math.hpp"
+#include <Engine/math.hpp>
 
-namespace lm {
+namespace Game {
   namespace Mouse {
     /// @brief Retorna a posição do mouse no monitor ou na janela do jogo
     /// (caso informe a janela)

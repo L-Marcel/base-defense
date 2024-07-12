@@ -1,8 +1,8 @@
-#include "math.hpp"
+#include <Engine/math.hpp>
 #include <type_traits>
 #include <utility>
 
-namespace lm {
+namespace Game {
   template <typename T> class List {
     protected:
       unsigned int amount = 0;

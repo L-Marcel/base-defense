@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace lm {
+namespace Game {
   sf::Clock typedef Clock;
   sf::Time typedef Time;
   sf::Event typedef Event;

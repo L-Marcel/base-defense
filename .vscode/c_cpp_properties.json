@@ -4,8 +4,6 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/libs/sfml/SFML-2.6.1/include",
-                "${workspaceFolder}/libs/sfml/include",
                 "${workspaceFolder}"
             ],
             "defines": [

@@ -1,6 +1,15 @@
-#include "../../include/Engine.hpp"
+#include <Engine.hpp>
 
-namespace lm {
+namespace Game {
+  void Object::step(GameProcess* gp) {};
+  string Object::type() {
+    return "Object";
+  };
+ 
+  Object::~Object() {
+    delete this->sprite;
+    delete this->texture;
+  };
   Object::Object() {};
   Object::Object(string spriteSheet, Box box) {
     this->sprite = new Sprite();
@@ -17,10 +26,6 @@ namespace lm {
       this->sprite->setOrigin(pos.x, pos.y);
       this->sprite->setScale(1, 1);
     };
-  };
-
-  string Object::type() {
-    return "Object";
   };
 
   void Object::animate(float fps, unsigned short int textureRow, bool loop, float image) {
