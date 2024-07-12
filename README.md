@@ -1,5 +1,5 @@
 # Instruções para compilar e executar
-- Instale o "Make", no caso do windows, use esse [aqui](https://gnuwin32.sourceforge.net/packages/make.htm) (que é o compatível);
+- Instale o "Make", no caso do windows, use esse [aqui](_windows/winlibs-x86_64-posix-seh-gcc-13.1.0-mingw-w64msvcrt-11.0.0-r5.7z) (que é o compatível);
 - Dentro da raíz do projeto, execute "make dev" e vai compilar e executar o jogo.
 
 # Comandos gerais
