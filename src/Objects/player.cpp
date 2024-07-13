@@ -14,7 +14,6 @@ namespace Game {
         this->y+=movement.y;
         
         Vector<float> pos = Mouse::position(&gp->window);
-        cout << "pos: " << pos.x << " " << pos.y;
         this->rotation = Math::pointDirection(pos.x - this->x, pos.y - this->y) - 90.0;
 
         if(this->animationFinished && Mouse::left()) {
