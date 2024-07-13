@@ -67,8 +67,8 @@ $(BUILD_DIR)/main.o: main.cpp
 	g++ $(FLAGS) -c $< -o $@
 
 clean:
-	if exist $(BUILD_DIR) $(RMDIR) $(BUILD_DIR)
-	if exist $(EXEC) $(RM) $(EXEC)
-	if exist $(TEST_EXEC) $(RM) $(TEST_EXEC)
+	$(RMDIR) $(BUILD_DIR)
+	$(RM) $(EXEC)
+	$(RM) $(TEST_EXEC)
 
 .PHONY: all valgrind run dev compile test clean
