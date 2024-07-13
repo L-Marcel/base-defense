@@ -52,7 +52,7 @@ $(EXEC): $(OBJ_FILES)
 	g++ -o $@ $^ -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -o $@ $^ -L$(TEST_DIR)\googletest\build\lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)
@@ -67,8 +67,8 @@ $(BUILD_DIR)/main.o: main.cpp
 	g++ $(FLAGS) -c $< -o $@
 
 clean:
-	$(RMDIR) $(BUILD_DIR)
-	$(RM) $(EXEC)
-	$(RM) $(TEST_EXEC)
+	@$(RMDIR) $(BUILD_DIR)
+	@$(RM) $(EXEC)
+	@$(RM) $(TEST_EXEC)
 
 .PHONY: all valgrind run dev compile test clean
