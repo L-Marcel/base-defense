@@ -16,15 +16,19 @@ TEST_SRC_FILES = $(wildcard $(TEST_DIR)/*.cpp)
 TEST_OBJ_FILES = $(patsubst $(TEST_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(TEST_SRC_FILES))
 
 ifeq ($(OS),Windows_NT)
-EXEC = $(RELEASE_DIR)/main.exe
-TEST_EXEC = $(RELEASE_DIR)/test_main.exe
+EXEC = $(RELEASE_DIR)\bin\main.exe
+TEST_EXEC = $(RELEASE_DIR)\test_main.exe
 ENV = set LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = if not exist $(subst /,\,$(dir $@)) mkdir $(subst /,\,$(dir $@))
+RM = del /q /f
+RMDIR = rmdir /q /s
 else
 EXEC = $(RELEASE_DIR)/main
 TEST_EXEC = $(RELEASE_DIR)/test_main
 ENV = export LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = mkdir -p $(dir $@)
+RM = rm -f
+RMDIR = rm -rf
 endif
 
 all: $(EXEC) $(TEST_EXEC)
@@ -63,6 +67,8 @@ $(BUILD_DIR)/main.o: main.cpp
 	g++ $(FLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BUILD_DIR) $(EXEC) $(TEST_EXEC)
+	@$(RMDIR) $(BUILD_DIR)
+	@$(RM) $(EXEC)
+	@$(RM) $(TEST_EXEC)
 
 .PHONY: all valgrind run dev compile test clean
