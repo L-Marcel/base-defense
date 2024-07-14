@@ -27,6 +27,13 @@ namespace Game {
     string Player::type() {
         return "Player";
     };
+    
+    Player* Player::create(GameProcess* gp, string spriteSheet, Box box) {
+        Player* instance = new Player(spriteSheet, box);
+        instance->_list = &gp->objects;
+        gp->objects.add(instance);
+        return instance;
+    };
 
     Player::~Player() {};
 };

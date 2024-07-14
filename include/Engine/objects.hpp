@@ -27,19 +27,17 @@ namespace Game {
       /// @return uma string representando o tipo do objeto
       virtual string type();
 
+      /// @brief Remove a instância do jogo e libera ela da memória
+      virtual void destroy();
+
       /// @brief Destroi objeto
       virtual ~Object();
 
-      /// @brief Criar uma instância do objeto
-      Object();
-
       /// @brief Cria uma instância do objeto
-      /// @param spriteSheet a página de textura do sprite do objeto
+      /// @param gp pornteiro do processo do jogo
+      /// @param spriteSheet página de textura do sprite do objeto
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Object(string spriteSheet, Box box);
-
-      /// @brief Remove 
-      void destroy();
+      static Object* create(GameProcess* gp, string spriteSheet, Box box);
 
       List<Object>* _list;
       Sprite* sprite;
@@ -76,5 +74,10 @@ namespace Game {
       /// @param xScale a escala x
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
+    protected:
+      /// @brief Cria uma instância do objeto
+      /// @param spriteSheet a página de textura do sprite do objeto
+      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      Object(string spriteSheet, Box box);
   } typedef Object;
 };

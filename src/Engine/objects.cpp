@@ -11,7 +11,6 @@ namespace Game {
     delete this->texture;
   };
 
-  Object::Object() {};
   Object::Object(string spriteSheet, Box box) {
     this->sprite = new Sprite();
     this->texture = new Texture();
@@ -27,6 +26,13 @@ namespace Game {
       this->sprite->setOrigin(pos.x, pos.y);
       this->sprite->setScale(1, 1);
     };
+  };
+
+  Object* Object::create(GameProcess* gp, string spriteSheet, Box box) {
+    Object* instance = new Object(spriteSheet, box);
+    instance->_list = &gp->objects;
+    gp->objects.add(instance);
+    return instance;
   };
 
   void Object::destroy() {

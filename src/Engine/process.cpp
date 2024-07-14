@@ -87,14 +87,6 @@ namespace Game {
     object->sprite->setRotation(object->rotation);
   };
 
-  void GameProcess::addObject(Object* object) {
-    this->objects.add(object);
-    object->_list = &this->objects;
-    // this->objects.sort([](Object* one, Object* two) {
-    //   return one->depth < two->depth;
-    // });
-  };
-
   unsigned short int GameProcess::getFrame() {
     return this->frame;
   };
