@@ -10,6 +10,7 @@ namespace Game {
     delete this->sprite;
     delete this->texture;
   };
+
   Object::Object() {};
   Object::Object(string spriteSheet, Box box) {
     this->sprite = new Sprite();
@@ -26,6 +27,13 @@ namespace Game {
       this->sprite->setOrigin(pos.x, pos.y);
       this->sprite->setScale(1, 1);
     };
+  };
+
+  void Object::destroy() {
+    if(this->_list) {
+      this->_list->remove(this);
+    };
+    delete this;
   };
 
   void Object::animate(float fps, unsigned short int textureRow, bool loop, float image) {

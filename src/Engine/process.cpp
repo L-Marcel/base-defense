@@ -89,6 +89,7 @@ namespace Game {
 
   void GameProcess::addObject(Object* object) {
     this->objects.add(object);
+    object->_list = &this->objects;
     // this->objects.sort([](Object* one, Object* two) {
     //   return one->depth < two->depth;
     // });

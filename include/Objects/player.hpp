@@ -7,9 +7,9 @@ namespace Game {
         public:
             void step(GameProcess* gp);
             string type();
-
-            short unsigned int life = 10;
+            ~Player();
             using Object::Object;
+            short unsigned int life = 10;
             bool firstAttack = true;
     };
 };

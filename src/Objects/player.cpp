@@ -27,4 +27,6 @@ namespace Game {
     string Player::type() {
         return "Player";
     };
+
+    Player::~Player() {};
 };

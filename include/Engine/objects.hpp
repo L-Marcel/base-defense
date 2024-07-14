@@ -26,7 +26,22 @@ namespace Game {
       /// que herdar o tipo Object
       /// @return uma string representando o tipo do objeto
       virtual string type();
-      
+
+      /// @brief Destroi objeto
+      virtual ~Object();
+
+      /// @brief Criar uma instância do objeto
+      Object();
+
+      /// @brief Cria uma instância do objeto
+      /// @param spriteSheet a página de textura do sprite do objeto
+      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      Object(string spriteSheet, Box box);
+
+      /// @brief Remove 
+      void destroy();
+
+      List<Object>* _list;
       Sprite* sprite;
       Texture* texture;
       //Mask mask;
@@ -45,17 +60,6 @@ namespace Game {
       float fps = 0;
       bool loop = true;
       bool animationFinished = false;
-
-      /// @brief Destroi objeto
-      ~Object();
-
-      /// @brief Cria uma instância do objeto
-      Object();
-
-      /// @brief Cria uma instância do objeto
-      /// @param spriteSheet a página de textura do sprite do objeto
-      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Object(string spriteSheet, Box box);
 
       /// @brief Inicia uma das animações disponíveis para o objeto
       /// @param fps o número de frames por segundo
