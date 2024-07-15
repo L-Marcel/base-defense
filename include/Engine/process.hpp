@@ -54,5 +54,9 @@ namespace Game {
         /// (não confundir com evento de um objeto)
         /// @param func a função a ser chamada
         void on(void (*func)(Event::EventType));
+
+        unsigned short int getWindowWidth();
+
+        unsigned short int getWindowHeight();
   };
 };

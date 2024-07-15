@@ -109,4 +109,12 @@ namespace Game {
   bool GameProcess::isRunning() {
     return this->window.isOpen();
   };
+
+  unsigned short int GameProcess::getWindowWidth(){
+    return this->width;
+  }
+
+  unsigned short int GameProcess::getWindowHeight(){
+    return this->height;
+  }
 };
