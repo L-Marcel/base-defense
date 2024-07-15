@@ -3,13 +3,26 @@
 namespace Game {
 
     Vector<float> click;
+    bool iniPos = false;
     void Player::step(GameProcess* gp) {
+
+        if(iniPos == false){
+            click = this->getPos();
+            iniPos = true;
+        }
 
         if(Mouse::right()){
             click = Mouse::position(&gp->window);
         }
 
-        if(click.x != this->x || click.y != this->y){
+        if((click.x != this->x || click.y != this->y)){
+
+            if(click.x >= gp->getWindowWidth()) click.x = gp->getWindowWidth();
+            else if(click.x <= 0) click.x = 0;
+
+            if(click.y >= gp->getWindowHeight()) click.y = gp->getWindowHeight();
+            else if(click.y <= 0) click.y = 0;
+
             float xx = 0.0;
             float yy = 0.0;
             float speed = 5.0;
