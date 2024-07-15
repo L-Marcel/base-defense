@@ -73,6 +73,9 @@ namespace Game {
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
 
+      /// @brief Pega a posição do objeto
+      /// @return A posição do objeto
       Vector<float> getPos();
+
   } typedef Object;
 };

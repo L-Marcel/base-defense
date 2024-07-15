@@ -55,8 +55,12 @@ namespace Game {
         /// @param func a função a ser chamada
         void on(void (*func)(Event::EventType));
 
+        /// @brief Pega a largura da janela
+        /// @return A largura da window
         unsigned short int getWindowWidth();
 
+        /// @brief Pega a altura da janela
+        /// @return A altura da janela
         unsigned short int getWindowHeight();
   };
 };
