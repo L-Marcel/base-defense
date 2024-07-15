@@ -45,4 +45,11 @@ namespace Game {
   void Object::scale(float xScale, float yScale) {
     this->sprite->setScale(xScale, yScale);
   };
+
+  Vector<float> Object::getPos(){
+    Vector<float> posicao;
+    posicao.x = this->x;
+    posicao.y = this->y;
+    return posicao;
+  }
 };

@@ -72,5 +72,7 @@ namespace Game {
       /// @param xScale a escala x
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
+
+      Vector<float> getPos();
   } typedef Object;
 };
