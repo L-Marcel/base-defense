@@ -1,5 +1,4 @@
 #include <Engine.hpp>
-#include <Input.hpp>
 #include <Mouse.hpp>
 
 namespace Game {
