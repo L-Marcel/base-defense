@@ -13,7 +13,7 @@ namespace Game {
   Object::Object() {};
   Object::Object(string spriteSheet, Box box) {
     this->sprite = new Sprite();
-    this->texture = new Texture();
+    this->texture = new Texture();    
 
     if(this->texture->loadFromFile(spriteSheet)){
       this->sprite->setTexture(*this->texture);
@@ -27,6 +27,26 @@ namespace Game {
       this->sprite->setScale(1, 1);
     };
   };
+
+  /*
+  Object::Object(string spriteSheet, Box box, int width, int height) {
+    this->sprite = new Sprite();
+    this->texture = new Texture();
+    
+
+    if(this->texture->loadFromFile(spriteSheet)){
+      this->sprite->setTexture(*this->texture);
+      Vector<int> pos = box.getPosition();
+      box.top = 0;
+      box.left = 0;
+
+      this->fps = 0;
+      this->sprite->setTextureRect(box);
+      this->sprite->setOrigin(pos.x, pos.y);
+      this->sprite->setScale(1, 1);
+    };
+  };
+  */
 
   void Object::animate(float fps, unsigned short int textureRow, bool loop, float image) {
     this->image = image;
@@ -45,6 +65,30 @@ namespace Game {
   void Object::scale(float xScale, float yScale) {
     this->sprite->setScale(xScale, yScale);
   };
+  
+  void Object::RectCollision(float height, float width){
+    if(this->hasCCol == true) return;
+    
+    Vector<float> size;
+    size.x = height;
+    size.y = width;
+    Rectangle rect(size);
+    rect_collision = rect;
+    rect_collision.setOrigin(height/2, width/2);
+    this->rcolHeight = height;
+    this->rcolWidth = width;
+    this->hasRCol = true;
+  }
+
+  void Object::CircCollision(float Radius){
+    if(this->hasRCol == true) return;
+
+    Circle circ(Radius);
+    circ_collision = circ;
+    circ_collision.setOrigin(Radius, Radius);
+    this->cRadius = Radius;
+    this->hasCCol = true;
+  }
 
   Vector<float> Object::getPos(){
     Vector<float> posicao;

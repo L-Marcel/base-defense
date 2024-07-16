@@ -6,6 +6,18 @@ namespace Game {
     bool iniPos = false;
     void Player::step(GameProcess* gp) {
 
+        if(this->hasCCol == true){
+            this->circ_collision.setPosition(this->x, this->y);
+            this->circ_collision.setFillColor(sf::Color::Red);
+            gp->window.draw(circ_collision);
+        } else if(this->hasRCol == true){
+            this->rect_collision.setPosition(this->x, this->y);
+            this->rect_collision.setFillColor(sf::Color::Red);
+            Vector<float> pos = Mouse::position(&gp->window);
+            this->rect_collision.setRotation(Math::pointDirection(pos.x - this->x, pos.y - this->y) - 90.0);
+            gp->window.draw(rect_collision);
+        }
+
         if(iniPos == false){
             click = this->getPos();
             iniPos = true;

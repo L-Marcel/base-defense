@@ -1,4 +1,5 @@
 #include <Engine/list.hpp>
+#include <Engine/base.hpp>
 #include <cstring>
 #include <functional>
 
@@ -46,6 +47,15 @@ namespace Game {
       bool loop = true;
       bool animationFinished = false;
 
+      Rectangle rect_collision;
+      float rcolHeight;
+      float rcolWidth;
+      Circle circ_collision;
+      float cRadius;
+
+      bool hasCCol;
+      bool hasRCol;
+
       /// @brief Destroi objeto
       ~Object();
 
@@ -72,6 +82,10 @@ namespace Game {
       /// @param xScale a escala x
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
+
+      void RectCollision(float height, float width);
+
+      void CircCollision(float radius);
 
       /// @brief Pega a posição do objeto
       /// @return A posição do objeto
