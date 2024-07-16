@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/list.hpp>
 #include <cstring>
 #include <functional>
@@ -26,6 +27,10 @@ namespace Game {
       /// que herdar o tipo Object
       /// @return uma string representando o tipo do objeto
       virtual string type();
+
+      ///@brief Função que desenha o objeto na tela. A classe que herdar o
+      /// tipo Object deve definir a forma que o objeto será desenhado
+      virtual void draw(GameProcess* gp);
       
       Sprite* sprite;
       Texture* texture;

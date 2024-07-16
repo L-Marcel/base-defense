@@ -9,10 +9,10 @@ namespace Game {
             Keyboard::S,
             2
         );
-        
+
         this->x+=movement.x;
         this->y+=movement.y;
-        
+
         Vector<float> pos = Mouse::position(&gp->window);
         this->rotation = Math::pointDirection(pos.x - this->x, pos.y - this->y) - 90.0;
 
@@ -26,5 +26,10 @@ namespace Game {
 
     string Player::type() {
         return "Player";
+    };
+
+    void Player::draw(GameProcess* gp) {
+        gp->animateObject(this);
+        gp->window.draw(*this->sprite);
     };
 };

@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/math.hpp>
 #include <type_traits>
 #include <utility>

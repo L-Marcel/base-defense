@@ -2,9 +2,12 @@
 
 namespace Game {
   void Object::step(GameProcess* gp) {};
+
   string Object::type() {
     return "Object";
   };
+
+  void Object::draw(GameProcess* gp) {};
  
   Object::~Object() {
     delete this->sprite;
