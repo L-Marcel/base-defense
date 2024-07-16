@@ -33,8 +33,8 @@ endif
 
 all: $(EXEC) $(TEST_EXEC)
 
-valgrind: $(EXEC)
-	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
+# valgrind: $(EXEC)
+# 	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
 
 run: $(EXEC)
 	$(ENV) && $(EXEC)

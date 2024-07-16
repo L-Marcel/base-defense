@@ -1,5 +1,4 @@
 #include <Engine/math.hpp>
-#include <utility>
 #include <vector>
 
 namespace Game {
@@ -16,7 +15,7 @@ namespace Game {
 
       /// @brief Permite acessar o tamanho da lista
       /// @return o tamanho da lista
-      inline int length() {
+      inline unsigned int length() {
         return this->list.size();
       };
 

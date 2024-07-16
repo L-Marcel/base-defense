@@ -1,6 +1,4 @@
 #include <Engine/list.hpp>
-#include <cstring>
-#include <functional>
 
 namespace Game {
   // union Mask {
