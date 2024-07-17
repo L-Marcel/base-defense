@@ -55,6 +55,9 @@ namespace Game {
       if(this->redraw) {
         this->window.clear();
         
+        Collision* collision = this->collisions.get(0);
+        collision->step(this);
+
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
 
@@ -93,6 +96,18 @@ namespace Game {
     //   return one->depth < two->depth;
     // });
   };
+
+  Object* GameProcess::getObject(unsigned int index){
+    return this->objects.get(index);
+  }
+
+  unsigned int GameProcess::getOListSize(){
+    return this->objects.length();
+  }
+
+  void GameProcess::addCol(Collision* collision){
+    this->collisions.add(collision);
+  }
 
   unsigned short int GameProcess::getFrame() {
     return this->frame;

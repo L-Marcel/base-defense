@@ -1,4 +1,5 @@
 #include <Engine/objects.hpp>
+#include <Engine/collision.hpp>
 
 namespace Game {
   class GameProcess {
@@ -14,6 +15,7 @@ namespace Game {
       public:
         Window window = Window(VideoMode(800, 600), "Base Defense");
         List<Object> objects;
+        List<Collision> collisions;
 
         /// @brief Cria uma instância de processo do jogo
         GameProcess();
@@ -34,6 +36,12 @@ namespace Game {
         /// @brief Adiciona um objeto
         /// @param object o objeto
         void addObject(Object* object);
+
+        Object* getObject(unsigned int index);
+
+        unsigned int getOListSize();
+
+        void addCol(Collision* collision);
 
         /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
         /// @param object o objeto
