@@ -14,6 +14,7 @@ namespace Game {
             /// que herdar o tipo Object
             /// @return uma string representando o tipo do objeto
             string type();
+            void draw(GameProcess* gp);
 
             using Object::destroy;
 

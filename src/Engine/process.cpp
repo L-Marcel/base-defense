@@ -58,10 +58,8 @@ namespace Game {
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
 
-          object->step(this);
-          this->animateObject(object);
-          
-          this->window.draw(*object->sprite);
+          object->step(this);          
+          object->draw(this);
         };
 
         this->redraw = false;

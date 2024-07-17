@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/list.hpp>
 
 namespace Game {
@@ -16,15 +17,19 @@ namespace Game {
   class GameProcess;
   class Object {
     public:
-      /// @brief Função executada a cada frame do jogo, ou seja: é executada
-      /// 60 vezes por segundo
-      virtual void step(GameProcess* gp);
-      
       /// @brief Retorna o tipo de objeto, que deve ser uma string associada a classe
       /// que herdar o tipo Object
       /// @return uma string representando o tipo do objeto
       virtual string type();
-
+    
+      /// @brief Função executada a cada frame do jogo, ou seja: é executada
+      /// 60 vezes por segundo
+      virtual void step(GameProcess* gp);
+      
+      ///@brief Função que desenha o objeto na tela. A classe que herdar o
+      /// tipo Object deve definir a forma que o objeto será desenhado
+      virtual void draw(GameProcess* gp);
+      
       /// @brief Remove a instância do jogo e libera ela da memória
       virtual void destroy();
 
