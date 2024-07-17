@@ -1,4 +1,4 @@
-#include <Engine/objects.hpp>
+#include <Objects.hpp>
 
 namespace Game {
   class GameProcess {
@@ -33,7 +33,7 @@ namespace Game {
 
         /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
         /// @param object o objeto
-        void animateObject(Object* object);
+        void animate(Object2D* object);
 
         /// @brief Retorna o frame atual do jogo
         /// @return o frame

@@ -14,11 +14,10 @@ namespace Game {
             2
         );
 
-        this->x+=movement.x;
-        this->y+=movement.y;
+        this->position+=movement;
 
         Vector<float> pos = Mouse::position(&gp->window);
-        this->rotation = Math::pointDirection(pos.x - this->x, pos.y - this->y) - 90.0;
+        this->rotation = Math::pointDirection(pos.x - this->position.x, pos.y - this->position.y) - 90.0;
 
         if(this->animationFinished && Mouse::left()) {
             this->shot_sound.play();
@@ -29,12 +28,7 @@ namespace Game {
             this->firstAttack = !this->firstAttack;
         };
     };
-    
-    void Player::draw(GameProcess* gp) {
-        gp->animateObject(this);
-        gp->window.draw(*this->sprite);
-    };
-    
+
     Player* Player::create(GameProcess* gp, string spriteSheet, Box box) {
         Player* instance = new Player(spriteSheet, box);
         instance->_list = &gp->objects;

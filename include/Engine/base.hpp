@@ -18,6 +18,7 @@ namespace Game {
   sf::Sprite typedef Sprite;
   sf::Texture typedef Texture;
   sf::Keyboard typedef Keyboard;
+  sf::Color typedef Color;
 
   template <typename T> 
     using Vector = sf::Vector2<T>;

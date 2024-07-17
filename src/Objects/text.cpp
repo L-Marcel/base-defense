@@ -1,25 +1,31 @@
 #include <Objects/text.hpp>
 
 namespace Game {
-    void Text::step(GameProcess* gp) {};
-
     string Text::type(){
         return "Text";
     };
-
+    void Text::step(GameProcess* gp) {};
     void Text::draw(GameProcess* gp) {
         gp->window.draw(this->text);
     };
-    
-    Text::~Text() {};
 
+    Text::~Text() {};
     Text::Text() {
         this->loadFontFromFile("assets/fonts/PixeloidMono.ttf");
         this->setTextFont(this->font);
     };
 
-    void Text::setTextPosition(float x,float y) {
-        this->text.setPosition(x,y);
+    Text* Text::create(GameProcess* gp, Vector<float> position, string content) {
+        Text* instance = new Text();
+        instance->setTextPosition(position);
+        instance->setText(content);
+        instance->_list = &gp->objects;
+        gp->objects.add(instance);
+        return instance;
+    };
+
+    void Text::setTextPosition(Vector<float> position) {
+        this->text.setPosition(position);
     };
 
     void Text::setTextFont(sf::Font& font) {
@@ -38,7 +44,7 @@ namespace Game {
         this->text.setFillColor(color);
     };
 
-    void Text::loadFontFromFile(string fontFile) {
-        this->font.loadFromFile(fontFile);
+    void Text::loadFontFromFile(string filename) {
+        this->font.loadFromFile(filename);
     };
 };
