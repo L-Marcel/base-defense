@@ -5,7 +5,6 @@ namespace Game {
     Vector<float> click;
     bool iniPos = false;
     void Player::step(GameProcess* gp) {
-
         if(this->hasCCol == true){
             this->circ_collision.setPosition(this->x, this->y);
             this->circ_collision.setFillColor(sf::Color::Red);
@@ -13,8 +12,6 @@ namespace Game {
         } else if(this->hasRCol == true){
             this->rect_collision.setPosition(this->x, this->y);
             this->rect_collision.setFillColor(sf::Color::Red);
-            Vector<float> pos = Mouse::position(&gp->window);
-            this->rect_collision.setRotation(Math::pointDirection(pos.x - this->x, pos.y - this->y) - 90.0);
             gp->window.draw(rect_collision);
         }
 
