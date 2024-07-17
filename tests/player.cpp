@@ -9,13 +9,13 @@ namespace Mouse {
 
 TEST(PlayerTest, Type) {
     GameProcess gp;
-    Player* player = Player::create(&gp, "assets/player.png", Box(12, 14, 24, 28));
+    Player* player = Player::create(&gp, "player.png", Box(12, 14, 24, 28));
     EXPECT_EQ(player->type(), "Player");
 }
 
 TEST(PlayerTest, Destroy) {
     GameProcess gp;
-    Player* player = Player::create(&gp, "assets/player.png", Box(12, 14, 24, 28));
+    Player* player = Player::create(&gp, "player.png", Box(12, 14, 24, 28));
     player->destroy();
-    EXPECT_EQ(gp.objects.length(), 0);
+    EXPECT_EQ((int) gp.objects.length(), 0);
 }

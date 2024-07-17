@@ -7,7 +7,13 @@
 - [Recursos de bibliotecas externas usados](#recursos-de-bibliotecas-externas-usados).
 
 # Instruções para compilar e executar
-- Instale o `Make`, no caso do windows, use esse [aqui](_windows/winlibs-x86_64-posix-seh-gcc-13.1.0-mingw-w64msvcrt-11.0.0-r5.7z) (que é o compatível);
+- Instale o `Make`, no caso do `Windows`, use esse [aqui](_windows/winlibs-x86_64-posix-seh-gcc-13.1.0-mingw-w64msvcrt-11.0.0-r5.7z) (que é o compatível);
+- Instale o `OpenAl`, disponível [aqui](https://www.openal.org/downloads/):
+    - No `Linux`, basta instalar o pacote `libopenal-dev`;
+    - No `Ubuntu`, por exemplo, basta executar:
+        ```
+        sudo apt install libopenal-dev
+        ```
 - Dentro da raíz do projeto, execute `make dev` e vai compilar e executar o jogo.
 
 # Lista de comandos
@@ -31,5 +37,6 @@
     - As funções `sinf`, `cosf`, `atan2` e `fmod` são utilizadas no [`math.cpp`](src/Engine//math.cpp) para implementar as funções `Game::Math::pointInRadius` e `Game::Math::pointDirection`, responsáveis por relacionar ângulos e pontos.
 
 # Recursos de bibliotecas externas usados
-- `SFML/Graphics` - biblioteca gráfica;
+- `SFML/Graphics` - recursos da gráficos do `SFML`;
+- `SFML/Audio.hpp` - recursos da sonoros do `SFML`;
 - `gtest` e `gmock` - biblitecas do `googletest` usadas nos [`tests`](tests).

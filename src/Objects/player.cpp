@@ -17,6 +17,8 @@ namespace Game {
         this->rotation = Math::pointDirection(pos.x - this->x, pos.y - this->y) - 90.0;
 
         if(this->animationFinished && Mouse::left()) {
+            this->shot_sound.play();
+
             if(this->firstAttack) this->animate(8, 0, false);
             else this->animate(8, 1, false);
 

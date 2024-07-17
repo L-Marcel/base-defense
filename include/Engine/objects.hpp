@@ -39,7 +39,6 @@ namespace Game {
 
       List<Object>* _list;
       Sprite* sprite;
-      Texture* texture;
       //Mask mask;
 
       float x = 0;

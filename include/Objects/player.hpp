@@ -1,4 +1,5 @@
 #include <Engine.hpp>
+#include <Sound.hpp>
 #include <Input.hpp>
 #include <Mouse.hpp>
 
@@ -26,6 +27,7 @@ namespace Game {
  
             short unsigned int life = 10;
             bool firstAttack = true;
+            Sound shot_sound = Sound("shot.mp3");
         protected:
             using Object::Object;
     };
