@@ -68,7 +68,7 @@ namespace Game {
     };
   };
 
-  void GameProcess::animateObject(Object* object) {
+  void GameProcess::animate(Object2D* object) {
     sf::IntRect old = object->sprite->getTextureRect();
     Vector<unsigned int> size = object->sprite->getTexture()->getSize();
     object->image += object->fps/60.f;
@@ -81,7 +81,7 @@ namespace Game {
     
     object->animationFinished = image == int(size.x) - old.width;
     object->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
-    object->sprite->setPosition(object->x, object->y);
+    object->sprite->setPosition(object->position.x, object->position.y);
     object->sprite->setRotation(object->rotation);
   };
 

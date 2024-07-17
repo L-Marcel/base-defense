@@ -1,24 +1,47 @@
-#include <Engine/objects.hpp>
 #include <Engine.hpp>
 
 namespace Game {
-    class Text : public Object {
-        public:
-            void step(GameProcess* gp);
-            string type();
-            void draw(GameProcess* gp);
+  class Text : public Object {
+    public:
+      virtual string type();
+      virtual void step(GameProcess* gp);
+      virtual void draw(GameProcess* gp);
+      using Object::destroy;
+      virtual ~Text();
 
-            ~Text();
-            Text();
+      /// @brief Cria uma instância do texto
+      /// @param gp pornteiro do processo do jogo
+      /// @param position a posição do texto
+      /// @param content o conteúdo do texto
+      static Text* create(GameProcess* gp, Vector<float> position, string content);
+      
+      /// @brief Define  a posição do texto
+      /// @param position as coordenadas x e y
+      void setTextPosition(Vector<float> position);
 
-            void setTextPosition(float x, float y);
-            void setTextFont(sf::Font& font);
-            void setText(string content);
-            void setTextCharacterSize(unsigned int size);
-            void setTextColor(sf::Color color);
-            void loadFontFromFile(string fontFile);
-        private:
-            sf::Text text;
-            sf::Font font;
-    };
+      /// @brief Define a fonte do texto
+      /// @param font a fonte
+      void setTextFont(sf::Font& font);
+
+      /// @brief Define o contúdo do texto
+      /// @param content o conteúdo
+      void setText(string content);
+
+      /// @brief Define o tamanho da fonte
+      /// @param size o tamanho em pixels
+      void setTextCharacterSize(unsigned int size);
+
+      /// @brief Define a cor do texto
+      /// @param color a cor
+      void setTextColor(Color color);
+
+      /// @brief Carrega o arquivo da fonte
+      /// @param filename o nome do arquivo
+      void loadFontFromFile(string filename);
+
+      Text();
+    private:
+      sf::Text text;
+      sf::Font font;
+  };
 };
