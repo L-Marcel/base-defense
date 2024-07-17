@@ -1,48 +1,53 @@
 #pragma once
 #include <Engine/math.hpp>
-#include <type_traits>
-#include <utility>
+#include <vector>
 
 namespace Game {
   template <typename T> class List {
     protected:
-      unsigned int amount = 0;
-      T** list = new T*[0];
+      vector<T*> list;
     public:
       /// @brief Retorna um elemento da lista
       /// @param index o íncide do elemento
       /// @return o elemento encontrado
-      inline T* get(unsigned int index) {
-        return this->list[index % this->amount];
+      inline T* get(int index) {
+        return this->list[index];
       };
 
       /// @brief Permite acessar o tamanho da lista
       /// @return o tamanho da lista
       inline unsigned int length() {
-        return this->amount;
+        return this->list.size();
       };
 
       /// @brief Adicona um elemento na lista
       /// @param item o elemento
       inline void add(T* item) {
-        this->amount++;
+        this->list.push_back(item);
+      };
 
-        T** items;
-        items = new T*[this->amount];
+      /// @brief Remove um elemento na lista pela sua posição
+      /// @param index a posição do elemento elemento
+      void remove(long unsigned int index) {
+        if(index < 0 || index >= this->list.size()) return;
+        this->list.erase(index);
+      };
 
-        for(unsigned int i = 0; i < this->amount - 1; i++)
-          items[i] = this->get(i);
-      
-        items[this->amount-1] = item;
-
-        delete[] this->list;
-        this->list = items;
+      /// @brief Remove um elemento na lista
+      /// @param item o elemento
+      void remove(T* item) {
+        for(long unsigned int i = 0; i < this->list.size(); i++) {
+          if(this->list[i] == item) {
+            this->list.erase(this->list.begin() + i);
+            break;
+          };
+        };
       };
 
       /// @brief Ordena a lista de acordo com a função de comparação dos elementos
       /// @param compare a função de comparação dos elementos
       inline void sort(bool (*compare)(T* one, T* two)) {
-        std::sort(this->list, this->list + this->amount, compare);
+        std::sort(this->list.begin(), this->list.end(), compare);
       };
   };
 };

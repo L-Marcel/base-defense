@@ -1,7 +1,5 @@
 #pragma once
 #include <Engine/list.hpp>
-#include <cstring>
-#include <functional>
 
 namespace Game {
   // union Mask {
@@ -19,21 +17,33 @@ namespace Game {
   class GameProcess;
   class Object {
     public:
-      /// @brief Função executada a cada frame do jogo, ou seja: é executada
-      /// 60 vezes por segundo
-      virtual void step(GameProcess* gp);
-      
       /// @brief Retorna o tipo de objeto, que deve ser uma string associada a classe
       /// que herdar o tipo Object
       /// @return uma string representando o tipo do objeto
       virtual string type();
-
+    
+      /// @brief Função executada a cada frame do jogo, ou seja: é executada
+      /// 60 vezes por segundo
+      virtual void step(GameProcess* gp);
+      
       ///@brief Função que desenha o objeto na tela. A classe que herdar o
       /// tipo Object deve definir a forma que o objeto será desenhado
       virtual void draw(GameProcess* gp);
       
+      /// @brief Remove a instância do jogo e libera ela da memória
+      virtual void destroy();
+
+      /// @brief Destroi objeto
+      virtual ~Object();
+
+      /// @brief Cria uma instância do objeto
+      /// @param gp pornteiro do processo do jogo
+      /// @param spriteSheet página de textura do sprite do objeto
+      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      static Object* create(GameProcess* gp, string spriteSheet, Box box);
+
+      List<Object>* _list;
       Sprite* sprite;
-      Texture* texture;
       //Mask mask;
 
       float x = 0;
@@ -51,17 +61,6 @@ namespace Game {
       bool loop = true;
       bool animationFinished = false;
 
-      /// @brief Destroi objeto
-      ~Object();
-
-      /// @brief Cria uma instância do objeto
-      Object();
-
-      /// @brief Cria uma instância do objeto
-      /// @param spriteSheet a página de textura do sprite do objeto
-      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Object(string spriteSheet, Box box);
-
       /// @brief Inicia uma das animações disponíveis para o objeto
       /// @param fps o número de frames por segundo
       /// @param textureRow a linha da animação na textura (do sprite)
@@ -77,5 +76,10 @@ namespace Game {
       /// @param xScale a escala x
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
+    protected:
+      /// @brief Cria uma instância do objeto
+      /// @param spriteSheet a página de textura do sprite do objeto
+      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      Object(string spriteSheet, Box box);
   } typedef Object;
 };

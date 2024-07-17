@@ -31,10 +31,6 @@ namespace Game {
         /// @brief Inicia o loop do jogo
         void execute();
 
-        /// @brief Adiciona um objeto
-        /// @param object o objeto
-        void addObject(Object* object);
-
         /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
         /// @param object o objeto
         void animateObject(Object* object);
