@@ -37,12 +37,23 @@ namespace Game {
         /// @param object o objeto
         void addObject(Object* object);
 
+        /// @brief Retorna um objeto de acordo com seu index
+        /// @param index index do objeto
+        /// @return um objeto
         Object* getObject(unsigned int index);
 
+        /// @brief Retorna o tamanho da lista de objetos
+        /// @return o tamanho da lista de objetos
         unsigned int getOListSize();
 
+        /// @brief Adiciona uma colisão na lista de colisões
+        /// @param collision a colisão que irá ser adicionada
         void addCol(Collision* collision);
 
+        /// @brief Retorna uma colisão de acordo com os tipos dos objetos que colidem
+        /// @param object objeto que está chamando a função no step
+        /// @param collider objeto na qual vai colidir com object (ou que será colidido)
+        /// @return a colisão com os dois tipos dos parâmetros
         Collision* getCollisionByType(string object, string collider);
 
         /// @brief Realiza a atualização do sprite do objeto, entre outras coisas

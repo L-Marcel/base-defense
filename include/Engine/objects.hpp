@@ -83,8 +83,13 @@ namespace Game {
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
 
+      /// @brief Cria uma colisão retangular
+      /// @param width a largura do retângulo
+      /// @param height a altura do retângulo
       void RectCollision(float width, float height);
 
+      /// @brief Cria uma colisão circular
+      /// @param radius Raio do círculo
       void CircCollision(float radius);
 
       /// @brief Pega a posição do objeto
