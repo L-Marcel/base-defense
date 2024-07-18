@@ -19,7 +19,7 @@ int main() {
     example.scale(4);
     example.x = 400;
     example.y = 300;
-    example.RectCollision(150, 100);
+    example.CircCollision(36);
 
     Collision col;
     col.collision_between(player.type(), example.type());

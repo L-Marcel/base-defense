@@ -7,13 +7,13 @@ namespace Game {
     void Player::step(GameProcess* gp) {
         
         //APENAS PARA DEBUG.
-        
+        /*
         if(this->hasCCol == true){
             gp->window.draw(this->circ_collision);
         } else if(this->hasRCol == true){
             gp->window.draw(this->rect_collision);
         }
-        
+        */
         
         //OUTRO DEBUG (porém dá pra brincar mais)
         Collision* Test = gp->getCollisionByType(this->type(), "Example");

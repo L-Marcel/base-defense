@@ -86,9 +86,6 @@ namespace Game{
                 dist = sqrt((xx*xx) + (yy*yy));
             }
         }
-
-        cout << "xx: " << abs(xx - rectWidth/2) << endl;
-        cout << "yy: " << abs(yy - rectHeight/2) << endl;
         
         switch(rectRegion){
             case 1:
@@ -122,8 +119,6 @@ namespace Game{
         float R1Width = obj1->rect_collision.getSize().x;
         float R2Height = obj2->rect_collision.getSize().y;
         float R2Width = obj2->rect_collision.getSize().x;
-        float D1 = (sqrt((R1Height/2 * R1Height/2) + (R1Width/2 * R1Width/2)))-1;
-        float D2 = (sqrt((R2Height/2 * R2Height/2) + (R2Width/2 * R2Width/2)))-1;
         if(((R1x >= R2x-R2Width/2 && R1x <= R2x+R2Width/2) && R1y >= R2y+R2Height/2) || ((R1x >= R2x-R2Width/2 && R1x <= R2x+R2Width/2) && R1y <= R2y-R2Height/2)){
             rectRegion = 1;
             dist = yy;
