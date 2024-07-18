@@ -72,9 +72,23 @@ namespace Game{
             dist = xx;
         }
         if((Cx < Rx-rectWidth/2 && Cy < Ry-rectHeight/2) || (Cx > Rx+rectWidth/2 && Cy < Ry-rectHeight/2) || (Cx < Rx-rectWidth/2 && Cy > Ry+rectHeight/2) || (Cx > Rx+rectWidth/2 && Cy > Ry+rectHeight/2)){
-            rectRegion = 3;
-            dist = (sqrt((xx * xx) + (yy * yy)));
+            if(abs(xx - rectWidth/2) < 17 && abs(xx - rectWidth/2) > 4){
+                rectRegion = 3;
+                dist = (sqrt((xx*xx) + (yy*yy)))+6;
+            } else if(abs(yy - rectHeight/2) < 10){
+                rectRegion = 3;
+                dist = (sqrt((xx*xx) + (yy*yy)))+2;
+            } else if(abs(xx - rectWidth/2) <= 4){
+                rectRegion = 3;
+                dist = (sqrt((xx*xx) + (yy*yy)))+10;
+            } else{
+                rectRegion = 3;
+                dist = sqrt((xx*xx) + (yy*yy));
+            }
         }
+
+        cout << "xx: " << abs(xx - rectWidth/2) << endl;
+        cout << "yy: " << abs(yy - rectHeight/2) << endl;
         
         switch(rectRegion){
             case 1:
