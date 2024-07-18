@@ -118,11 +118,15 @@ namespace Game {
     this->collisions.add(collision);
   }
 
-  Collision* GameProcess::getCollisionByType(string collisor){
+  Collision* GameProcess::getCollisionByType(string object, string collider){
     for(unsigned int i = 0; i < this->collisions.length(); i++){
       Collision* tempCol = this->collisions.get(i);
-      if(tempCol->getType1() == collisor || tempCol->getType2() == collisor) return tempCol;
-      break;
+      if(tempCol->getType1() == collider || tempCol->getType2() == collider){
+        if(tempCol->getType1() == object || tempCol->getType2() == object){
+          return tempCol;
+          break;
+        } else continue;
+      }
     }
   }
 
