@@ -54,18 +54,27 @@ namespace Game {
       
       if(this->redraw) {
         this->window.clear();
-        
-        Collision* collision = this->collisions.get(0);
-        collision->step(this);
 
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
 
           object->step(this);
+
+          if(object->hasCCol == true){
+            object->circ_collision.setPosition(object->x, object->y);
+          } else if(object->hasRCol == true){
+            object->rect_collision.setPosition(object->x, object->y);
+          }
+
           this->animateObject(object);
           
           this->window.draw(*object->sprite);
         };
+
+        for(unsigned int i = 0; i < this->collisions.length(); i++){
+          Collision* collision = this->collisions.get(i);
+          collision->step(this);
+        }
 
         this->redraw = false;
         this->window.display();
@@ -107,6 +116,14 @@ namespace Game {
 
   void GameProcess::addCol(Collision* collision){
     this->collisions.add(collision);
+  }
+
+  Collision* GameProcess::getCollisionByType(string collisor){
+    for(unsigned int i = 0; i < this->collisions.length(); i++){
+      Collision* tempCol = this->collisions.get(i);
+      if(tempCol->getType1() == collisor || tempCol->getType2() == collisor) return tempCol;
+      break;
+    }
   }
 
   unsigned short int GameProcess::getFrame() {

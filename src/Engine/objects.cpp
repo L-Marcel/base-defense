@@ -66,17 +66,17 @@ namespace Game {
     this->sprite->setScale(xScale, yScale);
   };
   
-  void Object::RectCollision(float height, float width){
+  void Object::RectCollision(float width, float height){
     if(this->hasCCol == true) return;
     
     Vector<float> size;
-    size.x = height;
-    size.y = width;
+    size.x = width;
+    size.y = height;
     Rectangle rect(size);
     rect_collision = rect;
-    rect_collision.setOrigin(height/2, width/2);
-    this->rcolHeight = height;
+    rect_collision.setOrigin(width/2, height/2);
     this->rcolWidth = width;
+    this->rcolHeight = height;
     this->hasRCol = true;
   }
 

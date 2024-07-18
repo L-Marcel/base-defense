@@ -83,7 +83,7 @@ namespace Game {
       /// @param yScale a escala y
       void scale(float xScale, float yScale);
 
-      void RectCollision(float height, float width);
+      void RectCollision(float width, float height);
 
       void CircCollision(float radius);
 

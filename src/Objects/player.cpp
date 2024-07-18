@@ -5,14 +5,22 @@ namespace Game {
     Vector<float> click;
     bool iniPos = false;
     void Player::step(GameProcess* gp) {
+        
+        //APENAS PARA DEBUG.
+        /*
         if(this->hasCCol == true){
-            this->circ_collision.setPosition(this->x, this->y);
-            this->circ_collision.setFillColor(sf::Color::Red);
-            gp->window.draw(circ_collision);
+            gp->window.draw(this->circ_collision);
         } else if(this->hasRCol == true){
-            this->rect_collision.setPosition(this->x, this->y);
-            this->rect_collision.setFillColor(sf::Color::Red);
-            gp->window.draw(rect_collision);
+            gp->window.draw(this->rect_collision);
+        }
+        */
+        
+        //OUTRO DEBUG (porém dá pra brincar mais)
+        Collision* Test = gp->getCollisionByType("Example");
+        if(Test->isColliding() == true){
+            cout << "Deu Certooo" << endl;
+        } else{
+            cout << "Parou" << endl;
         }
 
         if(iniPos == false){

@@ -43,6 +43,8 @@ namespace Game {
 
         void addCol(Collision* collision);
 
+        Collision* getCollisionByType(string collider);
+
         /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
         /// @param object o objeto
         void animateObject(Object* object);

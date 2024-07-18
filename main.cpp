@@ -13,16 +13,16 @@ int main() {
     player.animate(8, 1, false);
     player.x = gp.getWindowWidth()/2;
     player.y = gp.getWindowHeight()/2;
-    player.CircCollision(20);
+    player.CircCollision(32);
     
     Example example("assets/ball.png", Box(8, 8, 16, 16));
     example.scale(4);
-    example.x = 100;
-    example.y = 100;
+    example.x = 400;
+    example.y = 300;
     example.CircCollision(32);
 
     Collision col;
-    col.meet(player.type(), example.type());
+    col.collision_between(player.type(), example.type());
     cout << col.getType1() << endl;
     cout << col.getType2() << endl;
 
