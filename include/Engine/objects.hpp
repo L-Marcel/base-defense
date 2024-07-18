@@ -1,3 +1,6 @@
+#ifndef OBJ_HPP
+#define OBJ_HPP
+
 #include <Engine/list.hpp>
 #include <cstring>
 #include <functional>
@@ -74,3 +77,5 @@ namespace Game {
       void scale(float xScale, float yScale);
   } typedef Object;
 };
+
+#endif

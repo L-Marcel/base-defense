@@ -7,6 +7,7 @@ namespace Game {
         public:
             void step(GameProcess* gp);
             string type();
+            void shoot(GameProcess* gp);
 
             short unsigned int life = 10;
             using Object::Object;

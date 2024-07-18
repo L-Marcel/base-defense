@@ -1,3 +1,6 @@
+#ifndef LIST_HPP
+#define LIST_HPP
+
 #include <Engine/math.hpp>
 #include <type_traits>
 #include <utility>
@@ -45,3 +48,5 @@ namespace Game {
       };
   };
 };
+
+#endif
