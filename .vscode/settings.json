@@ -114,6 +114,6 @@
     "xtr1common": "cpp",
     "xutility": "cpp"
   },
-  "C_Cpp.default.compilerPath": "C:\\MinGW\\64bits\\mingw64-13.1\\bin\\g++.exe",
+  "C_Cpp.default.compilerPath": "C:\\MinGW\\64bits\\mingw64-13.1\\bin\\gcc.exe",
   "C_Cpp.errorSquiggles": "disabled"
 }
