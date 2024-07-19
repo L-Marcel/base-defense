@@ -1,3 +1,4 @@
+#include <Engine/collision.hpp>
 #include <Objects.hpp>
 
 namespace Game {
@@ -10,7 +11,6 @@ namespace Game {
         Clock clock;
         bool redraw = false;
         void (*events)(Event::EventType);
-
       public:
         Window window = Window(VideoMode(800, 600), "Base Defense");
         List<Object> objects;

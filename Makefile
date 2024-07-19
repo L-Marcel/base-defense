@@ -24,8 +24,8 @@ MKDIR = if not exist $(subst /,\,$(dir $@)) mkdir $(subst /,\,$(dir $@))
 RM = del /q /f
 RMDIR = rmdir /q /s
 else
-EXEC = $(RELEASE_DIR)/bin/main
-TEST_EXEC = $(RELEASE_DIR)/bin/test_main
+EXEC = $(RELEASE_DIR)/main
+TEST_EXEC = $(RELEASE_DIR)/test_main
 ENV = export LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = mkdir -p $(dir $@)
 RM = rm -f

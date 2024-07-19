@@ -30,7 +30,7 @@ namespace Game {
       /// @param index a posição do elemento elemento
       void remove(long unsigned int index) {
         if(index < 0 || index >= this->list.size()) return;
-        this->list.erase(index);
+        this->list.erase(this->list.begin() + index);
       };
 
       /// @brief Remove um elemento na lista
@@ -48,6 +48,12 @@ namespace Game {
       /// @param compare a função de comparação dos elementos
       inline void sort(bool (*compare)(T* one, T* two)) {
         std::sort(this->list.begin(), this->list.end(), compare);
+      };
+
+      inline void clear() {
+        for(long unsigned int i = 0; i < this->list.size(); i++) {
+          this->remove(i);
+        };
       };
   };
 };
