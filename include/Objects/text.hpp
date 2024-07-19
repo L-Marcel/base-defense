@@ -4,8 +4,9 @@ namespace Game {
   class Text : public Object {
     public:
       virtual string type();
-      virtual void step(GameProcess* gp);
-      virtual void draw(GameProcess* gp);
+      using Object::step;
+      using Object::collision;
+      virtual void draw();
       using Object::destroy;
       virtual ~Text();
 

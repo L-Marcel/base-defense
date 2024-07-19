@@ -1,13 +1,15 @@
 #include <Engine.hpp>
 
 namespace Game {
-  void Object::step(GameProcess* gp) {};
-
   string Object::type() {
     return "Object";
   };
 
-  void Object::draw(GameProcess* gp) {};
+  void Object::step() {};
+
+  void Object::collision() {};
+
+  void Object::draw() {};
  
   Object::~Object() {};
 
@@ -15,14 +17,14 @@ namespace Game {
 
   Object* Object::create(GameProcess* gp) {
     Object* instance = new Object();
-    instance->_list = &gp->objects;
+    instance->gp = gp;
     gp->objects.add(instance);
     return instance;
   };
 
   void Object::destroy() {
-    if(this->_list) {
-      this->_list->remove(this);
+    if(this->gp) {
+      this->gp->objects.remove(this);
     };
     delete this;
   };

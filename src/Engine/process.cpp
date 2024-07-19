@@ -54,17 +54,22 @@ namespace Game {
       
       if(this->redraw) {
         this->window.clear();
-        
+
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
-
-          object->step(this);          
-          object->draw(this);
+          object->collision();
+          object->step();     
+          object->draw();
         };
 
         this->redraw = false;
         this->window.display();
       };
+    };
+
+    for(unsigned int i = 0; i < this->objects.length(); i++) {
+      Object* object = this->objects.get(i);
+      object->destroy();
     };
   };
 
