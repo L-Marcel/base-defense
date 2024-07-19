@@ -2,7 +2,7 @@
 ## Isso aqui foi gerado usando IA, ok?
 ## ================================= ##
 
-FLAGS = -g -Wall -pedantic -Iinclude
+FLAGS = -W -Bstatic -g -Wall -pedantic -Iinclude
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system 
 SRC_DIR = src
 BUILD_DIR = _build
@@ -44,7 +44,7 @@ dev: $(EXEC)
 	$(ENV) && $(EXEC)
 
 compile: $(OBJ_FILES)
-	g++ -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -W -Bstatic -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 test: $(TEST_EXEC)
 	$(ENV) && $(TEST_EXEC)
@@ -53,7 +53,7 @@ $(EXEC): $(OBJ_FILES)
 	g++ -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -W -Bstatic -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)

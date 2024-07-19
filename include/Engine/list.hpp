@@ -29,7 +29,7 @@ namespace Game {
       /// @brief Remove um elemento na lista pela sua posição
       /// @param index a posição do elemento elemento
       void remove(long unsigned int index) {
-        if(index < 0 || index >= this->list.size()) return;
+        if(index >= this->list.size()) return;
         this->list.erase(this->list.begin() + index);
       };
 
