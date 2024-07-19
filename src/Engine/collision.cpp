@@ -28,10 +28,9 @@ namespace Game{
             if(candidate->type() == this->collider && this->object != candidate) {
                 Object2D* collider = (Object2D*) candidate;
                 if(
-                    CCcollision(this->object, collider) || 
-                    CRcollision(this->object, collider) ||
-                    CRcollision(collider, this->object) || 
-                    RRcollision(this->object, collider)
+                    hasCirclesCollision(this->object, collider) || 
+                    hasCircleAndRectangleCollision(this->object, collider) || 
+                    hasRectanglesCollision(this->object, collider)
                 ) {
                     this->object->colliders.add(collider);
                 };
@@ -39,19 +38,27 @@ namespace Game{
         };
     };
 
-    bool Collision::CCcollision(Object2D* first, Object2D* second) {
+    bool Collision::hasCirclesCollision(Object2D* first, Object2D* second) {
         if(!first->hasCircle || !second->hasCircle) return false;
         float dist = Math::pointDistance(first->circle.getPosition(), second->circle.getPosition());
         return dist < (first->circle.getRadius() + second->circle.getRadius());
     };
 
-    bool Collision::CRcollision(Object2D* first, Object2D* second) {
-        if(!first->hasCircle || !second->hasRectangle) return false;
+    bool Collision::hasCircleAndRectangleCollision(Object2D* first, Object2D* second) {
+        if(!first->hasCircle || !second->hasRectangle) {
+            if(!second->hasCircle || !first->hasRectangle) {
+                return false;
+            };
+            
+            Object2D* _second = second;
+            second = first;
+            first = _second;
+        };
 
-        float Cx = first->circle.getPosition().x;
-        float Cy = first->circle.getPosition().y;
-        float Rx = second->rectangle.getPosition().x;
-        float Ry = second->rectangle.getPosition().y;
+        float cx = first->circle.getPosition().x;
+        float cy = first->circle.getPosition().y;
+        float rx = second->rectangle.getPosition().x;
+        float ry = second->rectangle.getPosition().y;
         
         float xx = abs(first->circle.getPosition().x - second->rectangle.getPosition().x);   
         float yy = abs(first->circle.getPosition().y - second->rectangle.getPosition().y);
@@ -62,17 +69,28 @@ namespace Game{
 
         unsigned short int rectRegion = 1;
 
-        if(((Cx > Rx-rectWidth/2 && Cx < Rx+rectWidth/2) && Cy > Ry+rectHeight/2) || ((Cx > Rx-rectWidth/2 && Cx < Rx+rectWidth/2) && Cy < Ry-rectHeight/2)){
+        if(
+            ((cx > rx-rectWidth/2 && cx < rx+rectWidth/2) && cy > ry+rectHeight/2) || 
+            ((cx > rx-rectWidth/2 && cx < rx+rectWidth/2) && cy < ry-rectHeight/2)
+        ) {
             rectRegion = 1;
             dist = yy;
         };
         
-        if(((Cy > Ry-rectHeight/2 && Cy < Ry+rectHeight/2) && Cx > Rx+rectWidth/2) || ((Cy > Ry-rectHeight/2 && Cy < Ry+rectHeight/2) && Cx < Rx-rectWidth/2)){
+        if(
+            ((cy > ry-rectHeight/2 && cy < ry+rectHeight/2) && cx > rx+rectWidth/2) || 
+            ((cy > ry-rectHeight/2 && cy < ry+rectHeight/2) && cx < rx-rectWidth/2)
+        ) {
             rectRegion = 2;
             dist = xx;
         };
 
-        if((Cx < Rx-rectWidth/2 && Cy < Ry-rectHeight/2) || (Cx > Rx+rectWidth/2 && Cy < Ry-rectHeight/2) || (Cx < Rx-rectWidth/2 && Cy > Ry+rectHeight/2) || (Cx > Rx+rectWidth/2 && Cy > Ry+rectHeight/2)){
+        if(
+            (cx < rx-rectWidth/2 && cy < ry-rectHeight/2) || 
+            (cx > rx+rectWidth/2 && cy < ry-rectHeight/2) || 
+            (cx < rx-rectWidth/2 && cy > ry+rectHeight/2) || 
+            (cx > rx+rectWidth/2 && cy > ry+rectHeight/2)
+        ){
             if(abs(xx - rectWidth/2) < 17 && abs(xx - rectWidth/2) > 4){
                 rectRegion = 3;
                 dist = (sqrt((xx*xx) + (yy*yy)))+6;
@@ -94,13 +112,13 @@ namespace Game{
             case 2:
                 return dist < first->circle.getRadius() + rectWidth/2;
             case 3:
-                return dist < first->circle.getRadius() + sqrt((rectHeight/2 * rectHeight/2) + (rectWidth/2 * rectWidth/2));
+                return dist < first->circle.getRadius() + Math::pointDistance(Vector<float>(rectHeight/2, rectWidth/2));
             default:
                 return false;
         };
     };
 
-    bool Collision::RRcollision(Object2D* first, Object2D* second) {
+    bool Collision::hasRectanglesCollision(Object2D* first, Object2D* second) {
         if(!first->hasRectangle || !second->hasRectangle) return false;
 
         float x1 = first->rectangle.getPosition().x;

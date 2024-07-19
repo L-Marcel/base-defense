@@ -26,8 +26,8 @@ int main() {
     player->scale(4);
     player->animate(8, 1, false);
     
-    // Essa colisão poderia ser criada no Player::create, mas aqui
-    // é apenas um exemplo
+    // Essa colisão poderia ser criada no Player::create, 
+    // mas aqui temos apenas um exemplo
     Collision::create(&gp, player, "Example");
     
     gp.execute();
