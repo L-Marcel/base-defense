@@ -8,23 +8,19 @@
 #include <SFML/Graphics.hpp>
 
 namespace Game {
-    class Bullet : public Object {
-    public:
-        void step(GameProcess* gp);
-        string type();
+    class Bullet : public Object2D {
+        public:
+            virtual string type();
+            void step();
+            using Object2D::collision;
+            using Object2D::draw;
+            using Object2D::destroy;
+            virtual ~Bullet();
 
-        float direction;
-        float speed;
-
-        using Object::Object;
-
-        void update();
-
-        void setDirection(float direction);
-
-        void setSpeed(float speed);
-
-    
+            float direction;
+            float speed;
+        protected:
+            using Object2D::Object2D;
     };
 };
 
