@@ -57,24 +57,21 @@ namespace Game {
 
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
-
-          object->step(this);
-
+          object->step(this);     
+          
           if(object->hasCCol == true){
             object->circ_collision.setPosition(object->x, object->y);
           } else if(object->hasRCol == true){
             object->rect_collision.setPosition(object->x, object->y);
           }
-
-          this->animateObject(object);
           
-          this->window.draw(*object->sprite);
+          object->draw(this);
         };
 
         for(unsigned int i = 0; i < this->collisions.length(); i++){
           Collision* collision = this->collisions.get(i);
           collision->step(this);
-        }
+        };
 
         this->redraw = false;
         this->window.display();
@@ -82,7 +79,7 @@ namespace Game {
     };
   };
 
-  void GameProcess::animateObject(Object* object) {
+  void GameProcess::animate(Object2D* object) {
     sf::IntRect old = object->sprite->getTextureRect();
     Vector<unsigned int> size = object->sprite->getTexture()->getSize();
     object->image += object->fps/60.f;
@@ -95,15 +92,8 @@ namespace Game {
     
     object->animationFinished = image == int(size.x) - old.width;
     object->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
-    object->sprite->setPosition(object->x, object->y);
+    object->sprite->setPosition(object->position.x, object->position.y);
     object->sprite->setRotation(object->rotation);
-  };
-
-  void GameProcess::addObject(Object* object) {
-    this->objects.add(object);
-    // this->objects.sort([](Object* one, Object* two) {
-    //   return one->depth < two->depth;
-    // });
   };
 
   Object* GameProcess::getObject(unsigned int index){

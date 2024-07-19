@@ -112,8 +112,8 @@
     "xmemory": "cpp",
     "xstddef": "cpp",
     "xtr1common": "cpp",
-    "xutility": "cpp"
-  },
-  "C_Cpp.default.compilerPath": "C:\\MinGW\\64bits\\mingw64-13.1\\bin\\gcc.exe",
-  "C_Cpp.errorSquiggles": "disabled"
+    "xutility": "cpp",
+    "*.tcc": "cpp",
+    "string_view": "cpp"
+  }
 }
