@@ -91,19 +91,18 @@ namespace Game {
   void Object2D::setRectangle(float width, float height){
     if(this->hasCircle) return;
 
-    this->rectangle = Rectangle(Vector<float>(width, height));
+    this->rectangle.setSize(Vector<float>(width, height));
     this->rectangle.setOrigin(width/2, height/2);
     this->rectangleWidth = width;
     this->rectangleHeight = height;
     this->hasRectangle = true;
   };
 
-  void Object2D::setCircle(float radious){
+  void Object2D::setCircle(float radius){
     if(this->hasRectangle) return;
-
-    this->circle = Circle(radious);
-    this->circle.setOrigin(radious, radious);
-    this->circleRadius = radious;
+    this->circle.setRadius(radius);
+    this->circle.setOrigin(radius, radius);
+    this->circleRadius = radius;
     this->hasCircle = true;
   };
 };
