@@ -1,10 +1,16 @@
 #include <Engine.hpp>
 
 namespace Game {
+  GameProcess::~GameProcess() {
+    for(unsigned int i = 0; i < this->objects.length(); i++) {
+      Object* object = this->objects.get(i);
+      object->destroy();
+    };
+  };
+
   GameProcess::GameProcess() {
     this->redraw = true;
     this->window.setFramerateLimit(60);
-    this->events = [](Event::EventType ev) {};
   };
 
   GameProcess::GameProcess(
@@ -20,11 +26,6 @@ namespace Game {
     this->window.setTitle(title);
     this->redraw = true;
     this->window.setFramerateLimit(60);
-    this->events = [](Event::EventType ev) {};
-  };
-
-  void GameProcess::on(void (*func)(Event::EventType)) {
-    this->events = func;
   };
 
   void GameProcess::execute() {
@@ -37,8 +38,7 @@ namespace Game {
       };
 
       Event event;
-      while (window.pollEvent(event)) {
-        this->events(event.type);
+      while(window.pollEvent(event)) {
         switch(event.type) {
           case Event::Closed:
             this->window.close();
@@ -58,7 +58,7 @@ namespace Game {
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
           object->collision();
-          object->step();     
+          object->step();
           object->draw();
         };
 

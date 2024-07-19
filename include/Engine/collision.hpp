@@ -24,19 +24,22 @@ namespace Game{
             /// @param gp GameProcess
             void step();
 
-            /// @brief Checa a colisão entre dois círculos (duas colisões circulares)
-            /// @param obj1 objeto 1 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            /// @param obj2 objeto 2 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            static bool CCcollision(Object2D* obj1, Object2D* obj2);
+            /// @brief Checa a colisão entre dois círculos
+            /// @param first primeiro objeto
+            /// @param second segundo objeto
+            /// @return `true` se houver uma colisão, `false` caso contrário
+            static bool hasCirclesCollision(Object2D* first, Object2D* second);
 
-            /// @brief Checa a colisão entre um círculo e um retângulo (uma colisão circular e uma colisão retangular)
-            /// @param obj1 objeto 1 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            /// @param obj2 objeto 2 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            static bool CRcollision(Object2D* obj1, Object2D* obj2);
+            /// @brief Checa a colisão entre um círculo e um retângulo
+            /// @param first primeiro objeto
+            /// @param second segundo objeto
+            /// @return `true` se houver uma colisão, `false` caso contrário
+            static bool hasCircleAndRectangleCollision(Object2D* first, Object2D* second);
 
-            /// @brief Checa a colisão entre dois retângulos (duas colisões retangulares)
-            /// @param obj1 objeto 1 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            /// @param obj2 objeto 2 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            static bool RRcollision(Object2D* obj1, Object2D* obj2);
+            /// @brief Checa a colisão entre dois retângulos
+            /// @param first primeiro objeto
+            /// @param second segundo objeto
+            /// @return `true` se houver uma colisão, `false` caso contrário
+            static bool hasRectanglesCollision(Object2D* first, Object2D* second);
     };
 };

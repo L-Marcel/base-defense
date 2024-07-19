@@ -10,13 +10,15 @@ namespace Game {
         unsigned short int frame = 0;
         Clock clock;
         bool redraw = false;
-        void (*events)(Event::EventType);
       public:
         Window window = Window(VideoMode(800, 600), "Base Defense");
         List<Object> objects;
 
         /// @brief Cria uma instância de processo do jogo
         GameProcess();
+
+        /// @brief Destroy uma instância de processo do jogo
+        ~GameProcess();
 
         /// @brief Cria uma instância de processo do jogo
         /// @param width a largura da janela
@@ -45,10 +47,5 @@ namespace Game {
         /// @brief Diz se o jogo ainda está rodando
         /// @return verdadeiro, se estiver, falso caso contrário
         bool isRunning();
-
-        /// @brief Recebe uma função que será chamada para todo e qualquer evento do jogo
-        /// (não confundir com evento de um objeto)
-        /// @param func a função a ser chamada
-        void on(void (*func)(Event::EventType));
   };
 };
