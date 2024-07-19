@@ -6,11 +6,24 @@ namespace Game {
     return "Object2D";
   };
 
-  void Object2D::step(GameProcess* gp) {};
+  void Object2D::step() {};
 
-  void Object2D::draw(GameProcess* gp) {
-    gp->animate(this);
-    gp->window.draw(*this->sprite);
+  void Object2D::collision() { 
+    if(this->hasCircle){
+      this->circle.setPosition(this->position.x, this->position.y);
+    } else if(this->hasRectangle) {
+      this->rectangle.setPosition(this->position.x, this->position.y);
+    };
+
+    for(unsigned int i = 0; i < this->collisions.length(); i++) {
+      Collision* collision = this->collisions.get(i);
+      collision->step();
+    };
+  };
+
+  void Object2D::draw() {
+    this->gp->animate(this);
+    this->gp->window.draw(*this->sprite);
   };
 
   Object2D::~Object2D() {
@@ -39,15 +52,21 @@ namespace Game {
 
   Object2D* Object2D::create(GameProcess* gp, string spriteSheet, Box box) {
     Object2D* instance = new Object2D(spriteSheet, box);
-    instance->_list = &gp->objects;
+    instance->gp = gp;
     gp->objects.add(instance);
     return instance;
   };
 
   void Object2D::destroy() {
-    if(this->_list) {
-      this->_list->remove(this);
+    if(this->gp) {
+      this->gp->objects.remove(this);
     };
+
+    for(unsigned int i = 0; i < this->collisions.length(); i++) {
+      Collision* collision = this->collisions.get(i);
+      collision->destroy();
+    };
+
     delete this;
   };
 
@@ -67,5 +86,24 @@ namespace Game {
 
   void Object2D::scale(float xScale, float yScale) {
     this->sprite->setScale(xScale, yScale);
+  };
+
+  void Object2D::setRectangle(float width, float height){
+    if(this->hasCircle) return;
+
+    this->rectangle = Rectangle(Vector<float>(width, height));
+    this->rectangle.setOrigin(width/2, height/2);
+    this->rectangleWidth = width;
+    this->rectangleHeight = height;
+    this->hasRectangle = true;
+  };
+
+  void Object2D::setCircle(float radious){
+    if(this->hasRectangle) return;
+
+    this->circle = Circle(radious);
+    this->circle.setOrigin(radious, radious);
+    this->circleRadius = radious;
+    this->hasCircle = true;
   };
 };

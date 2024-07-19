@@ -1,86 +1,46 @@
 #include <Objects/player.hpp>
+#include <Mouse.hpp>
 
 namespace Game {
-    Vector<float> click;
-    bool iniPos = false;
-//     void Player::step(GameProcess* gp) {
-        
-//         //APENAS PARA DEBUG.
-//         /*
-//         if(this->hasCCol == true){
-//             gp->window.draw(this->circ_collision);
-//         } else if(this->hasRCol == true){
-//             gp->window.draw(this->rect_collision);
-//         }
-//         */
-        
-//         //OUTRO DEBUG (porém dá pra brincar mais)
-//         Collision* Test = gp->getCollisionByType(this->type(), "Example");
-//         if(Test->isColliding() == true){
-//             cout << "Deu Certooo" << endl;
-//         } else{
-//             cout << "Parou" << endl;
-//         }
-
-//         if(iniPos == false){
-//             click = this->getPos();
-//             iniPos = true;
-//         }
-
-//         if(Mouse::right()){
-//             click = Mouse::position(&gp->window);
-//         }
-
-//         if((click.x != this->x || click.y != this->y)){
-
-//             if(click.x >= gp->getWindowWidth()) click.x = gp->getWindowWidth();
-//             else if(click.x <= 0) click.x = 0;
-
-//             if(click.y >= gp->getWindowHeight()) click.y = gp->getWindowHeight();
-//             else if(click.y <= 0) click.y = 0;
-
-//             float xx = 0.0;
-//             float yy = 0.0;
-//             float speed = 5.0;
-
-//             xx = abs(this->x - click.x);
-//             yy = abs(this->y - click.y);
-
-//             if(xx > yy){
-//                 float proporcao = yy/xx;
-//                 xx = 1;
-//                 yy = proporcao;
-//             } else if(xx < yy){
-//                 float proporcao = xx/yy;
-//                 xx = proporcao;
-//                 yy = 1;
-//             } else{
-//                 xx = 1;
-//                 yy = 1;
-//             }
-
-//             if(this->x < click.x) this->x+=xx*speed;
-//             if(this->y < click.y) this->y+=yy*speed;
-//             if(this->x > click.x) this->x-=xx*speed;
-//             if(this->y > click.y) this->y-=yy*speed;
-//         }
     string Player::type() {
         return "Player";
     };
   
-    void Player::step(GameProcess* gp) {
-        Vector<float> movement = Input::keyboard(
-            Keyboard::A,
-            Keyboard::W,
-            Keyboard::D,
-            Keyboard::S,
-            2
-        );
+    void Player::step() {
+        if(this->hasCircle){
+            gp->window.draw(this->circle);
+        } else if(this->hasRectangle == true){
+            gp->window.draw(this->rectangle);
+        };
+        
+        for(unsigned int i = 0; i < this->colliders.length(); i++) {
+            Object2D* collider = this->colliders.get(i);
+            string type = collider->type();
+            if(type == "Example") {
+                collider->destroy();
+                this->scale(8.0f);
+            };
+        };
+       
+        Vector<float> mouse = Mouse::position(&this->gp->window);
+        if(mouse != this->position) {
+            this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
+        };
 
-        this->position+=movement;
+        if(Mouse::right()){
+            this->targetPosition = mouse;
+        };
 
-        Vector<float> pos = Mouse::position(&gp->window);
-        this->rotation = Math::pointDirection(pos.x - this->position.x, pos.y - this->position.y) - 90.0;
+        if(this->targetPosition != this->position) {
+            double distance = Math::pointDistance(this->targetPosition, this->position);
+
+            Vector<float> difference = this->targetPosition - this->position;
+            this->direction = Math::pointDirection(difference);
+            this->position += Math::pointInRadius(
+                min(double(this->speed), distance), 
+                this->direction
+            );
+        };
 
         if(this->animationFinished && Mouse::left()) {
             this->shot_sound.play();
@@ -91,13 +51,17 @@ namespace Game {
             this->firstAttack = !this->firstAttack;
         };
     };
+    
+    Player::~Player() {};
 
     Player* Player::create(GameProcess* gp, string spriteSheet, Box box) {
-        Player* instance = new Player(spriteSheet, box);
-        instance->_list = &gp->objects;
-        gp->objects.add(instance);
-        return instance;
+        Player* player = new Player(spriteSheet, box);
+        player->speed = 5.0f;
+        player->position = Vector<float>(gp->window.getSize()) * 0.5f;
+        player->targetPosition = player->position;
+        player->setCircle(32);
+        player->gp = gp;
+        gp->objects.add(player);
+        return player;
     };
-
-    Player::~Player() {};
 };

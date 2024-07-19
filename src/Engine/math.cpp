@@ -2,16 +2,28 @@
 #define PI 3.14159265359
 
 namespace Game {
-  Vector<float> Math::pointInRadius(double radious, double angle) {
-    float rad = angle * (PI / 180);
-    float y = sinf(rad) * radious;
-    float x = cosf(rad) * radious;
+  namespace Math {
+    Vector<float> pointInRadius(double radious, double angle) {
+      float rad = angle * (PI / 180);
+      float y = sinf(rad) * radious;
+      float x = cosf(rad) * radious;
 
-    return Vector<float>(x, y);
-  };
+      return Vector<float>(x, y);
+    };
 
-  double Math::pointDirection(float x, float y) {
-    double rad = atan2(y, x);
-    return fmod((rad * (180/PI)), 360);
-  };
+    double pointDirection(float x, float y) {
+      double rad = atan2(y, x);
+      return fmod((rad * (180/PI)), 360);
+    };
+
+    double pointDirection(Vector<float> point) {
+      double rad = atan2(point.y, point.x);
+      return fmod((rad * (180/PI)), 360);
+    };
+
+    double pointDistance(Vector<float> a, Vector<float> b) {
+      Vector<float> difference = a - b;
+      return sqrt((difference.x * difference.x) + (difference.y * difference.y));
+    };
+  }
 };
