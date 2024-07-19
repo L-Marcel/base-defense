@@ -1,8 +1,6 @@
-#include <Engine.hpp>
 #include <Objects.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>
-#include <Mouse.hpp>
 
 namespace Game {
   class Player : public Object2D {

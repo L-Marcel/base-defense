@@ -33,6 +33,15 @@ namespace Game {
       /// @brief Remove a instância do jogo e libera ela da memória
       virtual void destroy();
 
+      Rectangle rect_collision;
+      float rcolHeight;
+      float rcolWidth;
+      Circle circ_collision;
+      float cRadius;
+
+      bool hasCCol;
+      bool hasRCol;
+
       /// @brief Destroi objeto
       virtual ~Object();
 
@@ -41,6 +50,15 @@ namespace Game {
       /// @param spriteSheet página de textura do sprite do objeto
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Object* create(GameProcess* gp);
+
+      /// @brief Cria uma colisão retangular
+      /// @param width a largura do retângulo
+      /// @param height a altura do retângulo
+      void RectCollision(float width, float height);
+
+      /// @brief Cria uma colisão circular
+      /// @param radius Raio do círculo
+      void CircCollision(float radius);
 
       List<Object>* _list;
     protected:

@@ -54,12 +54,23 @@ namespace Game {
       
       if(this->redraw) {
         this->window.clear();
-        
+
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
-
-          object->step(this);          
+          object->step(this);     
+          
+          if(object->hasCCol == true){
+            object->circ_collision.setPosition(object->x, object->y);
+          } else if(object->hasRCol == true){
+            object->rect_collision.setPosition(object->x, object->y);
+          }
+          
           object->draw(this);
+        };
+
+        for(unsigned int i = 0; i < this->collisions.length(); i++){
+          Collision* collision = this->collisions.get(i);
+          collision->step(this);
         };
 
         this->redraw = false;
@@ -85,6 +96,30 @@ namespace Game {
     object->sprite->setRotation(object->rotation);
   };
 
+  Object* GameProcess::getObject(unsigned int index){
+    return this->objects.get(index);
+  }
+
+  unsigned int GameProcess::getOListSize(){
+    return this->objects.length();
+  }
+
+  void GameProcess::addCol(Collision* collision){
+    this->collisions.add(collision);
+  }
+
+  Collision* GameProcess::getCollisionByType(string object, string collider){
+    for(unsigned int i = 0; i < this->collisions.length(); i++){
+      Collision* tempCol = this->collisions.get(i);
+      if(tempCol->getType1() == collider || tempCol->getType2() == collider){
+        if(tempCol->getType1() == object || tempCol->getType2() == object){
+          return tempCol;
+          break;
+        } else continue;
+      }
+    }
+  }
+
   unsigned short int GameProcess::getFrame() {
     return this->frame;
   };
@@ -100,4 +135,12 @@ namespace Game {
   bool GameProcess::isRunning() {
     return this->window.isOpen();
   };
+
+  unsigned short int GameProcess::getWindowWidth(){
+    return this->width;
+  }
+
+  unsigned short int GameProcess::getWindowHeight(){
+    return this->height;
+  }
 };
