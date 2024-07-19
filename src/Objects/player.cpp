@@ -43,6 +43,7 @@ namespace Game {
         };
 
         if(this->animationFinished && Mouse::left()) {
+            this->shot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
             this->shot_sound.play();
 
             if(this->firstAttack) this->animate(8, 0, false);
@@ -60,6 +61,7 @@ namespace Game {
         player->position = Vector<float>(gp->window.getSize()) * 0.5f;
         player->targetPosition = player->position;
         player->setCircle(32);
+        player->circle.setFillColor(Color::Red);
         player->gp = gp;
         gp->objects.add(player);
         return player;

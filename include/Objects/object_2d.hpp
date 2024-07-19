@@ -30,14 +30,14 @@ namespace Game {
       List<Collision> collisions;
       List<Object2D> colliders;
 
-      bool hasRectangle;
-      Rectangle rectangle;
-      float rectangleHeight;
-      float rectangleWidth;
+      bool hasRectangle = false;
+      Rectangle rectangle = Rectangle();
+      float rectangleHeight = 0;
+      float rectangleWidth = 0;
 
-      bool hasCircle;
-      Circle circle;
-      float circleRadius;
+      bool hasCircle = false;
+      Circle circle = Circle();
+      float circleRadius = 0;
       /// 
       
       /// Movement

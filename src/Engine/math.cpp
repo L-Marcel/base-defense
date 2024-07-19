@@ -3,10 +3,10 @@
 
 namespace Game {
   namespace Math {
-    Vector<float> pointInRadius(double radious, double angle) {
+    Vector<float> pointInRadius(double radius, double angle) {
       float rad = angle * (PI / 180);
-      float y = sinf(rad) * radious;
-      float x = cosf(rad) * radious;
+      float y = sinf(rad) * radius;
+      float x = cosf(rad) * radius;
 
       return Vector<float>(x, y);
     };
