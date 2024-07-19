@@ -112,7 +112,8 @@
     "xmemory": "cpp",
     "xstddef": "cpp",
     "xtr1common": "cpp",
-    "xutility": "cpp"
-  },
-  "C_Cpp.errorSquiggles": "disabled"
+    "xutility": "cpp",
+    "*.tcc": "cpp",
+    "string_view": "cpp"
+  }
 }

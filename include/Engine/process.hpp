@@ -1,4 +1,5 @@
-#include <Engine/objects.hpp>
+#include <Engine/collision.hpp>
+#include <Objects.hpp>
 
 namespace Game {
   class GameProcess {
@@ -9,14 +10,15 @@ namespace Game {
         unsigned short int frame = 0;
         Clock clock;
         bool redraw = false;
-        void (*events)(Event::EventType);
-
       public:
         Window window = Window(VideoMode(800, 600), "Base Defense");
         List<Object> objects;
 
         /// @brief Cria uma instância de processo do jogo
         GameProcess();
+
+        /// @brief Destroy uma instância de processo do jogo
+        ~GameProcess();
 
         /// @brief Cria uma instância de processo do jogo
         /// @param width a largura da janela
@@ -31,13 +33,9 @@ namespace Game {
         /// @brief Inicia o loop do jogo
         void execute();
 
-        /// @brief Adiciona um objeto
-        /// @param object o objeto
-        void addObject(Object* object);
-
         /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
         /// @param object o objeto
-        void animateObject(Object* object);
+        void animate(Object2D* object);
 
         /// @brief Retorna o frame atual do jogo
         /// @return o frame
@@ -49,10 +47,5 @@ namespace Game {
         /// @brief Diz se o jogo ainda está rodando
         /// @return verdadeiro, se estiver, falso caso contrário
         bool isRunning();
-
-        /// @brief Recebe uma função que será chamada para todo e qualquer evento do jogo
-        /// (não confundir com evento de um objeto)
-        /// @param func a função a ser chamada
-        void on(void (*func)(Event::EventType));
   };
 };

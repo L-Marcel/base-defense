@@ -1,5 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <typeinfo>
+#include <string>
 #include <iostream>
 #include <cmath>
 
@@ -17,7 +20,13 @@ namespace Game {
   sf::Sprite typedef Sprite;
   sf::Texture typedef Texture;
   sf::Keyboard typedef Keyboard;
+  sf::Color typedef Color;
 
   template <typename T> 
     using Vector = sf::Vector2<T>;
+  template <typename T>
+    inline ostream& operator<<(ostream& os, const Vector<T>& vec) {
+      os << "(" << vec.x << ", " << vec.y << ")";
+      return os;
+    };
 };

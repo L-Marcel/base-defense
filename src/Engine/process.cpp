@@ -1,10 +1,16 @@
 #include <Engine.hpp>
 
 namespace Game {
+  GameProcess::~GameProcess() {
+    for(unsigned int i = 0; i < this->objects.length(); i++) {
+      Object* object = this->objects.get(i);
+      object->destroy();
+    };
+  };
+
   GameProcess::GameProcess() {
     this->redraw = true;
     this->window.setFramerateLimit(60);
-    this->events = [](Event::EventType ev) {};
   };
 
   GameProcess::GameProcess(
@@ -20,11 +26,6 @@ namespace Game {
     this->window.setTitle(title);
     this->redraw = true;
     this->window.setFramerateLimit(60);
-    this->events = [](Event::EventType ev) {};
-  };
-
-  void GameProcess::on(void (*func)(Event::EventType)) {
-    this->events = func;
   };
 
   void GameProcess::execute() {
@@ -37,8 +38,7 @@ namespace Game {
       };
 
       Event event;
-      while (window.pollEvent(event)) {
-        this->events(event.type);
+      while(window.pollEvent(event)) {
         switch(event.type) {
           case Event::Closed:
             this->window.close();
@@ -54,23 +54,26 @@ namespace Game {
       
       if(this->redraw) {
         this->window.clear();
-        
+
         for(unsigned int i = 0; i < this->objects.length(); i++) {
           Object* object = this->objects.get(i);
-
-          object->step(this);
-          this->animateObject(object);
-          
-          this->window.draw(*object->sprite);
+          object->collision();
+          object->step();
+          object->draw();
         };
 
         this->redraw = false;
         this->window.display();
       };
     };
+
+    for(unsigned int i = 0; i < this->objects.length(); i++) {
+      Object* object = this->objects.get(i);
+      object->destroy();
+    };
   };
 
-  void GameProcess::animateObject(Object* object) {
+  void GameProcess::animate(Object2D* object) {
     sf::IntRect old = object->sprite->getTextureRect();
     Vector<unsigned int> size = object->sprite->getTexture()->getSize();
     object->image += object->fps/60.f;
@@ -83,15 +86,8 @@ namespace Game {
     
     object->animationFinished = image == int(size.x) - old.width;
     object->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
-    object->sprite->setPosition(object->x, object->y);
+    object->sprite->setPosition(object->position.x, object->position.y);
     object->sprite->setRotation(object->rotation);
-  };
-
-  void GameProcess::addObject(Object* object) {
-    this->objects.add(object);
-    // this->objects.sort([](Object* one, Object* two) {
-    //   return one->depth < two->depth;
-    // });
   };
 
   unsigned short int GameProcess::getFrame() {

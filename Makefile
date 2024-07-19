@@ -3,6 +3,7 @@
 ## ================================= ##
 
 FLAGS = -g -Wall -pedantic -Iinclude
+SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system 
 SRC_DIR = src
 BUILD_DIR = _build
 RELEASE_DIR = _release
@@ -17,7 +18,7 @@ TEST_OBJ_FILES = $(patsubst $(TEST_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(TEST_SRC_FILE
 
 ifeq ($(OS),Windows_NT)
 EXEC = $(RELEASE_DIR)\bin\main.exe
-TEST_EXEC = $(RELEASE_DIR)\test_main.exe
+TEST_EXEC = $(RELEASE_DIR)\bin\test_main.exe
 ENV = set LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = if not exist $(subst /,\,$(dir $@)) mkdir $(subst /,\,$(dir $@))
 RM = del /q /f
@@ -33,8 +34,8 @@ endif
 
 all: $(EXEC) $(TEST_EXEC)
 
-valgrind: $(EXEC)
-	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
+# valgrind: $(EXEC)
+# 	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
 
 run: $(EXEC)
 	$(ENV) && $(EXEC)
@@ -43,16 +44,16 @@ dev: $(EXEC)
 	$(ENV) && $(EXEC)
 
 compile: $(OBJ_FILES)
-	g++ -o $(EXEC) $^ -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 test: $(TEST_EXEC)
 	$(ENV) && $(TEST_EXEC)
 
 $(EXEC): $(OBJ_FILES)
-	g++ -o $@ $^ -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)
