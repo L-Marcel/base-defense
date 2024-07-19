@@ -18,6 +18,8 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Player* create(GameProcess* gp, string spriteSheet, Box box);
 
+      void shoot();
+
       Vector<float> targetPosition;
       short unsigned int life = 10;
       bool firstAttack = true;

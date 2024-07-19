@@ -51,13 +51,13 @@ namespace Game {
             else this->animate(8, 1, false);
             
             this->firstAttack = !this->firstAttack;
-            this->shoot(gp);
+            this->shoot();
         };
     };
     
     Player::~Player() {};
 
-    void Player::shoot(GameProcess* gp){
+    void Player::shoot(){
 //         Bullet* bullet = new Bullet("assets/bullet.png", Box(8, 8, 16, 16));
 //         //Bullet bullet();
 //         bullet->x = this->x;
