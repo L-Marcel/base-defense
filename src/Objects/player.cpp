@@ -44,17 +44,8 @@ namespace Game {
             float yy = 0.0;
             float speed = 5.0;
 
-            if(this->x > click.x){
-                xx = this->x - click.x;
-            } else if(this->x < click.x){
-                xx = click.x - this->x;
-            }
-
-            if(this->y > click.y){
-                yy = this->y - click.y;
-            } else if(this->y < click.y){
-                yy = click.y - this->y;
-            }
+            xx = abs(this->x - click.x);
+            yy = abs(this->y - click.y);
 
             if(xx > yy){
                 float proporcao = yy/xx;

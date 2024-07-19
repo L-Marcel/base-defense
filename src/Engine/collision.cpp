@@ -21,7 +21,11 @@ namespace Game{
         if(temp1->hasCCol == true && temp2->hasCCol == temp1->hasCCol){
             CCcollision(temp1, temp2);
         } else if((temp1->hasCCol == true || temp2->hasCCol == true) && (temp1->hasRCol == true || temp2->hasRCol == true)){
-            CRcollision(temp1, temp2);
+            if(temp1->hasCCol == true){
+                CRcollision(temp1, temp2);
+            } else{
+                CRcollision(temp2, temp1);
+            }
         } else if(temp1->hasRCol == true && temp2->hasRCol == temp1->hasRCol){
             RRcollision(temp1, temp2);
         }
@@ -87,6 +91,8 @@ namespace Game{
             }
         }
         
+        cout << rectRegion << endl;
+
         switch(rectRegion){
             case 1:
                 if(dist < objCirc->circ_collision.getRadius() + rectHeight/2) Colliding();
