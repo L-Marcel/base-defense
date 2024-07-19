@@ -4,10 +4,10 @@
 namespace Game {
   namespace Math {
     /// @brief Retorna um ponto nos limites da circunferência de um círculo
-    /// @param radious o raio do círculo
+    /// @param radius o raio do círculo
     /// @param angle o ângulo
     /// @return o par de coordenadas do ponto
-    Vector<float> pointInRadius(double radious, double angle);
+    Vector<float> pointInRadius(double radius, double angle);
 
     /// @brief Retorna o arco tangente da reta que passa entre o ponto (0,0)
     /// e o ponto formado pelas coordenadas (x, y)

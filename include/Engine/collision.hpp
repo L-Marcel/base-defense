@@ -11,8 +11,6 @@ namespace Game{
             /// @brief Cria uma instância do registro de uma colisão
             Collision();
         public:
-            unsigned short int rectRegion;
-
             /// @brief Registra a colisão entre um objeto e um tipo de objeto
             /// @param gp o ponteiro do processo do jogo
             /// @param object o objeto que registrará a colisão
@@ -29,16 +27,16 @@ namespace Game{
             /// @brief Checa a colisão entre dois círculos (duas colisões circulares)
             /// @param obj1 objeto 1 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
             /// @param obj2 objeto 2 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            bool CCcollision(Object2D* obj1, Object2D* obj2);
+            static bool CCcollision(Object2D* obj1, Object2D* obj2);
 
             /// @brief Checa a colisão entre um círculo e um retângulo (uma colisão circular e uma colisão retangular)
             /// @param obj1 objeto 1 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
             /// @param obj2 objeto 2 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            bool CRcollision(Object2D* obj1, Object2D* obj2);
+            static bool CRcollision(Object2D* obj1, Object2D* obj2);
 
             /// @brief Checa a colisão entre dois retângulos (duas colisões retangulares)
             /// @param obj1 objeto 1 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
             /// @param obj2 objeto 2 (a função collision_between já dá esses objetos por ter acesso aos tipos da classe)
-            bool RRcollision(Object2D* obj1, Object2D* obj2);
+            static bool RRcollision(Object2D* obj1, Object2D* obj2);
     };
 };

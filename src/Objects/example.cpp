@@ -17,9 +17,6 @@ namespace Game{
 
     Example* Example::create(GameProcess* gp, string spriteSheet, Box box) {
         Example* example = new Example(spriteSheet, box);
-        example->setCircle(36);
-        example->scale(4);
-        example->position = Vector<float>(500.f, 400.f);
         example->gp = gp;
         gp->objects.add(example);
         return example;
