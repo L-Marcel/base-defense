@@ -1,15 +1,16 @@
 #include <Objects/text.hpp>
 
 namespace Game {
-    string Text::type(){
+    string Text::type() {
         return "Text";
     };
-    void Text::step(GameProcess* gp) {};
-    void Text::draw(GameProcess* gp) {
-        gp->window.draw(this->text);
+    
+    void Text::draw() {
+        this->gp->window.draw(this->text);
     };
 
     Text::~Text() {};
+    
     Text::Text() {
         this->loadFontFromFile("assets/fonts/PixeloidMono.ttf");
         this->setTextFont(this->font);
@@ -19,7 +20,7 @@ namespace Game {
         Text* instance = new Text();
         instance->setTextPosition(position);
         instance->setText(content);
-        instance->_list = &gp->objects;
+        instance->gp = gp;
         gp->objects.add(instance);
         return instance;
     };

@@ -1,18 +1,27 @@
 #include <Objects/example.hpp>
 
 namespace Game{
-    void Example::step(GameProcess* gp){
-        //APENAS PARA DEBUG
-        /*
-        if(this->hasCCol == true){
-            gp->window.draw(this->circ_collision);
-        } else if(this->hasRCol == true){
-            gp->window.draw(this->rect_collision);
-        }
-        */
-    };
-
     string Example::type(){
         return "Example";
-    }
+    };
+
+    void Example::draw(){
+        if(this->hasCircle){
+            this->gp->window.draw(this->circle);
+        } else if(this->hasRectangle){
+            this->gp->window.draw(this->rectangle);
+        }
+    };
+
+    Example::~Example() {};
+
+    Example* Example::create(GameProcess* gp, string spriteSheet, Box box) {
+        Example* example = new Example(spriteSheet, box);
+        example->setCircle(36);
+        example->scale(4);
+        example->position = Vector<float>(500.f, 400.f);
+        example->gp = gp;
+        gp->objects.add(example);
+        return example;
+    };
 };
