@@ -2,7 +2,7 @@
 ## Isso aqui foi gerado usando IA, ok?
 ## ================================= ##
 
-FLAGS = -W -Bstatic -g -Wall -pedantic -Iinclude
+FLAGS = -Bstatic -g -Wall -pedantic -Iinclude
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system 
 SRC_DIR = src
 BUILD_DIR = _build
@@ -34,9 +34,6 @@ endif
 
 all: $(EXEC) $(TEST_EXEC)
 
-# valgrind: $(EXEC)
-# 	$(ENV) && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind.log $(EXEC)
-
 run: $(EXEC)
 	$(ENV) && $(EXEC)
 
@@ -44,7 +41,7 @@ dev: $(EXEC)
 	$(ENV) && $(EXEC)
 
 compile: $(OBJ_FILES)
-	g++ -W -Bstatic -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -Bstatic -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 test: $(TEST_EXEC)
 	$(ENV) && $(TEST_EXEC)
