@@ -18,8 +18,8 @@ namespace Game {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Example") {
-          collider->destroy();
-          this->scale(8.0);
+        collider->destroy();
+        this->scale(8.0);
       };
     };
     
@@ -43,7 +43,7 @@ namespace Game {
       );
     };
 
-    if(this->animationFinished && Mouse::left()) {
+    if(this->animationFinished && (Input::fire() || Mouse::left())) {
       if(this->firstAttack) this->animate(8, 0, false);
       else this->animate(8, 1, false);
       
@@ -56,8 +56,8 @@ namespace Game {
 
   void Player::shoot() {
     Bullet::create(this->gp, this, true);
-    this->shot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
-    this->shot_sound.play();
+    this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+    this->shoot_sound.play();
   };
 
   Player* Player::create(GameProcess* gp) {

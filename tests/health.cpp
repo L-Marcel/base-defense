@@ -18,5 +18,5 @@ TEST(HealthTest, Control) {
   EXPECT_EQ((int) gp.objects.length(), 1);
   health.damage(100.0);
   EXPECT_FLOAT_EQ(health.percent(),  0);
-  EXPECT_EQ((int) gp.objects.length(), 0);
+  EXPECT_EQ((int) gp.queue_free.length(), 1);
 };

@@ -14,6 +14,7 @@ namespace Game {
       this->rectangle.setPosition(this->position.x, this->position.y);
     };
 
+    this->colliders.clear();
     for(unsigned int i = 0; i < this->collisions.length(); i++) {
       Collision* collision = this->collisions.get(i);
       collision->step();

@@ -22,7 +22,7 @@ namespace Game {
       Vector<float> targetPosition;
       short unsigned int life = 10;
       bool firstAttack = true;
-      Sound shot_sound = Sound("shot.mp3");
+      Sound shoot_sound = Sound("shoot.mp3");
     protected:
       using Character::Character;
   };

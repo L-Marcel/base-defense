@@ -17,12 +17,12 @@ namespace Game {
   };
 
   Text* Text::create(GameProcess* gp, Vector<float> position, string content) {
-    Text* instance = new Text();
-    instance->setTextPosition(position);
-    instance->setText(content);
-    instance->gp = gp;
-    gp->objects.add(instance);
-    return instance;
+    Text* text = new Text();
+    text->setTextPosition(position);
+    text->setText(content);
+    text->gp = gp;
+    gp->objects.add(text);
+    return text;
   };
 
   void Text::setTextPosition(Vector<float> position) {

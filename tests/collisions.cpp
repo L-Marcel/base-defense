@@ -5,7 +5,7 @@ TEST(CollisionTest, Destroy) {
   Player* player = Player::create(&gp);
   Collision* collision = Collision::create(&gp, player, "Example");
   EXPECT_EQ((int) player->collisions.length(), 1);
-  collision->free();
+  collision->destroy();
   EXPECT_EQ((int) player->collisions.length(), 0);
 };
 
@@ -21,9 +21,10 @@ TEST(CollisionTest, Step) {
   EXPECT_EQ((int) player->colliders.length(), 1);
   EXPECT_EQ(player->colliders.get(0), object);
   object->free();
-  collision->step();
+  gp.objects.remove(object);
+  player->collision();
   EXPECT_EQ((int) player->colliders.length(), 0);
-  collision->free();
+  collision->destroy();
   EXPECT_EQ((int) player->collisions.length(), 0);
 };
 

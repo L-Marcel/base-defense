@@ -5,7 +5,7 @@ namespace Game{
 
 	void Collision::destroy() {
 		if(this->object) {
-				this->object->collisions.remove(this);
+			this->object->collisions.remove(this);
 		};
 
 		delete this;
@@ -21,8 +21,6 @@ namespace Game{
 	};
 
 	void Collision::step() {
-		this->object->colliders.clear();
-
 		for(unsigned int i = 0; i < this->gp->objects.length(); i++){
 			Object* candidate = this->gp->objects.get(i);
 			if(candidate->type() == this->collider && this->object != candidate) {
