@@ -4,7 +4,7 @@ namespace Game {
   GameProcess::~GameProcess() {
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
-      object->destroy();
+      object->free();
     };
   };
 
@@ -64,13 +64,22 @@ namespace Game {
 
         this->redraw = false;
         this->window.display();
+
+        for(unsigned int i = 0; i < this->queue_free.length(); i++) {
+          Object* object = this->queue_free.get(i);
+          this->objects.remove(object);
+          this->queue_free.remove(i);
+          object->free();
+        };
       };
     };
 
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
-      object->destroy();
+      object->free();
     };
+
+    this->objects.clear();
   };
 
   void GameProcess::animate(Object2D* object) {

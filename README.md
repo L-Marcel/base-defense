@@ -9,8 +9,8 @@
 # Instruções para compilar e executar
 - Instale o `Make`, no caso do `Windows`, use esse [aqui](_windows/winlibs-x86_64-posix-seh-gcc-13.1.0-mingw-w64msvcrt-11.0.0-r5.7z) (que é o compatível);
 - Instale o `OpenAl`, disponível [aqui](https://www.openal.org/downloads/):
-    - No `Linux`, basta instalar o pacote `libopenal-dev`;
-    - No `Ubuntu`, por exemplo, basta executar:
+    - No `Linux` talvez não precise, mas, por garantia, basta instalar o pacote `libopenal-dev`;
+    - No `Ubuntu`, por exemplo, basta executar o comando abaixo para instalar o pacote:
         ```
         sudo apt install libopenal-dev
         ```

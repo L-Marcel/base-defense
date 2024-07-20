@@ -1,4 +1,4 @@
-#include <Mouse.hpp>
+#include <Input.hpp>
 
 namespace Game {
   namespace Mouse {
