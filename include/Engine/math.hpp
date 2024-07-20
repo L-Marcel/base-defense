@@ -26,6 +26,6 @@ namespace Game {
     /// @param a o primeiro ponto
     /// @param b o segundo ponto
     /// @return a distância
-    double pointDistance(Vector<float> a, Vector<float> b);
+    double pointDistance(Vector<float> a, Vector<float> b = Vector<float>(0, 0));
   };
 };
