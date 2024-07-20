@@ -15,6 +15,16 @@ set_target_properties(sfml-system PROPERTIES
 list(APPEND _cmake_import_check_targets sfml-system )
 list(APPEND _cmake_import_check_files_for_sfml-system "${_IMPORT_PREFIX}/lib/libsfml-system-s-d.a" )
 
+# Import target "sfml-main" for configuration "Debug"
+set_property(TARGET sfml-main APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+set_target_properties(sfml-main PROPERTIES
+  IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
+  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/lib/libsfml-main-d.a"
+  )
+
+list(APPEND _cmake_import_check_targets sfml-main )
+list(APPEND _cmake_import_check_files_for_sfml-main "${_IMPORT_PREFIX}/lib/libsfml-main-d.a" )
+
 # Import target "sfml-window" for configuration "Debug"
 set_property(TARGET sfml-window APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-window PROPERTIES
