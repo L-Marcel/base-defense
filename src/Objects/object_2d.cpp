@@ -1,4 +1,3 @@
-#include <Engine.hpp>
 #include <Objects.hpp>
 
 namespace Game {
@@ -15,6 +14,7 @@ namespace Game {
       this->rectangle.setPosition(this->position.x, this->position.y);
     };
 
+    this->colliders.clear();
     for(unsigned int i = 0; i < this->collisions.length(); i++) {
       Collision* collision = this->collisions.get(i);
       collision->step();
@@ -57,7 +57,7 @@ namespace Game {
     return instance;
   };
 
-  void Object2D::destroy() {
+  void Object2D::free() {
     if(this->gp) {
       this->gp->objects.remove(this);
     };
