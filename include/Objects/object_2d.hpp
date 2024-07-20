@@ -8,7 +8,7 @@ namespace Game {
       virtual void step();
       virtual void collision();
       virtual void draw();
-      virtual void destroy();
+      virtual void free();
       virtual ~Object2D();
 
       /// @brief Cria uma instância do objeto 2D
