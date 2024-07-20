@@ -1,38 +1,34 @@
 #include <Misc/health.hpp>
 
 namespace Game{
-    void Health::setCurrentHealth(float newHealth)
-    {
-        this->currentHealth = newHealth;
-    }
+  void Health::set(float amount) {
+    this->total = amount;
+  };
 
-    void Health::damage(float dmg)
-    {   
-        if (dmg >= this->currentHealth)
-        {   
-            Health::setCurrentHealth(0);
-            // this->object->destroy()
-        }else
-        {
-            Health::setCurrentHealth(this->currentHealth - dmg);
-        }
-    }
+  float Health::get() {
+    return this->total;
+  };
 
-    void Health::heal(float heal)
-    {
-        if (heal > this->maxHealth)
-        {   
-            Health::setCurrentHealth(this->currentHealth+(std::abs(this->maxHealth - this->currentHealth)));
-        }else
-        {
-            Health::setCurrentHealth(this->currentHealth + heal);
-        }
-    }
+  float Health::percent() {
+    return this->total/this->limit;
+  };
 
-    Health::Health(Object *obj, float maxHealth)
-    {
-        this->object = obj;
-        this->maxHealth = maxHealth;
-        this->currentHealth = maxHealth;
-    }
+  void Health::damage(float amount) {
+    Health::set(max(this->total - amount, 0.0f));
+    if(this->total <= 0 && this->object != nullptr) {
+      this->object->destroy();
+    };
+  };
+
+  void Health::heal(float amount) {
+    Health::set(min(this->total + amount, this->limit));
+  };
+
+  Health::Health() {};
+
+  Health::Health(Object* object, float limit) {
+    this->object = object;
+    this->limit = limit;
+    this->total = limit;
+  };
 }

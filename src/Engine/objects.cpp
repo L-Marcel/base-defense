@@ -23,6 +23,10 @@ namespace Game {
   };
 
   void Object::destroy() {
+    this->gp->queue_free.add(this);
+  };
+
+  void Object::free() {
     if(this->gp) {
       this->gp->objects.remove(this);
     };

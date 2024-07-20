@@ -21,7 +21,7 @@ int main() {
     example_two->scale(4);
     example_two->position = Vector<float>(200.f, 300.f);
 
-    Player* player = Player::create(&gp, "player.png", Box(12, 14, 24, 28));
+    Player* player = Player::create(&gp);
 
     player->scale(4);
     player->animate(8, 1, false);
@@ -29,6 +29,7 @@ int main() {
     // Essa colisão poderia ser criada no Player::create, 
     // mas aqui temos apenas um exemplo
     Collision::create(&gp, player, "Example");
+    Collision::create(&gp, example_two, "Bullet");
     
     gp.execute();
 

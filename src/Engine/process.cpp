@@ -64,6 +64,13 @@ namespace Game {
 
         this->redraw = false;
         this->window.display();
+
+        for(unsigned int i = 0; i < this->queue_free.length(); i++) {
+          Object* object = this->queue_free.get(i);
+          this->objects.remove(object);
+          this->queue_free.remove(i);
+          object->free();
+        };
       };
     };
 

@@ -1,4 +1,3 @@
-#include <Engine.hpp>
 #include <Objects.hpp>
 
 namespace Game {
@@ -57,7 +56,7 @@ namespace Game {
     return instance;
   };
 
-  void Object2D::destroy() {
+  void Object2D::free() {
     if(this->gp) {
       this->gp->objects.remove(this);
     };

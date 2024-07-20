@@ -1,4 +1,4 @@
-#include <Engine.hpp>
+#include <Objects.hpp>
 
 namespace Game {
   class Text : public Object {
@@ -7,11 +7,11 @@ namespace Game {
       using Object::step;
       using Object::collision;
       virtual void draw();
-      using Object::destroy;
+      using Object::free;
       virtual ~Text();
 
       /// @brief Cria uma instância do texto
-      /// @param gp pornteiro do processo do jogo
+      /// @param gp ponteiro do processo do jogo
       /// @param position a posição do texto
       /// @param content o conteúdo do texto
       static Text* create(GameProcess* gp, Vector<float> position, string content);

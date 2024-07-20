@@ -23,12 +23,15 @@ namespace Game {
       /// tipo Object deve definir a forma que o objeto será desenhado
       /// @param gp ponteiro do processo do jogo
       virtual void draw();
-      
+
       /// @brief Remove a instância do jogo e libera ela da memória
-      virtual void destroy();
+      virtual void free();
 
       /// @brief Destroi objeto
       virtual ~Object();
+
+      /// @brief Coloca o objeto na lista de objetos a serem apagados
+      void destroy();
 
       /// @brief Cria uma instância do objeto
       /// @param gp ponteiro do processo do jogo
