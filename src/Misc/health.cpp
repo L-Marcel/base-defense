@@ -1,10 +1,6 @@
 #include <Misc/health.hpp>
 
-namespace Game{
-  void Health::set(float amount) {
-    this->total = amount;
-  };
-
+namespace Game {
   float Health::get() {
     return this->total;
   };
@@ -14,14 +10,14 @@ namespace Game{
   };
 
   void Health::damage(float amount) {
-    Health::set(max(this->total - amount, 0.0f));
+    this->total = max(this->total - amount, 0.0f);
     if(this->total <= 0 && this->object != nullptr) {
       this->object->destroy();
     };
   };
 
   void Health::heal(float amount) {
-    Health::set(min(this->total + amount, this->limit));
+    this->total = min(this->total + amount, this->limit);
   };
 
   Health::Health() {};

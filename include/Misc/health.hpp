@@ -7,10 +7,6 @@ namespace Game {
       Object* object = nullptr;
       float total = 100;
       float limit = 100;
-
-      /// @brief Altera a quantia total atual devida
-      /// @param amount a nova quantia total
-      void set(float amount);
     public:
       /// @brief Retorna a quantia total de vida
       /// @return a quantia
