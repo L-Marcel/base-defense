@@ -40,3 +40,6 @@
 - `SFML/Graphics` - recursos da gráficos do `SFML`;
 - `SFML/Audio.hpp` - recursos da sonoros do `SFML`;
 - `gtest` e `gmock` - biblitecas do `googletest` usadas nos [`tests`](tests).
+
+[//]: <Comandos de build das libs>
+[//]: <cmake -G "MinGW Makefiles" .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -D"CMAKE_MAKE_PROGRAM:PATH=C:/MinGW/bin/make.exe" -DCMAKE_C_COMPILER_WORKS=1 -DCMAKE_CXX_COMPILER_WORKS=1 -DGTEST_CREATE_SHARED_LIBRARY=1 -DGTEST_LINKED_AS_SHARED_LIBRARY=1">
