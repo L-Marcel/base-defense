@@ -18,14 +18,14 @@ TEST_OBJ_FILES = $(patsubst $(TEST_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(TEST_SRC_FILE
 
 ifeq ($(OS),Windows_NT)
 EXEC = $(RELEASE_DIR)\bin\main.exe
-TEST_EXEC = $(RELEASE_DIR)\bin\test_main.exe
+TEST_EXEC = $(RELEASE_DIR)\bin\tests.exe
 ENV = set LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = if not exist $(subst /,\,$(dir $@)) mkdir $(subst /,\,$(dir $@))
 RM = del /q /f
 RMDIR = rmdir /q /s
 else
-EXEC = $(RELEASE_DIR)/main
-TEST_EXEC = $(RELEASE_DIR)/test_main
+EXEC = $(RELEASE_DIR)/bin/main
+TEST_EXEC = $(RELEASE_DIR)/bin/tests
 ENV = export LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = mkdir -p $(dir $@)
 RM = rm -f
@@ -47,10 +47,12 @@ test: $(TEST_EXEC)
 	$(ENV) && $(TEST_EXEC)
 
 $(EXEC): $(OBJ_FILES)
-	g++ -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -W -Bstatic -o $@ $^ -L$(TEST_DIR)/googletest/build/lib -lgtest -lgtest_main -lgmock -pthread -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS) -lgtest -lgmock -pthread
+
+# -lgtest_main -lgmock_main
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)
@@ -69,4 +71,4 @@ clean:
 	@$(RM) $(EXEC)
 	@$(RM) $(TEST_EXEC)
 
-.PHONY: all valgrind run dev compile test clean
+.PHONY: all run dev compile test clean
