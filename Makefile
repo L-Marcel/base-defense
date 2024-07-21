@@ -3,7 +3,7 @@
 ## ================================= ##
 
 FLAGS = -Bstatic -g -Wall -pedantic -Iinclude
-SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system 
+SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system -lFLAC -lfreetype -logg -lopenal -lvorbis -lvorbisenc -lvorbisfile
 SRC_DIR = src
 BUILD_DIR = _build
 RELEASE_DIR = _release
