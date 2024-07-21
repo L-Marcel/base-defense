@@ -3,7 +3,8 @@
 ## ================================= ##
 
 FLAGS = -Bstatic -g -Wall -pedantic -Iinclude
-SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system -lFLAC -lfreetype -logg -lopenal -lvorbis -lvorbisenc -lvorbisfile
+SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
+LINUX_FLAGS = -lFLAC -lfreetype -logg -lopenal -lvorbis -lvorbisenc -lvorbisfile
 SRC_DIR = src
 BUILD_DIR = _build
 RELEASE_DIR = _release
@@ -30,6 +31,7 @@ ENV = export LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = mkdir -p $(dir $@)
 RM = rm -f
 RMDIR = rm -rf
+SFML_FLAGS += $(LINUX_FLAGS)
 endif
 
 all: $(EXEC) $(TEST_EXEC)
@@ -50,9 +52,7 @@ $(EXEC): $(OBJ_FILES)
 	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS) -lgtest -lgmock -pthread
-
-# -lgtest_main -lgmock_main
+	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS) -lgtest -lgtest_main -lgmock -lgmock_main -pthread
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)
