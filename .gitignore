@@ -1,8 +1,5 @@
 _build
 valgrind.log
-_release/main
-_release/test_main
-_release/bin/main
-_release/bin/test_main
-_release/bin/main.exe
-_release/bin/test_main.exe
+_release/**/main*
+_release/**/test_main*
+_release/**/tests*
