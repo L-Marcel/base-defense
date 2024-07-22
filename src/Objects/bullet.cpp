@@ -13,6 +13,7 @@ namespace Game {
 
   Bullet* Bullet::create(GameProcess* gp, Object2D* object, bool ally) {
     Bullet* bullet = new Bullet("bullet.png", Box(8, 8, 16, 16));
+    bullet->depth = 50;
     bullet->position = object->position;
     bullet->setCircle(18);
     bullet->scale(1);

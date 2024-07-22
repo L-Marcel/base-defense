@@ -17,6 +17,12 @@ namespace Game{
 
   void Example::draw() {
     if(this->hasCircle){
+      this->circle.setPosition(this->position.x, this->position.y);
+    } else if(this->hasRectangle) {
+      this->rectangle.setPosition(this->position.x, this->position.y);
+    };
+
+    if(this->hasCircle){
       this->gp->window.draw(this->circle);
     } else if(this->hasRectangle){
       this->gp->window.draw(this->rectangle);

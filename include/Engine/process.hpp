@@ -4,14 +4,14 @@
 namespace Game {
   class GameProcess {
     private:
-      unsigned short int width = 800;
-      unsigned short int height = 600;
+      unsigned short int width = 1280;
+      unsigned short int height = 720;
       string title = "Base Defense";
       unsigned short int frame = 0;
       Clock clock;
       bool redraw = false;
     public:
-      Window window = Window(VideoMode(800, 600), "Base Defense");
+      Window window = Window(VideoMode(1280, 720), "Base Defense");
       List<Object> objects;
       List<Object> queue_free;
 
@@ -20,16 +20,6 @@ namespace Game {
 
       /// @brief Destroy uma instância de processo do jogo
       ~GameProcess();
-
-      /// @brief Cria uma instância de processo do jogo
-      /// @param width a largura da janela
-      /// @param height a altura da janela
-      /// @param title o título da janela
-      GameProcess(
-        unsigned short int width, 
-        unsigned short int height,
-        string title
-      );
       
       /// @brief Inicia o loop do jogo
       void execute();
@@ -37,6 +27,9 @@ namespace Game {
       /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
       /// @param object o objeto
       void animate(Object2D* object);
+
+      /// @brief Reordenada a ordem dos objetos com base no `depth` de cada um
+      void sort();
 
       /// @brief Retorna o frame atual do jogo
       /// @return o frame

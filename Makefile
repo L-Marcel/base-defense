@@ -2,8 +2,9 @@
 ## Isso aqui foi gerado usando IA, ok?
 ## ================================= ##
 
-FLAGS = -Bstatic -g -Wall -pedantic -Iinclude
-SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system 
+FLAGS = -g -Wall -pedantic -Iinclude
+SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
+LINUX_FLAGS = -lFLAC -lfreetype -logg -lopenal -lvorbis -lvorbisenc -lvorbisfile
 SRC_DIR = src
 BUILD_DIR = _build
 RELEASE_DIR = _release
@@ -30,6 +31,7 @@ ENV = export LD_LIBRARY_PATH=$(RELEASE_DIR)/lib
 MKDIR = mkdir -p $(dir $@)
 RM = rm -f
 RMDIR = rm -rf
+SFML_FLAGS += $(LINUX_FLAGS)
 endif
 
 all: $(EXEC) $(TEST_EXEC)
@@ -41,18 +43,16 @@ dev: $(EXEC)
 	$(ENV) && $(EXEC)
 
 compile: $(OBJ_FILES)
-	g++ -Bstatic -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 test: $(TEST_EXEC)
 	$(ENV) && $(TEST_EXEC)
 
 $(EXEC): $(OBJ_FILES)
-	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS) -lgtest -lgmock -pthread
-
-# -lgtest_main -lgmock_main
+	g++ -o $@ $^ -L$(RELEASE_DIR)/lib -lgtest -lgtest_main -lgmock -lgmock_main -pthread $(SFML_FLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)
