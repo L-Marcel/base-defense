@@ -20,8 +20,6 @@ namespace Game {
       void shoot();
 
       Vector<float> targetPosition;
-      short unsigned int life = 10;
-      bool firstAttack = true;
       Sound shoot_sound = Sound("shoot.mp3");
     protected:
       using Character::Character;

@@ -14,8 +14,8 @@ TEST(CollisionTest, Step) {
   Player* player = Player::create(&gp);
   Collision* collision = Collision::create(&gp, player, "Object2D");
   Object2D* object = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
-  object->setCircle(1);
   object->position = player->position;
+  object->setCircle(1);
   collision->step();
   EXPECT_EQ((int) player->collisions.length(), 1);
   EXPECT_EQ((int) player->colliders.length(), 1);
@@ -35,8 +35,8 @@ TEST(CollisionTest, Circles) {
   first->setCircle(1);
 
   Object2D* second = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
-  second->setCircle(1);
   second->position = first->position;
+  second->setCircle(1);
   
   EXPECT_TRUE(Collision::hasCirclesCollision(first, first));
   EXPECT_FALSE(Collision::hasCircleAndRectangleCollision(first, first));

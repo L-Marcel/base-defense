@@ -3,7 +3,7 @@
 namespace Game {
   class Character : public Object2D {
     public:
-      using Object2D::type;
+      virtual string type();
       using Object2D::step;
       using Object2D::collision;
       using Object2D::draw;

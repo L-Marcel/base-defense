@@ -22,15 +22,26 @@ namespace Game {
   };
 
   void Object2D::draw() {
-    this->gp->animate(this);
-    this->gp->window.draw(*this->sprite);
+    if(this->hasCircle){
+      this->circle.setPosition(this->position.x, this->position.y);
+    } else if(this->hasRectangle) {
+      this->rectangle.setPosition(this->position.x, this->position.y);
+    };
+
+    if(this->sprite != nullptr) {
+      this->gp->animate(this);
+      this->gp->window.draw(*this->sprite);
+    };
   };
 
   Object2D::~Object2D() {
-    delete this->sprite->getTexture();
-    delete this->sprite;
+    if(this->sprite != nullptr) {
+      delete this->sprite->getTexture();
+      delete this->sprite;
+    };
   };
 
+  Object2D::Object2D() {};
   Object2D::Object2D(string spriteSheet, Box box) {
     Texture* texture = new Texture();
     this->sprite = new Sprite();
@@ -70,14 +81,15 @@ namespace Game {
     delete this;
   };
 
-  void Object2D::animate(float fps, unsigned short int textureRow, bool loop, float image) {
+  void Object2D::animate(float fps, unsigned short int frames, unsigned short int textureRow, bool loop, float image) {
     this->image = image;
+    this->frames = frames;
     this->loop = loop;
     this->fps = fps;
     sf::IntRect old = this->sprite->getTextureRect();
     Vector<unsigned int> size = this->sprite->getTexture()->getSize();
 
-    this->sprite->setTextureRect(Box((int(floor(this->image)) * old.width) % size.x, (textureRow * old.height) % size.y, old.width, old.height));
+    this->sprite->setTextureRect(Box((int(floor(this->image)) * old.width) % (this->frames * old.width), (textureRow * old.height) % size.y, old.width, old.height));
   };
 
   void Object2D::scale(float scale) {
@@ -93,6 +105,7 @@ namespace Game {
 
     this->rectangle.setSize(Vector<float>(width, height));
     this->rectangle.setOrigin(width/2, height/2);
+    this->rectangle.setPosition(this->position.x, this->position.y);
     this->rectangleWidth = width;
     this->rectangleHeight = height;
     this->hasRectangle = true;
@@ -102,6 +115,7 @@ namespace Game {
     if(this->hasRectangle) return;
     this->circle.setRadius(radius);
     this->circle.setOrigin(radius, radius);
+    this->circle.setPosition(this->position.x, this->position.y);
     this->circleRadius = radius;
     this->hasCircle = true;
   };

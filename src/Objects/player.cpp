@@ -8,18 +8,17 @@ namespace Game {
   };
 
   void Player::step() {
-    if(this->hasCircle){
-      gp->window.draw(this->circle);
-    } else if(this->hasRectangle == true){
-      gp->window.draw(this->rectangle);
-    };
+    // if(this->hasCircle){
+    //   gp->window.draw(this->circle);
+    // } else if(this->hasRectangle == true){
+    //   gp->window.draw(this->rectangle);
+    // };
     
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Example") {
         collider->destroy();
-        this->scale(8.0);
       };
     };
     
@@ -44,10 +43,7 @@ namespace Game {
     };
 
     if(this->animationFinished && (Input::fire() || Mouse::left())) {
-      if(this->firstAttack) this->animate(8, 0, false);
-      else this->animate(8, 1, false);
-      
-      this->firstAttack = !this->firstAttack;
+      this->animate(8, 6, 1, false);
       this->shoot();
     };
   };
@@ -61,13 +57,15 @@ namespace Game {
   };
 
   Player* Player::create(GameProcess* gp) {
-    Player* player = new Player("player.png", Box(12, 14, 24, 28));
+    Player* player = new Player("player.png", Box(15, 13, 32, 32));
     player->speed = 5.0;
-    player->position = Vector<float>(gp->window.getSize()) * 0.5f;
+    player->animate(8, 1, 0, false);
+    player->position = Vector<float>(640, 360);
     player->targetPosition = player->position;
     player->setCircle(32);
     player->circle.setFillColor(Color::Red);
     player->gp = gp;
+    player->depth = 100;
     gp->objects.add(player);
     return player;
   };
