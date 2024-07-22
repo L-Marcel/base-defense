@@ -15,6 +15,7 @@ namespace Game {
     background->depth = -100;
     background->scale(2);
     background->gp = gp;
+    background->setRectangle(208 * 2, 144 * 2);
     gp->objects.add(background);
     return background;
   };

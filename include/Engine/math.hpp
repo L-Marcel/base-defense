@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/base.hpp>
+#include <Engine/defs.hpp>
 
 namespace Game {
   namespace Math {

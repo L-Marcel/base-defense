@@ -16,6 +16,7 @@ namespace Game {
   };
 
   void GameProcess::execute() {
+    unsigned int number_of_instances = 0;
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 
@@ -39,7 +40,6 @@ namespace Game {
         };
       };
       
-      unsigned int number_of_instances = 0;
       if(this->redraw) {
         this->window.clear();
 
@@ -95,7 +95,7 @@ namespace Game {
 
   void GameProcess::sort() {
     this->objects.sort([](Object* a, Object* b) {
-      return a->depth < b->depth;
+      return a->depth <= b->depth;
     });
   };
 

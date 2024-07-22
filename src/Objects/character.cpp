@@ -7,6 +7,10 @@ namespace Game {
 
   Character::~Character() {};
 
+  Character::Character() {
+    this->health = Health(this, 100);
+  };
+  
   Character::Character(string spriteSheet, Box box, float base_health) 
   : Object2D(spriteSheet, box) {
     this->health = Health(this, base_health);

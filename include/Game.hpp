@@ -5,3 +5,4 @@
 #include <Objects/text.hpp>
 #include <Objects/background.hpp>
 #include <Objects/limit.hpp>
+#include <Objects/base.hpp>

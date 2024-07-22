@@ -23,5 +23,6 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       /// @param base_health o quantidade inicial de vida, também considerada o limite
       Character(string spriteSheet, Box box, float base_health = 100);
+      Character();
   };
 };

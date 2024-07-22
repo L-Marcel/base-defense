@@ -42,6 +42,7 @@ namespace Game {
       int depth = 0;
     protected:
       GameProcess* gp;
+      bool free_queued = false;
 
       /// @brief Cria uma instância do objeto
       Object();

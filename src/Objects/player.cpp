@@ -10,7 +10,7 @@ namespace Game {
   void Player::step() {
     // if(this->hasCircle){
     //   gp->window.draw(this->circle);
-    // } else if(this->hasRectangle == true){
+    // } else if(this->hasRectangle){
     //   gp->window.draw(this->rectangle);
     // };
     
@@ -63,9 +63,8 @@ namespace Game {
     player->position = Vector<float>(640, 360);
     player->targetPosition = player->position;
     player->setCircle(32);
-    player->circle.setFillColor(Color::Red);
-    player->gp = gp;
     player->depth = 100;
+    player->gp = gp;
     gp->objects.add(player);
     return player;
   };
