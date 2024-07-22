@@ -22,6 +22,11 @@ namespace Game {
   };
 
   void Object2D::draw() {
+    if(this->hasCircle){
+      gp->window.draw(this->circle);
+    } else if(this->hasRectangle == true){
+      gp->window.draw(this->rectangle);
+    };
     this->gp->animate(this);
     this->gp->window.draw(*this->sprite);
   };

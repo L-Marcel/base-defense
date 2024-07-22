@@ -8,19 +8,16 @@ namespace Game {
   };
 
   void Player::step() {
-    if(this->hasCircle){
-      gp->window.draw(this->circle);
-    } else if(this->hasRectangle == true){
-      gp->window.draw(this->rectangle);
-    };
-    
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
-      if(type == "Example") {
-        collider->destroy();
-        this->scale(8.0);
-      };
+      if(type == "Bullet"){
+        Bullet* bullet = (Bullet*) collider;
+        if(!bullet->isAlly()){
+          collider->destroy();
+          this->health.damage(20);
+        }
+      }
     };
     
     Vector<float> mouse = Mouse::position(&this->gp->window);

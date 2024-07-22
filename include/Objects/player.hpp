@@ -1,3 +1,4 @@
+#pragma once
 #include <Character.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>
@@ -13,7 +14,7 @@ namespace Game {
       virtual ~Player();
 
       /// @brief Cria uma instância do player
-      /// @param gp pornteiro do processo do jogo
+      /// @param gp ponteiro do processo do jogo
       static Player* create(GameProcess* gp);
 
       /// @brief Realiza um disparo

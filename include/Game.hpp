@@ -3,3 +3,4 @@
 #include <Objects/player.hpp>
 #include <Objects/example.hpp>
 #include <Objects/text.hpp>
+#include <Objects/enemy.hpp>

@@ -18,18 +18,24 @@ int main() {
   example->position = Vector<float>(500.f, 400.f);
 
   Example* example_two = Example::create(&gp, "ball.png", Box(8, 8, 16, 16));
-  example_two->setRectangle(100, 50);
+  example_two->setRectangle(60, 30);
   example_two->scale(4);
-  example_two->position = Vector<float>(200.f, 300.f);
+  example_two->position = Vector<float>(100.f, 500.f);
 
   Player* player = Player::create(&gp);
   player->scale(4);
   player->animate(8, 1, false);
+
+  Enemy* enemy = Enemy::create(&gp, player, example_two);
+  enemy->scale(2);
+  enemy->animate(8, 0, false);
   
   // Essa colisão poderia ser criada no Player::create, 
   // mas aqui temos apenas um exemplo
   Collision::create(&gp, player, "Example");
-  Collision::create(&gp, example_two, "Bullet");
+  //Collision::create(&gp, example_two, "Bullet");
+  Collision::create(&gp, enemy, "Bullet");
+  Collision::create(&gp, player, "Bullet");
   
   gp.execute();
 
