@@ -14,6 +14,7 @@ namespace Game {
   sf::Event typedef Event;
   sf::RenderWindow typedef Window;
   sf::VideoMode typedef VideoMode;
+  sf::View typedef View;
   sf::IntRect typedef Box;
   sf::RectangleShape typedef Rectangle;
   sf::CircleShape typedef Circle;

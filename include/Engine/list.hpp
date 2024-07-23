@@ -50,10 +50,9 @@ namespace Game {
         std::sort(this->list.begin(), this->list.end(), compare);
       };
 
+      /// @brief Limpa a lista, mas não libera alocações.
       inline void clear() {
-        for(long unsigned int i = 0; i < this->list.size(); i++) {
-          this->remove(i);
-        };
+        this->list.clear();
       };
   };
 };

@@ -11,24 +11,12 @@ namespace Game {
   GameProcess::GameProcess() {
     this->redraw = true;
     this->window.setFramerateLimit(60);
-  };
-
-  GameProcess::GameProcess(
-    unsigned short int width = 800,
-    unsigned short int height = 600,
-    string title = "Base Defense"
-  ) {
-    this->title = title;
-    this->width = width;
-    this->height = height;
-
-    this->window.setSize(Vector<unsigned int>(width, height));
-    this->window.setTitle(title);
-    this->redraw = true;
-    this->window.setFramerateLimit(60);
+    this->window.setSize(Vector<unsigned int>(this->width, this->height));
+    this->window.setTitle(this->title);
   };
 
   void GameProcess::execute() {
+    unsigned int number_of_instances = 0;
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 
@@ -55,14 +43,18 @@ namespace Game {
       if(this->redraw) {
         this->window.clear();
 
-        for(unsigned int i = 0; i < this->objects.length(); i++) {
+        if(this->objects.length() != number_of_instances) {
+          this->sort();
+          number_of_instances = this->objects.length();
+        };
+
+        for(unsigned int i = 0; i < number_of_instances; i++) {
           Object* object = this->objects.get(i);
           object->collision();
           object->step();
           object->draw();
         };
 
-        this->redraw = false;
         this->window.display();
 
         for(unsigned int i = 0; i < this->queue_free.length(); i++) {
@@ -71,6 +63,8 @@ namespace Game {
           this->queue_free.remove(i);
           object->free();
         };
+
+        this->redraw = false;
       };
     };
 
@@ -84,19 +78,26 @@ namespace Game {
 
   void GameProcess::animate(Object2D* object) {
     sf::IntRect old = object->sprite->getTextureRect();
-    Vector<unsigned int> size = object->sprite->getTexture()->getSize();
     object->image += object->fps/60.f;
 
     int image = int(floor(object->image)) * old.width;
 
-    if(!object->loop) {
-      image = min(image, int(size.x) - old.width);
-    };
+    if(object->loop) {
+      image = image % (object->frames * old.width);
+    } else {
+      image = min(image, (object->frames - 1) * old.width);
+    }
     
-    object->animationFinished = image == int(size.x) - old.width;
-    object->sprite->setTextureRect(Box(image % size.x, old.top, old.width, old.height));
+    object->animationFinished = image == (object->frames - 1) * old.width;
+    object->sprite->setTextureRect(Box(image, old.top, old.width, old.height));
     object->sprite->setPosition(object->position.x, object->position.y);
     object->sprite->setRotation(object->rotation);
+  };
+
+  void GameProcess::sort() {
+    this->objects.sort([](Object* a, Object* b) {
+      return a->depth <= b->depth;
+    });
   };
 
   unsigned short int GameProcess::getFrame() {

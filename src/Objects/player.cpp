@@ -8,16 +8,21 @@ namespace Game {
   };
 
   void Player::step() {
+    this->safe = false;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
-      if(type == "Bullet"){
-        Bullet* bullet = (Bullet*) collider;
-        if(!bullet->isAlly()){
-          collider->destroy();
-          this->health.damage(20);
-        }
-      }
+      if(type == "Base") {
+        this->safe = true;
+      };
+      
+//       if(type == "Bullet"){
+//         Bullet* bullet = (Bullet*) collider;
+//         if(!bullet->isAlly()){
+//           collider->destroy();
+//           this->health.damage(20);
+//         }
+//       };
     };
     
     Vector<float> mouse = Mouse::position(&this->gp->window);
@@ -41,10 +46,7 @@ namespace Game {
     };
 
     if(this->animationFinished && (Input::fire() || Mouse::left())) {
-      if(this->firstAttack) this->animate(8, 0, false);
-      else this->animate(8, 1, false);
-      
-      this->firstAttack = !this->firstAttack;
+      this->animate(8, 6, 1, false);
       this->shoot();
     };
   };
@@ -52,20 +54,26 @@ namespace Game {
   Player::~Player() {};
 
   void Player::shoot() {
-    Bullet::create(this->gp, this, true);
+    Bullet* bullet = Bullet::create(this->gp, this, true);
+    bullet->canBeBlocked = !this->safe;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.play();
   };
 
   Player* Player::create(GameProcess* gp) {
-    Player* player = new Player("player.png", Box(12, 14, 24, 28));
+    Player* player = new Player("player.png", Box(15, 13, 32, 32));
     player->speed = 5.0;
-    player->position = Vector<float>(gp->window.getSize()) * 0.5f;
+    player->animate(8, 1, 0, false);
+    player->position = Vector<float>(640, 360);
     player->targetPosition = player->position;
     player->setCircle(32);
-    player->circle.setFillColor(Color::Red);
+    player->depth = 100;
     player->gp = gp;
     gp->objects.add(player);
+
+    Collision::create(gp, player, "Bullet");
+    Collision::create(gp, player, "Base");
+
     return player;
   };
 };

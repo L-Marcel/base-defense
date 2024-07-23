@@ -19,6 +19,7 @@ namespace Game {
       /// @brief Diz se a bala é aliada ao jogador ou não
       /// @return `true` se for aliada, `false` caso contrário
       bool isAlly();
+      bool canBeBlocked = true;
     protected:
       using Object2D::Object2D;
       bool ally = false;

@@ -3,7 +3,7 @@
 namespace Game {
   class Character : public Object2D {
     public:
-      using Object2D::type;
+      virtual string type();
       using Object2D::step;
       using Object2D::collision;
       using Object2D::draw;
@@ -23,5 +23,6 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       /// @param base_health o quantidade inicial de vida, também considerada o limite
       Character(string spriteSheet, Box box, float base_health = 100);
+      Character();
   };
 };

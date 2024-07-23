@@ -4,3 +4,6 @@
 #include <Objects/example.hpp>
 #include <Objects/text.hpp>
 #include <Objects/enemy.hpp>
+#include <Objects/background.hpp>
+#include <Objects/limit.hpp>
+#include <Objects/base.hpp>
