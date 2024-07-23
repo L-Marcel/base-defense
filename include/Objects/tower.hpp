@@ -1,6 +1,7 @@
 #include <Objects.hpp>
 
 namespace Game {
+  class Base;
   class Tower : public Object2D {
     public:
       virtual string type();
@@ -12,7 +13,11 @@ namespace Game {
 
       /// @brief Cria uma instância da torre
       /// @param gp pornteiro do processo do jogo
-      static Tower* create(GameProcess* gp);
+      /// @param base a base a qual a torre pertence
+      static Tower* create(GameProcess* gp, Base* base);
+
+      Base* base = nullptr;
+      bool energized = true;
     protected:
       /// @brief Cria uma instância da torre
       /// @param spriteSheet página de textura do sprite da torre

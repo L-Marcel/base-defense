@@ -1,6 +1,4 @@
 #include <Objects/base.hpp>
-#include <Objects/bullet.hpp>
-
 
 namespace Game {
   string Base::type() {
@@ -8,14 +6,23 @@ namespace Game {
   };
 
   void Base::step() {
-    for(unsigned int i = 0; i < this->colliders.length(); i++) {
-      Object2D* collider = this->colliders.get(i);
-      string type = collider->type();
-      //
-    };
+    this->hud->setText(to_string(this->health.get()));
   };
 
-  Base::~Base() {};
+  Base::~Base() {
+    this->hud->setText("0");
+    for(unsigned int i = 0; i < this->parts.length(); i++) {
+      Object2D* part = this->parts.get(i);
+      string type = part->type();
+      if(type == "Wall") {
+        Wall* wall = (Wall*) part;
+        wall->energized = false;
+      } else if(type == "Tower") {
+        Tower* tower = (Tower*) part;
+        tower->energized = false;
+      };
+    };
+  };
 
   Base* Base::create(GameProcess* gp) {
     Base* base = new Base();
@@ -23,25 +30,32 @@ namespace Game {
     base->position = Vector<float>(640, 360);
     base->setRectangle(416, 288);
     base->gp = gp;
-    gp->objects.add(base);
 
-    Tower* tower_one = Tower::create(gp);
+    Tower* tower_one = Tower::create(gp, base);
     tower_one->position = Vector<float>(448, 232);
     tower_one->setRectangle(32, 32);
-    Tower* tower_two = Tower::create(gp);
+    Tower* tower_two = Tower::create(gp, base);
     tower_two->position = Vector<float>(448, 488);
     tower_two->setRectangle(32, 32);
-    Tower* tower_three = Tower::create(gp);
+    Tower* tower_three = Tower::create(gp, base);
     tower_three->position = Vector<float>(832, 232);
     tower_three->setRectangle(32, 32);
-    Tower* tower_four = Tower::create(gp);
+    Tower* tower_four = Tower::create(gp, base);
     tower_four->position = Vector<float>(832, 488);
     tower_four->setRectangle(32, 32);
 
-    Wall::create(gp, 0);
-    Wall::create(gp, 1);
-    Wall::create(gp, 2);
-    Wall::create(gp, 3);
+    base->parts.add(tower_one);
+    base->parts.add(tower_two);
+    base->parts.add(tower_three);
+    base->parts.add(tower_four);
+    base->parts.add(Wall::create(gp, base, 0));
+    base->parts.add(Wall::create(gp, base, 1));
+    base->parts.add(Wall::create(gp, base, 2));
+    base->parts.add(Wall::create(gp, base, 3));
+
+    Text* hud = Text::create(gp, Vector<float>(640, 400), to_string(base->health.get()));
+    base->hud = hud;
+    gp->objects.add(base);
 
     return base;
   };

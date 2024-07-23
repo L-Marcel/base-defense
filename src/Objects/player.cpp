@@ -1,5 +1,5 @@
 #include <Objects/player.hpp>
-#include <Objects/bullet.hpp>
+#include <Objects/base.hpp>
 #include <Input.hpp>
 
 namespace Game {
@@ -20,15 +20,19 @@ namespace Game {
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
+        Base* base = (Base*) collider;
+        if(this->targetPosition == this->position) {
+          base->health.heal(1.0/60.0);
+        } else {
+          base->health.heal(1.0/180.0);
+        };
+      } else if(type == "Bullet"){
+        Bullet* bullet = (Bullet*) collider;
+        if(!bullet->isAlly()){
+          collider->destroy();
+          this->health.damage(bullet->damage);
+        }
       };
-      
-//       if(type == "Bullet"){
-//         Bullet* bullet = (Bullet*) collider;
-//         if(!bullet->isAlly()){
-//           collider->destroy();
-//           this->health.damage(20);
-//         }
-//       };
     };
     
     Vector<float> mouse = Mouse::position(&this->gp->window);
@@ -61,6 +65,7 @@ namespace Game {
 
   void Player::shoot() {
     Bullet* bullet = Bullet::create(this->gp, this, true);
+    bullet->damage = this->damage;
     bullet->canBeBlocked = !this->safe;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.play();

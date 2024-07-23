@@ -17,6 +17,7 @@ namespace Game {
       static Character* create(GameProcess* gp, string spriteSheet, Box box);
 
       Health health;
+      float damage = 10;
     protected:
       /// @brief Cria uma instância de um personagem
       /// @param spriteSheet página de textura do sprite do personagem

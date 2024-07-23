@@ -1,6 +1,7 @@
 #include <Objects.hpp>
 
 namespace Game {
+  class Base;
   class Wall : public Object2D {
     public:
       virtual string type();
@@ -12,8 +13,12 @@ namespace Game {
 
       /// @brief Cria uma instância da parede
       /// @param gp pornteiro do processo do jogo
+      /// @param base a base a qual a parede pertence
       /// @param size diz qual é a parede
-      static Wall* create(GameProcess* gp, unsigned short int size);
+      static Wall* create(GameProcess* gp, Base* base, unsigned short int size);
+    
+      Base* base = nullptr;
+      bool energized = true;
     protected:
       bool enabled = true;
       unsigned short int side = 0;

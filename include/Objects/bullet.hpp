@@ -20,6 +20,7 @@ namespace Game {
       /// @return `true` se for aliada, `false` caso contrário
       bool isAlly();
       bool canBeBlocked = true;
+      float damage = 10;
     protected:
       using Object2D::Object2D;
       bool ally = false;

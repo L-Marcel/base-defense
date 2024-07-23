@@ -13,7 +13,7 @@ namespace Game {
         Bullet* bullet = (Bullet*) collider;
         if(bullet->isAlly()){
           collider->destroy();
-          this->health.damage(50);
+          this->health.damage(bullet->damage);
         }
       }
     };
@@ -59,7 +59,8 @@ namespace Game {
   };
 
   void Enemy::shoot(){
-    Bullet::create(this->gp, this);
+    Bullet* bullet = Bullet::create(this->gp, this);
+    bullet->damage = this->damage;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.play();
   };
