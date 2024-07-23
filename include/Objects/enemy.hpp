@@ -26,7 +26,7 @@ namespace Game {
     protected:
       using Character::Character;
       Player* targetPlayer;
-      Object2D* Base;
-      double Range = 200.000; // Valor ilustrativo, ainda a ser definido
+      Object2D* base;
+      double range = 200.000; // Valor ilustrativo, ainda a ser definido
   };
 };

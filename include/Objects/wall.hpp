@@ -12,10 +12,11 @@ namespace Game {
 
       /// @brief Cria uma instância da parede
       /// @param gp pornteiro do processo do jogo
-      /// @param big diz se a parede é a maior ou não
-      static Wall* create(GameProcess* gp, bool big = true);
+      /// @param size diz qual é a parede
+      static Wall* create(GameProcess* gp, unsigned short int size);
     protected:
       bool enabled = true;
+      unsigned short int side = 0;
       
       /// @brief Cria uma instância da parede
       /// @param spriteSheet página de textura do sprite da parede

@@ -20,7 +20,7 @@ int main() {
   
   Enemy* enemy = Enemy::create(&gp, player, base);
   enemy->scale(2);
-  enemy->animate(8, 0, false);
+  enemy->animate(8, 4, 0, false);
   Collision::create(&gp, enemy, "Bullet");
 
   Text* text = Text::create(&gp, Vector<float>(584, 120), "Exemplo");

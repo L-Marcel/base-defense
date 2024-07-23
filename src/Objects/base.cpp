@@ -11,12 +11,7 @@ namespace Game {
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
-      if(type == "Bullet") {
-        Bullet* bullet = (Bullet*) collider;
-        if(bullet->canBeBlocked) {
-          collider->destroy();
-        };
-      };
+      //
     };
   };
 
@@ -43,23 +38,10 @@ namespace Game {
     tower_four->position = Vector<float>(832, 488);
     tower_four->setRectangle(32, 32);
 
-    Wall* wall_one = Wall::create(gp, false);
-    wall_one->rotation = 270;
-    wall_one->position = Vector<float>(436, 360);
-    wall_one->setRectangle(8, 232);
-    Wall* wall_two = Wall::create(gp, false);
-    wall_two->rotation = 90;
-    wall_two->position = Vector<float>(844, 360);
-    wall_two->setRectangle(8, 232);
-    Wall* wall_three = Wall::create(gp);
-    wall_three->position = Vector<float>(640, 220);
-    wall_three->setRectangle(232, 8);
-    Wall* wall_four = Wall::create(gp);
-    wall_four->rotation = 180;
-    wall_four->position = Vector<float>(640, 500);
-    wall_four->setRectangle(232, 8);
-
-    Collision::create(gp, base, "Bullet");
+    Wall::create(gp, 0);
+    Wall::create(gp, 1);
+    Wall::create(gp, 2);
+    Wall::create(gp, 3);
 
     return base;
   };

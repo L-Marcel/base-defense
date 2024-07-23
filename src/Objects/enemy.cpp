@@ -19,10 +19,10 @@ namespace Game {
     };
 
     double playerDistance = Math::pointDistance(this->targetPlayer->position, this->position);
-    double baseDistance = Math::pointDistance(this->Base->position, this->position);
+    double baseDistance = Math::pointDistance(this->base->position, this->position);
 
-    if(this->Base->position != this->position && baseDistance > this->Range) {
-      Vector<float> difference = this->Base->position - this->position;
+    if(this->base->position != this->position && baseDistance > this->range) {
+      Vector<float> difference = this->base->position - this->position;
       this->direction = Math::pointDirection(difference);
       this->position += Math::pointInRadius(
         min(double(this->speed), playerDistance), 
@@ -30,15 +30,14 @@ namespace Game {
       );
     };
 
-    if(playerDistance <= this->Range){
+    if(playerDistance <= this->range){
       this->rotation = Math::pointDirection(this->targetPlayer->position - this->position) - 90.0;
-    } 
-    else {
-      this->rotation = Math::pointDirection(this->Base->position - this->position) - 90.0;
-    }
+    } else {
+      this->rotation = Math::pointDirection(this->base->position - this->position) - 90.0;
+    };
 
-    if(this->animationFinished && (baseDistance <= this->Range || playerDistance <= this->Range)){
-      this->animate(8, 0, false);
+    if(this->animationFinished && (baseDistance <= this->range || playerDistance <= this->range)){
+      this->animate(8, 4, 0, false);
       this->shoot();
     };
   };
@@ -48,11 +47,12 @@ namespace Game {
   Enemy* Enemy::create(GameProcess* gp, Player* player, Object2D* base){
     Enemy* enemy = new Enemy("canhao.png", Box(16, 16, 32, 32));
     enemy->targetPlayer = player;
-    enemy->Base = base;
+    enemy->base = base;
     enemy->speed = 1.0;
+    enemy->position = Vector<float>(600.f, 100.f);
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
-    enemy->position = Vector<float>(600.f, 100.f);
+    enemy->depth = 100;
     enemy->gp = gp;
     gp->objects.add(enemy);
     return enemy;

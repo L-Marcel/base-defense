@@ -8,6 +8,12 @@ namespace Game {
   };
 
   void Player::step() {
+    // if(this->hasCircle){
+    //   this->gp->window.draw(this->circle);
+    // } else if(this->hasRectangle) {
+    //   this->gp->window.draw(this->rectangle);
+    // };
+
     this->safe = false;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
@@ -61,13 +67,13 @@ namespace Game {
   };
 
   Player* Player::create(GameProcess* gp) {
-    Player* player = new Player("player.png", Box(15, 13, 32, 32));
+    Player* player = new Player("player.png", Box(16, 13, 32, 32));
     player->speed = 5.0;
     player->animate(8, 1, 0, false);
     player->position = Vector<float>(640, 360);
     player->targetPosition = player->position;
-    player->setCircle(32);
-    player->depth = 100;
+    player->setCircle(11);
+    player->depth = 150;
     player->gp = gp;
     gp->objects.add(player);
 
