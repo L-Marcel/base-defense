@@ -68,6 +68,7 @@ namespace Game {
     bullet->damage = this->damage;
     bullet->canBeBlocked = !this->safe;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+    this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
   };
 

@@ -1,4 +1,6 @@
 #include <Objects/base.hpp>
+#include <iomanip>
+#include <sstream>
 
 namespace Game {
   string Base::type() {
@@ -6,7 +8,12 @@ namespace Game {
   };
 
   void Base::step() {
-    this->hud->setText(to_string(this->health.get()));
+    std::stringstream stream;
+    stream << fixed << setprecision(2) << this->health.get();
+    string content = stream.str();
+
+    this->hud->setText(content);
+    this->hud->setPosition(Vector<float>(632 - (content.length() * 8), 400));
   };
 
   Base::~Base() {

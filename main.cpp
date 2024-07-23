@@ -23,7 +23,7 @@ int main() {
   enemy->animate(8, 4, 0, false);
   Collision::create(&gp, enemy, "Bullet");
 
-  Text* text = Text::create(&gp, Vector<float>(584, 120), "Exemplo");
+  Text* text = Text::create(&gp, Vector<float>(572, 120), "Exemplo");
   text->depth = 20;
   
   gp.execute();

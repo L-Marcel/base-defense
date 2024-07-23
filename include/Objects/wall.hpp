@@ -19,6 +19,9 @@ namespace Game {
     
       Base* base = nullptr;
       bool energized = true;
+
+      Sound off_sound = Sound("wall_off.wav");
+      Sound on_sound = Sound("wall_on.wav");
     protected:
       bool enabled = true;
       unsigned short int side = 0;

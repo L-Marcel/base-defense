@@ -12,7 +12,7 @@ namespace Game {
   Text::~Text() {};
   
   Text::Text() {
-    this->loadFontFromFile("assets/fonts/PixeloidMono.ttf");
+    this->loadFontFromFile("assets/fonts/pixeloid_mono.ttf");
     this->setFont(this->font);
   };
 

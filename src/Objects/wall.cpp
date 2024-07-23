@@ -22,6 +22,8 @@ namespace Game {
         Bullet* bullet = (Bullet*) collider;
 
         if(bullet->canBeBlocked && this->enabled) {
+          bullet->bounce_sound.play();
+          bullet->bounce_sound.setVolume(50);
           base->health.damage(bullet->damage / 2.5);
           switch(this->side) {
             case 0:
@@ -53,8 +55,10 @@ namespace Game {
 
     bool changed = wasEnabled != this->enabled;
     if(changed && this->enabled) {
+      this->on_sound.play();
       this->animate(8, 4, 0, true);
     } else if(changed) {
+      this->off_sound.play();
       this->animate(0, 1, 1, false);
     };
   };

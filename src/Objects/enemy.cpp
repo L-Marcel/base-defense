@@ -37,7 +37,7 @@ namespace Game {
     };
 
     if(this->animationFinished && (baseDistance <= this->range || playerDistance <= this->range)){
-      this->animate(8, 4, 0, false);
+      this->animate(2, 4, 0, false);
       this->shoot();
     };
   };
@@ -62,6 +62,7 @@ namespace Game {
     Bullet* bullet = Bullet::create(this->gp, this);
     bullet->damage = this->damage;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+    this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
   };
 };

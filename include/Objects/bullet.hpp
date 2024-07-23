@@ -1,4 +1,6 @@
+#pragma once
 #include <Objects.hpp>
+#include <Sound.hpp>
 
 namespace Game {
   class Bullet : public Object2D {
@@ -21,6 +23,7 @@ namespace Game {
       bool isAlly();
       bool canBeBlocked = true;
       float damage = 10;
+      Sound bounce_sound = Sound("bounce.wav");
     protected:
       using Object2D::Object2D;
       bool ally = false;
