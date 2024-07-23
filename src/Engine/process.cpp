@@ -55,7 +55,6 @@ namespace Game {
           object->draw();
         };
 
-        this->redraw = false;
         this->window.display();
 
         for(unsigned int i = 0; i < this->queue_free.length(); i++) {
@@ -64,6 +63,8 @@ namespace Game {
           this->queue_free.remove(i);
           object->free();
         };
+
+        this->redraw = false;
       };
     };
 

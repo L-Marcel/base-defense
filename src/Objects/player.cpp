@@ -14,11 +14,12 @@ namespace Game {
     //   gp->window.draw(this->rectangle);
     // };
     
+    this->safe = false;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
-      if(type == "Example") {
-        collider->destroy();
+      if(type == "Base") {
+        this->safe = true;
       };
     };
     
@@ -51,7 +52,8 @@ namespace Game {
   Player::~Player() {};
 
   void Player::shoot() {
-    Bullet::create(this->gp, this, true);
+    Bullet* bullet = Bullet::create(this->gp, this, true);
+    bullet->canBeBlocked = !this->safe;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.play();
   };
@@ -66,6 +68,10 @@ namespace Game {
     player->depth = 100;
     player->gp = gp;
     gp->objects.add(player);
+
+    Collision::create(gp, player, "Bullet");
+    Collision::create(gp, player, "Base");
+
     return player;
   };
 };

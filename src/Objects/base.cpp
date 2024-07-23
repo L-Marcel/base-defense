@@ -1,4 +1,6 @@
 #include <Objects/base.hpp>
+#include <Objects/bullet.hpp>
+
 
 namespace Game {
   string Base::type() {
@@ -6,11 +8,16 @@ namespace Game {
   };
 
   void Base::step() {
-    // if(this->hasCircle){
-    //   gp->window.draw(this->circle);
-    // } else if(this->hasRectangle){
-    //   gp->window.draw(this->rectangle);
-    // };
+    for(unsigned int i = 0; i < this->colliders.length(); i++) {
+      Object2D* collider = this->colliders.get(i);
+      string type = collider->type();
+      if(type == "Bullet") {
+        Bullet* bullet = (Bullet*) collider;
+        if(bullet->canBeBlocked) {
+          collider->destroy();
+        };
+      };
+    };
   };
 
   Base::~Base() {};
@@ -25,37 +32,35 @@ namespace Game {
 
     Tower* tower_one = Tower::create(gp);
     tower_one->position = Vector<float>(448, 232);
+    tower_one->setRectangle(32, 32);
     Tower* tower_two = Tower::create(gp);
     tower_two->position = Vector<float>(448, 488);
+    tower_two->setRectangle(32, 32);
     Tower* tower_three = Tower::create(gp);
     tower_three->position = Vector<float>(832, 232);
+    tower_three->setRectangle(32, 32);
     Tower* tower_four = Tower::create(gp);
     tower_four->position = Vector<float>(832, 488);
+    tower_four->setRectangle(32, 32);
 
     Wall* wall_one = Wall::create(gp, false);
     wall_one->rotation = 270;
-    wall_one->position = Vector<float>(432, 360);
+    wall_one->position = Vector<float>(436, 360);
+    wall_one->setRectangle(8, 232);
     Wall* wall_two = Wall::create(gp, false);
     wall_two->rotation = 90;
-    wall_two->position = Vector<float>(848, 360);
+    wall_two->position = Vector<float>(844, 360);
+    wall_two->setRectangle(8, 232);
     Wall* wall_three = Wall::create(gp);
-    wall_three->position = Vector<float>(640, 216);
+    wall_three->position = Vector<float>(640, 220);
+    wall_three->setRectangle(232, 8);
     Wall* wall_four = Wall::create(gp);
     wall_four->rotation = 180;
-    wall_four->position = Vector<float>(640, 504);
+    wall_four->position = Vector<float>(640, 500);
+    wall_four->setRectangle(232, 8);
 
-    BaseWall* base_wall_one = BaseWall::create(gp, false);
-    base_wall_one->rotation = 270;
-    base_wall_one->position = Vector<float>(432, 360);
-    BaseWall* base_wall_two = BaseWall::create(gp, false);
-    base_wall_two->rotation = 90;
-    base_wall_two->position = Vector<float>(848, 360);
-    BaseWall* base_wall_three = BaseWall::create(gp);
-    base_wall_three->position = Vector<float>(640, 216);
-    BaseWall* base_wall_four = BaseWall::create(gp);
-    base_wall_four->rotation = 180;
-    base_wall_four->position = Vector<float>(640, 504);
-  
+    Collision::create(gp, base, "Bullet");
+
     return base;
   };
 };

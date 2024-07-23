@@ -3,7 +3,6 @@
 #include <Input.hpp>
 #include <Objects/tower.hpp>
 #include <Objects/wall.hpp>
-#include <Objects/base_wall.hpp>
 
 namespace Game {
   class Base : public Character {

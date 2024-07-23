@@ -5,6 +5,18 @@ namespace Game {
     return "Tower";
   };
 
+  void Tower::step() {
+    this->sprite->setColor(Color::White);
+    for(unsigned int i = 0; i < this->colliders.length(); i++) {
+      Object2D* collider = this->colliders.get(i);
+      if(collider->type() == "Player") {
+        Color color = this->sprite->getColor();
+        color.a = 125;
+        this->sprite->setColor(color);
+      };
+    };
+  };
+
   Tower::~Tower() {};
 
   Tower::Tower(string spriteSheet, Box box) 
@@ -16,6 +28,9 @@ namespace Game {
     tower->scale(2);
     tower->gp = gp;
     gp->objects.add(tower);
+
+    Collision::create(gp, tower, "Player");
+
     return tower;
   };
 };

@@ -4,7 +4,7 @@ namespace Game {
   class Tower : public Object2D {
     public:
       virtual string type();
-      using Object2D::step;
+      virtual void step();
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;

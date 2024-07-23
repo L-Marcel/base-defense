@@ -21,6 +21,7 @@ namespace Game {
 
       Vector<float> targetPosition;
       Sound shoot_sound = Sound("shoot.mp3");
+      bool safe = true;
     protected:
       using Character::Character;
   };
