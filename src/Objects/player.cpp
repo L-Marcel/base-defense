@@ -8,12 +8,6 @@ namespace Game {
   };
 
   void Player::step() {
-    // if(this->hasCircle){
-    //   gp->window.draw(this->circle);
-    // } else if(this->hasRectangle){
-    //   gp->window.draw(this->rectangle);
-    // };
-    
     this->safe = false;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
@@ -21,6 +15,14 @@ namespace Game {
       if(type == "Base") {
         this->safe = true;
       };
+      
+//       if(type == "Bullet"){
+//         Bullet* bullet = (Bullet*) collider;
+//         if(!bullet->isAlly()){
+//           collider->destroy();
+//           this->health.damage(20);
+//         }
+//       };
     };
     
     Vector<float> mouse = Mouse::position(&this->gp->window);

@@ -13,13 +13,18 @@ int main() {
   Background::create(&gp);
   Limit::create(&gp);
 
-  Text* text = Text::create(&gp, Vector<float>(584, 120), "Exemplo");
-  text->depth = 20;
-
   Player* player = Player::create(&gp);
   player->scale(2);
+  
+  Base* base = Base::create(&gp);
+  
+  Enemy* enemy = Enemy::create(&gp, player, base);
+  enemy->scale(2);
+  enemy->animate(8, 0, false);
+  Collision::create(&gp, enemy, "Bullet");
 
-  Base::create(&gp);
+  Text* text = Text::create(&gp, Vector<float>(584, 120), "Exemplo");
+  text->depth = 20;
   
   gp.execute();
 
