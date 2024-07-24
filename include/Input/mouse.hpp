@@ -6,7 +6,7 @@ namespace Game {
     /// (caso informe a janela)
     /// @param window a janela do jogo
     /// @return o vetor (x, y) indicando a posição do mouse
-    Vector<float> position(Window* window = nullptr);
+    Vector<float> position(Window* window);
 
     /// @brief Diz se o botão esquerdo do mouse foi apertado
     /// @return verdadeiro, caso tenha sido
