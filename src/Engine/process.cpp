@@ -1,4 +1,5 @@
 #include <Engine.hpp>
+#include <Input.hpp>
 
 namespace Game {
   GameProcess::~GameProcess() {
@@ -39,6 +40,8 @@ namespace Game {
             break;
         };
       };
+      
+      if(Input::fire(Keyboard::P)) setPaused(true);
       
       if(this->redraw) {
         this->window.clear();
@@ -114,4 +117,12 @@ namespace Game {
   bool GameProcess::isRunning() {
     return this->window.isOpen();
   };
+
+  bool GameProcess::checkPaused(){
+    return this->isPaused;
+  }
+
+  void GameProcess::setPaused(bool pause){
+    this->isPaused = pause;
+  }
 };

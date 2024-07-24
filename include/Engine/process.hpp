@@ -10,6 +10,7 @@ namespace Game {
       unsigned short int frame = 0;
       Clock clock;
       bool redraw = false;
+      bool isPaused = false;
     public:
       Window window = Window(VideoMode(1280, 720), "Base Defense");
       List<Object> objects;
@@ -41,5 +42,9 @@ namespace Game {
       /// @brief Diz se o jogo ainda está rodando
       /// @return verdadeiro, se estiver, falso caso contrário
       bool isRunning();
+
+      bool checkPaused();
+
+      void setPaused(bool pause);
   };
 };
