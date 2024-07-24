@@ -31,6 +31,11 @@ int main() {
 
   Base::create(&gp);
 
+  Button* button = Button::create(&gp, "button_ex.png", Box(16, 16, 32, 32), true);
+  button->scale(2);
+  button->position.x = 100;
+  button->position.y = 100;
+
   // Essa colisão poderia ser criada no Player::create, 
   // mas aqui temos apenas um exemplo
   Collision::create(&gp, player, "Example");
