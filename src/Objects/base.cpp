@@ -39,17 +39,17 @@ namespace Game {
     base->gp = gp;
 
     Tower* tower_one = Tower::create(gp, base);
-    tower_one->position = Vector<float>(448, 232);
-    tower_one->setRectangle(32, 32);
+    tower_one->position = TOP_LEFT_TOWER_POSITION;
+    tower_one->setRectangle(TOWER_SIZE, TOWER_SIZE);
     Tower* tower_two = Tower::create(gp, base);
-    tower_two->position = Vector<float>(448, 488);
-    tower_two->setRectangle(32, 32);
+    tower_two->position = BOTTOM_LEFT_TOWER_POSITION;
+    tower_two->setRectangle(TOWER_SIZE, TOWER_SIZE);
     Tower* tower_three = Tower::create(gp, base);
-    tower_three->position = Vector<float>(832, 232);
-    tower_three->setRectangle(32, 32);
+    tower_three->position = TOP_RIGHT_TOWER_POSITION;
+    tower_three->setRectangle(TOWER_SIZE, TOWER_SIZE);
     Tower* tower_four = Tower::create(gp, base);
-    tower_four->position = Vector<float>(832, 488);
-    tower_four->setRectangle(32, 32);
+    tower_four->position = BOTTOM_RIGHT_TOWER_POSITION;
+    tower_four->setRectangle(TOWER_SIZE, TOWER_SIZE);
 
     base->parts.add(tower_one);
     base->parts.add(tower_two);

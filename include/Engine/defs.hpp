@@ -24,9 +24,16 @@ namespace Game {
 
   template <typename T> 
     using Vector = sf::Vector2<T>;
+  template <typename T> 
+    using Vector3 = sf::Vector3<T>;
   template <typename T>
     inline ostream& operator<<(ostream& os, const Vector<T>& vec) {
       os << "(" << vec.x << ", " << vec.y << ")";
+      return os;
+    };
+  template <typename T>
+    inline ostream& operator<<(ostream& os, const Vector3<T>& vec) {
+      os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
       return os;
     };
 };

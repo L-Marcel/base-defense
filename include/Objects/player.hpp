@@ -20,7 +20,7 @@ namespace Game {
       /// @brief Realiza um disparo
       void shoot();
 
-      Vector<float> targetPosition;
+      Pathfinder path;
       Sound shoot_sound = Sound("shoot.mp3");
       bool safe = true;
     protected:

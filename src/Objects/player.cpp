@@ -21,7 +21,7 @@ namespace Game {
       if(type == "Base") {
         this->safe = true;
         Base* base = (Base*) collider;
-        if(this->targetPosition == this->position) {
+        if(this->path.isStopped()) {
           base->health.heal(1.0/60.0);
         } else {
           base->health.heal(1.0/180.0);
@@ -40,20 +40,14 @@ namespace Game {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
-    if(Mouse::right()){
-      this->targetPosition = mouse;
+    if(Mouse::right()) {
+      this->path.setDestiny(mouse);
     };
 
-    if(this->targetPosition != this->position) {
-      double distance = Math::pointDistance(this->targetPosition, this->position);
-
-      Vector<float> difference = this->targetPosition - this->position;
-      this->direction = Math::pointDirection(difference);
-      this->position += Math::pointInRadius(
-        min(double(this->speed), distance), 
-        this->direction
-      );
-    };
+    Vector3<double> destiny = this->path.getDestiny(this->position, this->direction, this->speed);
+    this->position.x = float(destiny.x);
+    this->position.y = float(destiny.y);
+    this->direction = destiny.z;
 
     if(this->animationFinished && (Input::fire() || Mouse::left())) {
       this->animate(8, 6, 1, false);
@@ -77,7 +71,6 @@ namespace Game {
     player->speed = 5.0;
     player->animate(8, 1, 0, false);
     player->position = Vector<float>(640, 360);
-    player->targetPosition = player->position;
     player->setCircle(11);
     player->depth = 150;
     player->gp = gp;

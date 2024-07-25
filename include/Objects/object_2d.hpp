@@ -1,4 +1,4 @@
-#include <Engine/objects.hpp>
+#include <Engine/object.hpp>
 
 namespace Game {
   class Collision;

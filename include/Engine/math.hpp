@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/defs.hpp>
+#include <Engine/line.hpp>
 
 namespace Game {
   namespace Math {
@@ -27,5 +27,11 @@ namespace Game {
     /// @param b o segundo ponto
     /// @return a distância
     double pointDistance(Vector<float> a, Vector<float> b = Vector<float>(0, 0));
+
+    /// @brief Diz se duas retas se interceptam ou não
+    /// @param a a primeira reta
+    /// @param b a segunda reta
+    /// @return `true` se a e b se interceptam, `false` caso contrário
+    bool hasIntersection(Line a, Line b);
   };
 };
