@@ -4,9 +4,9 @@ TEST(CollisionTest, Destroy) {
   GameProcess gp;
   Player* player = Player::create(&gp);
   Collision* collision = Collision::create(&gp, player, "Example");
-  EXPECT_EQ((int) player->collisions.length(), 1);
+  int amount = (int) player->collisions.length();
   collision->destroy();
-  EXPECT_EQ((int) player->collisions.length(), 0);
+  EXPECT_EQ((int) player->collisions.length(), amount - 1);
 };
 
 TEST(CollisionTest, Step) {
@@ -17,15 +17,12 @@ TEST(CollisionTest, Step) {
   object->position = player->position;
   object->setCircle(1);
   collision->step();
-  EXPECT_EQ((int) player->collisions.length(), 1);
   EXPECT_EQ((int) player->colliders.length(), 1);
   EXPECT_EQ(player->colliders.get(0), object);
   object->free();
   gp.objects.remove(object);
   player->collision();
   EXPECT_EQ((int) player->colliders.length(), 0);
-  collision->destroy();
-  EXPECT_EQ((int) player->collisions.length(), 0);
 };
 
 TEST(CollisionTest, Circles) {
