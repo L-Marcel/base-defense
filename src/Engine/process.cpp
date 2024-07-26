@@ -53,9 +53,22 @@ namespace Game {
 
         for(unsigned int i = 0; i < number_of_instances; i++) {
           Object* object = this->objects.get(i);
-          object->collision();
-          object->step();
-          object->draw();
+          if(!object->isPausable() && !this->isPaused){
+            object->collision();
+            object->step();
+            if(object->isVisible()){
+              object->draw();
+            }
+          } else if(object->isPausable() && this->isPaused){
+            object->collision();
+            object->step();
+            if(object->isVisible()){
+              object->draw();
+            }
+          } else if(!object->isPausable() && object->isVisible()){
+            object->draw();
+          }
+          
         };
 
         this->redraw = false;

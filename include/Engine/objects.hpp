@@ -39,10 +39,16 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Object* create(GameProcess* gp);
 
+      bool isPausable();
+
+      bool isVisible();
+
       int depth = 0;
     protected:
       GameProcess* gp;
       bool free_queued = false;
+      bool notPausable = false;
+      bool visible = true;
 
       /// @brief Cria uma instância do objeto
       Object();

@@ -15,7 +15,6 @@ namespace Game{
 
     protected:
       using Object2D::Object2D;
-      bool pauseButton = false;
       unsigned short int buttonWidth;
       unsigned short int buttonHeight;
   };

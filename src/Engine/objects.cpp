@@ -35,4 +35,12 @@ namespace Game {
     };
     delete this;
   };
+
+  bool Object::isPausable(){
+    return this->pausable;
+  };
+
+  bool Object::isVisible(){
+    return this->visible;
+  };
 };
