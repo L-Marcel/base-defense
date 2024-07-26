@@ -1,5 +1,5 @@
 #include <Objects.hpp>
-#include <Input/mouse.hpp>
+#include <Input.hpp>
 
 namespace Game{
   class Button : public Object2D{
@@ -14,7 +14,8 @@ namespace Game{
       static Button* create(GameProcess* gp, string sprite, Box box, bool pauseBt);
 
     protected:
-      using Object2D::Object2D;
+      Button();
+      Button(string spriteSheet, Box box);
       unsigned short int buttonWidth;
       unsigned short int buttonHeight;
   };

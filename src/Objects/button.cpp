@@ -1,24 +1,7 @@
 #include <Objects/button.hpp>
 
 namespace Game{
-  void Button::step(){
-    Vector<float> mousePos = Mouse::position(&this->gp->window);
-
-    if(gp->checkPaused()){
-      visible = true;
-      if(mousePos.x <= (this->position.x+(this->buttonWidth/2 * this->sprite->getScale().x)) &&
-        mousePos.x >= (this->position.x-(this->buttonWidth/2 * this->sprite->getScale().x)) &&
-        mousePos.y <= (this->position.y+(this->buttonHeight/2 * this->sprite->getScale().y)) &&
-        mousePos.y >= (this->position.y-(this->buttonHeight/2 * this->sprite->getScale().y))){
-        cout << "Pausado e mouse no botão" << endl;
-        if(Mouse::left()){
-          gp->setPaused(false);
-        }
-      }
-    } else{
-      visible = false;
-    }
-  };
+  void Button::step(){};
 
   string Button::type(){
     return "Button";
@@ -34,5 +17,25 @@ namespace Game{
     button->gp = gp;
     gp->objects.add(button);
     return button;
+  };
+
+  Button::Button(){};
+  Button::Button(string spriteSheet, Box box) {
+    Texture* texture = new Texture();
+    this->sprite = new Sprite();
+
+    if(texture->loadFromFile("assets/sprites/" + spriteSheet)){
+      this->sprite->setTexture(*texture);
+      Vector<int> pos = box.getPosition();
+      box.top = 0;
+      box.left = 0;
+
+      this->fps = 0;
+      this->sprite->setTextureRect(box);
+      this->sprite->setOrigin(pos.x, pos.y);
+      this->sprite->setScale(1, 1);
+    } else {
+      throw new TextureNotFound(spriteSheet);
+    };
   };
 }
