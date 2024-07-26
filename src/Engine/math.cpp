@@ -30,11 +30,17 @@ namespace Game {
       return sqrt((difference.x * difference.x) + (difference.y * difference.y));
     };
 
-    bool hasIntersection(Line a, Line b) {
-      return 0 != (
+    bool hasIntersection(Segment a, Segment b) {
+      double det = (
         ((b.end.x - b.start.x) * (a.end.y - a.start.y)) - 
         ((b.end.y - b.start.y) * (a.end.x - a.start.x))
       );
+
+      if(det == 0) {
+        return a.hasPoint(b.start) || a.hasPoint(b.end);
+      } else {
+        return true;
+      };
     };
   }
 };

@@ -47,23 +47,23 @@ namespace Game {
       };
 
       float min_distance = (TOWER_SIZE/2.0) + 11;
-      Line path(
+      Segment path(
         position,
         destiny
       );
-      Line ab(
+      Segment ab(
         tower_position + Vector<float>(-min_distance, -min_distance), 
         tower_position + Vector<float>(min_distance, -min_distance)
       );
-      Line bc(
+      Segment bc(
         tower_position + Vector<float>(min_distance, -min_distance), 
         tower_position + Vector<float>(min_distance, min_distance)
       );
-      Line cd(
+      Segment cd(
         tower_position + Vector<float>(min_distance, min_distance), 
         tower_position + Vector<float>(-min_distance, min_distance)
       );
-      Line da(
+      Segment da(
         tower_position + Vector<float>(-min_distance, min_distance), 
         tower_position + Vector<float>(-min_distance, -min_distance)
       );
