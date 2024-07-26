@@ -31,15 +31,18 @@ namespace Game {
     };
 
     bool hasIntersection(Segment a, Segment b) {
-      double det = (
-        ((b.end.x - b.start.x) * (a.end.y - a.start.y)) - 
-        ((b.end.y - b.start.y) * (a.end.x - a.start.x))
-      );
+      float dya = a.end.y - a.start.y;
+      float dyb = b.end.y - b.start.y;
+      float dxa = a.end.x - a.start.x;
+      float dxb = b.end.x - b.start.x;
+      double det = (dxb * dya) - (dyb * dxa);
 
       if(det == 0) {
         return a.hasPoint(b.start) || a.hasPoint(b.end);
       } else {
-        return true;
+        float s = ((b.start.y - a.start.y) * dxb - (b.start.x - a.start.x) * dyb) / det;
+        float t = ((a.start.x - b.start.x) * dya - (a.start.y - b.start.y) * dxa) / det;
+        return s >= 0 && s <= 1 && t >= 0 && t <= 1;
       };
     };
   }

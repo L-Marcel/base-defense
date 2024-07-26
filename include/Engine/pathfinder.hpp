@@ -13,6 +13,7 @@ namespace Game {
     public:
       Pathfinder();
       Vector3<double> getDestiny(Vector<float> position, double direction, float speed);
+      Vector4<Segment> getNearestSegments(Vector<float> position);
       void setDestiny(Vector<float> position);
       bool isStopped();
     protected:
