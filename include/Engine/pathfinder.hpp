@@ -18,5 +18,6 @@ namespace Game {
       bool isStopped();
     protected:
       stack<Vector<float>> paths;
+      Segment current_segment;
   };
 };

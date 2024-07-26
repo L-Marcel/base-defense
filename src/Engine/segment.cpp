@@ -52,4 +52,12 @@ namespace Game {
       return this->start;
     };
   };
+
+  bool Segment::operator==(Segment other) {
+    return (other.start == this->start && other.end == this->end) || (other.start == this->end && other.end == this->start);
+  };
+
+  bool Segment::operator!=(Segment other) {
+    return !(*this == other);
+  };
 };

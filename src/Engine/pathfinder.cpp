@@ -8,6 +8,7 @@ namespace Game {
   };
 
   void Pathfinder::setDestiny(Vector<float> position) {
+    this->current_segment = Segment();
     while(!this->paths.empty()) {
       this->paths.pop();
     };
@@ -36,6 +37,15 @@ namespace Game {
           distance = new_distance;
           nearest = vertex[i];
         };
+      };
+
+      float xx = abs(nearest.x - position.x);
+      float yy = abs(nearest.y - position.y);
+
+      if(xx < yy) {
+        nearest.y = position.y;
+      } else if(yy < xx) {
+        nearest.x = position.x;
       };
 
       this->paths.push(nearest);
@@ -104,17 +114,21 @@ namespace Game {
       Segment cd = segments.z;
       Segment da = segments.w;
 
-      if(Math::hasIntersection(ab, path) && !ab.hasPoint(position) && !ab.hasPoint(destiny) && destiny.y > ab.start.y) {
-        this->paths.push(ab.getNearestVertex(destiny));
+      if(Math::hasIntersection(ab, path) && destiny.y > ab.start.y && ab != current_segment) {
+        this->current_segment = ab;
+        this->paths.push(ab.getNearestVertex(this->paths.top()));
         return this->getDestiny(position, direction, speed);
-      } else if(Math::hasIntersection(bc, path) && !bc.hasPoint(position) && !bc.hasPoint(destiny) && destiny.x < bc.start.x) {
-        this->paths.push(bc.getNearestVertex(destiny));
+      } else if(Math::hasIntersection(bc, path) && destiny.x < bc.start.x && bc != current_segment) {
+        this->current_segment = bc;
+        this->paths.push(bc.getNearestVertex(this->paths.top()));
         return this->getDestiny(position, direction, speed);
-      } else if(Math::hasIntersection(cd, path) && !cd.hasPoint(position) && !cd.hasPoint(destiny) && destiny.y < cd.start.y) {
-        this->paths.push(cd.getNearestVertex(destiny));
+      } else if(Math::hasIntersection(cd, path) && destiny.y < cd.start.y && cd != current_segment) {
+        this->current_segment = cd;
+        this->paths.push(cd.getNearestVertex(this->paths.top()));
         return this->getDestiny(position, direction, speed);
-      } else if(Math::hasIntersection(da, path) && !da.hasPoint(position) && !da.hasPoint(destiny) && destiny.x > da.start.x) {
-        this->paths.push(da.getNearestVertex(destiny));
+      } else if(Math::hasIntersection(da, path) && destiny.x > da.start.x && da != current_segment) {
+        this->current_segment = da;
+        this->paths.push(da.getNearestVertex(this->paths.top()));
         return this->getDestiny(position, direction, speed);
       };
       

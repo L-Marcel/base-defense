@@ -12,5 +12,8 @@ namespace Game {
       bool hasPoint(float x, float y);
       bool hasPoint(Vector<float> point);
       Vector<float> getNearestVertex(Vector<float> point);
+  
+      bool operator==(Segment a);
+      bool operator!=(Segment a);
   };
 };
