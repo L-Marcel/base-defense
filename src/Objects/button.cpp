@@ -28,7 +28,7 @@ namespace Game{
 
   Button* Button::create(GameProcess* gp, string sprite, Box box, bool pauseBt){
     Button* button = new Button(sprite, box);
-    button->notPausable = pauseBt;
+    button->pausable = !pauseBt;
     button->buttonWidth = box.getSize().x;
     button->buttonHeight = box.getSize().y;
     button->gp = gp;

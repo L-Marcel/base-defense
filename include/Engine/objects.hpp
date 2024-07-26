@@ -47,7 +47,7 @@ namespace Game {
     protected:
       GameProcess* gp;
       bool free_queued = false;
-      bool notPausable = false;
+      bool pausable = true;
       bool visible = true;
 
       /// @brief Cria uma instância do objeto
