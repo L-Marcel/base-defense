@@ -31,10 +31,15 @@ int main() {
 
   Base::create(&gp);
 
-  Button* button = Button::create(&gp, "button_ex.png", Box(16, 16, 32, 32), true);
-  button->scale(2);
-  button->position.x = 100;
-  button->position.y = 100;
+  ResumeButton* resumeButton = ResumeButton::create(&gp, "button_ex.png", Box(16, 16, 32, 32), true);
+  resumeButton->position.x = 100;
+  resumeButton->position.y = 100;
+  resumeButton->scale(2);
+
+  ResolutionButton* resolButton = ResolutionButton::create(&gp, "button_ex.png", Box(16, 16, 32, 32), true, 1024, 576);
+  resolButton->position.x = 200;
+  resolButton->position.y = 100;
+  resolButton->scale(2);
 
   // Essa colisão poderia ser criada no Player::create, 
   // mas aqui temos apenas um exemplo

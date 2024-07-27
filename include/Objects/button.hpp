@@ -5,8 +5,7 @@ namespace Game{
   class Button : public Object2D{
     public:
       virtual string type();
-      void step();
-      using Object2D::collision;
+      virtual void step();
       using Object2D::draw;
       using Object2D::free;
       virtual ~Button();

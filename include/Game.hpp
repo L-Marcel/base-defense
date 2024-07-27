@@ -6,4 +6,5 @@
 #include <Objects/background.hpp>
 #include <Objects/limit.hpp>
 #include <Objects/base.hpp>
-#include <Objects/button.hpp>
+#include <Objects/resumeButton.hpp>
+#include <Objects/resolutionButton.hpp>

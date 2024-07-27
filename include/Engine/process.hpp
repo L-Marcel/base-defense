@@ -13,6 +13,7 @@ namespace Game {
       bool isPaused = false;
     public:
       Window window = Window(VideoMode(1280, 720), "Base Defense");
+      View view = View(sf::FloatRect(0, 0, this->width, this->height));
       List<Object> objects;
       List<Object> queue_free;
 
@@ -46,5 +47,7 @@ namespace Game {
       bool checkPaused();
 
       void setPaused(bool pause);
+
+      void resizeWindow(unsigned int newWidth, unsigned int newHeight);
   };
 };

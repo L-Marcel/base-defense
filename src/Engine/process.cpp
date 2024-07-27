@@ -133,9 +133,14 @@ namespace Game {
 
   bool GameProcess::checkPaused(){
     return this->isPaused;
-  }
+  };
 
   void GameProcess::setPaused(bool pause){
     this->isPaused = pause;
-  }
+  };
+
+  void GameProcess::resizeWindow(unsigned int newWidth, unsigned int newHeigth){
+    this->width = newWidth;
+    this->height = newHeigth;
+  };
 };
