@@ -1,5 +1,6 @@
 #include <Objects/player.hpp>
 #include <Objects/bullet.hpp>
+#include <Misc/ammo.hpp>
 #include <Input.hpp>
 
 namespace Game {
@@ -55,13 +56,23 @@ namespace Game {
   Player::~Player() {};
 
   void Player::shoot() {
-    Bullet::create(this->gp, this, true);
-    this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
-    this->shoot_sound.play();
+    if (this->ammo.get() > 0)
+    {
+      Bullet::create(this->gp, this, true);
+      this->ammo.shoot(1);
+      this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->shoot_sound.play();
+    }else
+    {
+      this->empty_clip_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->empty_clip_sound.play();
+    }
+    
   };
 
   Player* Player::create(GameProcess* gp) {
     Player* player = new Player("player.png", Box(12, 14, 24, 28));
+    Ammo ammo = Ammo(player);
     player->speed = 5.0;
     player->position = Vector<float>(gp->window.getSize()) * 0.5f;
     player->targetPosition = player->position;
@@ -69,6 +80,7 @@ namespace Game {
     player->circle.setFillColor(Color::Red);
     player->gp = gp;
     gp->objects.add(player);
+    player->ammo = ammo;
     return player;
   };
 };
