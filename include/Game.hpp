@@ -7,3 +7,4 @@
 #include <Objects/background.hpp>
 #include <Objects/limit.hpp>
 #include <Objects/base.hpp>
+#include <Objects/medicalkit.hpp>

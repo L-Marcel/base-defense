@@ -20,6 +20,7 @@ namespace Game {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
+    text->depth = 500;
     text->gp = gp;
     gp->objects.add(text);
     return text;

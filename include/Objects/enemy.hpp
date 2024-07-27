@@ -1,6 +1,7 @@
 #include <Character.hpp>
 #include <Objects/player.hpp>
 #include <Objects/bullet.hpp>
+#include <Objects/medicalkit.hpp>
 #include <Sound.hpp>
 
 namespace Game {
