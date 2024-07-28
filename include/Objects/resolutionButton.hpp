@@ -5,6 +5,7 @@ namespace Game{
   class ResolutionButton : public Button{
     public:
       void step();
+      using Button::draw;
       virtual ~ResolutionButton();
 
       static ResolutionButton* create(GameProcess* gp, string sprite, Box box, bool pauseBt, unsigned int expectedWidth, unsigned int expectedHeigth);

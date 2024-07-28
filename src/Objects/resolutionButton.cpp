@@ -3,8 +3,7 @@
 namespace Game{
   void ResolutionButton::step(){
     Vector<float> mousePos = Mouse::position(&this->gp->window);
-    if(this->gp->checkPaused()){
-      this->visible = true;
+    if(this->gp->checkPaused() && this->isVisible()){
       if(mousePos.x <= (this->position.x + this->buttonWidth) &&
         mousePos.x >= (this->position.x - this->buttonWidth) &&
         mousePos.y <= (this->position.y + this->buttonHeight) &&
@@ -17,8 +16,6 @@ namespace Game{
             this->gp->view.setCenter(resolutionSizeF.x/2.f, resolutionSizeF.y/2.f);
           }
       }
-    } else{
-      this->visible = false;
     }
   };
 
@@ -33,8 +30,10 @@ namespace Game{
     resolButton->resolutionSize.y = expectedHeigth;
     resolButton->resolutionSizeF.x = (float)expectedWidth;
     resolButton->resolutionSizeF.y = (float)expectedHeigth;
+    resolButton->subTypeVar = "ResolutionButton";
     resolButton->gp = gp;
     gp->objects.add(resolButton);
+    gp->buttons.add(resolButton);
     return resolButton;
   }
 }
