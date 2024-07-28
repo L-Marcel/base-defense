@@ -7,6 +7,14 @@ namespace Game{
     return "Button";
   }
 
+  string Button::subType(){
+    return subTypeVar;
+  }
+
+  void Button::setSubType(string newSubType){
+    this->subTypeVar = newSubType;
+  }
+
   Button::~Button(){};
 
   Button* Button::create(GameProcess* gp, string sprite, Box box, bool pauseBt){
@@ -14,10 +22,16 @@ namespace Game{
     button->pausable = !pauseBt;
     button->buttonWidth = box.getSize().x;
     button->buttonHeight = box.getSize().y;
+    button->subTypeVar = "Main";
     button->gp = gp;
     gp->objects.add(button);
     return button;
   };
+
+  void Button::draw(){
+    this->sprite->setPosition(this->position.x, this->position.y);
+    gp->window.draw(*this->sprite);
+  }
 
   Button::Button(){};
   Button::Button(string spriteSheet, Box box) {
@@ -38,4 +52,20 @@ namespace Game{
       throw new TextureNotFound(spriteSheet);
     };
   };
+
+  bool Button::getClicked(){
+    return this->isClicked;
+  }
+
+  void Button::setClicked(bool clicked){
+    this->isClicked = clicked;
+  }
+
+  bool Button::wasBridged(){
+    return this->bridged;
+  }
+
+  void Button::setBridged(bool bridged){
+    this->bridged = bridged;
+  }
 }

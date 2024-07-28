@@ -43,6 +43,8 @@ namespace Game {
 
       bool isVisible();
 
+      void setVisible(bool visible);
+
       int depth = 0;
     protected:
       GameProcess* gp;

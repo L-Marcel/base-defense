@@ -16,12 +16,15 @@ namespace Game {
       View view = View(sf::FloatRect(0, 0, this->width, this->height));
       List<Object> objects;
       List<Object> queue_free;
+      List<Button> buttons;
 
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
 
       /// @brief Destroy uma instância de processo do jogo
       ~GameProcess();
+
+      void adjustView(Window* window, View* view);
       
       /// @brief Inicia o loop do jogo
       void execute();

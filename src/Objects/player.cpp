@@ -14,6 +14,7 @@ namespace Game {
     //   gp->window.draw(this->rectangle);
     // };
     
+    
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();

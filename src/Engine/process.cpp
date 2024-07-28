@@ -7,6 +7,10 @@ namespace Game {
       Object* object = this->objects.get(i);
       object->free();
     };
+    for(unsigned int i = 0; i < this->buttons.length(); i++) {
+      Button* button = this->buttons.get(i);
+      button->free();
+    };
   };
 
   GameProcess::GameProcess() {

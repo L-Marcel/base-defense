@@ -5,17 +5,30 @@ namespace Game{
   class Button : public Object2D{
     public:
       virtual string type();
+      virtual string subType();
+      virtual void setSubType(string newSubType);
       virtual void step();
-      using Object2D::draw;
+      virtual void draw();
       using Object2D::free;
       virtual ~Button();
 
       static Button* create(GameProcess* gp, string sprite, Box box, bool pauseBt);
 
+      bool getClicked();
+
+      void setClicked(bool clicked);
+
+      bool wasBridged();
+
+      void setBridged(bool bridged);
+
     protected:
       Button();
       Button(string spriteSheet, Box box);
+      string subTypeVar;
       unsigned short int buttonWidth;
       unsigned short int buttonHeight;
+      bool isClicked = false;
+      bool bridged = false;
   };
 }

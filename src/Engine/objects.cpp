@@ -43,4 +43,8 @@ namespace Game {
   bool Object::isVisible(){
     return this->visible;
   };
+
+  void Object::setVisible(bool visible){
+    this->visible = visible;
+  }
 };

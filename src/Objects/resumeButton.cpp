@@ -4,7 +4,6 @@ namespace Game{
   void ResumeButton::step(){
     Vector<float> mousePos = Mouse::position(&this->gp->window);
     if(this->gp->checkPaused()){
-      this->visible = true;
       if(mousePos.x <= (this->position.x + this->buttonWidth) &&
         mousePos.x >= (this->position.x - this->buttonWidth) &&
         mousePos.y <= (this->position.y + this->buttonHeight) &&
@@ -14,8 +13,6 @@ namespace Game{
             this->gp->setPaused(false);
           }
       }
-    } else{
-      this->visible = false;
     }
   };
 
@@ -26,8 +23,10 @@ namespace Game{
     resumeButton->pausable = !pauseBt;
     resumeButton->buttonWidth = box.getSize().x;
     resumeButton->buttonHeight = box.getSize().y;
+    resumeButton->subTypeVar = "ResumeButton";
     resumeButton->gp = gp;
     gp->objects.add(resumeButton);
+    gp->buttons.add(resumeButton);
     return resumeButton;
   };
 }
