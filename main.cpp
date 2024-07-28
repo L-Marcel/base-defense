@@ -16,9 +16,9 @@ int main() {
   Player* player = Player::create(&gp);
   player->scale(2);
   
-  Base* base = Base::create(&gp);
+  Base::create(&gp);
   
-  Enemy* enemy = Enemy::create(&gp, player, base);
+  Enemy* enemy = Enemy::create(&gp, player);
   enemy->scale(2);
   enemy->animate(8, 4, 0, false);
   Collision::create(&gp, enemy, "Bullet");

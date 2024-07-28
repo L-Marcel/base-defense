@@ -1,4 +1,5 @@
 #include <Character.hpp>
+#include <Engine/playerfinder.hpp>
 #include <Objects/player.hpp>
 #include <Objects/bullet.hpp>
 #include <Sound.hpp>
@@ -16,17 +17,16 @@ namespace Game {
       /// @brief Cria uma instância do Enemy
       /// @param gp ponteiro do processo do jogo 
       /// @param player ponteiro para o player
-      /// @param base ponteiro para a base
-      static Enemy* create(GameProcess* gp, Player* player, Object2D* base);
+      static Enemy* create(GameProcess* gp, Player* player);
 
       /// @brief Realiza um disparo
       void shoot();
 
       Sound shoot_sound = Sound("shoot.mp3");
+      Player* player = nullptr;
+      Playerfinder path;
     protected:
       using Character::Character;
-      Player* targetPlayer;
-      Object2D* base;
-      double range = 200.000; // Valor ilustrativo, ainda a ser definido
+      double range = 200.0;
   };
 };

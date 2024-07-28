@@ -34,8 +34,8 @@ namespace Game {
   Base* Base::create(GameProcess* gp) {
     Base* base = new Base();
     base->depth = -50;
-    base->position = Vector<float>(640, 360);
-    base->setRectangle(416, 288);
+    base->position = CENTER;
+    base->setRectangle(BASE_SIZE.x, BASE_SIZE.y);
     base->gp = gp;
 
     Tower* tower_one = Tower::create(gp, base);

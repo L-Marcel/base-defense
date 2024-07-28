@@ -1,7 +1,7 @@
 #include <Engine.hpp>
 
 namespace Game {
-  class Music : protected sf::Music {
+  class Music : public sf::Music {
     public:
       /// @brief Cria uma instância de uma música
       /// @param filename o arquivo da música 

@@ -5,6 +5,15 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+
+#define TOWER_SIZE 32
+#define BASE_SIZE Vector<float>(416, 288)
+#define CENTER Vector<float>(640, 360)
+#define TOP_LEFT_TOWER_POSITION Vector<float>(448, 232)
+#define BOTTOM_LEFT_TOWER_POSITION Vector<float>(448, 488)
+#define TOP_RIGHT_TOWER_POSITION Vector<float>(832, 232)
+#define BOTTOM_RIGHT_TOWER_POSITION Vector<float>(832, 488)
+
 using namespace std;
 
 namespace Game {

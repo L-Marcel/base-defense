@@ -14,29 +14,21 @@ namespace Game {
         if(bullet->isAlly()){
           collider->destroy();
           this->health.damage(bullet->damage);
-        }
-      }
+        };
+      };
     };
 
-    double playerDistance = Math::pointDistance(this->targetPlayer->position, this->position);
-    double baseDistance = Math::pointDistance(this->base->position, this->position);
+    if(this->player == nullptr) return;
 
-    if(this->base->position != this->position && baseDistance > this->range) {
-      Vector<float> difference = this->base->position - this->position;
-      this->direction = Math::pointDirection(difference);
-      this->position += Math::pointInRadius(
-        min(double(this->speed), playerDistance), 
-        this->direction
-      );
-    };
+    Vector3<double> destiny = this->path.getDestiny(this->position, this->direction, this->speed, this->range);
+    this->position.x = float(destiny.x);
+    this->position.y = float(destiny.y);
+    this->direction = destiny.z;
+    this->rotation = this->direction - 90.0;
 
-    if(playerDistance <= this->range){
-      this->rotation = Math::pointDirection(this->targetPlayer->position - this->position) - 90.0;
-    } else {
-      this->rotation = Math::pointDirection(this->base->position - this->position) - 90.0;
-    };
+    bool canShoot = this->path.isStopped();
 
-    if(this->animationFinished && (baseDistance <= this->range || playerDistance <= this->range)){
+    if(this->animationFinished && canShoot) {
       this->animate(2, 4, 0, false);
       this->shoot();
     };
@@ -44,10 +36,10 @@ namespace Game {
 
   Enemy::~Enemy() {};
 
-  Enemy* Enemy::create(GameProcess* gp, Player* player, Object2D* base){
+  Enemy* Enemy::create(GameProcess* gp, Player* player) {
     Enemy* enemy = new Enemy("canhao.png", Box(16, 16, 32, 32));
-    enemy->targetPlayer = player;
-    enemy->base = base;
+    enemy->player = player;
+    enemy->path = Playerfinder(player);
     enemy->speed = 1.0;
     enemy->position = Vector<float>(600.f, 100.f);
     enemy->setCircle(12);

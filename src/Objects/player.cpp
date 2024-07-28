@@ -1,4 +1,4 @@
-#include <Objects/player.hpp>
+#include <Objects/enemy.hpp>
 #include <Objects/base.hpp>
 #include <Input.hpp>
 
@@ -55,7 +55,15 @@ namespace Game {
     };
   };
   
-  Player::~Player() {};
+  Player::~Player() {
+    for(unsigned int i = 0; i < this->gp->objects.length(); i++) {
+      Object* object = this->gp->objects.get(i);
+      if(object->type() == "Enemy") {
+        Enemy* enemy = (Enemy*) object;
+        enemy->player = nullptr;
+      };
+    };
+  };
 
   void Player::shoot() {
     Bullet* bullet = Bullet::create(this->gp, this, true);
@@ -70,7 +78,7 @@ namespace Game {
     Player* player = new Player("player.png", Box(16, 13, 32, 32));
     player->speed = 5.0;
     player->animate(8, 1, 0, false);
-    player->position = Vector<float>(640, 360);
+    player->position = CENTER;
     player->setCircle(11);
     player->depth = 150;
     player->gp = gp;
