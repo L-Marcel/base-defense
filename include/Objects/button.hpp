@@ -1,7 +1,9 @@
 #include <Objects.hpp>
 #include <Input.hpp>
+#include <Objects/text.hpp>
 
 namespace Game{
+  class Text;
   class Button : public Object2D{
     public:
       virtual string type();
@@ -22,6 +24,8 @@ namespace Game{
 
       void setBridged(bool bridged);
 
+      void setText(string content);
+
     protected:
       Button();
       Button(string spriteSheet, Box box);
@@ -30,5 +34,6 @@ namespace Game{
       unsigned short int buttonHeight;
       bool isClicked = false;
       bool bridged = false;
+      Text* buttonText = nullptr;
   };
 }

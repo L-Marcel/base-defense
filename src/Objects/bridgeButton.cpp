@@ -3,6 +3,7 @@
 namespace Game{
   void BridgeButton::step(){
     Vector<float> mousePos = Mouse::position(&this->gp->window);
+    if(this->buttonText != nullptr) this->buttonText->setVisible(this->visible);
     if(this->gp->checkPaused()){
       if(mousePos.x <= (this->position.x + this->buttonWidth) &&
          mousePos.x >= (this->position.x - this->buttonWidth) &&

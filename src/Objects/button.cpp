@@ -68,4 +68,10 @@ namespace Game{
   void Button::setBridged(bool bridged){
     this->bridged = bridged;
   }
+
+  void Button::setText(string content){
+    Text* tempText = Text::create(this->gp, Vector<float>((this->position.x)-this->buttonWidth, (this->position.y)-this->buttonHeight), content);
+    if(this->pausable) tempText->setVisible(false);
+    this->buttonText = tempText;
+  }
 }

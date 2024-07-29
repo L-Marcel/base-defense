@@ -60,6 +60,7 @@ int main() {
   resButton->position.x = 200;
   resButton->position.y = 100;
   resButton->addType(res1->subType());
+  resButton->setText("Resol");
 
   BridgeButton* resExitButton = BridgeButton::create(&gp, "button_exit_ex.png", Box(16, 16, 32, 32), true, "BackOpt");
   resExitButton->position.x = 300;
