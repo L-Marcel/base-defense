@@ -2,10 +2,16 @@
 
 namespace Game {
   namespace Mouse {
+    Window* window = nullptr;
+
+    void setWindow(Window* win) {
+      window = win;
+    }
+
     Vector<float> position(Window* window) {
       Vector<int> pos = sf::Mouse::getPosition();
 
-      if(window != nullptr) {
+      if(window != nullptr && window->hasFocus()) {
         pos = sf::Mouse::getPosition(*window);
       };
 
@@ -13,23 +19,23 @@ namespace Game {
     };
 
     bool left() {
-      return sf::Mouse::isButtonPressed(sf::Mouse::Left);
+      return (window != nullptr && window->hasFocus()) && sf::Mouse::isButtonPressed(sf::Mouse::Left);
     };
 
     bool right(){
-      return sf::Mouse::isButtonPressed(sf::Mouse::Right);
+      return (window != nullptr && window->hasFocus()) && sf::Mouse::isButtonPressed(sf::Mouse::Right);
     };
 
     bool middle() {
-      return sf::Mouse::isButtonPressed(sf::Mouse::Middle);
+      return (window != nullptr && window->hasFocus()) && sf::Mouse::isButtonPressed(sf::Mouse::Middle);
     };
 
     bool extra1(){
-      return sf::Mouse::isButtonPressed(sf::Mouse::XButton1);
+      return (window != nullptr && window->hasFocus()) && sf::Mouse::isButtonPressed(sf::Mouse::XButton1);
     };
 
     bool extra2() {
-      return sf::Mouse::isButtonPressed(sf::Mouse::XButton2);
+      return (window != nullptr && window->hasFocus()) && sf::Mouse::isButtonPressed(sf::Mouse::XButton2);
     };
   };
 };

@@ -1,5 +1,5 @@
 #include <Engine.hpp>
-
+#include <Input.hpp>
 namespace Game {
   GameProcess::~GameProcess() {
     for(unsigned int i = 0; i < this->objects.length(); i++) {
@@ -29,6 +29,8 @@ namespace Game {
   };
 
   void GameProcess::execute() {
+    Mouse::setWindow(&window);
+
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 
