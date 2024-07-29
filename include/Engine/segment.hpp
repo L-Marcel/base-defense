@@ -4,16 +4,28 @@
 namespace Game {
   class Segment {
     public:
-      Vector<float> start;
-      Vector<float> end;
+      Point start;
+      Point end;
+
       Segment();
       Segment(float start_x, float start_y, float end_x, float end_y);
-      Segment(Vector<float> start, Vector<float> end);
+      Segment(Point start, Point end);
+      Segment(float x, float y);
+      Segment(Point point);
+
       bool hasPoint(float x, float y);
-      bool hasPoint(Vector<float> point);
-      Vector<float> getNearestVertex(Vector<float> point);
-  
-      bool operator==(Segment a);
-      bool operator!=(Segment a);
+      bool hasPoint(Point point);
+      double length();
+      double angle();
+
+      Point getNearestVertex(Point point);
+
+      void operator=(Segment other);
+      bool operator==(Segment other);
+      bool operator!=(Segment other);
+      bool operator&(Segment other);
+      operator bool();
+    private:
+      bool empty = true;
   };
 };

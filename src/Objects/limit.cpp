@@ -22,25 +22,25 @@ namespace Game {
 
   void Limit::create(GameProcess* gp) {
     Limit* left = new Limit();
-    left->position = Vector<float>(-110, 360);
+    left->position = Point(-110, 360);
     left->setRectangle(200, 720);
     left->gp = gp;
     gp->objects.add(left);
 
     Limit* right = new Limit();
-    right->position = Vector<float>(1380, 360);
+    right->position = Point(1380, 360);
     right->setRectangle(200, 720);
     right->gp = gp;
     gp->objects.add(right);
 
     Limit* top = new Limit();
-    top->position = Vector<float>(640, -100);
+    top->position = Point(640, -100);
     top->setRectangle(1280, 200);
     top->gp = gp;
     gp->objects.add(top);
 
     Limit* bottom = new Limit();
-    bottom->position = Vector<float>(640, 820);
+    bottom->position = Point(640, 820);
     bottom->setRectangle(1280, 200);
     bottom->gp = gp;
     gp->objects.add(bottom);

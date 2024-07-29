@@ -35,7 +35,7 @@ namespace Game {
       };
     };
     
-    Vector<float> mouse = Mouse::position(&this->gp->window);
+    Point mouse = Mouse::position(&this->gp->window);
     if(mouse != this->position) {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
@@ -44,10 +44,9 @@ namespace Game {
       this->path.setDestiny(mouse);
     };
 
-    Vector3<double> destiny = this->path.getDestiny(this->position, this->direction, this->speed);
-    this->position.x = float(destiny.x);
-    this->position.y = float(destiny.y);
-    this->direction = destiny.z;
+    Segment path = this->path.getDestiny(this->position, this->speed);
+    this->position = path.end;
+    this->direction = path.angle();
 
     if(this->animationFinished && (Input::fire() || Mouse::left())) {
       this->animate(8, 6, 1, false);

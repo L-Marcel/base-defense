@@ -1,123 +1,153 @@
 #include <Engine/playerfinder.hpp>
 
 namespace Game {
-  Playerfinder::Playerfinder() {};
-
-  Playerfinder::Playerfinder(Player* player) {
-    this->player = player;
-  };
-
-  Vector3<double> Playerfinder::getDestiny(
-    Vector<float> position,
-    double direction, 
-    float speed,
-    float range
-  ) {
+  Playerfinder::Playerfinder() {
     float ww = BASE_SIZE.x/2.0 + 33;
     float hh = BASE_SIZE.y/2.0 + 33;
 
-    Segment ab(CENTER + Vector<float>(-ww, -hh), CENTER + Vector<float>(ww, -hh));
-    Segment bc(CENTER + Vector<float>(ww, -hh), CENTER + Vector<float>(ww, hh));
-    Segment cd(CENTER + Vector<float>(ww, hh), CENTER + Vector<float>(-ww, hh));
-    Segment da(CENTER + Vector<float>(-ww, hh), CENTER + Vector<float>(-ww, -hh));
+    this->ab = Segment(CENTER + Point(-ww, -hh), CENTER + Point(ww, -hh));
+    this->bc = Segment(CENTER + Point(ww, -hh), CENTER + Point(ww, hh));
+    this->cd = Segment(CENTER + Point(ww, hh), CENTER + Point(-ww, hh));
+    this->da = Segment(CENTER + Point(-ww, hh), CENTER + Point(-ww, -hh));
 
-    if(this->player->safe) {
-      this->stopped = false;
-      while(!this->isFacingThePlayer()) {
-        this->paths.pop();
-      };
+    float tt = TOWER_SIZE/2.0;
+    this->rab = Segment(ab.start.x + tt, ab.start.y + tt, ab.end.x - tt, ab.end.y + tt);
+    this->rbc = Segment(bc.start.x - tt, bc.start.y + tt, bc.end.x - tt, bc.end.y - tt);
+    this->rcd = Segment(cd.start.x - tt, cd.start.y - tt, cd.end.x + tt, cd.end.y - tt);
+    this->rda = Segment(da.start.x + tt, da.start.y - tt, da.end.x + tt, da.end.y + tt);
+  };
 
-      // if(position.y < ab.start.y && position.x > ab.start.x && position.x < ab.end.x) {
-      //   direction = 270; //+ (rand() % 45) - 22.5;
-      // } else if(position.y < ab.start.y && position.x <= ab.start.x) {
-      //   direction = 315; //+ (rand() % 45) - 22.5;
-      // } else if(position.y < ab.start.y && position.x >= ab.end.x) {
-      //   direction = 225; //+ (rand() % 45) - 22.5;
-      // } else if(position.y > cd.start.y && position.x > cd.end.x && position.x < cd.start.x) {
-      //   direction = 90; //+ (rand() % 45) - 22.5;
-      // } else if(position.y < cd.start.y && position.x <= cd.end.x) {
-      //   direction = 45; //+ (rand() % 45) - 22.5;
-      // } else if(position.y < ab.start.y && position.x >= cd.start.x) {
-      //   direction = 135; //+ (rand() % 45) - 22.5;
-      // } else if(position.x < da.start.x && position.y <= da.start.y && position.y >= da.end.y) {
-      //   direction = 0; //+ (rand() % 45) - 22.5;
-      // } else if(position.x > bc.start.x && position.y <= bc.end.y && position.y >= bc.start.y) {
-      //   direction = 180; //+ (rand() % 45) - 22.5;
-      // };
+  Playerfinder::Playerfinder(Player* player) {
+    this->player = player;
 
-      Vector<float> destiny = position + Math::pointInRadius(
-        speed, 
-        direction
-      );
+    float ww = BASE_SIZE.x/2.0 + 33;
+    float hh = BASE_SIZE.y/2.0 + 33;
 
-      Segment path(position, destiny);
-      if(Math::hasIntersection(ab, path) && destiny.y > ab.start.y && ab != current_segment) {
-        this->current_segment = ab;
-        return Vector3<double>(destiny.x, ab.start.y, direction);
-      } else if(Math::hasIntersection(bc, path) && destiny.x < bc.start.x && bc != current_segment) {
-        this->current_segment = bc;
-        return Vector3<double>(bc.start.x, destiny.y, direction);
-      } else if(Math::hasIntersection(cd, path) && destiny.y < cd.start.y && cd != current_segment) {
-        this->current_segment = cd;
-        return Vector3<double>(destiny.x, cd.start.y, direction);
-      } else if(Math::hasIntersection(da, path) && destiny.x > da.start.x && da != current_segment) {
-        this->current_segment = da;
-        return Vector3<double>(da.start.x, destiny.y, direction);
-      } else if(Math::hasIntersection(this->current_segment, path)) {
-        this->stopped = true;
-        return Vector3<double>(position.x, position.y, direction);
-      };
-        
-      return Vector3<double>(position.x, position.y, direction);
+    this->ab = Segment(CENTER + Point(-ww, -hh), CENTER + Point(ww, -hh));
+    this->bc = Segment(CENTER + Point(ww, -hh), CENTER + Point(ww, hh));
+    this->cd = Segment(CENTER + Point(ww, hh), CENTER + Point(-ww, hh));
+    this->da = Segment(CENTER + Point(-ww, hh), CENTER + Point(-ww, -hh));
+
+    float tt = TOWER_SIZE/2.0 + 33;
+    this->rab = Segment(ab.start.x + tt, ab.start.y + tt, ab.end.x - tt, ab.end.y + tt);
+    this->rbc = Segment(bc.start.x - tt, bc.start.y + tt, bc.end.x - tt, bc.end.y - tt);
+    this->rcd = Segment(cd.start.x - tt, cd.start.y - tt, cd.end.x + tt, cd.end.y - tt);
+    this->rda = Segment(da.start.x + tt, da.start.y - tt, da.end.x + tt, da.end.y + tt);
+  };
+
+  unsigned short int Playerfinder::getSector(Point position) {
+    bool h_left = position.x <= rab.start.x;
+    if(h_left && position.y <= this->rab.start.y) {
+      return 0;
+    } else if(h_left && position.y >= this->rda.start.y) {
+      return 6;
+    } else if(h_left) {
+      return 3;
+    };
+
+    bool h_center = position.x > this->rab.start.x && position.x < this->rab.end.x;
+    if(h_center && position.y <= this->rab.start.y) {
+      return 1;
+    } else if(h_center && position.y >= this->rcd.start.y) {
+      return 7;
+    } else if(h_center) {
+      return 4;
+    };
+
+    if(position.y <= this->rab.start.y) {
+      return 2;
+    } else if(position.y >= this->rda.start.y) {
+      return 8;
     } else {
-      Vector<float> target = this->player->position;
+      return 5;
+    };
+  };
 
-      if(!this->isFacingThePlayer()) {
-        target = this->paths.top();
+  Segment Playerfinder::getDestiny(
+    Point position,
+    float speed,
+    float range
+  ) {
+    if(this->player->safe) {
+      this->path = Segment();
+      range /= 1.5;
+
+      Point target = position;
+      unsigned short int sector = this->getSector(position);
+    
+      Segment rab(this->rab.start, position);
+      Segment rbc(this->rbc.start, position);
+      Segment rcd(this->rcd.start, position);
+      Segment rda(this->rda.start, position);
+
+      switch(sector) {
+        case 0:
+          target = this->rab.start + Math::pointInRadius(range, rab.angle());
+          break;
+        case 1:
+          target = Point(position.x, this->rab.start.y - range + 33);
+          break;
+        case 2:
+          target = this->rbc.start + Math::pointInRadius(range, rbc.angle());
+          break;
+        case 3:
+          target = Point(this->rab.start.x - range + 33, position.y);
+          break;
+        case 5:
+          target = Point(this->rbc.start.x + range - 33, position.y);
+          break;
+        case 6:
+          target = this->rda.start + Math::pointInRadius(range, rda.angle());
+          break;
+        case 7:
+          target = Point(position.x, this->rcd.start.y + range - 33);
+          break;
+        case 8:
+          target = this->rcd.start + Math::pointInRadius(range, rcd.angle());
+          break;
+        default:
+          break;
       };
-      
-      if(target != position) {
-        this->stopped = false;
-        double distance = Math::pointDistance(target, position);
-
-        if(distance <= range && this->isFacingThePlayer()) {
-          this->stopped = true;
-          direction = Math::pointDirection(target - position);
-          return Vector3<double>(position.x, position.y, direction);
-        };
-
-        Vector<float> difference = target - position;
-        direction = Math::pointDirection(difference);
-        Vector<float> destiny = position + Math::pointInRadius(
-          min(double(speed), distance), 
-          direction
-        );
-
-        Segment path(position, destiny);
-
-        if(Math::hasIntersection(ab, path) && destiny.y > ab.start.y && ab != current_segment) {
-          this->current_segment = ab;
-          this->paths.push(ab.getNearestVertex(target));
-          return this->getDestiny(position, direction, speed, range);
-        } else if(Math::hasIntersection(bc, path) && destiny.x < bc.start.x && bc != current_segment) {
-          this->current_segment = bc;
-          this->paths.push(bc.getNearestVertex(target));
-          return this->getDestiny(position, direction, speed, range);
-        } else if(Math::hasIntersection(cd, path) && destiny.y < cd.start.y && cd != current_segment) {
-          this->current_segment = cd;
-          this->paths.push(cd.getNearestVertex(target));
-          return this->getDestiny(position, direction, speed, range);
-        } else if(Math::hasIntersection(da, path) && destiny.x > da.start.x && da != current_segment) {
-          this->current_segment = da;
-          this->paths.push(da.getNearestVertex(target));
-          return this->getDestiny(position, direction, speed, range);
-        };
         
-        return Vector3<double>(destiny.x, destiny.y, direction);
-      } else {
-        this->paths.pop();
-        return this->getDestiny(position, direction, speed, range);
+      Segment path = Math::move(position, target, speed);
+      this->stopped = path.start == path.end;
+      return path;
+    } else {
+      Point target = this->player->position;
+      double distance = Math::pointDistance(target, position);
+      bool facingThePlayer = this->isFacingPlayer(position);
+
+      if(facingThePlayer && distance <= range) {
+        this->stopped = true;
+        this->path = Segment();
+        return Segment(position);
+      } else if(facingThePlayer) {
+        this->stopped = false;
+        this->path = Segment();
+        return Math::move(position, target, speed);
+      } else if(!this->path || this->path.getNearestVertex(target) == position) {
+        this->stopped = false;
+        Segment path = Math::move(position, target, speed);
+        
+        if(this->ab & path && path.end.y > this->ab.start.y && this->ab != this->path) {
+          this->path = this->ab;
+        } else if(this->bc & path && path.end.x < this->bc.start.x && this->bc != this->path) {
+          this->path = this->bc;
+        } else if(this->cd & path && path.end.y < this->cd.start.y && this->cd != this->path) {
+          this->path = this->cd;
+        } else if(this->da & path && path.end.x > this->da.start.x && this->da != this->path) {
+          this->path = this->da;
+        } else {
+          return path;
+        };
       };
+
+      target = this->path.getNearestVertex(target);
+      if(target != position) {
+        return Math::move(position, target, speed);
+      };
+
+      return Segment(position);
     };
   };
 
@@ -125,7 +155,13 @@ namespace Game {
     return this->stopped;
   };
 
-  bool Playerfinder::isFacingThePlayer() {
-    return this->paths.empty();
+  bool Playerfinder::isFacingPlayer(Point position) {
+    Segment path(position, this->player->position);
+    bool hasAnyIntersection =
+      (this->ab & path && path.end.y > this->ab.start.y && this->ab != path) ||
+      (this->bc & path && path.end.x < this->bc.start.x && this->bc != path) ||
+      (this->cd & path && path.end.y < this->cd.start.y && this->cd != path) ||
+      (this->da & path && path.end.x > this->da.start.x && this->da != path);
+    return !hasAnyIntersection;
   };
 };

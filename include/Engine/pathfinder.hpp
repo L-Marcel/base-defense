@@ -5,12 +5,12 @@ namespace Game {
   class Pathfinder {
     public:
       Pathfinder();
-      Vector3<double> getDestiny(Vector<float> position, double direction, float speed);
-      Vector4<Segment> getNearestSegments(Vector<float> position);
-      void setDestiny(Vector<float> position);
+      Segment getDestiny(Point position, float speed);
+      Vector4<Segment> getNearestSegments(Point position);
+      void setDestiny(Point position);
       bool isStopped();
     protected:
-      stack<Vector<float>> paths;
+      stack<Point> paths;
       Segment current_segment;
   };
 };

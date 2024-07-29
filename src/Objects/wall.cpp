@@ -27,7 +27,6 @@ namespace Game {
           base->health.damage(bullet->damage / 2.5);
           switch(this->side) {
             case 0:
-              cout << bullet->direction << endl;
               bullet->direction = (180 - bullet->direction);
               bullet->position.x = this->position.x - 2;
               break;
@@ -75,24 +74,24 @@ namespace Game {
       case 0:
         wall = new Wall("short_wall.png", Box(58, 3, 116, 4));
         wall->rotation = 270;
-        wall->position = Vector<float>(438, 360);
+        wall->position = Point(438, 360);
         wall->setRectangle(10, 232);
         break;
       case 1:
         wall = new Wall("short_wall.png", Box(58, 3, 116, 4));
         wall->rotation = 90;
-        wall->position = Vector<float>(842, 360);
+        wall->position = Point(842, 360);
         wall->setRectangle(10, 232);
         break;
       case 2:
         wall = new Wall("long_wall.png", Box(90, 3, 180, 4));
-        wall->position = Vector<float>(640, 222);
+        wall->position = Point(640, 222);
         wall->setRectangle(360, 10);
         break;
       default:
         wall = new Wall("long_wall.png", Box(90, 3, 180, 4));
         wall->rotation = 180;
-        wall->position = Vector<float>(640, 498);
+        wall->position = Point(640, 498);
         wall->setRectangle(360, 10);
         break;
     }

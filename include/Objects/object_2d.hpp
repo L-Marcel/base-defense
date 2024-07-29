@@ -42,7 +42,7 @@ namespace Game {
       /// 
       
       /// Movement
-      Vector<float> position;
+      Point position;
       double direction = 0;
       float speed = 0;
       ///

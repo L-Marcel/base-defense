@@ -23,6 +23,7 @@ namespace Game {
       void shoot();
 
       Sound shoot_sound = Sound("shoot.mp3");
+      bool focusingBase = true;
       Player* player = nullptr;
       Playerfinder path;
     protected:

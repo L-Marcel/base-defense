@@ -103,7 +103,7 @@ namespace Game {
   void Object2D::setRectangle(float width, float height){
     if(this->hasCircle) return;
 
-    this->rectangle.setSize(Vector<float>(width, height));
+    this->rectangle.setSize(Point(width, height));
     this->rectangle.setOrigin(width/2, height/2);
     this->rectangle.setPosition(this->position.x, this->position.y);
     this->rectangleWidth = width;

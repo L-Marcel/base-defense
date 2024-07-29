@@ -12,15 +12,15 @@ namespace Game {
 
       /// @brief Retorna a posição do inimigo no próximo frame e sua direção
       /// @param position a posição atual
-      /// @param direction a direção atual
       /// @param speed a velocidade atual
       /// @param range o alcance de ação
-      Vector3<double> getDestiny(
-        Vector<float> position, 
-        double direction, 
+      Segment getDestiny(
+        Point position, 
         float speed,
         float range
       );
+
+      unsigned short int getSector(Point position);
 
       /// @brief Diz se o inimigo está parado
       /// @return `true` se estiver, `false` caso contrário
@@ -28,11 +28,19 @@ namespace Game {
 
       /// @brief Diz se o inimigo está de frente para o jogador
       /// @return `true` se estiver, `false` caso contrário
-      bool isFacingThePlayer();
+      bool isFacingPlayer(Point position);
+
+      Segment rab;
+      Segment rbc;
+      Segment rcd;
+      Segment rda;
     protected:
       bool stopped = true;
       Player* player = nullptr;
-      stack<Vector<float>> paths;
-      Segment current_segment;
+      Segment path;
+      Segment ab;
+      Segment bc;
+      Segment cd;
+      Segment da;
   };
 };

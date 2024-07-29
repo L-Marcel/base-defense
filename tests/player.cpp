@@ -2,8 +2,8 @@
 #include "_mock.cpp"
 
 namespace Mouse {
-  Vector<float> position(Window* _) {
-    return Vector<float>(1.0, 1.0);
+  Point position(Window* _) {
+    return Point(1.0, 1.0);
   }
 }
 

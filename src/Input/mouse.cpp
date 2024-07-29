@@ -2,14 +2,14 @@
 
 namespace Game {
   namespace Mouse {
-    Vector<float> position(Window* window) {
+    Point position(Window* window) {
       Vector<int> pos = sf::Mouse::getPosition();
 
       if(window != nullptr) {
         pos = sf::Mouse::getPosition(*window);
       };
 
-      return Vector<float>(pos.x, pos.y);
+      return Point(pos.x, pos.y);
     };
 
     bool left() {

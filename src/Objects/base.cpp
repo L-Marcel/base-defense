@@ -13,7 +13,7 @@ namespace Game {
     string content = stream.str();
 
     this->hud->setText(content);
-    this->hud->setPosition(Vector<float>(632 - (content.length() * 8), 400));
+    this->hud->setPosition(Point(632 - (content.length() * 8), 400));
   };
 
   Base::~Base() {
@@ -60,7 +60,7 @@ namespace Game {
     base->parts.add(Wall::create(gp, base, 2));
     base->parts.add(Wall::create(gp, base, 3));
 
-    Text* hud = Text::create(gp, Vector<float>(640, 400), to_string(base->health.get()));
+    Text* hud = Text::create(gp, Point(640, 400), to_string(base->health.get()));
     base->hud = hud;
     gp->objects.add(base);
 

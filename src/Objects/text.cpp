@@ -16,7 +16,7 @@ namespace Game {
     this->setFont(this->font);
   };
 
-  Text* Text::create(GameProcess* gp, Vector<float> position, string content) {
+  Text* Text::create(GameProcess* gp, Point position, string content) {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
@@ -25,7 +25,7 @@ namespace Game {
     return text;
   };
 
-  void Text::setPosition(Vector<float> position) {
+  void Text::setPosition(Point position) {
     this->text.setPosition(position);
   };
 

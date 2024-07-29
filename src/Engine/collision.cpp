@@ -110,7 +110,7 @@ namespace Game{
 			case 2:
 				return dist < first->circle.getRadius() + rectWidth/2;
 			case 3:
-				return dist < first->circle.getRadius() + Math::pointDistance(Vector<float>(rectHeight/2, rectWidth/2));
+				return dist < first->circle.getRadius() + Math::pointDistance(Point(rectHeight/2, rectWidth/2));
 			default:
 				return false;
 		};
