@@ -2,39 +2,39 @@
 
 namespace Game{
   void BridgeButton::step(){
-    Vector<float> mousePos = Mouse::position(&this->gp->window);
-    if(this->gp->checkPaused()){
-      if(mouseEnter(mousePos)){
-          if(Mouse::left()){
-            for(unsigned int i = 0; i < this->bridgeTypes.size(); i++){
-              for(unsigned int j = 0; j < this->gp->buttons.length(); j++){
-                Button* bt = this->gp->buttons.get(j);
-                string btype = this->bridgeTypes[i];     
-                if(bt->subType() == btype){
-                  if(!bt->wasBridged()){
-                    bt->setVisible(true);
-                    bt->setBridged(true);
-                    bt->setClicked(false);
-                  }
-                } else if(bt->subType() != btype){
-                  if(!bt->wasBridged()){
-                    bt->setVisible(false);
-                  }
-                }
-              }
-            }
-            this->setClicked(true);
+    // Vector<float> mousePos = Mouse::position(&this->gp->window);
+    // if(this->gp->checkPaused()){
+    //   if(mouseEnter(mousePos)){
+    //       if(Mouse::left()){
+    //         for(unsigned int i = 0; i < this->bridgeTypes.size(); i++){
+    //           for(unsigned int j = 0; j < this->gp->buttons.length(); j++){
+    //             Button* bt = this->gp->buttons.get(j);
+    //             string btype = this->bridgeTypes[i];     
+    //             if(bt->subType() == btype){
+    //               if(!bt->wasBridged()){
+    //                 bt->setVisible(true);
+    //                 bt->setBridged(true);
+    //                 bt->setClicked(false);
+    //               }
+    //             } else if(bt->subType() != btype){
+    //               if(!bt->wasBridged()){
+    //                 bt->setVisible(false);
+    //               }
+    //             }
+    //           }
+    //         }
+    //         this->setClicked(true);
 
-            for(unsigned int i = 0; i < this->gp->buttons.length(); i++){
-              Button* desbridge = this->gp->buttons.get(i);
-              desbridge->setBridged(false);
-            }
-          }
-      }
-    }
-    if(this->getClicked()){
-      this->visible = false;
-    }
+    //         for(unsigned int i = 0; i < this->gp->buttons.length(); i++){
+    //           Button* desbridge = this->gp->buttons.get(i);
+    //           desbridge->setBridged(false);
+    //         }
+    //       }
+    //   }
+    // }
+    // if(this->getClicked()){
+    //   this->visible = false;
+    // }
   };
   
   BridgeButton::~BridgeButton(){};
@@ -46,10 +46,9 @@ namespace Game{
     bridgeButton->buttonHeight = box.getSize().y;
     bridgeButton->depth = 25;
     bridgeButton->subTypeVar = initialSubType;
-    bridgeButton->gp = gp;
     bridgeButton->addType(bridgeButton->subType());
-    gp->objects.add(bridgeButton);
-    gp->buttons.add(bridgeButton);
+    // gp->objects.add(bridgeButton);
+    // gp->buttons.add(bridgeButton);
     return bridgeButton;
   };
 

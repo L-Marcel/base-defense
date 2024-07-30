@@ -26,115 +26,117 @@ namespace Game {
     const Player* player = Player::get();
     if(player == nullptr) return;
 
-    Segment path = this->path.getPath(this->position, this->speed, this->range);
-    this->position = path.end;
+    if(this->animationFinished) {
+      Segment path = this->path.getPath(this->position, this->speed, this->range);
+      this->position = path.end;
 
-    if(player->safe && this->path.isStopped()) {
-      unsigned short int sector = this->path.getSector(this->position);
-      switch(sector) {
-        case 0:
-          this->direction = Math::pointDirection(
-            Playerfinder::rab.start - this->position
-          );
-          break;
-        case 1:
-          if(this->wab->enabled && !this->focusingBase) {
-            this->focusingBase = true;
+      if(player->safe && this->path.isStopped()) {
+        unsigned short int sector = this->path.getSector(this->position);
+        switch(sector) {
+          case 0:
             this->direction = Math::pointDirection(
-              Point(
-                clamp(this->position.x + (rand() % 101) - 50, Playerfinder::rab.start.x, Playerfinder::rab.end.x),
-                Playerfinder::rab.start.y
-              ) - this->position
+              Playerfinder::rab.start - this->position
             );
-          } else if(!this->wab->enabled) {
-            this->focusingBase = false;
-            this->direction = Math::pointDirection(player->position - this->position);
-          };
-          break;
-        case 2:
-          this->direction = Math::pointDirection(
-            Playerfinder::rbc.start - this->position
-          );
-          break;
-        case 3:
-          if(this->wda->enabled && !this->focusingBase) {
-            this->focusingBase = true;
+            break;
+          case 1:
+            if(this->wab->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  clamp(this->position.x + (rand() % 101) - 50, Playerfinder::rab.start.x, Playerfinder::rab.end.x),
+                  Playerfinder::rab.start.y
+                ) - this->position
+              );
+            } else if(!this->wab->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 2:
             this->direction = Math::pointDirection(
-              Point(
-                Playerfinder::rda.start.x,
-                clamp(this->position.y + (rand() % 101) - 50, Playerfinder::rda.end.y, Playerfinder::rda.start.y)
-              ) - this->position
+              Playerfinder::rbc.start - this->position
             );
-          } else if(!this->wda->enabled) {
-            this->focusingBase = false;
-            this->direction = Math::pointDirection(player->position - this->position);
-          };
-          break;
-        case 5:
-          if(this->wbc->enabled && !this->focusingBase) {
-            this->focusingBase = true;
+            break;
+          case 3:
+            if(this->wda->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  Playerfinder::rda.start.x,
+                  clamp(this->position.y + (rand() % 101) - 50, Playerfinder::rda.end.y, Playerfinder::rda.start.y)
+                ) - this->position
+              );
+            } else if(!this->wda->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 5:
+            if(this->wbc->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  Playerfinder::rbc.start.x,
+                  clamp(this->position.y + (rand() % 101) - 50, Playerfinder::rbc.start.y, Playerfinder::rbc.end.y)
+                ) - this->position
+              );
+            } else if(!this->wbc->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 6:
             this->direction = Math::pointDirection(
-              Point(
-                Playerfinder::rbc.start.x,
-                clamp(this->position.y + (rand() % 101) - 50, Playerfinder::rbc.start.y, Playerfinder::rbc.end.y)
-              ) - this->position
+              Playerfinder::rda.start - this->position
             );
-          } else if(!this->wbc->enabled) {
-            this->focusingBase = false;
-            this->direction = Math::pointDirection(player->position - this->position);
-          };
-          break;
-        case 6:
-          this->direction = Math::pointDirection(
-            Playerfinder::rda.start - this->position
-          );
-          break;
-        case 7:
-          if(this->wcd->enabled && !this->focusingBase) {
-            this->focusingBase = true;
+            break;
+          case 7:
+            if(this->wcd->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  clamp(this->position.x + (rand() % 101) - 50, Playerfinder::rcd.end.x, Playerfinder::rcd.start.x),
+                  Playerfinder::rcd.start.y
+                ) - this->position
+              );
+            } else if(!this->wcd->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 8:
             this->direction = Math::pointDirection(
-              Point(
-                clamp(this->position.x + (rand() % 101) - 50, Playerfinder::rcd.end.x, Playerfinder::rcd.start.x),
-                Playerfinder::rcd.start.y
-              ) - this->position
+              Playerfinder::rcd.start - this->position
             );
-          } else if(!this->wcd->enabled) {
-            this->focusingBase = false;
-            this->direction = Math::pointDirection(player->position - this->position);
-          };
-          break;
-        case 8:
-          this->direction = Math::pointDirection(
-            Playerfinder::rcd.start - this->position
-          );
-          break;
-        default:
-          break;
+            break;
+          default:
+            break;
+        };
+      } else if(player->safe) {
+        this->direction = path.angle();
+      } else if(this->path.isStopped()) {
+        this->focusingBase = false;
+        this->direction = Math::pointDirection(player->position - this->position);
+      } else {
+        this->focusingBase = false;
+        this->direction = path.angle();
       };
-    } else if(player->safe) {
-      this->direction = path.angle();
-    } else if(this->path.isStopped()) {
-      this->focusingBase = false;
-      this->direction = Math::pointDirection(player->position - this->position);
-    } else {
-      this->focusingBase = false;
-      this->direction = path.angle();
-    };
 
-    this->rotation = this->direction - 90.0;
-    bool canShoot = this->path.isStopped();
-
-    if(this->animationFinished && canShoot) {
-      this->animate(2, 4, 0, false);
-      this->shoot();
+      this->rotation = this->direction - 90.0;
+      bool canShoot = this->path.isStopped();
+      if(canShoot) {
+        this->animate(8, 6, 1, false);
+        this->shoot();
+      };
     };
   };
 
   Enemy::~Enemy() {};
 
   Enemy* Enemy::create() {
-    Enemy* enemy = new Enemy("canhao.png", Box(16, 16, 32, 32));
-    enemy->speed = 1.0;
+    Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
+    enemy->speed = 1.25;
+    enemy->animate(8, 1, 0, false);
     enemy->position = Point(600.f, 100.f);
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);

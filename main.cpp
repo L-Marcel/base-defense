@@ -20,7 +20,6 @@ int main() {
   
   Enemy* enemy = Enemy::create();
   enemy->scale(2);
-  enemy->animate(8, 4, 0, false);
   Collision::create(enemy, "Bullet");
 
   Text* text = Text::create(Point(572, 120), "Exemplo");

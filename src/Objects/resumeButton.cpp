@@ -2,14 +2,14 @@
 
 namespace Game{
   void ResumeButton::step(){
-    Vector<float> mousePos = Mouse::position(&this->gp->window);
-    if(this->gp->checkPaused()){
-      if(mouseEnter(mousePos)){
-        if(Mouse::left()){
-          this->gp->setPaused(false);
-        }
-      }
-    }
+    // Vector<float> mousePos = Mouse::position(&this->gp->window);
+    // if(this->gp->checkPaused()){
+    //   if(mouseEnter(mousePos)){
+    //     if(Mouse::left()){
+    //       this->gp->setPaused(false);
+    //     }
+    //   }
+    // }
   };
 
   ResumeButton::~ResumeButton(){};
@@ -21,9 +21,9 @@ namespace Game{
     resumeButton->buttonHeight = box.getSize().y;
     resumeButton->depth = 25;
     resumeButton->subTypeVar = "ResumeButton";
-    resumeButton->gp = gp;
-    gp->objects.add(resumeButton);
-    gp->buttons.add(resumeButton);
+    // resumeButton->gp = gp;
+    // gp->objects.add(resumeButton);
+    // gp->buttons.add(resumeButton);
     return resumeButton;
   };
 }

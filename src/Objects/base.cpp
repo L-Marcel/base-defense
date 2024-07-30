@@ -25,9 +25,11 @@ namespace Game {
       if(type == "Wall") {
         Wall* wall = (Wall*) part;
         wall->energized = false;
+        wall->base = nullptr;
       } else if(type == "Tower") {
         Tower* tower = (Tower*) part;
         tower->energized = false;
+        tower->base = nullptr;
       };
     };
   };
@@ -65,8 +67,6 @@ namespace Game {
     base->parts.add(Enemy::wbc);
     base->parts.add(Enemy::wcd);
     base->parts.add(Enemy::wda);
-
-   
 
     Text* hud = Text::create(Point(640, 400), to_string(base->health.get()));
     base->hud = hud;

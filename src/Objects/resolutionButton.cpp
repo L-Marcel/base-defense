@@ -2,17 +2,17 @@
 
 namespace Game{
   void ResolutionButton::step(){
-    Vector<float> mousePos = Mouse::position(&this->gp->window);
-    if(this->gp->checkPaused() && this->isVisible()){
-      if(mouseEnter(mousePos)){
-        if(Mouse::left()){
-          this->gp->window.setSize(this->resolutionSize);
-          this->gp->resizeWindow(this->resolutionSize.x, this->resolutionSize.y);
-          this->gp->view.setSize(this->resolutionSizeF.x, this->resolutionSizeF.y);
-          this->gp->view.setCenter(resolutionSizeF.x/2.f, resolutionSizeF.y/2.f);
-        }
-      }
-    }
+    // Vector<float> mousePos = Mouse::position(&this->gp->window);
+    // if(this->gp->checkPaused() && this->isVisible()){
+    //   if(mouseEnter(mousePos)){
+    //     if(Mouse::left()){
+    //       this->gp->window.setSize(this->resolutionSize);
+    //       this->gp->resizeWindow(this->resolutionSize.x, this->resolutionSize.y);
+    //       this->gp->view.setSize(this->resolutionSizeF.x, this->resolutionSizeF.y);
+    //       this->gp->view.setCenter(resolutionSizeF.x/2.f, resolutionSizeF.y/2.f);
+    //     }
+    //   }
+    // }
   };
 
   ResolutionButton::~ResolutionButton(){};
@@ -28,9 +28,9 @@ namespace Game{
     resolButton->resolutionSizeF.y = (float)expectedHeigth;
     resolButton->depth = 25;
     resolButton->subTypeVar = "ResolutionButton";
-    resolButton->gp = gp;
-    gp->objects.add(resolButton);
-    gp->buttons.add(resolButton);
+    //resolButton->gp = gp;
+    // gp->objects.add(resolButton);
+    // gp->buttons.add(resolButton);
     return resolButton;
   }
 }

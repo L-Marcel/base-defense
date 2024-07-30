@@ -21,10 +21,10 @@ namespace Game {
       } else if(type == "Bullet") {
         Bullet* bullet = (Bullet*) collider;
 
-        if(bullet->canBeBlocked && this->enabled) {
+        if(bullet->canBeBlocked && this->enabled && this->base != nullptr) {
           bullet->bounce_sound.play();
           bullet->bounce_sound.setVolume(50);
-          base->health.damage(bullet->damage / 2.5);
+          this->base->health.damage(bullet->damage / 2.5);
           switch(this->side) {
             case 0:
               bullet->direction = (180 - bullet->direction);

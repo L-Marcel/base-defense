@@ -11,8 +11,7 @@ namespace Game{
       ~PauseScreen();
 
       /// @brief Cria uma instância do plano de fundo do jogo
-      /// @param gp pornteiro do processo do jogo
-      static PauseScreen* create(GameProcess* gp);
+      static PauseScreen* create();
     protected:
       /// @brief Cria uma instância do plano de fundo
       /// @param spriteSheet página de textura do sprite do plano de fundo
