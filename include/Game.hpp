@@ -9,3 +9,4 @@
 #include <Objects/resumeButton.hpp>
 #include <Objects/resolutionButton.hpp>
 #include <Objects/bridgeButton.hpp>
+#include <Objects/pausescreen.hpp>

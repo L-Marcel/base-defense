@@ -47,10 +47,17 @@ namespace Game {
       /// @return verdadeiro, se estiver, falso caso contrário
       bool isRunning();
 
+      /// @brief Retorna se o jogo está pausado
+      /// @return se o jogo está pausado
       bool checkPaused();
 
+      /// @brief Define se o jogo ta pausado
+      /// @param pause 
       void setPaused(bool pause);
 
+      /// @brief Muda as dimensões da window
+      /// @param newWidth nova largura
+      /// @param newHeight nova altura
       void resizeWindow(unsigned int newWidth, unsigned int newHeight);
   };
 };

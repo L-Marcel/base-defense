@@ -55,24 +55,28 @@ namespace Game {
           number_of_instances = this->objects.length();
         };
 
+        for(unsigned int i = 0; i < this->buttons.length(); i++){
+          Button* button = this->buttons.get(i);
+          if(button->getText() != nullptr){
+            if(!button->isPausable() && this->isPaused) button->getText()->setVisible(button->isVisible());
+            else if(button->isPausable() && !this->isPaused) button->getText()->setVisible(button->isVisible());
+            else button->getText()->setVisible(false);
+          }
+        }
+
         for(unsigned int i = 0; i < number_of_instances; i++) {
           Object* object = this->objects.get(i);
-          if(object->isPausable() && !this->isPaused){
+          if(object->isPausable() && !this->isPaused && object->isVisible()){
+            object->draw();
             object->collision();
             object->step();
-            if(object->isVisible()){
-              object->draw();
-            }
-          } else if(!object->isPausable() && this->isPaused){
+          } else if(!object->isPausable() && this->isPaused && object->isVisible()){
             object->collision();
             object->step();
-            if(object->isVisible()){
-              object->draw();
-            }
+            object->draw();
           } else if(object->isPausable() && object->isVisible()){
             object->draw();
-          }
-          
+          };  
         };
 
         this->redraw = false;

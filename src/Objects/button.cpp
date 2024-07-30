@@ -69,9 +69,21 @@ namespace Game{
     this->bridged = bridged;
   }
 
-  void Button::setText(string content){
-    Text* tempText = Text::create(this->gp, Vector<float>((this->position.x)-this->buttonWidth, (this->position.y)-this->buttonHeight), content);
-    if(this->pausable) tempText->setVisible(false);
+  void Button::setText(string content, unsigned int size){
+    Text* tempText = Text::create(this->gp, Vector<float>(this->position.x, this->position.y), content, size);
+    tempText->depth = 30;
+    if(!this->pausable == true) tempText->setVisible(false);
     this->buttonText = tempText;
+  }
+
+  Text* Button::getText(){
+    return this->buttonText;
+  }
+
+  bool Button::mouseEnter(Vector<float> mousePosition){
+    return (mousePosition.x <= (this->position.x + this->buttonWidth) &&
+            mousePosition.x >= (this->position.x - this->buttonWidth) &&
+            mousePosition.y <= (this->position.y + this->buttonHeight) &&
+            mousePosition.y >= (this->position.y - this->buttonHeight));
   }
 }

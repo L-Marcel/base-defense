@@ -16,10 +16,13 @@ namespace Game {
     this->setFont(this->font);
   };
 
-  Text* Text::create(GameProcess* gp, Vector<float> position, string content) {
+  Text* Text::create(GameProcess* gp, Vector<float> position, string content, unsigned int size) {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
+    text->setSize(size);
+    FloatRect textBounds = text->text.getLocalBounds();
+    text->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
     text->gp = gp;
     gp->objects.add(text);
     return text;

@@ -15,7 +15,7 @@ namespace Game {
       /// @param gp ponteiro do processo do jogo
       /// @param position a posição do texto
       /// @param content o conteúdo do texto
-      static Text* create(GameProcess* gp, Vector<float> position, string content);
+      static Text* create(GameProcess* gp, Vector<float> position, string content, unsigned int size);
       
       /// @brief Define a posição do texto
       /// @param position a posição

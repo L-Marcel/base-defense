@@ -64,7 +64,7 @@ namespace Game {
     player->position = Vector<float>(640, 360);
     player->targetPosition = player->position;
     player->setCircle(32);
-    player->depth = 100;
+    player->depth = 5;
     player->gp = gp;
     gp->objects.add(player);
     return player;

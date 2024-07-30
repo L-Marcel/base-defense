@@ -12,7 +12,7 @@ namespace Game {
 
   Tower* Tower::create(GameProcess* gp) {
     Tower* tower = new Tower("tower.png", Box(8, 8, 16, 16));
-    tower->depth = 200;
+    tower->depth = 10;
     tower->scale(2);
     tower->gp = gp;
     gp->objects.add(tower);

@@ -3,13 +3,8 @@
 namespace Game{
   void BridgeButton::step(){
     Vector<float> mousePos = Mouse::position(&this->gp->window);
-    if(this->buttonText != nullptr) this->buttonText->setVisible(this->visible);
     if(this->gp->checkPaused()){
-      if(mousePos.x <= (this->position.x + this->buttonWidth) &&
-         mousePos.x >= (this->position.x - this->buttonWidth) &&
-         mousePos.y <= (this->position.y + this->buttonHeight) &&
-         mousePos.y >= (this->position.y - this->buttonHeight))
-        {
+      if(mouseEnter(mousePos)){
           if(Mouse::left()){
             for(unsigned int i = 0; i < this->bridgeTypes.size(); i++){
               for(unsigned int j = 0; j < this->gp->buttons.length(); j++){
@@ -49,6 +44,7 @@ namespace Game{
     bridgeButton->pausable = !pauseBt;
     bridgeButton->buttonWidth = box.getSize().x;
     bridgeButton->buttonHeight = box.getSize().y;
+    bridgeButton->depth = 25;
     bridgeButton->subTypeVar = initialSubType;
     bridgeButton->gp = gp;
     bridgeButton->addType(bridgeButton->subType());

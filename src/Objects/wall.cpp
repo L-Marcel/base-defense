@@ -19,7 +19,7 @@ namespace Game {
       wall = new Wall("short_wall.png", Box(58, 0, 116, 4));
     };
 
-    wall->depth = 200;
+    wall->depth = 10;
     wall->scale(2);
     wall->gp = gp;
     gp->objects.add(wall);
