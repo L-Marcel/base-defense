@@ -1,4 +1,5 @@
 #include <Engine.hpp>
+#include <Input.hpp>
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
@@ -9,6 +10,12 @@ namespace Game {
       this->objects.remove(object);
       object->free();
     };
+
+    // for(unsigned int i = 0; i < this->buttons.length(); i++) {
+    //   Button* button = this->buttons.get(i);
+    //   button->free();
+    // };
+
     this->gp = nullptr;
   };
 
@@ -62,6 +69,7 @@ namespace Game {
         };
       };
 
+      if(Input::fire(Keyboard::P)) setPaused(true);
       if((this->frame)/60 <= elapsed.asSeconds()) {
         this->nextFrame();
       };
@@ -117,11 +125,28 @@ namespace Game {
       this->sort();
     };
 
+    for(unsigned int i = 0; i < this->buttons.length(); i++){
+      Button* button = this->buttons.get(i);
+      if(button->getText() != nullptr) {
+        if(!button->isPausable() && this->isPaused) button->getText()->setVisible(button->isVisible());
+        else if(button->isPausable() && !this->isPaused) button->getText()->setVisible(button->isVisible());
+        else button->getText()->setVisible(false);
+      };
+    };
+
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
-      object->collision();
-      object->step();
-      object->draw();
+      if(object->isPausable() && !this->isPaused && object->isVisible()){
+        object->draw();
+        object->collision();
+        object->step();
+      } else if(!object->isPausable() && this->isPaused && object->isVisible()){
+        object->collision();
+        object->step();
+        object->draw();
+      } else if(object->isPausable() && object->isVisible()){
+        object->draw();
+      }; 
     };
 
     this->window.display();
@@ -136,5 +161,18 @@ namespace Game {
 
   bool GameProcess::isRunning() {
     return this->window.isOpen();
+  };
+
+  bool GameProcess::checkPaused(){
+    return this->isPaused;
+  };
+
+  void GameProcess::setPaused(bool pause){
+    this->isPaused = pause;
+  };
+
+  void GameProcess::resizeWindow(unsigned int newWidth, unsigned int newHeigth){
+    // this->width = newWidth;
+    // this->height = newHeigth;
   };
 };

@@ -31,7 +31,8 @@ namespace Game {
   sf::Keyboard typedef Keyboard;
   sf::Color typedef Color;
   sf::Drawable typedef Drawable;
-  
+  sf::FloatRect typedef FloatRect;
+
   template <typename T> 
     using Vector = sf::Vector2<T>;
   Vector<float> typedef Point;

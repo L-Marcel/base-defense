@@ -94,7 +94,7 @@ namespace Game {
         wall->position = Point(640, 498);
         wall->setRectangle(360, 10);
         break;
-    }
+    };
 
     wall->side = side;
     wall->depth = 200;

@@ -4,7 +4,7 @@
 namespace Game {
   namespace Mouse {
     /// @brief Retorna a posição do mouse na janela do jogo
-    /// @return o vetor (x, y) indicando a posição do mouse
+    /// @return o ponto indicando a posição do mouse
     Point position();
 
     /// @brief Diz se o botão esquerdo do mouse foi apertado

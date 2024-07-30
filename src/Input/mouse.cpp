@@ -4,7 +4,8 @@
 namespace Game {
   namespace Mouse {
     Point position() {
-      return Point(sf::Mouse::getPosition(GameProcess::getWindow()));
+      const Window& window = GameProcess::getWindow();
+      return Point(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
     };
 
     bool left() {

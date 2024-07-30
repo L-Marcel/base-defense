@@ -9,9 +9,12 @@ namespace Game {
       List<Object> queueFree;
       List<Object> objects;
       Window window = Window(VideoMode(1280, 720), "Base Defense");
+      //View view = View(sf::FloatRect(0, 0, this->width, this->height));
+      List<Button> buttons;
       unsigned short int frame = 0;
     private:
       Clock clock;
+      bool isPaused = false;
     public:
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
@@ -19,6 +22,8 @@ namespace Game {
       /// @brief Destroy uma instância de processo do jogo
       ~GameProcess();
 
+      void adjustView(Window* window, View* view);
+      
       /// @brief Inicia o loop do jogo
       void execute();
 
@@ -64,5 +69,18 @@ namespace Game {
       /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
       /// @param object o objeto
       static void animate(Object2D* object);
+
+      /// @brief Retorna se o jogo está pausado
+      /// @return se o jogo está pausado
+      bool checkPaused();
+
+      /// @brief Define se o jogo ta pausado
+      /// @param pause 
+      void setPaused(bool pause);
+
+      /// @brief Muda as dimensões da window
+      /// @param newWidth nova largura
+      /// @param newHeight nova altura
+      void resizeWindow(unsigned int newWidth, unsigned int newHeight);
   };
 };
