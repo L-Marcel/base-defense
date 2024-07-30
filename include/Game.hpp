@@ -5,3 +5,7 @@
 #include <Objects/background.hpp>
 #include <Objects/limit.hpp>
 #include <Objects/base.hpp>
+#include <Objects/resumeButton.hpp>
+#include <Objects/resolutionButton.hpp>
+#include <Objects/bridgeButton.hpp>
+#include <Objects/pausescreen.hpp>

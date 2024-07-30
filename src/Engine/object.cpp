@@ -31,4 +31,16 @@ namespace Game {
   void Object::free() {
     delete this;
   };
+
+  bool Object::isPausable(){
+    return this->pausable;
+  };
+
+  bool Object::isVisible(){
+    return this->visible;
+  };
+
+  void Object::setVisible(bool visible){
+    this->visible = visible;
+  }
 };
