@@ -1,6 +1,6 @@
 #include <Character.hpp>
 #include <Engine/playerfinder.hpp>
-#include <Objects/player.hpp>
+#include <Objects/base.hpp>
 #include <Objects/bullet.hpp>
 #include <Sound.hpp>
 
@@ -17,7 +17,8 @@ namespace Game {
       /// @brief Cria uma instância do Enemy
       /// @param gp ponteiro do processo do jogo 
       /// @param player ponteiro para o player
-      static Enemy* create(GameProcess* gp, Player* player);
+      /// @param base ponteiro para a base
+      static Enemy* create(GameProcess* gp, Player* player, Base* base);
 
       /// @brief Realiza um disparo
       void shoot();
@@ -29,5 +30,10 @@ namespace Game {
     protected:
       using Character::Character;
       double range = 200.0;
+      
+      Wall* wab = nullptr;
+      Wall* wbc = nullptr;
+      Wall* wcd = nullptr;
+      Wall* wda = nullptr;
   };
 };

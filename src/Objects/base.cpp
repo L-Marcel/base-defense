@@ -37,6 +37,7 @@ namespace Game {
     base->position = CENTER;
     base->setRectangle(BASE_SIZE.x, BASE_SIZE.y);
     base->gp = gp;
+    gp->objects.add(base);
 
     Tower* tower_one = Tower::create(gp, base);
     tower_one->position = TOP_LEFT_TOWER_POSITION;
@@ -62,7 +63,6 @@ namespace Game {
 
     Text* hud = Text::create(gp, Point(640, 400), to_string(base->health.get()));
     base->hud = hud;
-    gp->objects.add(base);
 
     return base;
   };

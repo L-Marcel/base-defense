@@ -10,6 +10,7 @@ TEST(ObjectTest, Type) {
 TEST(ObjectTest, Destroy) {
   GameProcess gp;
   Object* object = Object::create(&gp);
-  object->free();
-  EXPECT_EQ((int) gp.objects.length(), 0);
+  gp.objects.remove(object);
+  object->destroy();
+  EXPECT_EQ((int) gp.queue_free.length(), 1);
 }

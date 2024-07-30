@@ -19,8 +19,8 @@ TEST(CollisionTest, Step) {
   collision->step();
   EXPECT_EQ((int) player->colliders.length(), 1);
   EXPECT_EQ(player->colliders.get(0), object);
-  object->free();
   gp.objects.remove(object);
+  object->free();
   player->collision();
   EXPECT_EQ((int) player->colliders.length(), 0);
 };

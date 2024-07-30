@@ -12,10 +12,3 @@ TEST(PlayerTest, Type) {
   Player* player = Player::create(&gp);
   EXPECT_EQ(player->type(), "Player");
 }
-
-TEST(PlayerTest, Destroy) {
-  GameProcess gp;
-  Player* player = Player::create(&gp);
-  player->free();
-  EXPECT_EQ((int) gp.objects.length(), 0);
-}

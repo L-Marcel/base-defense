@@ -13,8 +13,11 @@ namespace Game {
     // } else if(this->hasRectangle) {
     //   this->gp->window.draw(this->rectangle);
     // };
-
-    this->safe = false;
+    
+    if(this->gp->getFrame() % 60 == 0) {
+      this->safe = false;
+    };
+    
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();

@@ -1,3 +1,4 @@
+#pragma once
 #include <Character.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>
