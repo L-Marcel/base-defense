@@ -30,10 +30,10 @@ namespace Game {
   sf::Texture typedef Texture;
   sf::Keyboard typedef Keyboard;
   sf::Color typedef Color;
-
+  sf::Drawable typedef Drawable;
+  
   template <typename T> 
     using Vector = sf::Vector2<T>;
-
   Vector<float> typedef Point;
 
   template <typename T> class Vector4 {

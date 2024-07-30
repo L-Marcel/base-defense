@@ -27,16 +27,15 @@ namespace Game {
   Tower::Tower(string spriteSheet, Box box) 
   : Object2D(spriteSheet, box) {};
 
-  Tower* Tower::create(GameProcess* gp, Base* base) {
+  Tower* Tower::create(Base* base) {
     Tower* tower = new Tower("tower.png", Box(8, 8, 16, 16));
     tower->depth = 200;
     tower->scale(2);
-    tower->gp = gp;
     tower->base = base;
-    gp->objects.add(tower);
+    GameProcess::add(tower);
 
-    Collision::create(gp, tower, "Player");
-    Collision::create(gp, tower, "Bullet");
+    Collision::create(tower, "Player");
+    Collision::create(tower, "Bullet");
 
     return tower;
   };

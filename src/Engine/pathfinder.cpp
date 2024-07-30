@@ -92,14 +92,14 @@ namespace Game {
     return Vector4<Segment>(ab, bc, cd, da);
   };
 
-  Segment Pathfinder::getDestiny(Point position, float speed) {
+  Segment Pathfinder::getPath(Point position, float speed) {
     if(this->paths.empty()) {
       return Segment(position);
     };
 
     Point destiny = this->paths.top();
     if(destiny != position) {
-      Segment path = Math::move(position, destiny, speed);
+      Segment path = Segment::create(position, destiny, speed);
       Vector4<Segment> segments = this->getNearestSegments(position);
       Segment ab = segments.x;
       Segment bc = segments.y;
@@ -109,25 +109,25 @@ namespace Game {
       if(ab & path && destiny.y > ab.start.y && ab != current_segment) {
         this->current_segment = ab;
         this->paths.push(ab.getNearestVertex(this->paths.top()));
-        return this->getDestiny(position, speed);
+        return this->getPath(position, speed);
       } else if(bc & path && destiny.x < bc.start.x && bc != current_segment) {
         this->current_segment = bc;
         this->paths.push(bc.getNearestVertex(this->paths.top()));
-        return this->getDestiny(position, speed);
+        return this->getPath(position, speed);
       } else if(cd & path && destiny.y < cd.start.y && cd != current_segment) {
         this->current_segment = cd;
         this->paths.push(cd.getNearestVertex(this->paths.top()));
-        return this->getDestiny(position, speed);
+        return this->getPath(position, speed);
       } else if(da & path && destiny.x > da.start.x && da != current_segment) {
         this->current_segment = da;
         this->paths.push(da.getNearestVertex(this->paths.top()));
-        return this->getDestiny(position, speed);
+        return this->getPath(position, speed);
       };
       
       return path;
     } else {
       this->paths.pop();
-      return this->getDestiny(position, speed);
+      return this->getPath(position, speed);
     };
   };
 };

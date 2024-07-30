@@ -1,15 +1,10 @@
 #include <Input.hpp>
+#include <Engine/process.hpp>
 
 namespace Game {
   namespace Mouse {
-    Point position(Window* window) {
-      Vector<int> pos = sf::Mouse::getPosition();
-
-      if(window != nullptr) {
-        pos = sf::Mouse::getPosition(*window);
-      };
-
-      return Point(pos.x, pos.y);
+    Point position() {
+      return Point(sf::Mouse::getPosition(GameProcess::getWindow()));
     };
 
     bool left() {

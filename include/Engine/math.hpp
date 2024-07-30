@@ -27,7 +27,5 @@ namespace Game {
     /// @param b o segundo ponto
     /// @return a distância
     double pointDistance(Point a, Point b = Point(0, 0));
-
-    Segment move(Point from, Point to, float speed);
   };
 };

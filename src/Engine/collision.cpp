@@ -11,18 +11,17 @@ namespace Game{
 		delete this;
 	};
 
-	Collision* Collision::create(GameProcess* gp, Object2D* object, string collider) {
+	Collision* Collision::create(Object2D* object, string collider) {
 		Collision* collision = new Collision();
 		collision->object = object;
 		collision->collider = collider;
-		collision->gp = gp;
 		object->collisions.add(collision);
 		return collision;
 	};
 
 	void Collision::step() {
-		for(unsigned int i = 0; i < this->gp->objects.length(); i++){
-			Object* candidate = this->gp->objects.get(i);
+		for(unsigned int i = 0; i < GameProcess::length(); i++){
+			Object* candidate = GameProcess::get(i);
 			if(candidate->type() == this->collider && this->object != candidate) {
 				Object2D* collider = (Object2D*) candidate;
 				if(

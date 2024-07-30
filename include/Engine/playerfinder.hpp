@@ -6,20 +6,22 @@
 namespace Game {
   class Playerfinder {
     public:
-      /// @brief Cria uma instância do "desbravador" do jogador
-      Playerfinder(Player* player);
+      /// @brief Cria um desbravador para os inimigos
       Playerfinder();
 
       /// @brief Retorna a posição do inimigo no próximo frame e sua direção
       /// @param position a posição atual
       /// @param speed a velocidade atual
       /// @param range o alcance de ação
-      Segment getDestiny(
+      Segment getPath(
         Point position, 
         float speed,
         float range
       );
 
+      /// @brief Diz em qual setor o inimigo está, os setores são as 9 regiões do mapa
+      /// @param position a posição atual
+      /// @return O identificador do setor
       unsigned short int getSector(Point position);
 
       /// @brief Diz se o inimigo está parado
@@ -30,17 +32,18 @@ namespace Game {
       /// @return `true` se estiver, `false` caso contrário
       bool isFacingPlayer(Point position);
 
-      Segment rab;
-      Segment rbc;
-      Segment rcd;
-      Segment rda;
+      /// Limites dos setores
+      const static Segment rab;
+      const static Segment rbc;
+      const static Segment rcd;
+      const static Segment rda;
+      const static Segment ab;
+      const static Segment bc;
+      const static Segment cd;
+      const static Segment da;
+      ///
     protected:
       bool stopped = true;
-      Player* player = nullptr;
       Segment path;
-      Segment ab;
-      Segment bc;
-      Segment cd;
-      Segment da;
   };
 };

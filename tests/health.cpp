@@ -2,7 +2,7 @@
 
 TEST(HealthTest, Control) {
   GameProcess gp;
-  Player* player = Player::create(&gp);
+  Player* player = Player::create();
   Health health(player);
 
   health.damage(30.0);
@@ -15,8 +15,9 @@ TEST(HealthTest, Control) {
   EXPECT_FLOAT_EQ(health.percent(),  0.5);
   health.damage(25.0);
   EXPECT_FLOAT_EQ(health.percent(),  0.25);
-  EXPECT_EQ((int) gp.objects.length(), 1);
+  EXPECT_EQ((int) GameProcess::length(), 1);
   health.damage(100.0);
   EXPECT_FLOAT_EQ(health.percent(),  0);
-  EXPECT_EQ((int) gp.queue_free.length(), 1);
+  gp.nextFrame();
+  EXPECT_EQ((int) GameProcess::length(), 0);
 };

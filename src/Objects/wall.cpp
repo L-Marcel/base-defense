@@ -6,9 +6,9 @@ namespace Game {
 
   void Wall::step() {
     // if(this->hasCircle){
-    //   this->gp->window.draw(this->circle);
+    //   this->GameProcess::draw(this->circle);
     // } else if(this->hasRectangle) {
-    //   this->gp->window.draw(this->rectangle);
+    //   this->GameProcess::draw(this->rectangle);
     // };
     
     bool wasEnabled = this->enabled;
@@ -67,7 +67,7 @@ namespace Game {
   Wall::Wall(string spriteSheet, Box box) 
   : Object2D(spriteSheet, box) {};
 
-  Wall* Wall::create(GameProcess* gp, Base* base, unsigned short int side) {
+  Wall* Wall::create(Base* base, unsigned short int side) {
     Wall* wall;
 
     switch (side) {
@@ -100,12 +100,11 @@ namespace Game {
     wall->depth = 200;
     wall->scale(2);
     wall->animate(8, 4, 0, true);
-    wall->gp = gp;
     wall->base = base;
-    gp->objects.add(wall);
+    GameProcess::add(wall);
 
-    Collision::create(gp, wall, "Player");
-    Collision::create(gp, wall, "Bullet");
+    Collision::create(wall, "Player");
+    Collision::create(wall, "Bullet");
 
     return wall;
   };

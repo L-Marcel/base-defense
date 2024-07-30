@@ -24,13 +24,24 @@ namespace Game {
     this->end = start;
   };
 
-  Segment::Segment(Point point)  {
+  Segment::Segment(Point point) {
     this->empty = false;
     this->start = point;
     this->end = point;
   };
 
-  bool Segment::hasPoint(float x, float y) {
+  Segment Segment::create(Point from, Point to, float maxLength) {
+    Segment path(from, to);
+
+    path.end = path.start + Math::pointInRadius(
+      min(double(maxLength), path.length()), 
+      path.angle()
+    );
+    
+    return path;
+  };
+
+  bool Segment::hasPoint(float x, float y) const {
     float dx = this->end.x - this->start.x;
     bool xIsValid = false;
     float xx = 0;
@@ -54,7 +65,7 @@ namespace Game {
     return xIsValid && yIsValid && (dx == 0 || dy == 0 || xx == yy);
   };
 
-  bool Segment::hasPoint(Point point) {
+  bool Segment::hasPoint(Point point) const {
     return this->hasPoint(point.x, point.y);
   };
 
@@ -76,25 +87,23 @@ namespace Game {
     };
   };
 
-  void Segment::operator=(Segment other) {
+  void Segment::operator=(const Segment& other) {
     this->empty = other.empty;
     this->start = other.start;
     this->end = other.end;
   };
 
-  bool Segment::operator==(Segment other) {
-    return (
-      (this->empty && !other) || (!this->empty && other)
-    ) && (
+  bool Segment::operator==(const Segment& other) const {
+    return this->empty == other.empty && (
       (other.start == this->start && other.end == this->end) || (other.start == this->end && other.end == this->start)
     );
   };
 
-  bool Segment::operator!=(Segment other) {
+  bool Segment::operator!=(const Segment& other) const {
     return !(*this == other);
   };
 
-  bool Segment::operator&(Segment other) {
+  bool Segment::operator&(const Segment& other) const {
     float dya = this->end.y - this->start.y;
     float dyb = other.end.y - other.start.y;
     float dxa = this->end.x - this->start.x;

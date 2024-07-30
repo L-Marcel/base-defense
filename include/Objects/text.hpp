@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game {
@@ -11,10 +12,9 @@ namespace Game {
       virtual ~Text();
 
       /// @brief Cria uma instância do texto
-      /// @param gp ponteiro do processo do jogo
       /// @param position a posição do texto
       /// @param content o conteúdo do texto
-      static Text* create(GameProcess* gp, Point position, string content);
+      static Text* create(Point position, string content);
       
       /// @brief Define a posição do texto
       /// @param position a posição
@@ -40,6 +40,7 @@ namespace Game {
       /// @param filename o nome do arquivo
       void loadFontFromFile(string filename);
 
+      /// @brief Cria um texto
       Text();
     private:
       sf::Text text;

@@ -1,3 +1,4 @@
+#pragma once
 #include <Character.hpp>
 #include <Engine/playerfinder.hpp>
 #include <Objects/base.hpp>
@@ -15,25 +16,21 @@ namespace Game {
       virtual ~Enemy();
 
       /// @brief Cria uma instância do Enemy
-      /// @param gp ponteiro do processo do jogo 
-      /// @param player ponteiro para o player
-      /// @param base ponteiro para a base
-      static Enemy* create(GameProcess* gp, Player* player, Base* base);
+      static Enemy* create();
 
       /// @brief Realiza um disparo
       void shoot();
 
       Sound shoot_sound = Sound("shoot.mp3");
       bool focusingBase = true;
-      Player* player = nullptr;
       Playerfinder path;
+
+      static Wall* wab;
+      static Wall* wbc;
+      static Wall* wcd;
+      static Wall* wda;
     protected:
       using Character::Character;
       double range = 200.0;
-      
-      Wall* wab = nullptr;
-      Wall* wbc = nullptr;
-      Wall* wcd = nullptr;
-      Wall* wda = nullptr;
   };
 };

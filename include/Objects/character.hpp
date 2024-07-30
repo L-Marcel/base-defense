@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game {
@@ -11,10 +12,9 @@ namespace Game {
       ~Character();
 
       /// @brief Cria uma instância de um personagem
-      /// @param gp pornteiro do processo do jogo
       /// @param spriteSheet página de textura do sprite de um personagem
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      static Character* create(GameProcess* gp, string spriteSheet, Box box);
+      static Character* create(string spriteSheet, Box box);
 
       Health health;
       float damage = 10;

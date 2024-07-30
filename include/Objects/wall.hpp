@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game {
@@ -12,10 +13,9 @@ namespace Game {
       ~Wall();
 
       /// @brief Cria uma instância da parede
-      /// @param gp pornteiro do processo do jogo
       /// @param base a base a qual a parede pertence
       /// @param size diz qual é a parede
-      static Wall* create(GameProcess* gp, Base* base, unsigned short int size);
+      static Wall* create(Base* base, unsigned short int size);
     
       Base* base = nullptr;
       bool energized = true;

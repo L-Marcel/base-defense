@@ -18,8 +18,7 @@ namespace Game {
       virtual ~Base();
 
       /// @brief Cria uma instância da base
-      /// @param gp pornteiro do processo do jogo
-      static Base* create(GameProcess* gp);
+      static Base* create();
 
       List<Object2D> parts;
       Text* hud;

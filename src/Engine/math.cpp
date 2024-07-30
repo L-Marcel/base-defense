@@ -29,16 +29,5 @@ namespace Game {
       Point difference = a - b;
       return sqrt((difference.x * difference.x) + (difference.y * difference.y));
     };
-
-    Segment move(Point from, Point to, float speed) {
-      Segment path(from, to);
-
-      path.end = path.start + Math::pointInRadius(
-        min(double(speed), path.length()), 
-        path.angle()
-      );
-      
-      return path;
-    };
   };
 };

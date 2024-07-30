@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game {
@@ -11,8 +12,7 @@ namespace Game {
       ~Limit();
 
       /// @brief Cria uma instância do limite do mapa
-      /// @param gp pornteiro do processo do jogo
-      static void create(GameProcess* gp);
+      static void create();
     protected:
       /// @brief Cria uma instância do limite do mapa
       Limit();

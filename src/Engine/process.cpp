@@ -1,29 +1,53 @@
 #include <Engine.hpp>
 
 namespace Game {
+  GameProcess* GameProcess::gp = nullptr;
+  
   GameProcess::~GameProcess() {
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
+      this->objects.remove(object);
       object->free();
     };
+    this->gp = nullptr;
   };
 
   GameProcess::GameProcess() {
-    this->redraw = true;
+    if(this->gp != nullptr) {
+      delete this->gp;
+    };
+    
+    this->gp = this;
     this->window.setFramerateLimit(60);
-    this->window.setSize(Vector<unsigned int>(this->width, this->height));
-    this->window.setTitle(this->title);
+  };
+
+  void GameProcess::add(Object* object) {
+    GameProcess::gp->objects.add(object);
+  };
+
+  void GameProcess::destroy(Object* object) {
+    GameProcess::gp->queueFree.add(object);
+  };
+
+  unsigned short int GameProcess::length() {
+    return GameProcess::gp->objects.length();
+  };
+
+  const Window& GameProcess::getWindow() {
+    return GameProcess::gp->window;
+  };
+
+  Object* GameProcess::get(unsigned short int index) {
+    return GameProcess::gp->objects.get(index);
+  };
+
+  void GameProcess::draw(const Drawable& drawable) {
+    GameProcess::gp->window.draw(drawable);
   };
 
   void GameProcess::execute() {
-    unsigned int number_of_instances = 0;
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
-
-      if((this->frame)/60 <= elapsed.asSeconds()) {
-        this->nextFrame();
-        this->redraw = true;
-      };
 
       Event event;
       while(window.pollEvent(event)) {
@@ -32,44 +56,20 @@ namespace Game {
             this->window.close();
             break;
           case Event::Resized:
-            this->width = event.size.width;
-            this->height = event.size.height;
             break;
           default:
             break;
         };
       };
-      
-      if(this->redraw) {
-        this->window.clear();
 
-        if(this->objects.length() != number_of_instances) {
-          this->sort();
-          number_of_instances = this->objects.length();
-        };
-
-        for(unsigned int i = 0; i < number_of_instances; i++) {
-          Object* object = this->objects.get(i);
-          object->collision();
-          object->step();
-          object->draw();
-        };
-
-        this->window.display();
-
-        for(unsigned int i = 0; i < this->queue_free.length(); i++) {
-          Object* object = this->queue_free.get(i);
-          this->objects.remove(object);
-          this->queue_free.remove(i);
-          object->free();
-        };
-
-        this->redraw = false;
+      if((this->frame)/60 <= elapsed.asSeconds()) {
+        this->nextFrame();
       };
     };
 
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
+      this->objects.remove(object);
       object->free();
     };
 
@@ -101,7 +101,7 @@ namespace Game {
   };
 
   unsigned short int GameProcess::getFrame() {
-    return this->frame;
+    return GameProcess::gp->frame;
   };
 
   void GameProcess::nextFrame() {
@@ -109,6 +109,28 @@ namespace Game {
     else {
       this->frame = 0;
       this->clock.restart();
+    };
+
+    this->window.clear();
+
+    if(!this->objects.isSorted()) {
+      this->sort();
+    };
+
+    for(unsigned int i = 0; i < this->objects.length(); i++) {
+      Object* object = this->objects.get(i);
+      object->collision();
+      object->step();
+      object->draw();
+    };
+
+    this->window.display();
+
+    for(unsigned int i = 0; i < this->queueFree.length(); i++) {
+      Object* object = this->queueFree.get(i);
+      this->objects.remove(object);
+      this->queueFree.remove(i);
+      object->free();
     };
   };
 

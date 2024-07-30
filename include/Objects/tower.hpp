@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game {
@@ -12,9 +13,8 @@ namespace Game {
       ~Tower();
 
       /// @brief Cria uma instância da torre
-      /// @param gp pornteiro do processo do jogo
       /// @param base a base a qual a torre pertence
-      static Tower* create(GameProcess* gp, Base* base);
+      static Tower* create(Base* base);
 
       Base* base = nullptr;
       bool energized = true;

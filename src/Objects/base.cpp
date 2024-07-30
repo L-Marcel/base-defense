@@ -1,4 +1,5 @@
 #include <Objects/base.hpp>
+#include <Objects/enemy.hpp>
 #include <iomanip>
 #include <sstream>
 
@@ -31,37 +32,43 @@ namespace Game {
     };
   };
 
-  Base* Base::create(GameProcess* gp) {
+  Base* Base::create() {
     Base* base = new Base();
     base->depth = -50;
     base->position = CENTER;
     base->setRectangle(BASE_SIZE.x, BASE_SIZE.y);
-    base->gp = gp;
-    gp->objects.add(base);
+    GameProcess::add(base);
 
-    Tower* tower_one = Tower::create(gp, base);
+    Tower* tower_one = Tower::create(base);
     tower_one->position = TOP_LEFT_TOWER_POSITION;
     tower_one->setRectangle(TOWER_SIZE, TOWER_SIZE);
-    Tower* tower_two = Tower::create(gp, base);
+    Tower* tower_two = Tower::create(base);
     tower_two->position = BOTTOM_LEFT_TOWER_POSITION;
     tower_two->setRectangle(TOWER_SIZE, TOWER_SIZE);
-    Tower* tower_three = Tower::create(gp, base);
+    Tower* tower_three = Tower::create(base);
     tower_three->position = TOP_RIGHT_TOWER_POSITION;
     tower_three->setRectangle(TOWER_SIZE, TOWER_SIZE);
-    Tower* tower_four = Tower::create(gp, base);
+    Tower* tower_four = Tower::create(base);
     tower_four->position = BOTTOM_RIGHT_TOWER_POSITION;
     tower_four->setRectangle(TOWER_SIZE, TOWER_SIZE);
+
+    Enemy::wab = Wall::create(base, 2);
+    Enemy::wbc = Wall::create(base, 1);
+    Enemy::wcd = Wall::create(base, 3);
+    Enemy::wda = Wall::create(base, 0);
 
     base->parts.add(tower_one);
     base->parts.add(tower_two);
     base->parts.add(tower_three);
     base->parts.add(tower_four);
-    base->parts.add(Wall::create(gp, base, 0));
-    base->parts.add(Wall::create(gp, base, 1));
-    base->parts.add(Wall::create(gp, base, 2));
-    base->parts.add(Wall::create(gp, base, 3));
+    base->parts.add(Enemy::wab);
+    base->parts.add(Enemy::wbc);
+    base->parts.add(Enemy::wcd);
+    base->parts.add(Enemy::wda);
 
-    Text* hud = Text::create(gp, Point(640, 400), to_string(base->health.get()));
+   
+
+    Text* hud = Text::create(Point(640, 400), to_string(base->health.get()));
     base->hud = hud;
 
     return base;

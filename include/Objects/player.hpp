@@ -14,9 +14,12 @@ namespace Game {
       using Character::free;
       virtual ~Player();
 
-      /// @brief Cria uma instância do player
-      /// @param gp ponteiro do processo do jogo
-      static Player* create(GameProcess* gp);
+      /// @brief Cria uma instância do jogador
+      static Player* create();
+
+      /// @brief Retorna o ponteiro do jogador
+      /// @return o ponteiro
+      const static Player* get();
 
       /// @brief Realiza um disparo
       void shoot();
@@ -26,5 +29,6 @@ namespace Game {
       bool safe = true;
     protected:
       using Character::Character;
+      static Player* player;
   };
 };

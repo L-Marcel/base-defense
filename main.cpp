@@ -10,20 +10,20 @@ int main() {
   music.setVolume(30);
   music.play();
 
-  Background::create(&gp);
-  Limit::create(&gp);
+  Background::create();
+  Limit::create();
 
-  Player* player = Player::create(&gp);
+  Player* player = Player::create();
   player->scale(2);
   
-  Base* base = Base::create(&gp);
+  Base::create();
   
-  Enemy* enemy = Enemy::create(&gp, player, base);
+  Enemy* enemy = Enemy::create();
   enemy->scale(2);
   enemy->animate(8, 4, 0, false);
-  Collision::create(&gp, enemy, "Bullet");
+  Collision::create(enemy, "Bullet");
 
-  Text* text = Text::create(&gp, Point(572, 120), "Exemplo");
+  Text* text = Text::create(Point(572, 120), "Exemplo");
   text->depth = 20;
   
   gp.execute();

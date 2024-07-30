@@ -1,12 +1,11 @@
+#pragma once
 #include <Engine/math.hpp>
 
 namespace Game {
   namespace Mouse {
-    /// @brief Retorna a posição do mouse no monitor ou na janela do jogo
-    /// (caso informe a janela)
-    /// @param window a janela do jogo
+    /// @brief Retorna a posição do mouse na janela do jogo
     /// @return o vetor (x, y) indicando a posição do mouse
-    Point position(Window* window = nullptr);
+    Point position();
 
     /// @brief Diz se o botão esquerdo do mouse foi apertado
     /// @return verdadeiro, caso tenha sido

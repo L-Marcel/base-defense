@@ -6,7 +6,7 @@ namespace Game {
   };
   
   void Text::draw() {
-    this->gp->window.draw(this->text);
+    GameProcess::draw(this->text);
   };
 
   Text::~Text() {};
@@ -16,12 +16,11 @@ namespace Game {
     this->setFont(this->font);
   };
 
-  Text* Text::create(GameProcess* gp, Point position, string content) {
+  Text* Text::create(Point position, string content) {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
-    text->gp = gp;
-    gp->objects.add(text);
+    GameProcess::add(text);
     return text;
   };
 

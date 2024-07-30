@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/math.hpp>
 
 namespace Game {
