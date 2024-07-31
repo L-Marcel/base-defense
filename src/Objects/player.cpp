@@ -19,7 +19,7 @@ namespace Game {
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
-    
+
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
@@ -37,6 +37,9 @@ namespace Game {
           collider->destroy();
           this->health.damage(bullet->damage);
         }
+      } else if(type == "MedicalKit") {
+        collider->destroy();
+        this->health.heal(10);
       };
     };
     
@@ -86,9 +89,10 @@ namespace Game {
     player->setCircle(11);
     player->depth = 150;
     GameProcess::add(player);
-
+    
     Collision::create(player, "Bullet");
     Collision::create(player, "Base");
+    Collision::create(gp, player, "MedicalKit");
 
     return player;
   };

@@ -20,12 +20,14 @@ namespace Game {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
+    text->depth = 500;
     text->setSize(27);
 
     FloatRect textBounds = text->text.getLocalBounds();
     text->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
    
     GameProcess::add(text);
+
     return text;
   };
 

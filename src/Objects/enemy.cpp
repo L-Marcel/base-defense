@@ -19,8 +19,12 @@ namespace Game {
         if(bullet->isAlly()){
           collider->destroy();
           this->health.damage(bullet->damage);
-        };
-      };
+          if(this->free_queued){
+            MedicalKit* medkit = MedicalKit::create(this->gp, this->position);
+            medkit->drop();
+          }
+        }
+      }
     };
 
     const Player* player = Player::get();

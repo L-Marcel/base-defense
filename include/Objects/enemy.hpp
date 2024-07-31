@@ -3,6 +3,7 @@
 #include <Engine/playerfinder.hpp>
 #include <Objects/base.hpp>
 #include <Objects/bullet.hpp>
+#include <Objects/medicalkit.hpp>
 #include <Sound.hpp>
 
 namespace Game {
