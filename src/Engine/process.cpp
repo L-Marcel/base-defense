@@ -49,6 +49,8 @@ namespace Game {
   };
 
   void GameProcess::execute() {
+    Mouse::setWindow(&window);
+
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 

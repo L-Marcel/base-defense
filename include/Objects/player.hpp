@@ -24,6 +24,7 @@ namespace Game {
       /// @brief Realiza um disparo
       void shoot();
 
+      Ammo ammo;
       Pathfinder path;
       Sound shoot_sound = Sound("shoot.mp3");
       bool safe = true;

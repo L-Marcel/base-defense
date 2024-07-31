@@ -1,3 +1,4 @@
+#include <Misc/ammo.hpp>
 #include <Objects/enemy.hpp>
 #include <Objects/base.hpp>
 #include <Input.hpp>
@@ -67,12 +68,17 @@ namespace Game {
   };
 
   void Player::shoot() {
-    Bullet* bullet = Bullet::create(this, true);
-    bullet->damage = this->damage;
-    bullet->canBeBlocked = !this->safe;
-    this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
-    this->shoot_sound.setVolume(50);
-    this->shoot_sound.play();
+    if(this->ammo.get() > 0) {
+      Bullet* bullet = Bullet::create(this, true);
+      bullet->damage = this->damage;
+      bullet->canBeBlocked = !this->safe;
+      this->ammo.shoot(1);
+      this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->shoot_sound.play();
+    } else {
+      this->empty_clip_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->empty_clip_sound.play();
+    };
   };
 
   Player* Player::create() {
