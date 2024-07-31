@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game {
@@ -11,8 +12,7 @@ namespace Game {
       ~Background();
 
       /// @brief Cria uma instância do plano de fundo do jogo
-      /// @param gp pornteiro do processo do jogo
-      static Background* create(GameProcess* gp);
+      static Background* create();
     protected:
       /// @brief Cria uma instância do plano de fundo
       /// @param spriteSheet página de textura do sprite do plano de fundo

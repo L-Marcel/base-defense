@@ -1,5 +1,7 @@
+#pragma once
 #include <Character.hpp>
-#include <Objects/player.hpp>
+#include <Engine/playerfinder.hpp>
+#include <Objects/base.hpp>
 #include <Objects/bullet.hpp>
 #include <Objects/medicalkit.hpp>
 #include <Sound.hpp>
@@ -12,22 +14,24 @@ namespace Game {
       using Character::collision;
       using Character::draw;
       using Character::free;
-      virtual ~Enemy();
+      ~Enemy();
 
       /// @brief Cria uma instância do Enemy
-      /// @param gp ponteiro do processo do jogo 
-      /// @param player ponteiro para o player
-      /// @param base ponteiro para a base
-      static Enemy* create(GameProcess* gp, Player* player, Object2D* base);
+      static Enemy* create();
 
       /// @brief Realiza um disparo
       void shoot();
 
       Sound shoot_sound = Sound("shoot.mp3");
+      bool focusingBase = true;
+      Playerfinder path;
+
+      static Wall* wab;
+      static Wall* wbc;
+      static Wall* wcd;
+      static Wall* wda;
     protected:
       using Character::Character;
-      Player* targetPlayer;
-      Object2D* base;
-      double range = 200.000; // Valor ilustrativo, ainda a ser definido
+      double range = 200.0;
   };
 };

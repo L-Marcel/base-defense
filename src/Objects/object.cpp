@@ -15,24 +15,24 @@ namespace Game {
 
   Object::Object() {};
 
-  Object* Object::create(GameProcess* gp) {
+  Object* Object::create() {
     Object* instance = new Object();
-    instance->gp = gp;
-    gp->objects.add(instance);
+    GameProcess::add(instance);
     return instance;
   };
 
   void Object::destroy() {
     if(!this->free_queued) {
-      this->gp->queue_free.add(this);
+      GameProcess::destroy(this);
       this->free_queued = true;
     };
   };
 
   void Object::free() {
-    if(this->gp) {
-      this->gp->objects.remove(this);
-    };
     delete this;
+  };
+
+  bool Object::isPausable(){
+    return this->pausable;
   };
 };

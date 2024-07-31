@@ -3,9 +3,9 @@
 namespace Game {
   void Bullet::step(){
     // if(this->hasCircle){
-    //   this->gp->window.draw(this->circle);
+    //   this->GameProcess::draw(this->circle);
     // } else if(this->hasRectangle) {
-    //   this->gp->window.draw(this->rectangle);
+    //   this->GameProcess::draw(this->rectangle);
     // };
 
     this->position += Math::pointInRadius(this->speed, this->direction);
@@ -18,7 +18,7 @@ namespace Game {
 
   Bullet::~Bullet() {};
 
-  Bullet* Bullet::create(GameProcess* gp, Object2D* object, bool ally) {
+  Bullet* Bullet::create(Object2D* object, bool ally) {
     Bullet* bullet = new Bullet("bullet.png", Box(3, 1.5, 6, 3));
     bullet->depth = 50;
     bullet->position = object->position;
@@ -27,8 +27,7 @@ namespace Game {
     bullet->direction = object->rotation + 90;
     bullet->speed = 14;
     bullet->ally = ally;
-    bullet->gp = gp;
-    gp->objects.add(bullet);
+    GameProcess::add(bullet);
     return bullet;
   };
 

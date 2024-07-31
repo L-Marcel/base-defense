@@ -13,41 +13,37 @@ namespace Game {
   };
 
   void Limit::draw() {
-    gp->window.draw(this->rectangle);
+    GameProcess::draw(this->rectangle);
   };
 
   Limit::~Limit() {};
 
   Limit::Limit() {};
 
-  void Limit::create(GameProcess* gp) {
+  void Limit::create() {
     Limit* left = new Limit();
-    left->position = Vector<float>(-110, 360);
+    left->position = Point(-110, 360);
     left->setRectangle(200, 720);
-    left->gp = gp;
-    gp->objects.add(left);
+    GameProcess::add(left);
 
     Limit* right = new Limit();
-    right->position = Vector<float>(1380, 360);
+    right->position = Point(1380, 360);
     right->setRectangle(200, 720);
-    right->gp = gp;
-    gp->objects.add(right);
+    GameProcess::add(right);
 
     Limit* top = new Limit();
-    top->position = Vector<float>(640, -100);
+    top->position = Point(640, -100);
     top->setRectangle(1280, 200);
-    top->gp = gp;
-    gp->objects.add(top);
+    GameProcess::add(top);
 
     Limit* bottom = new Limit();
-    bottom->position = Vector<float>(640, 820);
+    bottom->position = Point(640, 820);
     bottom->setRectangle(1280, 200);
-    bottom->gp = gp;
-    gp->objects.add(bottom);
+    GameProcess::add(bottom);
 
-    Collision::create(gp, left, "Bullet");
-    Collision::create(gp, right, "Bullet");
-    Collision::create(gp, top, "Bullet");
-    Collision::create(gp, bottom, "Bullet");
+    Collision::create(left, "Bullet");
+    Collision::create(right, "Bullet");
+    Collision::create(top, "Bullet");
+    Collision::create(bottom, "Bullet");
   };
 };

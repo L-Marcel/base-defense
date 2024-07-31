@@ -29,8 +29,8 @@ namespace Game {
     };
 
     if(this->sprite != nullptr) {
-      this->gp->animate(this);
-      this->gp->window.draw(*this->sprite);
+      GameProcess::animate(this);
+      GameProcess::draw(*this->sprite);
     };
   };
 
@@ -61,18 +61,13 @@ namespace Game {
     };
   };
 
-  Object2D* Object2D::create(GameProcess* gp, string spriteSheet, Box box) {
+  Object2D* Object2D::create(string spriteSheet, Box box) {
     Object2D* instance = new Object2D(spriteSheet, box);
-    instance->gp = gp;
-    gp->objects.add(instance);
+    GameProcess::add(instance);
     return instance;
   };
 
   void Object2D::free() {
-    if(this->gp) {
-      this->gp->objects.remove(this);
-    };
-
     for(unsigned int i = 0; i < this->collisions.length(); i++) {
       Collision* collision = this->collisions.get(i);
       collision->destroy();
@@ -103,7 +98,7 @@ namespace Game {
   void Object2D::setRectangle(float width, float height){
     if(this->hasCircle) return;
 
-    this->rectangle.setSize(Vector<float>(width, height));
+    this->rectangle.setSize(Point(width, height));
     this->rectangle.setOrigin(width/2, height/2);
     this->rectangle.setPosition(this->position.x, this->position.y);
     this->rectangleWidth = width;

@@ -2,39 +2,36 @@
 
 TEST(CollisionTest, Destroy) {
   GameProcess gp;
-  Player* player = Player::create(&gp);
-  Collision* collision = Collision::create(&gp, player, "Example");
-  EXPECT_EQ((int) player->collisions.length(), 1);
+  Player* player = Player::create();
+  Collision* collision = Collision::create(player, "Example");
+  int amount = (int) player->collisions.length();
   collision->destroy();
-  EXPECT_EQ((int) player->collisions.length(), 0);
+  EXPECT_EQ((int) player->collisions.length(), amount - 1);
 };
 
 TEST(CollisionTest, Step) {
   GameProcess gp;
-  Player* player = Player::create(&gp);
-  Collision* collision = Collision::create(&gp, player, "Object2D");
-  Object2D* object = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Player* player = Player::create();
+  Collision* collision = Collision::create(player, "Object2D");
+  Object2D* object = Object2D::create("player.png", Box(12, 14, 24, 28));
   object->position = player->position;
   object->setCircle(1);
   collision->step();
-  EXPECT_EQ((int) player->collisions.length(), 1);
   EXPECT_EQ((int) player->colliders.length(), 1);
   EXPECT_EQ(player->colliders.get(0), object);
-  object->free();
-  gp.objects.remove(object);
+  GameProcess::destroy(object);
+  gp.nextFrame();
   player->collision();
   EXPECT_EQ((int) player->colliders.length(), 0);
-  collision->destroy();
-  EXPECT_EQ((int) player->collisions.length(), 0);
 };
 
 TEST(CollisionTest, Circles) {
   GameProcess gp;
 
-  Object2D* first = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Object2D* first = Object2D::create("player.png", Box(12, 14, 24, 28));
   first->setCircle(1);
 
-  Object2D* second = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Object2D* second = Object2D::create("player.png", Box(12, 14, 24, 28));
   second->position = first->position;
   second->setCircle(1);
   
@@ -63,10 +60,10 @@ TEST(CollisionTest, Circles) {
 TEST(CollisionTest, Rectangles) {
   GameProcess gp;
 
-  Object2D* first = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Object2D* first = Object2D::create("player.png", Box(12, 14, 24, 28));
   first->setRectangle(1, 1);
 
-  Object2D* second = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Object2D* second = Object2D::create("player.png", Box(12, 14, 24, 28));
   second->setRectangle(1, 1);
   second->position = first->position;
 
@@ -100,10 +97,10 @@ TEST(CollisionTest, Rectangles) {
 TEST(CollisionTest, CirclesAndRectangles) {
   GameProcess gp;
 
-  Object2D* first = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Object2D* first = Object2D::create("player.png", Box(12, 14, 24, 28));
   first->setCircle(1);
 
-  Object2D* second = Object2D::create(&gp, "player.png", Box(12, 14, 24, 28));
+  Object2D* second = Object2D::create("player.png", Box(12, 14, 24, 28));
   second->setRectangle(1, 1);
   second->position = first->position;
 

@@ -1,6 +1,11 @@
 #include <Objects/enemy.hpp>
 
 namespace Game {
+  Wall* Enemy::wab = nullptr;
+  Wall* Enemy::wbc = nullptr;
+  Wall* Enemy::wcd = nullptr;
+  Wall* Enemy::wda = nullptr;
+
   string Enemy::type() {
     return "Enemy";
   };
@@ -13,7 +18,7 @@ namespace Game {
         Bullet* bullet = (Bullet*) collider;
         if(bullet->isAlly()){
           collider->destroy();
-          this->health.damage(50);
+          this->health.damage(bullet->damage);
           if(this->free_queued){
             MedicalKit* medkit = MedicalKit::create(this->gp, this->position);
             medkit->drop();
@@ -22,49 +27,133 @@ namespace Game {
       }
     };
 
-    double playerDistance = Math::pointDistance(this->targetPlayer->position, this->position);
-    double baseDistance = Math::pointDistance(this->base->position, this->position);
+    const Player* player = Player::get();
+    if(player == nullptr) return;
 
-    if(this->base->position != this->position && baseDistance > this->range) {
-      Vector<float> difference = this->base->position - this->position;
-      this->direction = Math::pointDirection(difference);
-      this->position += Math::pointInRadius(
-        min(double(this->speed), playerDistance), 
-        this->direction
-      );
-    };
+    if(this->animationFinished) {
+      Segment path = this->path.getPath(this->position, this->speed, this->range);
+      this->position = path.end;
 
-    if(playerDistance <= this->range){
-      this->rotation = Math::pointDirection(this->targetPlayer->position - this->position) - 90.0;
-    } else {
-      this->rotation = Math::pointDirection(this->base->position - this->position) - 90.0;
-    };
+      if(player->safe && this->path.isStopped()) {
+        unsigned short int sector = this->path.getSector(this->position);
+        switch(sector) {
+          case 0:
+            this->direction = Math::pointDirection(
+              Playerfinder::rab.start - this->position
+            );
+            break;
+          case 1:
+            if(this->wab->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  clamp(this->position.x + (rand() % 101) - 50, Playerfinder::rab.start.x, Playerfinder::rab.end.x),
+                  Playerfinder::rab.start.y
+                ) - this->position
+              );
+            } else if(!this->wab->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 2:
+            this->direction = Math::pointDirection(
+              Playerfinder::rbc.start - this->position
+            );
+            break;
+          case 3:
+            if(this->wda->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  Playerfinder::rda.start.x,
+                  clamp(this->position.y + (rand() % 101) - 50, Playerfinder::rda.end.y, Playerfinder::rda.start.y)
+                ) - this->position
+              );
+            } else if(!this->wda->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 5:
+            if(this->wbc->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  Playerfinder::rbc.start.x,
+                  clamp(this->position.y + (rand() % 101) - 50, Playerfinder::rbc.start.y, Playerfinder::rbc.end.y)
+                ) - this->position
+              );
+            } else if(!this->wbc->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 6:
+            this->direction = Math::pointDirection(
+              Playerfinder::rda.start - this->position
+            );
+            break;
+          case 7:
+            if(this->wcd->enabled && !this->focusingBase) {
+              this->focusingBase = true;
+              this->direction = Math::pointDirection(
+                Point(
+                  clamp(this->position.x + (rand() % 101) - 50, Playerfinder::rcd.end.x, Playerfinder::rcd.start.x),
+                  Playerfinder::rcd.start.y
+                ) - this->position
+              );
+            } else if(!this->wcd->enabled) {
+              this->focusingBase = false;
+              this->direction = Math::pointDirection(player->position - this->position);
+            };
+            break;
+          case 8:
+            this->direction = Math::pointDirection(
+              Playerfinder::rcd.start - this->position
+            );
+            break;
+          default:
+            break;
+        };
+      } else if(player->safe) {
+        this->direction = path.angle();
+      } else if(this->path.isStopped()) {
+        this->focusingBase = false;
+        this->direction = Math::pointDirection(player->position - this->position);
+      } else {
+        this->focusingBase = false;
+        this->direction = path.angle();
+      };
 
-    if(this->animationFinished && (baseDistance <= this->range || playerDistance <= this->range)){
-      this->animate(8, 4, 0, false);
-      this->shoot();
+      this->rotation = this->direction - 90.0;
+      bool canShoot = this->path.isStopped();
+      if(canShoot) {
+        this->animate(8, 6, 1, false);
+        this->shoot();
+      };
     };
   };
 
   Enemy::~Enemy() {};
 
-  Enemy* Enemy::create(GameProcess* gp, Player* player, Object2D* base){
-    Enemy* enemy = new Enemy("canhao.png", Box(16, 16, 32, 32));
-    enemy->targetPlayer = player;
-    enemy->base = base;
-    enemy->speed = 1.0;
-    enemy->position = Vector<float>(600.f, 100.f);
+  Enemy* Enemy::create() {
+    Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
+    enemy->speed = 1.25;
+    enemy->animate(8, 1, 0, false);
+    enemy->position = Point(600.f, 100.f);
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
-    enemy->gp = gp;
-    gp->objects.add(enemy);
+    GameProcess::add(enemy);
     return enemy;
   };
 
   void Enemy::shoot(){
-    Bullet::create(this->gp, this);
+    Bullet* bullet = Bullet::create(this);
+    bullet->damage = this->damage;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+    this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
   };
 };

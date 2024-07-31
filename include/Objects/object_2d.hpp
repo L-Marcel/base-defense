@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/objects.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Collision;
@@ -13,10 +13,9 @@ namespace Game {
       virtual ~Object2D();
 
       /// @brief Cria uma instância do objeto 2D
-      /// @param gp pornteiro do processo do jogo
       /// @param spriteSheet página de textura do sprite do objeto 2D
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      static Object2D* create(GameProcess* gp, string spriteSheet, Box box);
+      static Object2D* create(string spriteSheet, Box box);
 
       /// Sprite
       Sprite* sprite = nullptr;
@@ -43,7 +42,7 @@ namespace Game {
       /// 
       
       /// Movement
-      Vector<float> position;
+      Point position;
       double direction = 0;
       float speed = 0;
       ///

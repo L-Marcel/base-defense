@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/defs.hpp>
+#include <Engine/segment.hpp>
 
 namespace Game {
   namespace Math {
@@ -7,7 +7,7 @@ namespace Game {
     /// @param radius o raio do círculo
     /// @param angle o ângulo
     /// @return o par de coordenadas do ponto
-    Vector<float> pointInRadius(double radius, double angle);
+    Point pointInRadius(double radius, double angle);
 
     /// @brief Retorna o arco tangente da reta que passa entre o ponto (0,0)
     /// e o ponto formado pelas coordenadas (x, y)
@@ -20,12 +20,12 @@ namespace Game {
     /// e o ponto formado pelas coordenadas (x, y)
     /// @param point a coordenada do ponto
     /// @return o arco tangente da reta
-    double pointDirection(Vector<float> point);
+    double pointDirection(Point point);
 
     /// @brief Retorna a distância entre dois pontos
     /// @param a o primeiro ponto
     /// @param b o segundo ponto
     /// @return a distância
-    double pointDistance(Vector<float> a, Vector<float> b = Vector<float>(0, 0));
+    double pointDistance(Point a, Point b = Point(0, 0));
   };
 };

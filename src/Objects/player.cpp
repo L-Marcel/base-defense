@@ -1,84 +1,103 @@
-#include <Objects/player.hpp>
-#include <Objects/bullet.hpp>
+#include <Objects/enemy.hpp>
+#include <Objects/base.hpp>
 #include <Input.hpp>
 
 namespace Game {
+  Player* Player::player = nullptr;
+  
   string Player::type() {
     return "Player";
   };
 
   void Player::step() {
-    this->safe = false;
+    // if(this->hasCircle){
+    //   this->GameProcess::draw(this->circle);
+    // } else if(this->hasRectangle) {
+    //   this->GameProcess::draw(this->rectangle);
+    // };
+    
+    if(GameProcess::getFrame() % 60 == 0) {
+      this->safe = false;
+    };
+
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
-      };
-      
-      if(type == "Bullet"){
+        Base* base = (Base*) collider;
+        if(this->path.isStopped()) {
+          base->health.heal(1.0/60.0);
+        } else {
+          base->health.heal(1.0/180.0);
+        };
+      } else if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
         if(!bullet->isAlly()){
           collider->destroy();
-          this->health.damage(10);
+          this->health.damage(bullet->damage);
         }
-      };
-      if(type == "MedicalKit") {
+      } else if(type == "MedicalKit") {
         collider->destroy();
         this->health.heal(10);
       };
     };
     
-    Vector<float> mouse = Mouse::position(&this->gp->window);
+    Point mouse = Mouse::position();
     if(mouse != this->position) {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
-    if(Mouse::right()){
-      this->targetPosition = mouse;
+    if(Mouse::isRightDown()) {
+      this->path.setDestiny(mouse);
     };
 
-    if(this->targetPosition != this->position) {
-      double distance = Math::pointDistance(this->targetPosition, this->position);
+    Segment path = this->path.getPath(this->position, this->speed);
+    this->position = path.end;
+    this->direction = path.angle();
 
-      Vector<float> difference = this->targetPosition - this->position;
-      this->direction = Math::pointDirection(difference);
-      this->position += Math::pointInRadius(
-        min(double(this->speed), distance), 
-        this->direction
-      );
-    };
-
-    if(this->animationFinished && (Input::fire() || Mouse::left())) {
+    if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->animate(8, 6, 1, false);
       this->shoot();
     };
   };
   
-  Player::~Player() {};
+  Player::~Player() {
+    Player::player = nullptr;
+  };
 
   void Player::shoot() {
-    Bullet* bullet = Bullet::create(this->gp, this, true);
+    Bullet* bullet = Bullet::create(this, true);
+    bullet->damage = this->damage;
     bullet->canBeBlocked = !this->safe;
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+    this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
   };
 
-  Player* Player::create(GameProcess* gp) {
+  Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32));
+
+    if(Player::player != nullptr) {
+      delete Player::player;
+    };
+
+    Player::player = player;
     player->speed = 5.0;
     player->animate(8, 1, 0, false);
-    player->position = Vector<float>(640, 360);
-    player->targetPosition = player->position;
+    player->position = CENTER;
     player->setCircle(11);
     player->depth = 150;
-    player->gp = gp;
-    gp->objects.add(player);
-
-    Collision::create(gp, player, "Bullet");
-    Collision::create(gp, player, "Base");
+    GameProcess::add(player);
+    
+    Collision::create(player, "Bullet");
+    Collision::create(player, "Base");
     Collision::create(gp, player, "MedicalKit");
 
     return player;
+  };
+
+  const Player* Player::get() {
+    return Player::player;
   };
 };

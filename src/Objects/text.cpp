@@ -6,27 +6,32 @@ namespace Game {
   };
   
   void Text::draw() {
-    this->gp->window.draw(this->text);
+    GameProcess::draw(this->text);
   };
 
   Text::~Text() {};
   
   Text::Text() {
-    this->loadFontFromFile("assets/fonts/PixeloidMono.ttf");
+    this->loadFontFromFile("assets/fonts/pixeloid_mono.ttf");
     this->setFont(this->font);
   };
 
-  Text* Text::create(GameProcess* gp, Vector<float> position, string content) {
+  Text* Text::create(Point position, string content) {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
     text->depth = 500;
-    text->gp = gp;
-    gp->objects.add(text);
+    text->setSize(27);
+
+    FloatRect textBounds = text->text.getLocalBounds();
+    text->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+   
+    GameProcess::add(text);
+
     return text;
   };
 
-  void Text::setPosition(Vector<float> position) {
+  void Text::setPosition(Point position) {
     this->text.setPosition(position);
   };
 
