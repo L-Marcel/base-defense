@@ -9,7 +9,7 @@ namespace Game {
       using Object::collision;
       virtual void draw();
       using Object::free;
-      virtual ~Text();
+      ~Text();
 
       /// @brief Cria uma instância do texto
       /// @param position a posição do texto

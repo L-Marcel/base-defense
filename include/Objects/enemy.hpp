@@ -13,7 +13,7 @@ namespace Game {
       using Character::collision;
       using Character::draw;
       using Character::free;
-      virtual ~Enemy();
+      ~Enemy();
 
       /// @brief Cria uma instância do Enemy
       static Enemy* create();

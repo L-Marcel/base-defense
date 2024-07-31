@@ -45,7 +45,7 @@ namespace Game {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
-    if(Mouse::right()) {
+    if(Mouse::isRightDown()) {
       this->path.setDestiny(mouse);
     };
 
@@ -53,7 +53,7 @@ namespace Game {
     this->position = path.end;
     this->direction = path.angle();
 
-    if(this->animationFinished && (Input::fire() || Mouse::left())) {
+    if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->animate(8, 6, 1, false);
       this->shoot();
     };

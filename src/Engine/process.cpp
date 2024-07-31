@@ -3,6 +3,7 @@
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
+  bool GameProcess::paused = false;
   
   GameProcess::~GameProcess() {
     for(unsigned int i = 0; i < this->objects.length(); i++) {
@@ -64,15 +65,28 @@ namespace Game {
             break;
           case Event::Resized:
             break;
+          case Event::KeyPressed:
+            Input::press(event.key.code);
+            break;
+          case Event::KeyReleased:
+            Input::release(event.key.code);
+            break;
+          case Event::MouseButtonPressed:
+            Mouse::press(event.mouseButton.button);
+            break;
+          case Event::MouseButtonReleased:
+            Mouse::release(event.mouseButton.button);
+            break;
           default:
             break;
         };
       };
 
-      if(Input::fire(Keyboard::P)) setPaused(true);
-      if((this->frame)/60 <= elapsed.asSeconds()) {
-        this->nextFrame();
-      };
+      if((this->frame)/60 <= elapsed.asSeconds()) this->nextFrame();
+      if(Input::isPressed(Keyboard::Escape)) this->paused = !this->paused;
+
+      Input::update();
+      Mouse::update();
     };
 
     for(unsigned int i = 0; i < this->objects.length(); i++) {
@@ -125,28 +139,16 @@ namespace Game {
       this->sort();
     };
 
-    for(unsigned int i = 0; i < this->buttons.length(); i++){
-      Button* button = this->buttons.get(i);
-      if(button->getText() != nullptr) {
-        if(!button->isPausable() && this->isPaused) button->getText()->setVisible(button->isVisible());
-        else if(button->isPausable() && !this->isPaused) button->getText()->setVisible(button->isVisible());
-        else button->getText()->setVisible(false);
-      };
-    };
-
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
-      if(object->isPausable() && !this->isPaused && object->isVisible()){
-        object->draw();
+
+      if(!object->isPausable()) object->step();
+      else if(!this->paused) {
         object->collision();
         object->step();
-      } else if(!object->isPausable() && this->isPaused && object->isVisible()){
-        object->collision();
-        object->step();
-        object->draw();
-      } else if(object->isPausable() && object->isVisible()){
-        object->draw();
-      }; 
+      };
+
+      if(object->visible) object->draw();
     };
 
     this->window.display();
@@ -161,14 +163,6 @@ namespace Game {
 
   bool GameProcess::isRunning() {
     return this->window.isOpen();
-  };
-
-  bool GameProcess::checkPaused(){
-    return this->isPaused;
-  };
-
-  void GameProcess::setPaused(bool pause){
-    this->isPaused = pause;
   };
 
   void GameProcess::resizeWindow(unsigned int newWidth, unsigned int newHeigth){

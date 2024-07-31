@@ -29,6 +29,8 @@ namespace Game {
   sf::Sprite typedef Sprite;
   sf::Texture typedef Texture;
   sf::Keyboard typedef Keyboard;
+  Keyboard::Key typedef Key;
+  sf::Mouse::Button typedef MouseButton;
   sf::Color typedef Color;
   sf::Drawable typedef Drawable;
   sf::FloatRect typedef FloatRect;

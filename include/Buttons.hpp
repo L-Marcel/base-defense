@@ -1,3 +1,5 @@
 #pragma once
-#include <Objects/button.hpp>
-#include <Objects/Buttons/resumeButton.hpp>
+#include <Buttons/button.hpp>
+#include <Buttons/resume_button.hpp>
+#include <Buttons/bridge_button.hpp>
+#include <Buttons/resolution_button.hpp>

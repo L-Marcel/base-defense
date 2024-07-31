@@ -1,11 +1,9 @@
 #pragma once
 #include <Engine.hpp>
+#include <Buttons.hpp>
+#include <Objects/pause_screen.hpp>
 #include <Objects/player.hpp>
 #include <Objects/enemy.hpp>
 #include <Objects/background.hpp>
 #include <Objects/limit.hpp>
 #include <Objects/base.hpp>
-#include <Objects/resumeButton.hpp>
-#include <Objects/resolutionButton.hpp>
-#include <Objects/bridgeButton.hpp>
-#include <Objects/pausescreen.hpp>

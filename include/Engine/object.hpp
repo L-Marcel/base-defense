@@ -35,17 +35,15 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Object* create();
 
+      /// @brief Diz se o objeto é pausável
+      /// @return `true` se for, `false` caso contrário
       bool isPausable();
 
-      bool isVisible();
-
-      void setVisible(bool visible);
-
       int depth = 0;
+      bool visible = true;
     protected:
       bool free_queued = false;
       bool pausable = true;
-      bool visible = true;
 
       /// @brief Cria uma instância do objeto
       Object();

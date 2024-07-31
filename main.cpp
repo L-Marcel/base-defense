@@ -25,12 +25,7 @@ int main() {
   Text* text = Text::create(Point(572, 120), "Exemplo");
   text->depth = 20;
 
-  ///Botões
-  // ResumeButton* resume = ResumeButton::create(&gp, "button.png", Box(32, 16, 64, 32), true);
-  // resume->position.x = 640;
-  // resume->position.y = 150;
-  // resume->scale(4);
-  // resume->setText("Resume", 40);
+  ResumeButton* resume = ResumeButton::create();
 
   // BridgeButton* optButton = BridgeButton::create(&gp, "button.png", Box(32, 16, 64, 32), true, "OptButton");
   // optButton->position.x = 640;
@@ -90,7 +85,7 @@ int main() {
   // optButton->addType(optExitButton->subType());
   ///
 
-  //PauseScreen* pause = PauseScreen::create(&gp);
+  PauseScreen::create();
 
   gp.execute();
 

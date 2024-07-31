@@ -12,7 +12,7 @@ namespace Game {
       using Character::collision;
       using Character::draw;
       using Character::free;
-      virtual ~Player();
+      ~Player();
 
       /// @brief Cria uma instância do jogador
       static Player* create();

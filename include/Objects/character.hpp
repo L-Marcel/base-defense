@@ -9,7 +9,7 @@ namespace Game {
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;
-      ~Character();
+      virtual ~Character();
 
       /// @brief Cria uma instância de um personagem
       /// @param spriteSheet página de textura do sprite de um personagem

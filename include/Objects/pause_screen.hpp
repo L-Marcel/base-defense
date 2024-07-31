@@ -1,10 +1,11 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game{
-  class PauseScreen : public Object2D{
+  class PauseScreen : public Object2D {
     public:
       virtual string type();
-      using Object2D::step;
+      virtual void step();
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;
