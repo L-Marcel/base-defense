@@ -1,9 +1,9 @@
 #include <Engine.hpp>
+#include <Menus.hpp>
 #include <Input.hpp>
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
-  bool GameProcess::paused = false;
   
   GameProcess::~GameProcess() {
     for(unsigned int i = 0; i < this->objects.length(); i++) {
@@ -11,11 +11,6 @@ namespace Game {
       this->objects.remove(object);
       object->free();
     };
-
-    // for(unsigned int i = 0; i < this->buttons.length(); i++) {
-    //   Button* button = this->buttons.get(i);
-    //   button->free();
-    // };
 
     this->gp = nullptr;
   };
@@ -83,7 +78,10 @@ namespace Game {
       };
 
       if((this->frame)/60 <= elapsed.asSeconds()) this->nextFrame();
-      if(Input::isPressed(Keyboard::Escape)) this->paused = !this->paused;
+
+      bool pauseRequested = Input::isPressed(Keyboard::Escape);
+      if(pauseRequested && this->paused) this->resume();
+      else if(pauseRequested) this->pause();
 
       Input::update();
       Mouse::update();
@@ -99,6 +97,10 @@ namespace Game {
   };
 
   void GameProcess::animate(Object2D* object) {
+    if(GameProcess::gp->paused && object->isPausable()) {
+      return;
+    };
+
     sf::IntRect old = object->sprite->getTextureRect();
     object->image += object->fps/60.f;
 
@@ -135,11 +137,12 @@ namespace Game {
 
     this->window.clear();
 
-    if(!this->objects.isSorted()) {
+    if(this->frame_instances_amount != this->objects.length() || !this->objects.isSorted()) {
       this->sort();
+      this->frame_instances_amount = this->objects.length();
     };
 
-    for(unsigned int i = 0; i < this->objects.length(); i++) {
+    for(unsigned int i = 0; i < this->frame_instances_amount; i++) {
       Object* object = this->objects.get(i);
 
       if(!object->isPausable()) object->step();
@@ -165,8 +168,28 @@ namespace Game {
     return this->window.isOpen();
   };
 
-  void GameProcess::resizeWindow(unsigned int newWidth, unsigned int newHeigth){
-    // this->width = newWidth;
-    // this->height = newHeigth;
+  void GameProcess::navigate(Menu* menu) {
+    if(GameProcess::gp->menu != nullptr) GameProcess::gp->menu->close();
+    GameProcess::gp->menu = menu;
+  };
+
+  void GameProcess::setResolution(Resolution resolution) {
+    GameProcess::gp->view.setSize(resolution);
+    GameProcess::gp->view.setCenter(resolution.x/2.0, resolution.y/2.0);
+    GameProcess::gp->window.setSize(Vector<unsigned int>(resolution));
+  };
+
+  void GameProcess::close() {
+    GameProcess::gp->window.close();
+  };
+
+  void GameProcess::pause() {
+    GameProcess::gp->paused = true;
+    GameProcess::navigate(PauseMenu::create());
+  };
+
+  void GameProcess::resume() {
+    GameProcess::gp->paused = false;
+    GameProcess::navigate();
   };
 };

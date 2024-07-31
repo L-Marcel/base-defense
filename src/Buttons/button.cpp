@@ -10,8 +10,6 @@ namespace Game{
   Button* Button::create(string sprite, Box box, bool pauseBt) {
     Button* button = new Button(sprite, box);
     button->pausable = !pauseBt;
-    button->buttonWidth = box.getSize().x;
-    button->buttonHeight = box.getSize().y;
     GameProcess::add(button);
     return button;
   };
@@ -37,22 +35,18 @@ namespace Game{
     };
   };
 
-  bool Button::wasBridged(){
-    return this->bridged;
-  };
-
-  void Button::setBridged(bool bridged){
-    this->bridged = bridged;
-  };
-
-  bool Button::isMouseHovering(){
+  bool Button::isHovered(){
     Point mouse = Mouse::position();
+    int width = this->sprite->getTextureRect().width * this->sprite->getScale().x;
+    int height = this->sprite->getTextureRect().height * this->sprite->getScale().y;
+
     return (
-      mouse.x <= (this->position.x + this->buttonWidth) &&
-      mouse.x >= (this->position.x - this->buttonWidth) &&
-      mouse.y <= (this->position.y + this->buttonHeight) &&
-      mouse.y >= (this->position.y - this->buttonHeight) &&
-      this->visible
+      mouse.x <= (this->position.x + width/2.0) &&
+      mouse.x >= (this->position.x - width/2.0) &&
+      mouse.y <= (this->position.y + height/2.0) &&
+      mouse.y >= (this->position.y - height/2.0) &&
+      this->visible &&
+      !this->free_queued
     );
   };
 };

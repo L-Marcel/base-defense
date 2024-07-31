@@ -3,26 +3,32 @@
 #include <Objects.hpp>
 
 namespace Game {
-  class GameProcess {
+  class 
+  GameProcess {
     protected:
       static GameProcess* gp;
       List<Object> queueFree;
       List<Object> objects;
+      unsigned int frame_instances_amount = 0;
+      Menu* menu = nullptr;
       Window window = Window(VideoMode(1280, 720), "Base Defense");
-      //View view = View(sf::FloatRect(0, 0, this->width, this->height));
+      View view = View(Point(0, 0), Resolution(1280, 720));
       unsigned short int frame = 0;
+      bool paused = false;
     private:
       Clock clock;
     public:
-      static bool paused;
+      static void close();
+      static void pause();
+      static void resume();
+      static void navigate(Menu* menu = nullptr);
+      static void setResolution(Resolution resolution);
 
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
 
       /// @brief Destroy uma instância de processo do jogo
       ~GameProcess();
-
-      void adjustView(Window* window, View* view);
       
       /// @brief Inicia o loop do jogo
       void execute();
@@ -69,10 +75,5 @@ namespace Game {
       /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
       /// @param object o objeto
       static void animate(Object2D* object);
-
-      /// @brief Muda as dimensões da window
-      /// @param newWidth nova largura
-      /// @param newHeight nova altura
-      void resizeWindow(unsigned int newWidth, unsigned int newHeight);
   };
 };

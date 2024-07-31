@@ -6,26 +6,25 @@ namespace Game{
   };
 
   void ResumeButton::step() {
-    this->visible = GameProcess::paused;
+    if(this->isHovered()) {
+      if(Mouse::isLeftDown()) this->animate(1, 1, 2, false);
+      else this->animate(1, 1, 1, false);
 
-    if(GameProcess::paused && this->isMouseHovering() && Mouse::isLeftReleased()) {
-      GameProcess::paused = false;
-    };
+      if(Mouse::isLeftReleased()) GameProcess::resume();
+    } else this->animate(1, 1, 0, false);
   };
 
   ResumeButton::~ResumeButton() {};
 
   ResumeButton* ResumeButton::create() {
-    ResumeButton* resumeButton = new ResumeButton("resume_button.png", Box(51.5, 15, 103, 30));
+    ResumeButton* resumeButton = new ResumeButton("resume_button.png", Box(53, 16, 106, 32));
+    resumeButton->animate(1, 1, 0, false);
     resumeButton->pausable = false;
-    resumeButton->buttonWidth = 103;
-    resumeButton->buttonHeight = 30;
     resumeButton->depth = 500;
     resumeButton->position = CENTER;
-    resumeButton->position.y = 150;
     resumeButton->scale(3);
 
     GameProcess::add(resumeButton);
     return resumeButton;
   };
-}
+};

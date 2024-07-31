@@ -1,7 +1,5 @@
 #include <Objects/base.hpp>
 #include <Objects/enemy.hpp>
-#include <iomanip>
-#include <sstream>
 
 namespace Game {
   string Base::type() {
@@ -9,7 +7,7 @@ namespace Game {
   };
 
   void Base::step() {
-    std::stringstream stream;
+    stringstream stream;
     stream << fixed << setprecision(2) << this->health.get();
     string content = stream.str();
 
