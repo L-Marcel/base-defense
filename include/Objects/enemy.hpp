@@ -1,9 +1,9 @@
 #pragma once
 #include <Character.hpp>
-#include <Engine/playerfinder.hpp>
+#include <Misc/playerfinder.hpp>
 #include <Objects/base.hpp>
 #include <Objects/bullet.hpp>
-#include <Objects/medicalkit.hpp>
+#include <Objects/medical_kit.hpp>
 #include <Sound.hpp>
 
 namespace Game {

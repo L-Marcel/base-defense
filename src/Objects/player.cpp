@@ -84,6 +84,7 @@ namespace Game {
 
     Player::player = player;
     player->speed = 5.0;
+    player->damage = 35;
     player->animate(8, 1, 0, false);
     player->position = CENTER;
     player->setCircle(11);
@@ -92,7 +93,7 @@ namespace Game {
     
     Collision::create(player, "Bullet");
     Collision::create(player, "Base");
-    Collision::create(gp, player, "MedicalKit");
+    Collision::create(player, "MedicalKit");
 
     return player;
   };

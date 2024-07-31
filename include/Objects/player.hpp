@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/pathfinder.hpp>
+#include <Misc/pathfinder.hpp>
 #include <Character.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>

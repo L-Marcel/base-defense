@@ -20,7 +20,7 @@ namespace Game {
           collider->destroy();
           this->health.damage(bullet->damage);
           if(this->free_queued){
-            MedicalKit* medkit = MedicalKit::create(this->gp, this->position);
+            MedicalKit* medkit = MedicalKit::create(this->position);
             medkit->drop();
           }
         }
