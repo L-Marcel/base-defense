@@ -1,0 +1,28 @@
+#pragma once
+#include <Character.hpp>
+#include <Sound.hpp>
+#include <Input.hpp>
+#include <Objects/text.hpp>
+#include <Objects/tower.hpp>
+#include <Objects/wall.hpp>
+#include <Objects/bullet.hpp>
+
+namespace Game {
+  class Base : public Character {
+    public:
+      virtual string type();
+      virtual void step();
+      using Character::collision;
+      using Character::draw;
+      using Character::free;
+      ~Base();
+
+      /// @brief Cria uma instância da base
+      static Base* create();
+
+      List<Object2D> parts;
+      Text* hud;
+    protected:
+      using Character::Character;
+  };
+};

@@ -1,10 +1,10 @@
+#pragma once
 #include <Objects.hpp>
 
 namespace Game{
   class GameProcess;
   class Collision {
     protected:
-      GameProcess* gp;
       Object2D* object;
       string collider = "none";
 
@@ -12,16 +12,14 @@ namespace Game{
       Collision();
     public:
       /// @brief Registra a colisão entre um objeto e um tipo de objeto
-      /// @param gp o ponteiro do processo do jogo
       /// @param object o objeto que registrará a colisão
       /// @param collider o tipo de objeto que pode colidir com ele
-      static Collision* create(GameProcess* gp, Object2D* object, string collider);
+      static Collision* create(Object2D* object, string collider);
 
       /// @brief Remove a instância do jogo e libera ela da memória
       void destroy();
 
       /// @brief Função step para verificar as colisões
-      /// @param gp GameProcess
       void step();
 
       /// @brief Checa a colisão entre dois círculos

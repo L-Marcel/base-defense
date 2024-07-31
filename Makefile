@@ -2,7 +2,7 @@
 ## Isso aqui foi gerado usando IA, ok?
 ## ================================= ##
 
-FLAGS = -Bstatic -g -Wall -pedantic -Iinclude
+FLAGS = -g -Wall -pedantic -Iinclude
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 LINUX_FLAGS = -lFLAC -lfreetype -logg -lopenal -lvorbis -lvorbisenc -lvorbisfile
 SRC_DIR = src
@@ -43,16 +43,16 @@ dev: $(EXEC)
 	$(ENV) && $(EXEC)
 
 compile: $(OBJ_FILES)
-	g++ -Bstatic -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -o $(EXEC) $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 test: $(TEST_EXEC)
 	$(ENV) && $(TEST_EXEC)
 
 $(EXEC): $(OBJ_FILES)
-	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
+	g++ -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS)
 
 $(TEST_EXEC): $(TEST_OBJ_FILES) $(OBJ_FILES_WITHOUT_MAIN)
-	g++ -Bstatic -o $@ $^ -L$(RELEASE_DIR)/lib $(SFML_FLAGS) -lgtest -lgtest_main -lgmock -lgmock_main -pthread
+	g++ -o $@ $^ -L$(RELEASE_DIR)/lib -lgtest -lgtest_main -lgmock -lgmock_main -pthread $(SFML_FLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(MKDIR)
