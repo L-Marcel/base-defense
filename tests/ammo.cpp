@@ -2,7 +2,7 @@
 
 TEST(AmmoTest, Control) {
   GameProcess gp;
-  Player* player = Player::create(&gp);
+  Player* player = Player::create();
   Ammo ammo(player);
 
   ammo.shoot(1);
