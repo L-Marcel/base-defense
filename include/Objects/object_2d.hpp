@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/object.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Collision;
@@ -17,7 +17,7 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Object2D* create(string spriteSheet, Box box);
 
-      /// Sprite
+      /// Sprite ==================================
       Sprite* sprite = nullptr;
       unsigned short int frames = 1;
       float fps = 0;
@@ -25,9 +25,9 @@ namespace Game {
       double rotation = 0; 
       bool loop = true;
       bool animationFinished = false;
-      ///
+      /// =========================================
 
-      /// Collision
+      /// Collision ===============================
       List<Collision> collisions;
       List<Object2D> colliders;
 
@@ -39,13 +39,13 @@ namespace Game {
       bool hasCircle = false;
       Circle circle = Circle();
       float circleRadius = 0;
-      /// 
+      /// =========================================
       
-      /// Movement
+      /// Movement ================================
       Point position;
       double direction = 0;
       float speed = 0;
-      ///
+      /// =========================================
      
       /// @brief Inicia uma das animações disponíveis para o objeto 2D
       /// @param fps o número de frames por segundo

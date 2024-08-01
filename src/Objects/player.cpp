@@ -1,3 +1,4 @@
+#include <Misc/ammo.hpp>
 #include <Objects/enemy.hpp>
 #include <Objects/base.hpp>
 #include <Input.hpp>
@@ -19,7 +20,7 @@ namespace Game {
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
-    
+
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
@@ -37,6 +38,9 @@ namespace Game {
           collider->destroy();
           this->health.damage(bullet->damage);
         }
+      } else if(type == "MedicalKit") {
+        collider->destroy();
+        this->health.heal(10);
       };
     };
     
@@ -45,7 +49,7 @@ namespace Game {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
-    if(Mouse::right()) {
+    if(Mouse::isRightDown()) {
       this->path.setDestiny(mouse);
     };
 
@@ -53,8 +57,7 @@ namespace Game {
     this->position = path.end;
     this->direction = path.angle();
 
-    if(this->animationFinished && (Input::fire() || Mouse::left())) {
-      this->animate(8, 6, 1, false);
+    if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot();
     };
   };
@@ -64,12 +67,18 @@ namespace Game {
   };
 
   void Player::shoot() {
-    Bullet* bullet = Bullet::create(this, true);
-    bullet->damage = this->damage;
-    bullet->canBeBlocked = !this->safe;
-    this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
-    this->shoot_sound.setVolume(50);
-    this->shoot_sound.play();
+    if(this->ammo.get() > 0) {
+      Bullet* bullet = Bullet::create(this, true);
+      bullet->damage = this->damage;
+      bullet->canBeBlocked = !this->safe;
+      this->ammo.shoot(1);
+      this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->shoot_sound.play();
+      this->animate(8, 6, 1, false);
+    } else {
+      this->animate(8, 6, 1, false);
+      this->empty_clip_sound.play();
+    };
   };
 
   Player* Player::create() {
@@ -81,14 +90,17 @@ namespace Game {
 
     Player::player = player;
     player->speed = 5.0;
+    player->damage = 35;
     player->animate(8, 1, 0, false);
     player->position = CENTER;
     player->setCircle(11);
     player->depth = 150;
+    player->scale(2);
     GameProcess::add(player);
-
+    
     Collision::create(player, "Bullet");
     Collision::create(player, "Base");
+    Collision::create(player, "MedicalKit");
 
     return player;
   };

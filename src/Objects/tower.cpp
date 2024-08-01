@@ -16,7 +16,9 @@ namespace Game {
         this->sprite->setColor(color);
       } else if(type == "Bullet") {
         Bullet* bullet = (Bullet*) collider;
-        base->health.damage(bullet->damage / 5.0);
+        if(this->base != nullptr) {
+          this->base->health.damage(bullet->damage / 5.0);
+        };
         collider->destroy();
       };
     };
@@ -29,7 +31,7 @@ namespace Game {
 
   Tower* Tower::create(Base* base) {
     Tower* tower = new Tower("tower.png", Box(8, 8, 16, 16));
-    tower->depth = 10;
+    tower->depth = 200;
     tower->scale(2);
     tower->base = base;
     GameProcess::add(tower);

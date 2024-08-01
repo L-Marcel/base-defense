@@ -1,8 +1,9 @@
 #pragma once
 #include <Character.hpp>
-#include <Engine/playerfinder.hpp>
+#include <Misc/playerfinder.hpp>
 #include <Objects/base.hpp>
 #include <Objects/bullet.hpp>
+#include <Objects/medical_kit.hpp>
 #include <Sound.hpp>
 
 namespace Game {
@@ -13,7 +14,7 @@ namespace Game {
       using Character::collision;
       using Character::draw;
       using Character::free;
-      virtual ~Enemy();
+      ~Enemy();
 
       /// @brief Cria uma instância do Enemy
       static Enemy* create();

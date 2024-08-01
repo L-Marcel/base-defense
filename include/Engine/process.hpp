@@ -3,26 +3,34 @@
 #include <Objects.hpp>
 
 namespace Game {
-  class GameProcess {
+  class 
+  GameProcess {
     protected:
       static GameProcess* gp;
       List<Object> queueFree;
       List<Object> objects;
-      Window window = Window(VideoMode(1280, 720), "Base Defense");
-      //View view = View(sf::FloatRect(0, 0, this->width, this->height));
-      List<Button> buttons;
+      unsigned int frame_instances_amount = 0;
+      Menu* menu = nullptr;
+      
+      Window window = Window(
+        VideoMode(1280, 720), 
+        "Base Defense", 
+        sf::Style::Close | sf::Style::Titlebar
+      );
+      
+      View view = View(Point(0, 0), Resolution(1280, 720));
       unsigned short int frame = 0;
+      bool paused = false;
+      bool fullscreen = false;
     private:
       Clock clock;
-      bool isPaused = false;
     public:
+      /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
 
       /// @brief Destroy uma instância de processo do jogo
       ~GameProcess();
-
-      void adjustView(Window* window, View* view);
       
       /// @brief Inicia o loop do jogo
       void execute();
@@ -36,7 +44,24 @@ namespace Game {
       /// @brief Diz se o jogo ainda está rodando
       /// @return verdadeiro, se estiver, falso caso contrário
       bool isRunning();
+      /// =========================================
 
+      /// Metódos de navegação ====================
+      /// @brief Fecha o jogo
+      static void close();
+
+      /// @brief Pausa o jogo
+      static void pause();
+
+      /// @brief Continua o jogo
+      static void resume();
+
+      /// @brief Navega entre menus
+      /// @param menu o ponteiro para o próximo menu
+      static void navigate(Menu* menu = nullptr);
+      /// =========================================
+      
+      /// Metódos de controle =====================
       /// @brief Adiciona um objeto ao jogo
       /// @param object o ponteiro do objeto
       static void add(Object* object);
@@ -53,34 +78,33 @@ namespace Game {
       /// @param index o índice desse objeto
       /// @return o ponteiro para o objeto obtído
       static Object* get(unsigned short int index);
+      /// =========================================
 
+      /// Metódos de desenho ======================
       /// @brief Desenha algo em tela
       /// @param drawable algo desenhável
       static void draw(const Drawable& drawable);
-
-      /// @brief Obtém a janela do processo do jogo
-      /// @return a janela
-      static const Window& getWindow();
-
-      /// @brief Retorna o frame atual do jogo
-      /// @return o frame
-      static unsigned short int getFrame();
 
       /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
       /// @param object o objeto
       static void animate(Object2D* object);
 
-      /// @brief Retorna se o jogo está pausado
-      /// @return se o jogo está pausado
-      bool checkPaused();
+      /// @brief Retorna o frame atual do jogo
+      /// @return o frame
+      static unsigned short int getFrame();
+      /// =========================================
 
-      /// @brief Define se o jogo ta pausado
-      /// @param pause 
-      void setPaused(bool pause);
+      /// Metódos de janela =======================
+      /// @brief Obtém a janela do processo do jogo
+      /// @return a janela
+      static const Window& getWindow();
 
-      /// @brief Muda as dimensões da window
-      /// @param newWidth nova largura
-      /// @param newHeight nova altura
-      void resizeWindow(unsigned int newWidth, unsigned int newHeight);
+      /// @brief Define a resolução do jogo
+      /// @param resolution a resolução
+      static void setResolution(Resolution resolution);
+
+      /// @brief Alterna entre tela cheia e janela
+      static void changeFullscreen();
+      /// =========================================
   };
 };

@@ -2,30 +2,85 @@
 #include <Engine/process.hpp>
 
 namespace Game {
-  namespace Mouse {
-    Point position() {
-      const Window& window = GameProcess::getWindow();
-      return Point(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
-    };
+  vector<MouseButton> Mouse::down;
+  vector<MouseButton> Mouse::pressed;
+  vector<MouseButton> Mouse::released;
 
-    bool left() {
-      return sf::Mouse::isButtonPressed(sf::Mouse::Left);
-    };
+  void Mouse::update() {
+    Mouse::pressed.clear();
+    Mouse::released.clear();
+  };
 
-    bool right(){
-      return sf::Mouse::isButtonPressed(sf::Mouse::Right);
-    };
+  Point Mouse::position() {
+    const Window& window = GameProcess::getWindow();
+    return Point(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+  };
 
-    bool middle() {
-      return sf::Mouse::isButtonPressed(sf::Mouse::Middle);
+  void Mouse::press(MouseButton button) {
+    if(!Mouse::isDown(button) && GameProcess::getWindow().hasFocus()) {
+      Mouse::pressed.push_back(button);
+      Mouse::down.push_back(button);
     };
+  };
 
-    bool extra1(){
-      return sf::Mouse::isButtonPressed(sf::Mouse::XButton1);
+  void Mouse::release(MouseButton button) {
+    for(unsigned short int i = 0; i < Mouse::down.size(); i++) {
+      if(Mouse::down.at(i) == button) {
+        Mouse::down.erase(Mouse::down.begin() + i);
+        Mouse::released.push_back(button);
+        break;
+      };
     };
+  };
 
-    bool extra2() {
-      return sf::Mouse::isButtonPressed(sf::Mouse::XButton2);
+  bool Mouse::isDown(MouseButton button) {
+    for(unsigned short int i = 0; i < Mouse::down.size(); i++) {
+      if(Mouse::down.at(i) == button) {
+        return true;
+      };
     };
+    return false;
+  };
+
+  bool Mouse::isPressed(MouseButton button) {
+    for(unsigned short int i = 0; i < Mouse::pressed.size(); i++) {
+      if(Mouse::pressed.at(i) == button) {
+        return true;
+      };
+    };
+    return false;
+  };
+
+  bool Mouse::isReleased(MouseButton button) {
+    for(unsigned short int i = 0; i < Mouse::released.size(); i++) {
+      if(Mouse::released.at(i) == button) {
+        return true;
+      };
+    };
+    return false;
+  };
+
+  bool Mouse::isLeftPressed() {
+    return Mouse::isPressed(MouseButton::Left);
+  };
+
+  bool Mouse::isLeftReleased() {
+    return Mouse::isReleased(MouseButton::Left);
+  };
+
+  bool Mouse::isLeftDown() {
+    return Mouse::isDown(MouseButton::Left);
+  };
+
+  bool Mouse::isRightPressed() {
+    return Mouse::isPressed(MouseButton::Right);
+  };
+
+  bool Mouse::isRightReleased() {
+    return Mouse::isReleased(MouseButton::Right);
+  };
+
+  bool Mouse::isRightDown() {
+    return Mouse::isDown(MouseButton::Right);
   };
 };

@@ -1,7 +1,5 @@
 #include <Objects/base.hpp>
 #include <Objects/enemy.hpp>
-#include <iomanip>
-#include <sstream>
 
 namespace Game {
   string Base::type() {
@@ -9,7 +7,7 @@ namespace Game {
   };
 
   void Base::step() {
-    std::stringstream stream;
+    stringstream stream;
     stream << fixed << setprecision(2) << this->health.get();
     string content = stream.str();
 
@@ -25,9 +23,11 @@ namespace Game {
       if(type == "Wall") {
         Wall* wall = (Wall*) part;
         wall->energized = false;
+        wall->base = nullptr;
       } else if(type == "Tower") {
         Tower* tower = (Tower*) part;
         tower->energized = false;
+        tower->base = nullptr;
       };
     };
   };
@@ -65,8 +65,6 @@ namespace Game {
     base->parts.add(Enemy::wbc);
     base->parts.add(Enemy::wcd);
     base->parts.add(Enemy::wda);
-
-   
 
     Text* hud = Text::create(Point(640, 400), to_string(base->health.get()));
     base->hud = hud;

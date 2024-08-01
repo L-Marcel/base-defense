@@ -10,7 +10,7 @@ namespace Game {
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;
-      virtual ~Bullet();
+      ~Bullet();
 
       /// @brief Cria uma instância de um projétil
       /// @param object o objeto que a disparou
