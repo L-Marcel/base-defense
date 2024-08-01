@@ -9,6 +9,8 @@
 #include <sstream>
 #include <functional>
 
+#define PI 3.14159265359
+
 #define TOWER_SIZE 32
 #define BASE_SIZE Vector<float>(416, 288)
 #define CENTER Vector<float>(640, 360)
@@ -20,6 +22,9 @@
 #define R1280x720 Resolution(1280, 720)
 #define R1024x576 Resolution(1024, 576)
 #define R800x600 Resolution(800, 600)
+
+#define NORMAL_SCREEN = sf::Style::Close | sf::Style::Titlebar;
+#define FULLSCREEN = sf::Style::Fullscreen;
 
 using namespace std;
 

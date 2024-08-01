@@ -5,8 +5,8 @@ namespace Game {
   class Ammo {
     protected:
       Object* object = nullptr;
-      float total = 20;
-      float limit = 20;
+      float total = 12;
+      float limit = 12;
     public:
       /// @brief Retorna a quantia total de munição
       /// @return a quantia

@@ -1,22 +1,12 @@
 #include <Engine.hpp>
 
 namespace Game{
-	Collision::Collision() {};
-
 	void Collision::destroy() {
 		if(this->object) {
 			this->object->collisions.remove(this);
 		};
 
 		delete this;
-	};
-
-	Collision* Collision::create(Object2D* object, string collider) {
-		Collision* collision = new Collision();
-		collision->object = object;
-		collision->collider = collider;
-		object->collisions.add(collision);
-		return collision;
 	};
 
 	void Collision::step() {
@@ -170,5 +160,15 @@ namespace Game{
 			default:
 				return false;
 		};
+	};
+
+  Collision::Collision() {};
+
+	Collision* Collision::create(Object2D* object, string collider) {
+		Collision* collision = new Collision();
+		collision->object = object;
+		collision->collider = collider;
+		object->collisions.add(collision);
+		return collision;
 	};
 };

@@ -25,9 +25,10 @@ namespace Game{
       /// @return `true` se estiver, `false` caso contrário
       bool isHovered();
     protected:
-      Button();
+      /// @brief Cria uma instância do botão
+      /// @param spriteSheet página de textura do sprite do botão
+      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       Button(string spriteSheet, Box box);
-      bool isClicked = false;
-      bool bridged = false;
+      Button();
   };
 }

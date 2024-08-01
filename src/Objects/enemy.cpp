@@ -145,7 +145,11 @@ namespace Game {
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
+    enemy->scale(2);
     GameProcess::add(enemy);
+
+    Collision::create(enemy, "Bullet");
+
     return enemy;
   };
 

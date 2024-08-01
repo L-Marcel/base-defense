@@ -5,36 +5,6 @@ namespace Game{
     return "Button";
   };
 
-  Button::~Button() {};
-
-  Button* Button::create(string sprite, Box box, bool pauseBt) {
-    Button* button = new Button(sprite, box);
-    button->pausable = !pauseBt;
-    GameProcess::add(button);
-    return button;
-  };
-
-  Button::Button(){ };
-
-  Button::Button(string spriteSheet, Box box) {
-    Texture* texture = new Texture();
-    this->sprite = new Sprite();
-
-    if(texture->loadFromFile("assets/sprites/" + spriteSheet)){
-      this->sprite->setTexture(*texture);
-      Vector<int> pos = box.getPosition();
-      box.top = 0;
-      box.left = 0;
-
-      this->fps = 0;
-      this->sprite->setTextureRect(box);
-      this->sprite->setOrigin(pos.x, pos.y);
-      this->sprite->setScale(1, 1);
-    } else {
-      throw new TextureNotFound(spriteSheet);
-    };
-  };
-
   bool Button::isHovered(){
     Point mouse = Mouse::position();
     int width = this->sprite->getTextureRect().width * this->sprite->getScale().x;
@@ -48,5 +18,19 @@ namespace Game{
       this->visible &&
       !this->free_queued
     );
+  };
+
+  Button::~Button() {};
+
+  Button::Button() {};
+
+  Button::Button(string spriteSheet, Box box) 
+  : Object2D(spriteSheet, box) {};
+
+  Button* Button::create(string sprite, Box box, bool pauseBt) {
+    Button* button = new Button(sprite, box);
+    button->pausable = !pauseBt;
+    GameProcess::add(button);
+    return button;
   };
 };

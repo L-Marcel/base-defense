@@ -11,19 +11,21 @@ namespace Game {
       List<Object> objects;
       unsigned int frame_instances_amount = 0;
       Menu* menu = nullptr;
-      Window window = Window(VideoMode(1280, 720), "Base Defense");
+      
+      Window window = Window(
+        VideoMode(1280, 720), 
+        "Base Defense", 
+        sf::Style::Close | sf::Style::Titlebar
+      );
+      
       View view = View(Point(0, 0), Resolution(1280, 720));
       unsigned short int frame = 0;
       bool paused = false;
+      bool fullscreen = false;
     private:
       Clock clock;
     public:
-      static void close();
-      static void pause();
-      static void resume();
-      static void navigate(Menu* menu = nullptr);
-      static void setResolution(Resolution resolution);
-
+      /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
 
@@ -42,7 +44,24 @@ namespace Game {
       /// @brief Diz se o jogo ainda está rodando
       /// @return verdadeiro, se estiver, falso caso contrário
       bool isRunning();
+      /// =========================================
 
+      /// Metódos de navegação ====================
+      /// @brief Fecha o jogo
+      static void close();
+
+      /// @brief Pausa o jogo
+      static void pause();
+
+      /// @brief Continua o jogo
+      static void resume();
+
+      /// @brief Navega entre menus
+      /// @param menu o ponteiro para o próximo menu
+      static void navigate(Menu* menu = nullptr);
+      /// =========================================
+      
+      /// Metódos de controle =====================
       /// @brief Adiciona um objeto ao jogo
       /// @param object o ponteiro do objeto
       static void add(Object* object);
@@ -59,21 +78,33 @@ namespace Game {
       /// @param index o índice desse objeto
       /// @return o ponteiro para o objeto obtído
       static Object* get(unsigned short int index);
+      /// =========================================
 
+      /// Metódos de desenho ======================
       /// @brief Desenha algo em tela
       /// @param drawable algo desenhável
       static void draw(const Drawable& drawable);
 
-      /// @brief Obtém a janela do processo do jogo
-      /// @return a janela
-      static const Window& getWindow();
+      /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
+      /// @param object o objeto
+      static void animate(Object2D* object);
 
       /// @brief Retorna o frame atual do jogo
       /// @return o frame
       static unsigned short int getFrame();
+      /// =========================================
 
-      /// @brief Realiza a atualização do sprite do objeto, entre outras coisas
-      /// @param object o objeto
-      static void animate(Object2D* object);
+      /// Metódos de janela =======================
+      /// @brief Obtém a janela do processo do jogo
+      /// @return a janela
+      static const Window& getWindow();
+
+      /// @brief Define a resolução do jogo
+      /// @param resolution a resolução
+      static void setResolution(Resolution resolution);
+
+      /// @brief Alterna entre tela cheia e janela
+      static void changeFullscreen();
+      /// =========================================
   };
 };
