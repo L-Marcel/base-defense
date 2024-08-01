@@ -58,7 +58,6 @@ namespace Game {
     this->direction = path.angle();
 
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->animate(8, 6, 1, false);
       this->shoot();
     };
   };
@@ -75,8 +74,9 @@ namespace Game {
       this->ammo.shoot(1);
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
+      this->animate(8, 6, 1, false);
     } else {
-      this->empty_clip_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->animate(8, 6, 1, false);
       this->empty_clip_sound.play();
     };
   };
@@ -95,6 +95,7 @@ namespace Game {
     player->position = CENTER;
     player->setCircle(11);
     player->depth = 150;
+    player->scale(2);
     GameProcess::add(player);
     
     Collision::create(player, "Bullet");

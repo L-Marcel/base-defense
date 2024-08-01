@@ -19,10 +19,10 @@ namespace Game {
 
       /// @brief Cria uma instância da base
       static Base* create();
+    protected:
+      using Character::Character;
 
       List<Object2D> parts;
       Text* hud;
-    protected:
-      using Character::Character;
   };
 };

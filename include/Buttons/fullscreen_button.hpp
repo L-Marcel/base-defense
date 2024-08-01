@@ -3,18 +3,19 @@
 #include <Input.hpp>
 
 namespace Game{
-  class CloseButton : public Button {
+  class FullscreenButton : public Button {
     public:
       virtual string type();
       virtual void step();
       using Button::collision;
       using Button::draw;
       using Button::free;
-      ~CloseButton();
+      ~FullscreenButton();
 
-      /// @brief Cria uma instância de um botão que fecha o jogo
-      static CloseButton* create();
+      /// @brief Cria uma instância de um botão que resume o jogo
+      static FullscreenButton* create();
     protected:
       using Button::Button;
   };
+
 };

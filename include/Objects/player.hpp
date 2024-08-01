@@ -27,6 +27,7 @@ namespace Game {
       Ammo ammo;
       Pathfinder path;
       Sound shoot_sound = Sound("shoot.mp3");
+      Sound empty_clip_sound = Sound("empty_clip.mp3");
       bool safe = true;
     protected:
       using Character::Character;

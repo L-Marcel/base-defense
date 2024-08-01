@@ -1,4 +1,5 @@
 #include <Input.hpp>
+#include <Engine/process.hpp>
 
 namespace Game {
   vector<Key> Input::down;
@@ -11,17 +12,17 @@ namespace Game {
   };
 
   void Input::press(Key key) {
-    if(!Input::isDown(key)) {
+    if(!Input::isDown(key) && GameProcess::getWindow().hasFocus()) {
       Input::pressed.push_back(key);
       Input::down.push_back(key);
     };
   };
 
   void Input::release(Key key) {
-    Input::released.push_back(key);
     for(unsigned short int i = 0; i < Input::down.size(); i++) {
       if(Input::down.at(i) == key) {
         Input::down.erase(Input::down.begin() + i);
+        Input::released.push_back(key);
         break;
       };
     };
