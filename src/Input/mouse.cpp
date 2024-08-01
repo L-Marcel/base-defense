@@ -17,17 +17,18 @@ namespace Game {
   };
 
   void Mouse::press(MouseButton button) {
-    if(!Mouse::isDown(button)) {
+    if(!Mouse::isDown(button) && GameProcess::getWindow().hasFocus()) {
       Mouse::pressed.push_back(button);
       Mouse::down.push_back(button);
     };
   };
 
   void Mouse::release(MouseButton button) {
-    Mouse::released.push_back(button);
     for(unsigned short int i = 0; i < Mouse::down.size(); i++) {
       if(Mouse::down.at(i) == button) {
         Mouse::down.erase(Mouse::down.begin() + i);
+        Mouse::released.push_back(button);
+        break;
       };
     };
   };

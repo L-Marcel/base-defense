@@ -18,15 +18,11 @@ namespace Game {
     resolutionMenu->depth = 400;
     GameProcess::add(resolutionMenu);
 
+    resolutionMenu->objects.add(FullscreenButton::create());
     resolutionMenu->objects.add(ResolutionButton::create(R1280x720));
     resolutionMenu->objects.add(ResolutionButton::create(R1024x576));
     resolutionMenu->objects.add(ResolutionButton::create(R800x600));
-    // resolutionMenu->objects.add(OptionsButton::create());
     resolutionMenu->objects.add(ReturnButton::create(PauseMenu::create));
-    //resolutionMenu->objects.add(ReturnButton::create(PauseMenu::create));
-    // resolutionMenu->objects.add(ReturnButton::create(PauseMenu::create));
-    // resolutionMenu->objects.add(ReturnButton::create(PauseMenu::create));
-
 
     float y = 125;
     float gap = 50;

@@ -6,7 +6,7 @@ namespace Game {
   class MedicalKit : public Object2D {
     public:
       virtual string type();
-      virtual void step();
+      using Object2D::step;
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;
@@ -17,6 +17,7 @@ namespace Game {
       void drop();
 
       /// @brief Cria uma instancia do MedicalKit
-      static MedicalKit* create(GameProcess* gp, Vector<float> enemyPosition);
+      /// @param position a posição do kit
+      static MedicalKit* create(Point enemyPosition);
   };
 };

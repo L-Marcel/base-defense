@@ -1,3 +1,4 @@
+#include <Misc/ammo.hpp>
 #include <Objects/enemy.hpp>
 #include <Objects/base.hpp>
 #include <Input.hpp>
@@ -57,7 +58,6 @@ namespace Game {
     this->direction = path.angle();
 
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->animate(8, 6, 1, false);
       this->shoot();
     };
   };
@@ -67,12 +67,18 @@ namespace Game {
   };
 
   void Player::shoot() {
-    Bullet* bullet = Bullet::create(this, true);
-    bullet->damage = this->damage;
-    bullet->canBeBlocked = !this->safe;
-    this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
-    this->shoot_sound.setVolume(50);
-    this->shoot_sound.play();
+    if(this->ammo.get() > 0) {
+      Bullet* bullet = Bullet::create(this, true);
+      bullet->damage = this->damage;
+      bullet->canBeBlocked = !this->safe;
+      this->ammo.shoot(1);
+      this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->shoot_sound.play();
+      this->animate(8, 6, 1, false);
+    } else {
+      this->animate(8, 6, 1, false);
+      this->empty_clip_sound.play();
+    };
   };
 
   Player* Player::create() {
@@ -84,15 +90,17 @@ namespace Game {
 
     Player::player = player;
     player->speed = 5.0;
+    player->damage = 35;
     player->animate(8, 1, 0, false);
     player->position = CENTER;
     player->setCircle(11);
     player->depth = 150;
+    player->scale(2);
     GameProcess::add(player);
     
     Collision::create(player, "Bullet");
     Collision::create(player, "Base");
-    Collision::create(gp, player, "MedicalKit");
+    Collision::create(player, "MedicalKit");
 
     return player;
   };

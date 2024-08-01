@@ -32,7 +32,7 @@ namespace Game {
       /// @return `true` se estiver, `false` caso contrário
       bool isFacingPlayer(Point position);
 
-      /// Limites dos setores
+      /// Limites dos setores =====================
       const static Segment rab;
       const static Segment rbc;
       const static Segment rcd;
@@ -41,7 +41,7 @@ namespace Game {
       const static Segment bc;
       const static Segment cd;
       const static Segment da;
-      ///
+      /// =========================================
     protected:
       bool stopped = true;
       Segment path;
