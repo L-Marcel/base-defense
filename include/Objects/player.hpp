@@ -1,3 +1,5 @@
+#pragma once
+#include <Misc/pathfinder.hpp>
 #include <Character.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>
@@ -10,20 +12,25 @@ namespace Game {
       using Character::collision;
       using Character::draw;
       using Character::free;
-      virtual ~Player();
+      ~Player();
 
-      /// @brief Cria uma instância do player
-      /// @param gp pornteiro do processo do jogo
-      static Player* create(GameProcess* gp);
+      /// @brief Cria uma instância do jogador
+      static Player* create();
+
+      /// @brief Retorna o ponteiro do jogador
+      /// @return o ponteiro
+      const static Player* get();
 
       /// @brief Realiza um disparo
       void shoot();
 
-      Vector<float> targetPosition;
-      short unsigned int life = 10;
-      bool firstAttack = true;
+      Ammo ammo;
+      Pathfinder path;
       Sound shoot_sound = Sound("shoot.mp3");
+      Sound empty_clip_sound = Sound("empty_clip.mp3");
+      bool safe = true;
     protected:
       using Character::Character;
+      static Player* player;
   };
 };

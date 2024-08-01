@@ -1,8 +1,6 @@
 #include <Engine.hpp>
 
 namespace Game{
-	Collision::Collision() {};
-
 	void Collision::destroy() {
 		if(this->object) {
 			this->object->collisions.remove(this);
@@ -11,18 +9,9 @@ namespace Game{
 		delete this;
 	};
 
-	Collision* Collision::create(GameProcess* gp, Object2D* object, string collider) {
-		Collision* collision = new Collision();
-		collision->object = object;
-		collision->collider = collider;
-		collision->gp = gp;
-		object->collisions.add(collision);
-		return collision;
-	};
-
 	void Collision::step() {
-		for(unsigned int i = 0; i < this->gp->objects.length(); i++){
-			Object* candidate = this->gp->objects.get(i);
+		for(unsigned int i = 0; i < GameProcess::length(); i++){
+			Object* candidate = GameProcess::get(i);
 			if(candidate->type() == this->collider && this->object != candidate) {
 				Object2D* collider = (Object2D*) candidate;
 				if(
@@ -110,7 +99,7 @@ namespace Game{
 			case 2:
 				return dist < first->circle.getRadius() + rectWidth/2;
 			case 3:
-				return dist < first->circle.getRadius() + Math::pointDistance(Vector<float>(rectHeight/2, rectWidth/2));
+				return dist < first->circle.getRadius() + Math::pointDistance(Point(rectHeight/2, rectWidth/2));
 			default:
 				return false;
 		};
@@ -171,5 +160,15 @@ namespace Game{
 			default:
 				return false;
 		};
+	};
+
+  Collision::Collision() {};
+
+	Collision* Collision::create(Object2D* object, string collider) {
+		Collision* collision = new Collision();
+		collision->object = object;
+		collision->collider = collider;
+		object->collisions.add(collision);
+		return collision;
 	};
 };

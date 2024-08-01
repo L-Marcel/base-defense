@@ -119,5 +119,7 @@
 	"editor.tabSize": 2,
 	"editor.autoIndent": "brackets",
 	"editor.detectIndentation": false,
-  "editor.insertSpaces": true
+  "editor.insertSpaces": true,
+  "cmake.configureOnOpen": false,
+  "C_Cpp.default.compilerPath": "C:\\MinGW\\64bits\\mingw64-13.1\\bin\\gcc.exe"
 }

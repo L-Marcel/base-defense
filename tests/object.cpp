@@ -3,13 +3,15 @@
 
 TEST(ObjectTest, Type) {
   GameProcess gp;
-  Object* object = Object::create(&gp);
+  Object* object = Object::create();
   EXPECT_EQ(object->type(), "Object");
-}
+};
 
 TEST(ObjectTest, Destroy) {
   GameProcess gp;
-  Object* object = Object::create(&gp);
-  object->free();
-  EXPECT_EQ((int) gp.objects.length(), 0);
-}
+  Object* object = Object::create();
+  EXPECT_EQ((int) GameProcess::length(), 1);
+  GameProcess::destroy(object);
+  gp.nextFrame();
+  EXPECT_EQ((int) GameProcess::length(), 0);
+};

@@ -3,10 +3,10 @@
 TEST(NotFound, TextureNotFound) {
   GameProcess gp;
   EXPECT_ANY_THROW({
-    Object2D::create(&gp, "", Box(10,10,10,10));
+    Object2D::create("", Box(10,10,10,10));
   });
   EXPECT_ANY_THROW({
-    Object2D::create(&gp, ".png", Box(10,10,10,10));
+    Object2D::create(".png", Box(10,10,10,10));
   });
 };
 
