@@ -23,8 +23,7 @@ namespace Game {
           collider->visible = false;
           this->health.damage(bullet->damage);
           if(this->free_queued){
-            MedicalKit* medkit = MedicalKit::create(this->position);
-            medkit->drop();
+            this->dropKits();
           }
         }
       }
@@ -165,5 +164,27 @@ namespace Game {
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
+  };
+
+  void Enemy::dropKits() {
+    bool dropAmmoKit = (rand() % 100) < 100;
+    bool dropMedKit = (rand() % 100) < 100;
+
+    if(dropAmmoKit && dropMedKit) {
+      MedicalKit* medkit = MedicalKit::create(this->position);
+      AmmoKit* ammokit = AmmoKit::create(this->position);
+
+      ammokit->position.x += 20.0;
+      medkit->position.x -= 20.0;
+
+      GameProcess::add(ammokit);
+      GameProcess::add(medkit);
+    } else if(dropAmmoKit) {
+      AmmoKit* ammokit = AmmoKit::create(this->position);
+      GameProcess::add(ammokit);
+    } else if(dropMedKit) {
+      MedicalKit* medkit = MedicalKit::create(this->position);
+      GameProcess::add(medkit);
+    };
   };
 };
