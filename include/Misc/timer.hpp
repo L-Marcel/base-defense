@@ -4,12 +4,12 @@
 namespace Game {
   class Timer {
     public:
-      /// @brief Define a duração da contagem
+      /// @brief Inicia a contagem
       /// @param duration a duração
-      void setDuration(float duration);
+      void start(float duration);
 
-      /// @brief Inicia e realiza a contagem pelo tempo determinado
-      void start();
+      /// @brief Avança o contador
+      void tick();
 
       /// @brief Verifica se a contagem chegou ao fim
       bool isFinished();
