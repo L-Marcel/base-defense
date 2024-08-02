@@ -11,6 +11,8 @@ namespace Game {
   };
 
   void Enemy::step() {
+    this->health.heal(this->regeneration / 60.0);
+    
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
@@ -18,6 +20,7 @@ namespace Game {
         Bullet* bullet = (Bullet*) collider;
         if(bullet->isAlly()){
           collider->destroy();
+          collider->visible = false;
           this->health.damage(bullet->damage);
           if(this->free_queued){
             this->dropKits();
@@ -134,13 +137,16 @@ namespace Game {
     };
   };
 
-  Enemy::~Enemy() {};
+  Enemy::~Enemy() {
+    GameProcess::money += 5 + rand() % 5;
+  };
 
   Enemy* Enemy::create() {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(600.f, 100.f);
+    enemy->damage = 0;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;

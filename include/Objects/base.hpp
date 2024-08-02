@@ -5,6 +5,7 @@
 #include <Objects/text.hpp>
 #include <Objects/tower.hpp>
 #include <Objects/wall.hpp>
+#include <Objects/sentry.hpp>
 #include <Objects/bullet.hpp>
 
 namespace Game {
@@ -19,10 +20,13 @@ namespace Game {
 
       /// @brief Cria uma instância da base
       static Base* create();
+
+      /// @brief Retorna o ponteiro da base
+      /// @return o ponteiro
+      const static Base* get();
     protected:
       using Character::Character;
-
-      List<Object2D> parts;
+      static Base* base;
       Text* hud;
   };
 };

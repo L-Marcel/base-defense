@@ -16,14 +16,19 @@ namespace Game {
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Character* create(string spriteSheet, Box box);
 
-      Health health;
-      float damage = 10;
+      mutable Health health;
+      mutable Ammo clip;
+      mutable float damage = 10;
+      mutable float attack_speed = 1;
+      mutable float regeneration = 0;
+      mutable float not_consume_ammo_change = 0;
     protected:
       /// @brief Cria uma instância de um personagem
       /// @param spriteSheet página de textura do sprite do personagem
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      /// @param base_ammo a quantidade inicial de munição, também considerada o limite
       /// @param base_health o quantidade inicial de vida, também considerada o limite
-      Character(string spriteSheet, Box box, float base_health = 100);
+      Character(string spriteSheet, Box box, unsigned int base_ammo = 12, float base_health = 100);
       Character();
   };
 };

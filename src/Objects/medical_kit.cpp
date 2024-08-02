@@ -6,7 +6,7 @@ namespace Game {
   };
 
   void MedicalKit::step() {
-    this->timer.start();
+    this->timer.tick();
     if(this->timer.isFinished()) this->destroy();
   };
 
@@ -19,7 +19,7 @@ namespace Game {
     medkit->depth = 50;
     medkit->position = position;
     medkit->position.y += 20.0;
-    medkit->timer.setDuration(10);
+    medkit->timer.start(10);
     return medkit;
   };
 };

@@ -6,9 +6,10 @@ namespace Game {
     GameProcess::gp->window.close();
   };
 
-  void GameProcess::pause() {
+  void GameProcess::pause(bool shop) {
     GameProcess::gp->paused = true;
-    GameProcess::navigate(PauseMenu::create());
+    if(shop) GameProcess::navigate(ShopMenu::create());
+    else GameProcess::navigate(PauseMenu::create());
   };
 
   void GameProcess::resume() {
