@@ -4,6 +4,7 @@
 #include <Objects/base.hpp>
 #include <Objects/bullet.hpp>
 #include <Objects/medical_kit.hpp>
+#include <Objects/ammo_kit.hpp>
 #include <Sound.hpp>
 
 namespace Game {
@@ -21,6 +22,9 @@ namespace Game {
 
       /// @brief Realiza um disparo
       void shoot();
+
+      /// @brief Dropa os kits quando o Enemy é eliminado
+      void dropKits();
 
       Sound shoot_sound = Sound("shoot.mp3");
       bool focusingBase = true;

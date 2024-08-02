@@ -41,6 +41,9 @@ namespace Game {
       } else if(type == "MedicalKit") {
         collider->destroy();
         this->health.heal(10);
+      } else if(type == "AmmoKit") {
+        collider->destroy();
+        this->ammo.recharge(10);
       };
     };
     
@@ -101,6 +104,7 @@ namespace Game {
     Collision::create(player, "Bullet");
     Collision::create(player, "Base");
     Collision::create(player, "MedicalKit");
+    Collision::create(player, "AmmoKit");
 
     return player;
   };
