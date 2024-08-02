@@ -18,6 +18,7 @@ namespace Game {
         Bullet* bullet = (Bullet*) collider;
         if(bullet->isAlly()){
           collider->destroy();
+          collider->visible = false;
           this->health.damage(bullet->damage);
           if(this->free_queued){
             MedicalKit* medkit = MedicalKit::create(this->position);
@@ -142,6 +143,7 @@ namespace Game {
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(600.f, 100.f);
+    enemy->damage = 0;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;

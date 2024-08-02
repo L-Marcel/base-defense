@@ -13,11 +13,9 @@ namespace Game {
       ~Wall();
 
       /// @brief Cria uma instância da parede
-      /// @param base a base a qual a parede pertence
       /// @param size diz qual é a parede
-      static Wall* create(Base* base, unsigned short int size);
+      static Wall* create(unsigned short int size);
     
-      Base* base = nullptr;
       bool energized = true;
       bool enabled = true;
 

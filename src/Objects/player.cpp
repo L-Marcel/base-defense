@@ -10,29 +10,33 @@ namespace Game {
     return "Player";
   };
 
-  void Player::step() {
-    // if(this->hasCircle){
-    //   this->GameProcess::draw(this->circle);
-    // } else if(this->hasRectangle) {
-    //   this->GameProcess::draw(this->rectangle);
-    // };
-    
+  void Player::step() {    
+
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
 
+    bool bulletCanBeBlocked = true;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
+        bulletCanBeBlocked = false;
         Base* base = (Base*) collider;
         if(this->path.isStopped()) {
           base->health.heal(1.0/60.0);
         } else {
           base->health.heal(1.0/180.0);
         };
-      } else if(type == "Bullet"){
+        break;
+      };
+    };
+
+    for(unsigned int i = 0; i < this->colliders.length(); i++) {
+      Object2D* collider = this->colliders.get(i);
+      string type = collider->type();
+      if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
         if(!bullet->isAlly()){
           collider->destroy();
@@ -58,7 +62,7 @@ namespace Game {
     this->direction = path.angle();
 
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->shoot();
+      this->shoot(bulletCanBeBlocked);
     };
   };
   
@@ -66,12 +70,12 @@ namespace Game {
     Player::player = nullptr;
   };
 
-  void Player::shoot() {
-    if(this->ammo.get() > 0) {
+  void Player::shoot(bool canBeBlocked) {
+    if(this->clip.get() > 0) {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
-      bullet->canBeBlocked = !this->safe;
-      this->ammo.shoot(1);
+      bullet->canBeBlocked = canBeBlocked;
+      this->clip.consume(1);
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
       this->animate(8, 6, 1, false);

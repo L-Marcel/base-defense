@@ -2,12 +2,6 @@
 
 namespace Game {
   void Bullet::step(){
-    // if(this->hasCircle){
-    //   this->GameProcess::draw(this->circle);
-    // } else if(this->hasRectangle) {
-    //   this->GameProcess::draw(this->rectangle);
-    // };
-
     this->position += Math::pointInRadius(this->speed, this->direction);
     this->rotation = this->direction;
   };
