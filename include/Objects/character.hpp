@@ -19,6 +19,9 @@ namespace Game {
       mutable Health health;
       mutable Ammo clip;
       mutable float damage = 10;
+      mutable float attack_speed = 1;
+      mutable float regeneration = 0;
+      mutable float not_consume_ammo_change = 0;
     protected:
       /// @brief Cria uma instância de um personagem
       /// @param spriteSheet página de textura do sprite do personagem

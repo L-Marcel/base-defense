@@ -20,6 +20,10 @@ namespace Game {
     this->total = min(this->total + amount, this->limit);
   };
 
+  void Health::upgrade(float amount) {
+    this->limit += amount;
+  };
+
   Health::Health() {};
 
   Health::Health(Object* object, float limit) {

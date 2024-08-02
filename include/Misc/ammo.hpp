@@ -24,9 +24,9 @@ namespace Game {
       /// @param amount a quantia a ser incrementada
       void recharge(unsigned int amount);
 
-      /// @brief Define o limite de munições
-      /// @param amount o quantia limite
-      void setLimit(unsigned int amount);
+      /// @brief Aumenta o limite de munição
+      /// @param amount a quantia a ser incrementada
+      void upgrade(unsigned int amount);
 
       /// @brief Cria uma instância de munição
       /// @param object o dono da munição

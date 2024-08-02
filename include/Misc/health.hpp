@@ -24,6 +24,10 @@ namespace Game {
       /// @param amount a quantia a ser incrementada
       void heal(float amount);
 
+      /// @brief Atualiza o limite de vida
+      /// @param amount a quantia a ser incrementada
+      void upgrade(float amount);
+
       /// @brief Cria uma instância de vida
       /// @param object o dono da vida
       /// @param limit o limite de vida

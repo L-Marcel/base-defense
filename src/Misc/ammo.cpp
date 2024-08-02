@@ -21,11 +21,8 @@ namespace Game {
     this->total = min(this->total + amount, this->limit);
   };
 
-  void Ammo::setLimit(unsigned int amount) {
-    this->limit = amount;
-    if(this->limit < this->total) {
-      this->total = this->limit;
-    };
+  void Ammo::upgrade(unsigned int amount) {
+    this->limit += amount;
   };
 
   Ammo::Ammo() {};

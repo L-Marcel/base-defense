@@ -3,6 +3,7 @@
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
+  unsigned int GameProcess::money = 0;
  
   void GameProcess::execute() {
     while(this->isRunning()) {

@@ -11,7 +11,8 @@ namespace Game {
   };
 
   void Player::step() {    
-
+    this->health.heal(regeneration / 60.0);
+    
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
@@ -75,7 +76,12 @@ namespace Game {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
       bullet->canBeBlocked = canBeBlocked;
-      this->clip.consume(1);
+      
+      float chance = (float(rand()) / RAND_MAX);
+      if(chance >= (this->not_consume_ammo_change / 100.0)) {
+        this->clip.consume(1);
+      };
+
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
       this->animate(8, 6, 1, false);

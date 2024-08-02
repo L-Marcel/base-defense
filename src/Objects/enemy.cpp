@@ -11,6 +11,8 @@ namespace Game {
   };
 
   void Enemy::step() {
+    this->health.heal(this->regeneration / 60.0);
+    
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
@@ -136,7 +138,9 @@ namespace Game {
     };
   };
 
-  Enemy::~Enemy() {};
+  Enemy::~Enemy() {
+    GameProcess::money += 5 + rand() % 5;
+  };
 
   Enemy* Enemy::create() {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
