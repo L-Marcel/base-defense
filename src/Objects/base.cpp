@@ -27,6 +27,7 @@ namespace Game {
     base->health = Health(base, 100);
     base->clip = Ammo(base, 24);
     base->depth = -50;
+    base->regeneration = 1;
     base->position = CENTER;
     base->setRectangle(BASE_SIZE.x, BASE_SIZE.y);
     Base::base = base;

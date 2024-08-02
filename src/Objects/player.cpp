@@ -26,9 +26,9 @@ namespace Game {
         bulletCanBeBlocked = false;
         Base* base = (Base*) collider;
         if(this->path.isStopped()) {
-          base->health.heal(1.0/60.0);
+          base->health.heal(1.0/60.0 * base->regeneration);
         } else {
-          base->health.heal(1.0/180.0);
+          base->health.heal(1.0/180.0 * base->regeneration);
         };
         break;
       };
@@ -101,6 +101,7 @@ namespace Game {
     Player::player = player;
     player->speed = 5.0;
     player->damage = 35;
+    player->regeneration = 1;
     player->animate(8, 1, 0, false);
     player->position = CENTER;
     player->setCircle(11);

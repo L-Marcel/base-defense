@@ -36,4 +36,4 @@ namespace Game {
 
     return resolutionMenu;
   };
-}
+};

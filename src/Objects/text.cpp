@@ -22,12 +22,14 @@ namespace Game {
     text->setText(content);
     text->setSize(27);
 
-    FloatRect textBounds = text->text.getLocalBounds();
-    text->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-   
     GameProcess::add(text);
 
     return text;
+  };
+
+  void Text::setAlignCenter() {
+    FloatRect textBounds = this->text.getLocalBounds();
+    this->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
   };
 
   void Text::setPosition(Point position) {
@@ -39,6 +41,10 @@ namespace Game {
   };
 
   void Text::setText(string content) {
+    this->text.setString(content);
+  };
+
+  void Text::setText(wstring content) {
     this->text.setString(content);
   };
 

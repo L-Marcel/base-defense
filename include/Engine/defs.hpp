@@ -23,8 +23,13 @@
 #define R1024x576 Resolution(1024, 576)
 #define R800x600 Resolution(800, 600)
 
-#define NORMAL_SCREEN = sf::Style::Close | sf::Style::Titlebar;
-#define FULLSCREEN = sf::Style::Fullscreen;
+#define NORMAL_SCREEN sf::Style::Close | sf::Style::Titlebar
+#define FULLSCREEN sf::Style::Fullscreen
+
+#define HEALTH_UPGRADE 0
+#define REGENERATION_UPGRADE 1
+#define BASE_UPGRADE 2
+#define REPAIR_UPGRADE 3
 
 using namespace std;
 

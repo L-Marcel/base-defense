@@ -52,7 +52,8 @@ namespace Game {
       static void close();
 
       /// @brief Pausa o jogo
-      static void pause();
+      /// @param shop diz se o menu é a loja
+      static void pause(bool shop = false);
 
       /// @brief Continua o jogo
       static void resume();

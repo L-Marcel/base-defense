@@ -28,6 +28,10 @@ namespace Game {
       /// @param content o conteúdo
       void setText(string content);
 
+      /// @brief Define o contúdo do texto
+      /// @param content o conteúdo
+      void setText(wstring content);
+
       /// @brief Define o tamanho da fonte
       /// @param size o tamanho em pixels
       void setSize(unsigned int size);
@@ -35,6 +39,9 @@ namespace Game {
       /// @brief Define a cor do texto
       /// @param color a cor
       void setColor(Color color);
+
+      /// @brief Define o alinhamento do texto para o meio dele
+      void setAlignCenter();
 
       /// @brief Carrega o arquivo da fonte
       /// @param filename o nome do arquivo
