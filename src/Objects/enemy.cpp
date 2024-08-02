@@ -161,8 +161,8 @@ namespace Game {
   };
 
   void Enemy::dropKits() {
-    bool dropAmmoKit = (rand() % 100) < 25;
-    bool dropMedKit = (rand() % 100) < 25;
+    bool dropAmmoKit = (rand() % 100) < 100;
+    bool dropMedKit = (rand() % 100) < 100;
 
     if(dropAmmoKit && dropMedKit) {
       MedicalKit* medkit = MedicalKit::create(this->position);

@@ -1,4 +1,5 @@
 #include <Objects/object_2d.hpp>
+#include <Misc/timer.hpp>
 #include <Engine.hpp>
 
 namespace Game {
@@ -16,6 +17,6 @@ namespace Game {
       /// @param enemyPosition a posição do kit
       static AmmoKit* create(Point enemyPosition);
     protected:
-      Clock clock;
+      Timer timer;
   };
 };

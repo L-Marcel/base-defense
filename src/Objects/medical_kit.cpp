@@ -6,10 +6,8 @@ namespace Game {
   };
 
   void MedicalKit::step() {
-    float elapsed = this->clock.getElapsedTime().asSeconds();
-    if(elapsed > 15){
-      this->destroy();
-    }
+    this->timer.start();
+    if(this->timer.isFinished()) this->destroy();
   };
 
   MedicalKit::~MedicalKit() {};
@@ -21,6 +19,7 @@ namespace Game {
     medkit->depth = 50;
     medkit->position = position;
     medkit->position.y += 20.0;
+    medkit->timer.setDuration(10);
     return medkit;
   };
 };

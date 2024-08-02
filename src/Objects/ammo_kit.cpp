@@ -6,10 +6,8 @@ namespace Game {
   };
 
   void AmmoKit::step() {
-    float elapsed = this->clock.getElapsedTime().asSeconds();
-    if(elapsed > 15){
-      this->destroy();
-    }
+    this->timer.start();
+    if(this->timer.isFinished()) this->destroy();
   };
 
   AmmoKit::~AmmoKit() {};
@@ -21,6 +19,7 @@ namespace Game {
     ammokit->depth = 50;
     ammokit->position = position;
     ammokit->position.y += 20.0;
+    ammokit->timer.setDuration(10);
     return ammokit;
   };
 };

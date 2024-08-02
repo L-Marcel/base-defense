@@ -1,5 +1,6 @@
 #pragma once
 #include <Objects/object_2d.hpp>
+#include <Misc/timer.hpp>
 #include <Engine.hpp>
 
 namespace Game {
@@ -17,6 +18,6 @@ namespace Game {
       /// @param position a posição do kit
       static MedicalKit* create(Point enemyPosition);
     protected:
-      Clock clock;
+      Timer timer;
   };
 };
