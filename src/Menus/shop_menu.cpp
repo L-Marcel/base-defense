@@ -1,7 +1,8 @@
 #include <Menus.hpp>
+#include <Misc/shop.hpp>
 
 namespace Game {
-  wstring ShopMenu::description;
+  string ShopMenu::description;
 
   string ShopMenu::type() {
     return "ShopMenu";
@@ -17,13 +18,13 @@ namespace Game {
       };
     };
 
-    if(!isHovered) ShopMenu::description = L"";
+    if(!isHovered) ShopMenu::description = "";
     this->information->setText(ShopMenu::description);
     this->information->setAlignCenter();
   };
 
   ShopMenu::~ShopMenu() {
-    ShopMenu::description = L"";
+    ShopMenu::description = "";
   };
 
   ShopMenu::ShopMenu(string spriteSheet, Box box) 
@@ -37,17 +38,16 @@ namespace Game {
     shopMenu->depth = 400;
     GameProcess::add(shopMenu);
 
-    // vector<unsigned short int> items = {
-    //   HEALTH_UPGRADE,
-    //   REGENERATION_UPGRADE,
-    //   BASE_UPGRADE,
-    //   REPAIR_UPGRADE
-    // };
+    Shop::reset();
+    shopMenu->objects.add(ItemButton::create(shopMenu));
+    shopMenu->objects.add(ItemButton::create(shopMenu, COMMON));
 
-    shopMenu->objects.add(ItemButton::create(HEALTH_UPGRADE));
-    shopMenu->objects.add(ItemButton::create(REGENERATION_UPGRADE));
-    shopMenu->objects.add(ItemButton::create(BASE_UPGRADE));
-    shopMenu->objects.add(ItemButton::create(REPAIR_UPGRADE));
+    if(rand() % 100 >= 60) shopMenu->objects.add(ItemButton::create(shopMenu, RARE));
+    else shopMenu->objects.add(ItemButton::create(shopMenu, COMMON));
+
+    if(rand() % 100 >= 80) shopMenu->objects.add(ItemButton::create(shopMenu, EPIC));
+    else if(rand() % 100 >= 60) shopMenu->objects.add(ItemButton::create(shopMenu, RARE));
+    else shopMenu->objects.add(ItemButton::create(shopMenu, COMMON));
 
     float x = 160;
     float ww = 1280.0 / 4.0;

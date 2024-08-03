@@ -1,6 +1,7 @@
 #pragma once
 #include <Buttons.hpp>
 #include <Objects/text.hpp>
+#include <Objects/object_2d.hpp>
 
 namespace Game {
   class Menu : public Object2D {
@@ -14,8 +15,9 @@ namespace Game {
 
       /// @brief Fecha o menu
       void close();
-    protected:
+
       List<Object2D> objects;
+    protected:
       List<Text> texts;
 
       /// @brief Cria uma instância do menu

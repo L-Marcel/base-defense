@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Text : public Object {
@@ -27,10 +27,6 @@ namespace Game {
       /// @brief Define o contúdo do texto
       /// @param content o conteúdo
       void setText(string content);
-
-      /// @brief Define o contúdo do texto
-      /// @param content o conteúdo
-      void setText(wstring content);
 
       /// @brief Define o tamanho da fonte
       /// @param size o tamanho em pixels

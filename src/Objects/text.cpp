@@ -1,4 +1,5 @@
 #include <Objects/text.hpp>
+#include <Engine/process.hpp>
 
 namespace Game {
   string Text::type() {
@@ -41,11 +42,8 @@ namespace Game {
   };
 
   void Text::setText(string content) {
-    this->text.setString(content);
-  };
-
-  void Text::setText(wstring content) {
-    this->text.setString(content);
+    wstring_convert<codecvt_utf8_utf16<wchar_t>> conveter;
+    this->text.setString(conveter.from_bytes(content));
   };
 
   void Text::setSize(unsigned int size) {

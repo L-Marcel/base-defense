@@ -39,16 +39,16 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(!bullet->isAlly()){
+        if(!bullet->isAlly){
           collider->destroy();
           this->health.damage(bullet->damage);
         }
       } else if(type == "MedicalKit") {
         collider->destroy();
-        this->health.heal(10);
+        this->health.heal(MedicalKit::heal);
       } else if(type == "AmmoKit") {
         collider->destroy();
-        this->ammo.recharge(10);
+        this->clip.recharge(AmmoKit::charge);
       };
     };
     
@@ -81,7 +81,7 @@ namespace Game {
       bullet->canBeBlocked = canBeBlocked;
       
       float chance = (float(rand()) / RAND_MAX);
-      if(chance >= (this->not_consume_ammo_change / 100.0)) {
+      if(chance >= (this->not_consume_ammo_chance / 100.0)) {
         this->clip.consume(1);
       };
 
@@ -95,7 +95,7 @@ namespace Game {
   };
 
   Player* Player::create() {
-    Player* player = new Player("player.png", Box(16, 13, 32, 32));
+    Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
 
     if(Player::player != nullptr) {
       delete Player::player;

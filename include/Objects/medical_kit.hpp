@@ -17,6 +17,8 @@ namespace Game {
       /// @brief Cria uma instancia do MedicalKit
       /// @param position a posição do kit
       static MedicalKit* create(Point enemyPosition);
+
+      static const float heal;
     protected:
       Timer timer;
   };

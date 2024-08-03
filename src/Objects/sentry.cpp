@@ -2,6 +2,9 @@
 #include <Objects/enemy.hpp>
 
 namespace Game {
+  float Sentry::not_consume_ammo_chance = 0;
+  float Sentry::attack_speed = 1;
+  
   string Sentry::type() {
     return "Sentry";
   };
@@ -32,7 +35,11 @@ namespace Game {
       this->rotation = this->direction;
 
       if(this->animationFinished) {
-        base->clip.consume(1);
+        float chance = (float(rand()) / RAND_MAX);
+        if(chance >= (this->not_consume_ammo_chance / 100.0)) {
+          base->clip.consume(1);
+        };
+        
         this->shoot();
       };
     } else if(this->animationFinished) {

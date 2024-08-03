@@ -18,7 +18,7 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(bullet->isAlly()){
+        if(bullet->isAlly){
           collider->destroy();
           collider->visible = false;
           this->health.damage(bullet->damage);

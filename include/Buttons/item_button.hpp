@@ -1,8 +1,10 @@
 #pragma once
 #include <Objects.hpp>
 #include <Input.hpp>
+#include <Misc/item.hpp>
 
-namespace Game{
+namespace Game {
+  class ShopMenu;
   class ItemButton : public Button {
     public:
       virtual string type();
@@ -12,15 +14,13 @@ namespace Game{
       using Button::free;
       ~ItemButton();
 
-      /// @brief Cria uma instância de um botão que resume o jogo
-      /// @param item o item
-      static ItemButton* create(unsigned short int item);
-
-      function<void()> action = [](){};
-      short int rarity = 0;
-      wstring description = L"";
+      /// @brief Cria uma instância de um botão que permite comprar um item
+      /// @param menu o ponteiro do menu o quanto o botão pertence
+      /// @param rarity a raridade do item
+      static ItemButton* create(ShopMenu* menu, unsigned short int rarity = GUARANTEED);
     protected:
       using Button::Button;
+      ShopMenu* menu = nullptr;
+      Item* item = nullptr;
   };
-
 };
