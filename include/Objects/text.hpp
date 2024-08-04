@@ -15,7 +15,7 @@ namespace Game {
       /// @param position a posição do texto
       /// @param content o conteúdo do texto
       /// @param size o tamanho do texto
-      static Text* create(Point position, string content, int size);
+      static Text* create(Point position, string content, int size = 27);
 
       /// @brief Define a posição do texto
       /// @param position a posição

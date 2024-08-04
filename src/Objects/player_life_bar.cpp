@@ -32,20 +32,20 @@ namespace Game {
   PlayerLifeBar::~PlayerLifeBar() {};
   
   PlayerLifeBar* PlayerLifeBar::create() {
-    PlayerLifeBar* playerLB = new PlayerLifeBar();
-    playerLB->depth = 500;
-    playerLB->position = Point(140, 30);
-    playerLB->setRectangle(230,20);
-    playerLB->rectangle.setFillColor(Color::Red);
-    GameProcess::add(playerLB);
+    PlayerLifeBar* lifeBar = new PlayerLifeBar();
+    lifeBar->depth = 500;
+    lifeBar->position = Point(140, 30);
+    lifeBar->setRectangle(230,20);
+    lifeBar->rectangle.setFillColor(Color::Red);
+    GameProcess::add(lifeBar);
 
     stringstream stream;
-    stream << fixed << setprecision(2) << playerLB->player->health.get();
+    stream << fixed << setprecision(2) << lifeBar->player->health.get();
     string content = stream.str();
 
     Text* hud = Text::create(Point(142, 29), content, 18);
     hud->depth = 600;
-    playerLB->hud = hud;
-    return playerLB;
+    lifeBar->hud = hud;
+    return lifeBar;
   };
 };
