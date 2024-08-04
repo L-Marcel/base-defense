@@ -16,11 +16,11 @@ namespace Game {
     this->setFont(this->font);
   };
 
-  Text* Text::create(Point position, string content) {
+  Text* Text::create(Point position, string content, int size) {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
-    text->setSize(27);
+    text->setSize(size);
 
     FloatRect textBounds = text->text.getLocalBounds();
     text->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);

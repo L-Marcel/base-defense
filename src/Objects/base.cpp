@@ -66,7 +66,7 @@ namespace Game {
     base->parts.add(Enemy::wcd);
     base->parts.add(Enemy::wda);
 
-    Text* hud = Text::create(Point(640, 400), to_string(base->health.get()));
+    Text* hud = Text::create(Point(640, 400), to_string(base->health.get()), 27);
     base->hud = hud;
 
     return base;

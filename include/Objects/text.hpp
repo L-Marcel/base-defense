@@ -14,7 +14,8 @@ namespace Game {
       /// @brief Cria uma instância do texto
       /// @param position a posição do texto
       /// @param content o conteúdo do texto
-      static Text* create(Point position, string content);
+      /// @param size o tamanho do texto
+      static Text* create(Point position, string content, int size);
 
       /// @brief Define a posição do texto
       /// @param position a posição

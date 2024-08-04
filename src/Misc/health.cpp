@@ -1,11 +1,11 @@
 #include <Misc/health.hpp>
 
 namespace Game {
-  float Health::get() {
+  float Health::get() const{
     return this->total;
   };
 
-  float Health::percent() {
+  float Health::percent() const{
     return this->total/this->limit;
   };
 

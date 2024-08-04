@@ -16,6 +16,7 @@ int main() {
   Base::create();
   Player::create();
   Enemy::create();
+  Interface::create();
 
   gp.execute();
 
