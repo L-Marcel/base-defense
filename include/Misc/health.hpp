@@ -10,11 +10,11 @@ namespace Game {
     public:
       /// @brief Retorna a quantia total de vida
       /// @return a quantia
-      float get();
+      float get() const;
 
       /// @brief Retorna a porcentagem de vida total
       /// @return a porcentagem de `0` a `1`
-      float percent();
+      float percent() const;
       
       /// @brief Reduz o total de vida
       /// @param amount a quantia a ser reduzida
