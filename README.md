@@ -1,7 +1,10 @@
 # Sumário
-- [Instruções para compilar e executar](#instruções-para-compilar-e-executar);
-- [Lista de comandos](#comandos-gerais);
-- [Sobre o jogo](#sobre-o-jogo);
+- [Instruções para compilar e executar](#instruções-para-compilar-e-executar):
+  - [Lista de comandos](#comandos-gerais);
+- [Sobre o jogo](#sobre-o-jogo):
+  - [Autores](#autores);
+  - [Como jogar](#como-jogar):
+    - [Controles](#controles).
   - [Melhorias e ofertas da loja](#melhorias-e-ofertas-da-loja):
     - [Sempre vem uma](#sempre-vem-uma);
     - [Comuns](#comuns);
@@ -13,15 +16,15 @@
 
 # Instruções para compilar e executar
 - Instale o `Make`, no caso do `Windows`, use esse [aqui](_windows/winlibs-x86_64-posix-seh-gcc-13.1.0-mingw-w64msvcrt-11.0.0-r5.7z) (que é o compatível);
+- Em algumas máquinas `Linux` pode ser necessário instalar o [sfml](https://www.sfml-dev.org/download/sfml/2.6.1/), mas nós utilizamos a biblioteca já compilada no `Ubuntu` para não precisar instalar o `sfml` nele;
 - Instale o `OpenAl`, disponível [aqui](https://www.openal.org/downloads/):
-    - No `Linux` talvez não precise, mas, por garantia, basta instalar o pacote `libopenal-dev`;
-    - No `Ubuntu`, por exemplo, basta executar o comando abaixo para instalar o pacote:
+    - No `Ubuntu` talvez não precise, mas, por garantia, basta instalar o pacote `libopenal-dev` executando o comando:
         ```
         sudo apt install libopenal-dev
         ```
 - Dentro da raíz do projeto, execute `make dev` e vai compilar e executar o jogo.
 
-# Lista de comandos
+## Lista de comandos
 - `make` - vai compilar tanto o jogo como os testes;
 - `make test` - vai compilar e executar os testes;
 - `make dev` - vai compilar e executar o jogo;
@@ -30,7 +33,22 @@
 - `make clean` - vai limpar o `_build`.
 
 # Sobre o jogo
-...
+Defenda sua base para sobreviver e passar por hordas inteiras de inimigos que querem sua cabeça nesse jogo produzido como projeto da disciplina de `Linguagem de Programação` ofertada na `UFRN`.
+
+## Autores
+Observações: exceto pelas músicas e sons, todos os `assets` utilizado no jogo foram feitos por nós.
+- `Antonio Henrique Barbosa Lima`;
+- `Arthur Queiroz Pires de Farias`;
+- `Lucas Marcel Silva de Brito`;
+- `Pedro Paulo Galvão Galindo de Oliveira`.
+
+## Como jogar
+Proteja sua base, saia para coletar munição e vida quando necessário, junte moedas derrotando inimigos e faça a melhor sequência de melhorias que conseguir; evite atirar em direção a própria base quando estiver fora dela, pois suas balas também causaram dano a elas; evite o máximo de dano que puder fora da base e saiba tirar proveito das suas sentinelas.
+
+### Controles
+- `Botão direito do mouse`: andar;
+- `Q` / `Botão esquerdo do mouse`: atirar;
+- `Esc`: pausar.
 
 ## Melhorias e ofertas da loja
 ### Sempre vem uma
@@ -62,18 +80,37 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
 - Balas ricocheteadas causam dano aos inimigos.
 
 # Recursos implementados
-...
+- `Vida`: o jogador, a base e os inimigos começam com `100` pontos de vida que são destruídos/mortos quando a vida chega 0;
+- `Munição`: o jogador tem uma quantidade limitada de munição no pente. Quando a munição do pente acaba ele recarrega automaticamente usando a munição armazenada na base, que também é limitada. Enquanto recarregar ele não pode atirar;
+- `Movimentação`: o jogador pode se movimentar definindo um destino clicando com o `botão direito do mouse`. Os inimigos por padrão seguem o jogador quando ele está fora da base, quando ele está dentro eles priorizam atacar a base;
+- `Desbravador (pathfinding)`: as torres localizadas no vértices da base são consideradas obstáculos para a movimentação do jogador, assim como a base é considerada um obstáculo para os inimigos;
+- `Base`: a base é uma área segura para o jogador, os muros dela refletem as balas vindas de fora, mas sem deixar de tomar dano. O jogador pode sair e entrar livremente dela e nenhum inimigo pode entrar nela. As torres da base recebem dano reduzido;
+- `Disparo`: o jogador pode disparar uma bala na direção do mouse ao custo de sua munição apertando/segurando a tecla `Q` ou o `botão esquerdo do mouse`. Os inimigos também disparam, mas não possuem limite de munição;
+- `Otimização`: balas fora do mapa são destruídas;
+- `Sentinelas`: a base acompanha um total de 4 sentinelas que atacam os inimigos que se aproximam delas automaticamente. Elas são extremamente lentas e consomente a munição do jogador que não está no pente da arma dele, mas causam bastante dano e podem receber melhorias na loja;
+- `Hordas`: o jogo é dividido 15 hordas de tempo fixo, cada uma mais difícil que a anterior. O jogador vence o jogo se sobreviver a todas elas. Durante uma horda os inimigos sugem nas borda do mapa aleatoriamente;
+- `Reparo da base`: o jogador repara a base automaticamente enquanto estiver dentro dela, mas é uma ação lenta. Se ele estiver em movimento a velocidade do reparo é diminuída;
+- `Espólios`: ao derrotar um inimigo, ele tem chance de deixa cair um kits de `vida` ou `munição`. Os kits somem após um tempo;
+- `Loja`: no final de cada horda o jogador pode comprar melhorias e/ou benefícios usando moedas. O jogador recebe uma quantidade de moedas quando derrota um inimigo e que pode variar um pouco;
+- `Pausa`: o jogo pode ser pausado apertando `Esc`. Um menu aparecerá dando algumas opçãoes, entre elas a de fechar o jogo;
+- `Resoluções`: no menu de pausa há um botão de opções que leva a um menu de configuração de resolução. Há três resolução configuradas e a opção de tela cheia.
 
 # Recursos do C++ usados
 - `vector`:
-    - O `vector`, uma implementação da `TAD sequência` é usada no [`list.hpp`](include/Engine/list.hpp) para armazenar um template de uma lista de ponteiros.
+  - O `vector`, uma implementação da `TAD sequência`, é usado no [`list.hpp`](include/Engine/list.hpp) para armazenar um template de uma lista de ponteiros.
+- `map`:
+  - O `map`, uma implementação da `TAD dicionário`, é usado no [`shop.hpp`](include/Misc/shop.hpp) para armazenar as informações dos itens da loja através dos seus nomes.
+- `stack`:
+  - O `stack`, uma implementação da `TAD sequência`, é usado no [`pathfinder.hpp`](include/Misc/pathfinder.hpp) para traçar os pontos de destino.
 - `cmath`:
-    - As funções `sinf`, `cosf`, `atan2` e `fmod` são utilizadas no [`math.cpp`](src/Engine//math.cpp) para implementar as funções `Game::Math::pointInRadius` e `Game::Math::pointDirection`, responsáveis por relacionar ângulos e pontos.
+  - As funções `sinf`, `cosf`, `atan2` e `fmod` são utilizadas no [`math.cpp`](src/Engine//math.cpp) para implementar funções como `Game::Math::pointInRadius` e `Game::Math::pointDirection`, responsáveis por relacionar ângulos e pontos.
+- `iomanip`;
+- `sstream`;
+- `functional`:
+  - Fornece recursos para passar funções como parâmetros ou atributos, útil em alguns casos. Usamos principalmente para construir os itens da loja do jogo sem precisar usar muia herança no [`items.cpp`](src/Misc/items.cpp).
+- `locale` e `codecvt`:
+  - Usadas para utilizarmos textos armazenados no formato de UTF-8.
 
 # Recursos de bibliotecas externas usados
-- `SFML/Graphics` - recursos da gráficos do `SFML`;
-- `SFML/Audio.hpp` - recursos da sonoros do `SFML`;
+- `SFML` - recursos da gráficos e sonoros do `SFML`;
 - `gtest` e `gmock` - biblitecas do `googletest` usadas nos [`tests`](tests).
-
-[//]: <Comandos de build das libs>
-[//]: <cmake -G "MinGW Makefiles" .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -D"CMAKE_MAKE_PROGRAM:PATH=C:/MinGW/bin/make.exe" -DCMAKE_C_COMPILER_WORKS=1 -DCMAKE_CXX_COMPILER_WORKS=1 -DGTEST_CREATE_SHARED_LIBRARY=1 -DGTEST_LINKED_AS_SHARED_LIBRARY=1">
