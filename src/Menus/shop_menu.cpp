@@ -39,20 +39,29 @@ namespace Game {
     GameProcess::add(shopMenu);
 
     Shop::reset();
-    shopMenu->objects.add(ItemButton::create(shopMenu));
-    shopMenu->objects.add(ItemButton::create(shopMenu, COMMON));
+    ItemButton::create(shopMenu);
+    ItemButton::create(shopMenu, COMMON);
 
-    if(rand() % 100 >= 60) shopMenu->objects.add(ItemButton::create(shopMenu, RARE));
-    else shopMenu->objects.add(ItemButton::create(shopMenu, COMMON));
+    if(rand() % 100 >= 60) ItemButton::create(shopMenu, RARE);
+    else ItemButton::create(shopMenu, COMMON);
 
-    if(rand() % 100 >= 80) shopMenu->objects.add(ItemButton::create(shopMenu, EPIC));
-    else if(rand() % 100 >= 60) shopMenu->objects.add(ItemButton::create(shopMenu, RARE));
-    else shopMenu->objects.add(ItemButton::create(shopMenu, COMMON));
+    if(rand() % 100 >= 80) ItemButton::create(shopMenu, EPIC);
+    else if(rand() % 100 >= 60) ItemButton::create(shopMenu, RARE);
+    else ItemButton::create(shopMenu, COMMON);
 
     float x = 160;
     float ww = 1280.0 / 4.0;
     for(unsigned short int i = 0; i < shopMenu->objects.length(); i++) {
       shopMenu->objects.get(i)->position = Point(x, 125);
+      x += ww;
+    };
+
+    x = 160;
+    ww = 1280.0 / 4.0;
+    for(unsigned short int i = 0; i < shopMenu->texts.length(); i++) {
+      Text* text = shopMenu->texts.get(i);
+      text->setPosition(Point(x, 200));
+      text->setAlignCenter();
       x += ww;
     };
     

@@ -18,6 +18,8 @@ namespace Game {
       /// @param menu o ponteiro do menu o quanto o botão pertence
       /// @param rarity a raridade do item
       static ItemButton* create(ShopMenu* menu, unsigned short int rarity = GUARANTEED);
+
+      Text* text = nullptr;
     protected:
       using Button::Button;
       ShopMenu* menu = nullptr;
