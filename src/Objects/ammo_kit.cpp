@@ -1,12 +1,14 @@
 #include <Objects/ammo_kit.hpp>
 
 namespace Game {
+  const unsigned int AmmoKit::charge = 10;
+  
   string AmmoKit::type() {
     return "AmmoKit";
   };
 
   void AmmoKit::step() {
-    this->timer.start();
+    this->timer.tick();
     if(this->timer.isFinished()) this->destroy();
   };
 
@@ -19,7 +21,7 @@ namespace Game {
     ammokit->depth = 50;
     ammokit->position = position;
     ammokit->position.y += 20.0;
-    ammokit->timer.setDuration(10);
+    ammokit->timer.start(10);
     return ammokit;
   };
 };

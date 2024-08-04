@@ -2,6 +2,11 @@
 - [Instruções para compilar e executar](#instruções-para-compilar-e-executar);
 - [Lista de comandos](#comandos-gerais);
 - [Sobre o jogo](#sobre-o-jogo);
+  - [Melhorias e ofertas da loja](#melhorias-e-ofertas-da-loja):
+    - [Sempre vem uma](#sempre-vem-uma);
+    - [Comuns](#comuns);
+    - [Raras](#raras);
+    - [Épicas](#épicas).
 - [Recursos implementados](#recursos-implementados);
 - [Recursos do c++ usados](#recursos-do-c-usados);
 - [Recursos de bibliotecas externas usados](#recursos-de-bibliotecas-externas-usados).
@@ -26,6 +31,35 @@
 
 # Sobre o jogo
 ...
+
+## Melhorias e ofertas da loja
+### Sempre vem uma
+Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço aumenta.
+- Cura imediatamente `25%` de vida;
+- Repara imediatamente `25%` da base;
+- Restaura imediatamente `25%` da munição.
+### Comuns
+- Aumenta a vida em:
+  - `+10` / `+10` / `+20` / `+30` / `+40` / `+40` pontos.
+- Aumenta a vida da base em:
+  - `+10` / `+10` / `+20` / `+30` / `+40` / `+40` / `+50` pontos.
+- Aumenta a munição do pente em:
+  - `+2` / `+2` / `+2` / `+2` balas.
+- Aumenta a munição em:
+  - `+2` / `+2` / `+4` / `+4` / `+6` / `+6` balas.
+- Aumenta a velocidade de disparo em:
+  - `+10%` / `+20%` / `+30%` / `+40%`.
+### Raras
+- O reparo da base fica:
+  - `+10%` / `+15%` / `+20%` / `+25%` / `+30%` / `+35%` / `+40%` / `+45%` / `+50%` rápido.
+- A recuperação de vida fica:
+  - `+10%` / `+15%` / `+20%` / `+25%` / `+30%` / `+35%` / `+40%` rápida.
+- Aumenta a velocidade de disparo das sentinelas em:
+  - `+20%` / `+20%` / `+30%` / `+40%`.
+### Épicas
+- Ganha `20%` de chance de não consumir bala do pente (inclui sentinelas);
+- Disparos contra a própria base não causam mais dano;
+- Balas ricocheteadas causam dano aos inimigos.
 
 # Recursos implementados
 ...

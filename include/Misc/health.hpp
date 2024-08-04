@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Health {
@@ -10,11 +10,11 @@ namespace Game {
     public:
       /// @brief Retorna a quantia total de vida
       /// @return a quantia
-      float get() const;
+      float get();
 
       /// @brief Retorna a porcentagem de vida total
       /// @return a porcentagem de `0` a `1`
-      float percent() const;
+      float percent();
       
       /// @brief Reduz o total de vida
       /// @param amount a quantia a ser reduzida
@@ -23,6 +23,10 @@ namespace Game {
       /// @brief Aumenta o total de vida, mantendo o limite
       /// @param amount a quantia a ser incrementada
       void heal(float amount);
+
+      /// @brief Atualiza o limite de vida
+      /// @param amount a quantia a ser incrementada
+      void upgrade(float amount);
 
       /// @brief Cria uma instância de vida
       /// @param object o dono da vida

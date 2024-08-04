@@ -17,11 +17,9 @@ namespace Game{
   ResolutionButton::~ResolutionButton() {};
 
   ResolutionButton* ResolutionButton::create(Resolution resolution) {
-    stringstream stream;
-    stream << resolution.x << "x" << resolution.y << "_button.png";
-    string content = stream.str();
+    string sprite = to_string(resolution.x) + "x" + to_string(resolution.y) + "_button.png";
 
-    ResolutionButton* resolutionButton = new ResolutionButton(content, Box(53, 16, 106, 32));
+    ResolutionButton* resolutionButton = new ResolutionButton(sprite, Box(53, 16, 106, 32));
     resolutionButton->resolution = resolution;
     resolutionButton->animate(1, 1, 0, false);
     resolutionButton->pausable = false;

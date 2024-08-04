@@ -1,4 +1,5 @@
 #include <Objects/text.hpp>
+#include <Engine/process.hpp>
 
 namespace Game {
   string Text::type() {
@@ -22,12 +23,14 @@ namespace Game {
     text->setText(content);
     text->setSize(size);
 
-    FloatRect textBounds = text->text.getLocalBounds();
-    text->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-   
     GameProcess::add(text);
 
     return text;
+  };
+
+  void Text::setAlignCenter() {
+    FloatRect textBounds = this->text.getLocalBounds();
+    this->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
   };
 
   void Text::setPosition(Point position) {
@@ -39,7 +42,8 @@ namespace Game {
   };
 
   void Text::setText(string content) {
-    this->text.setString(content);
+    wstring_convert<codecvt_utf8_utf16<wchar_t>> conveter;
+    this->text.setString(conveter.from_bytes(content));
   };
 
   void Text::setSize(unsigned int size) {

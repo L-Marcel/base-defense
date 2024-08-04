@@ -1,11 +1,11 @@
 #include <Misc/health.hpp>
 
 namespace Game {
-  float Health::get() const{
+  float Health::get() {
     return this->total;
   };
 
-  float Health::percent() const{
+  float Health::percent() {
     return this->total/this->limit;
   };
 
@@ -18,6 +18,10 @@ namespace Game {
 
   void Health::heal(float amount) {
     this->total = min(this->total + amount, this->limit);
+  };
+
+  void Health::upgrade(float amount) {
+    this->limit += amount;
   };
 
   Health::Health() {};
