@@ -77,6 +77,7 @@ namespace Game {
         break;
       case EPIC:
         items = Shop::epic_stock;
+        break;
       default:
         return available_options;
     };
