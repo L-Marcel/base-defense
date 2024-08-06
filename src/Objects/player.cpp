@@ -71,7 +71,7 @@ namespace Game {
 
     if(this->animationFinished && Input::isDown(Keyboard::R)){
       this->recharge();
-    }
+    };
   };
   
   Player::~Player() {
@@ -105,8 +105,8 @@ namespace Game {
       this->clip.recharge(base->clip.get());
       base->clip.consume(blankAmmo);
       this->animate(12, 5, 2, false);
-    }
-  }
+    };
+  };
 
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);

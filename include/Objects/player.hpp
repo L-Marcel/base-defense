@@ -25,6 +25,7 @@ namespace Game {
       /// @param canBeBlocked se o disparo pode ser bloqueado
       void shoot(bool canBeBlocked = true);
 
+      /// @brief Recarrega a munição
       void recharge();
 
       Pathfinder path;
