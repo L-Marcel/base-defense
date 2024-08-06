@@ -1,6 +1,6 @@
 #pragma once
 #include <Objects.hpp>
-
+#include <Misc/timer.hpp>
 namespace Game {
   class Character : public Object2D {
     public:
@@ -22,6 +22,7 @@ namespace Game {
       mutable float attack_speed = 1;
       mutable float regeneration = 0;
       mutable float not_consume_ammo_change = 0;
+      mutable Timer attack_delay;
     protected:
       /// @brief Cria uma instância de um personagem
       /// @param spriteSheet página de textura do sprite do personagem

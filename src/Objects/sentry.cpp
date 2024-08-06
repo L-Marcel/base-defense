@@ -7,6 +7,7 @@ namespace Game {
   };
 
   void Sentry::step() {
+    this->attack_delay.tick();
     const Base* base = Base::get();
     this->energized = base != nullptr && base->clip.get() > 0;
     if(!this->energized && this->animationFinished) {
@@ -58,6 +59,7 @@ namespace Game {
     this->shoot_sound.play();
     this->animate(8, 6, 4 + int(!this->right), false);
     this->right = !this->right;
+    this->attack_delay.start(1/this->attack_speed);
   };
 
   Sentry::~Sentry() {};
@@ -72,7 +74,7 @@ namespace Game {
     sentry->setCircle(256);
     sentry->animate(1, 1, 2, false);
     GameProcess::add(sentry);
-
+    sentry->attack_delay.start(0);
     Collision::create(sentry, "Enemy");
 
     return sentry;
