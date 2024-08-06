@@ -11,17 +11,19 @@ namespace Game {
   };
 
   void Enemy::step() {
+    this->health.heal(this->regeneration / 60.0);
+    
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(bullet->isAlly()){
+        if(bullet->isAlly){
           collider->destroy();
+          collider->visible = false;
           this->health.damage(bullet->damage);
           if(this->free_queued){
-            MedicalKit* medkit = MedicalKit::create(this->position);
-            medkit->drop();
+            this->dropKits();
           }
         }
       }
@@ -135,13 +137,16 @@ namespace Game {
     };
   };
 
-  Enemy::~Enemy() {};
+  Enemy::~Enemy() {
+    GameProcess::money += 5 + rand() % 5;
+  };
 
   Enemy* Enemy::create() {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(600.f, 100.f);
+    enemy->damage = 0;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
@@ -159,5 +164,27 @@ namespace Game {
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
+  };
+
+  void Enemy::dropKits() {
+    bool dropAmmoKit = (rand() % 100) < 100;
+    bool dropMedKit = (rand() % 100) < 100;
+
+    if(dropAmmoKit && dropMedKit) {
+      MedicalKit* medkit = MedicalKit::create(this->position);
+      AmmoKit* ammokit = AmmoKit::create(this->position);
+
+      ammokit->position.x += 20.0;
+      medkit->position.x -= 20.0;
+
+      GameProcess::add(ammokit);
+      GameProcess::add(medkit);
+    } else if(dropAmmoKit) {
+      AmmoKit* ammokit = AmmoKit::create(this->position);
+      GameProcess::add(ammokit);
+    } else if(dropMedKit) {
+      MedicalKit* medkit = MedicalKit::create(this->position);
+      GameProcess::add(medkit);
+    };
   };
 };

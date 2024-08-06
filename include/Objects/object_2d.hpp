@@ -44,7 +44,7 @@ namespace Game {
       /// Movement ================================
       Point position;
       double direction = 0;
-      float speed = 0;
+      mutable float speed = 0;
       /// =========================================
      
       /// @brief Inicia uma das animações disponíveis para o objeto 2D

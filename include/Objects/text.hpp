@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Text : public Object {
@@ -14,7 +14,8 @@ namespace Game {
       /// @brief Cria uma instância do texto
       /// @param position a posição do texto
       /// @param content o conteúdo do texto
-      static Text* create(Point position, string content);
+      /// @param size o tamanho do texto
+      static Text* create(Point position, string content, int size = 27);
 
       /// @brief Define a posição do texto
       /// @param position a posição
@@ -35,6 +36,9 @@ namespace Game {
       /// @brief Define a cor do texto
       /// @param color a cor
       void setColor(Color color);
+
+      /// @brief Define o alinhamento do texto para o meio dele
+      void setAlignCenter();
 
       /// @brief Carrega o arquivo da fonte
       /// @param filename o nome do arquivo

@@ -3,6 +3,7 @@
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
+  unsigned int GameProcess::money = 1500;
  
   void GameProcess::execute() {
     while(this->isRunning()) {
@@ -36,8 +37,12 @@ namespace Game {
       if((this->frame)/60 <= elapsed.asSeconds()) this->nextFrame();
 
       bool pauseRequested = Input::isPressed(Keyboard::Escape);
-      if(pauseRequested && this->paused) this->resume();
-      else if(pauseRequested) this->pause();
+      if(
+        pauseRequested && this->paused && 
+        this->menu != nullptr && this->menu->type() != "ShopMenu"
+      ) this->resume();
+      else if(pauseRequested && this->menu == nullptr) this->pause();
+      else if(Input::isPressed(Keyboard::S)) this->pause(true);
 
       Input::update();
       Mouse::update();

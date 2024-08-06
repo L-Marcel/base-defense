@@ -34,4 +34,4 @@ namespace Game {
 
     return pauseMenu;
   };
-}
+};

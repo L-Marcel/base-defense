@@ -10,37 +10,45 @@ namespace Game {
     return "Player";
   };
 
-  void Player::step() {
-    // if(this->hasCircle){
-    //   this->GameProcess::draw(this->circle);
-    // } else if(this->hasRectangle) {
-    //   this->GameProcess::draw(this->rectangle);
-    // };
+  void Player::step() {    
+    this->health.heal(regeneration / 60.0);
     
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
 
+    bool bulletCanBeBlocked = true;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
+        bulletCanBeBlocked = false;
         Base* base = (Base*) collider;
         if(this->path.isStopped()) {
-          base->health.heal(1.0/60.0);
+          base->health.heal(1.0/60.0 * base->regeneration);
         } else {
-          base->health.heal(1.0/180.0);
+          base->health.heal(1.0/180.0 * base->regeneration);
         };
-      } else if(type == "Bullet"){
+        break;
+      };
+    };
+
+    for(unsigned int i = 0; i < this->colliders.length(); i++) {
+      Object2D* collider = this->colliders.get(i);
+      string type = collider->type();
+      if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(!bullet->isAlly()){
+        if(!bullet->isAlly){
           collider->destroy();
           this->health.damage(bullet->damage);
         }
       } else if(type == "MedicalKit") {
         collider->destroy();
-        this->health.heal(10);
+        this->health.heal(MedicalKit::heal);
+      } else if(type == "AmmoKit") {
+        collider->destroy();
+        this->clip.recharge(AmmoKit::charge);
       };
     };
     
@@ -58,7 +66,7 @@ namespace Game {
     this->direction = path.angle();
 
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->shoot();
+      this->shoot(bulletCanBeBlocked);
     };
   };
   
@@ -66,12 +74,17 @@ namespace Game {
     Player::player = nullptr;
   };
 
-  void Player::shoot() {
-    if(this->ammo.get() > 0) {
+  void Player::shoot(bool canBeBlocked) {
+    if(this->clip.get() > 0) {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
-      bullet->canBeBlocked = !this->safe;
-      this->ammo.shoot(1);
+      bullet->canBeBlocked = canBeBlocked;
+      
+      float chance = (float(rand()) / RAND_MAX);
+      if(chance >= (this->not_consume_ammo_chance / 100.0)) {
+        this->clip.consume(1);
+      };
+
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
       this->animate(8, 6, 1, false);
@@ -82,7 +95,7 @@ namespace Game {
   };
 
   Player* Player::create() {
-    Player* player = new Player("player.png", Box(16, 13, 32, 32));
+    Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
 
     if(Player::player != nullptr) {
       delete Player::player;
@@ -91,6 +104,7 @@ namespace Game {
     Player::player = player;
     player->speed = 5.0;
     player->damage = 35;
+    player->regeneration = 1;
     player->animate(8, 1, 0, false);
     player->position = CENTER;
     player->setCircle(11);
@@ -101,6 +115,7 @@ namespace Game {
     Collision::create(player, "Bullet");
     Collision::create(player, "Base");
     Collision::create(player, "MedicalKit");
+    Collision::create(player, "AmmoKit");
 
     return player;
   };

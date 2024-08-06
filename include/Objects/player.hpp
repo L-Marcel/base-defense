@@ -22,9 +22,9 @@ namespace Game {
       const static Player* get();
 
       /// @brief Realiza um disparo
-      void shoot();
+      /// @param canBeBlocked se o disparo pode ser bloqueado
+      void shoot(bool canBeBlocked = true);
 
-      Ammo ammo;
       Pathfinder path;
       Sound shoot_sound = Sound("shoot.mp3");
       Sound empty_clip_sound = Sound("empty_clip.mp3");

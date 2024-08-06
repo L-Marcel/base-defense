@@ -1,13 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <typeinfo>
 #include <string>
 #include <iostream>
 #include <cmath>
 #include <iomanip>
 #include <sstream>
 #include <functional>
+#include <map>
+#include <locale>
+#include <codecvt>
+#include <vector>
+#include <stack>
 
 #define PI 3.14159265359
 
@@ -23,8 +27,8 @@
 #define R1024x576 Resolution(1024, 576)
 #define R800x600 Resolution(800, 600)
 
-#define NORMAL_SCREEN = sf::Style::Close | sf::Style::Titlebar;
-#define FULLSCREEN = sf::Style::Fullscreen;
+#define NORMAL_SCREEN sf::Style::Close | sf::Style::Titlebar
+#define FULLSCREEN sf::Style::Fullscreen
 
 using namespace std;
 
@@ -46,6 +50,13 @@ namespace Game {
   sf::Color typedef Color;
   sf::Drawable typedef Drawable;
   sf::FloatRect typedef FloatRect;
+
+  enum Rarity {
+    GUARANTEED,
+    COMMON,
+    RARE,
+    EPIC
+  };
 
   template <typename T> 
     using Vector = sf::Vector2<T>;

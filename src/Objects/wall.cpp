@@ -4,13 +4,8 @@ namespace Game {
     return "Wall";
   };
 
-  void Wall::step() {
-    // if(this->hasCircle){
-    //   this->GameProcess::draw(this->circle);
-    // } else if(this->hasRectangle) {
-    //   this->GameProcess::draw(this->rectangle);
-    // };
-    
+  void Wall::step() { 
+    this->energized = Base::get() != nullptr;
     bool wasEnabled = this->enabled;
     this->enabled = this->energized;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
@@ -18,13 +13,17 @@ namespace Game {
       string type = collider->type();
       if(type == "Player") {
         this->enabled = false;
-      } else if(type == "Bullet") {
+      } else if(type == "Bullet" && collider->depth <= this->depth) {
         Bullet* bullet = (Bullet*) collider;
 
-        if(bullet->canBeBlocked && this->enabled && this->base != nullptr) {
+        if(bullet->canBeBlocked && this->enabled) {
           bullet->bounce_sound.play();
           bullet->bounce_sound.setVolume(50);
-          this->base->health.damage(bullet->damage / 2.5);
+  
+          if(Base::friendly_fire || !bullet->isAlly) 
+            Base::get()->health.damage(bullet->damage /2.5);
+          if(Base::vengeful_bullets) bullet->isAlly = true;
+
           switch(this->side) {
             case 0:
               bullet->direction = (180 - bullet->direction);
@@ -67,7 +66,7 @@ namespace Game {
   Wall::Wall(string spriteSheet, Box box) 
   : Object2D(spriteSheet, box) {};
 
-  Wall* Wall::create(Base* base, unsigned short int side) {
+  Wall* Wall::create(unsigned short int side) {
     Wall* wall;
 
     switch (side) {
@@ -100,7 +99,6 @@ namespace Game {
     wall->depth = 200;
     wall->scale(2);
     wall->animate(8, 4, 0, true);
-    wall->base = base;
     GameProcess::add(wall);
 
     Collision::create(wall, "Player");

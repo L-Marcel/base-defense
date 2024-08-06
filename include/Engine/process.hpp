@@ -3,8 +3,7 @@
 #include <Objects.hpp>
 
 namespace Game {
-  class 
-  GameProcess {
+  class GameProcess {
     protected:
       static GameProcess* gp;
       List<Object> queueFree;
@@ -25,6 +24,8 @@ namespace Game {
     private:
       Clock clock;
     public:
+      static unsigned int money;
+
       /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
@@ -51,7 +52,8 @@ namespace Game {
       static void close();
 
       /// @brief Pausa o jogo
-      static void pause();
+      /// @param shop diz se o menu é a loja
+      static void pause(bool shop = false);
 
       /// @brief Continua o jogo
       static void resume();
