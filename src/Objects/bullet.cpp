@@ -20,12 +20,8 @@ namespace Game {
     bullet->scale(2);
     bullet->direction = object->rotation + 90;
     bullet->speed = 14;
-    bullet->ally = ally;
+    bullet->isAlly = ally;
     GameProcess::add(bullet);
     return bullet;
-  };
-
-  bool Bullet::isAlly() {
-    return this->ally;
   };
 };

@@ -40,16 +40,16 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(!bullet->isAlly()){
+        if(!bullet->isAlly){
           collider->destroy();
           this->health.damage(bullet->damage);
         }
       } else if(type == "MedicalKit") {
         collider->destroy();
-        this->health.heal(10);
+        this->health.heal(MedicalKit::heal);
       } else if(type == "AmmoKit") {
         collider->destroy();
-        this->clip.recharge(10);
+        this->clip.recharge(AmmoKit::charge);
       };
     };
     
@@ -69,6 +69,10 @@ namespace Game {
     if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
     };
+
+    if(this->animationFinished && Input::isDown(Keyboard::R)){
+      this->recharge();
+    };
   };
   
   Player::~Player() {
@@ -76,28 +80,38 @@ namespace Game {
   };
 
   void Player::shoot(bool canBeBlocked) {
-      if(this->clip.get() > 0) {
-        Bullet* bullet = Bullet::create(this, true);
-        bullet->damage = this->damage;
-        bullet->canBeBlocked = canBeBlocked;
-        
-        float chance = (float(rand()) / RAND_MAX);
-        if(chance >= (this->not_consume_ammo_change / 100.0)) {
-          this->clip.consume(1);
-        };
+    if(this->clip.get() > 0) {
+      Bullet* bullet = Bullet::create(this, true);
+      bullet->damage = this->damage;
+      bullet->canBeBlocked = canBeBlocked;
 
-        this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
-        this->shoot_sound.play();
-        this->animate(16, 6, 1, false);
-      } else {
-        this->animate(16, 6, 1, false);
-        this->empty_clip_sound.play();
+      float chance = (float(rand()) / RAND_MAX);
+      if(chance >= (this->not_consume_ammo_chance / 100.0)) {
+        this->clip.consume(1);
       };
-      this->attack_delay.start(1/this->attack_speed);    
+
+      this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
+      this->shoot_sound.play();
+      this->animate(16, 6, 1, false);
+    } else {
+      this->animate(16, 6, 1, false);
+      this->empty_clip_sound.play();
+    };
+    this->attack_delay.start(1/this->attack_speed);    
+  };
+
+  void Player::recharge(){
+    const Base* base = Base::get();
+    if(base->clip.get() > 0 && this->clip.get() < this->clip.getLimit()){
+      unsigned int blankAmmo = this->clip.getLimit() - this->clip.get();
+      this->clip.recharge(base->clip.get());
+      base->clip.consume(blankAmmo);
+      this->animate(12, 5, 2, false);
+    };
   };
 
   Player* Player::create() {
-    Player* player = new Player("player.png", Box(16, 13, 32, 32));
+    Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
 
     if(Player::player != nullptr) {
       delete Player::player;

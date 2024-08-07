@@ -1,6 +1,8 @@
 #include <Objects/medical_kit.hpp>
 
 namespace Game {
+  const float MedicalKit::heal = 10.0;
+
   string MedicalKit::type() {
     return "MedicalKit";
   };

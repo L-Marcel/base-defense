@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Menus/menu.hpp>
 
 namespace Game{
   class ShopMenu : public Menu {
@@ -13,7 +13,7 @@ namespace Game{
 
       /// @brief Cria uma instância do menu de pausa
       static ShopMenu* create();
-      static wstring description;
+      static string description;
     protected:
       /// @brief Cria uma instância do menu de pausa
       /// @param spriteSheet página de textura do sprite do menu de pausa

@@ -12,7 +12,8 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet" && collider->depth <= this->depth) {
         Bullet* bullet = (Bullet*) collider;
-        if(baseIsEnergized) Base::get()->health.damage(bullet->damage / 5.0);
+        if(baseIsEnergized && (Base::friendly_fire || !bullet->isAlly)) 
+          Base::get()->health.damage(bullet->damage / 5.0);
         collider->destroy();
       };
     };

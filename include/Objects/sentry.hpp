@@ -21,8 +21,9 @@ namespace Game {
       float damage = 50;
       bool energized = true;
       bool right = true;
+      static float not_consume_ammo_chance;
+      static float attack_speed;
       Timer attack_delay;
-      float attack_speed = 1;
 
       Sound shoot_sound = Sound("shoot.mp3");
     protected:

@@ -1,4 +1,5 @@
 #include <Objects/text.hpp>
+#include <Engine/process.hpp>
 
 namespace Game {
   string Text::type() {
@@ -16,11 +17,11 @@ namespace Game {
     this->setFont(this->font);
   };
 
-  Text* Text::create(Point position, string content) {
+  Text* Text::create(Point position, string content, int size) {
     Text* text = new Text();
     text->setPosition(position);
     text->setText(content);
-    text->setSize(27);
+    text->setSize(size);
 
     GameProcess::add(text);
 
@@ -41,11 +42,8 @@ namespace Game {
   };
 
   void Text::setText(string content) {
-    this->text.setString(content);
-  };
-
-  void Text::setText(wstring content) {
-    this->text.setString(content);
+    wstring_convert<codecvt_utf8_utf16<wchar_t>> conveter;
+    this->text.setString(conveter.from_bytes(content));
   };
 
   void Text::setSize(unsigned int size) {

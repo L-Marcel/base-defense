@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Health {

@@ -1,6 +1,8 @@
 #include <Objects/ammo_kit.hpp>
 
 namespace Game {
+  const unsigned int AmmoKit::charge = 10;
+  
   string AmmoKit::type() {
     return "AmmoKit";
   };
