@@ -4,7 +4,7 @@
 namespace Game {
   class Sprites {
     protected:
-      static map<string, Sprite*> loaded;
+      static map<string, Texture*> loaded;
     public:
       /// @brief Carrega uma folha de textura
       /// @param filename o nome do arquivo da folha

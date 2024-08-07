@@ -2,37 +2,42 @@
 #include <Engine/errors.hpp>
 
 namespace Game {
-  map<string, Sprite*> Sprites::loaded = {};
+  map<string, Texture*> Sprites::loaded = {};
 
   Sprite* Sprites::load(string filename, Box box) {
-    map<string, Sprite*>::iterator it = Sprites::loaded.find(filename);
+    Texture* texture;
+    Sprite* sprite = new Sprite();
+    map<string, Texture*>::iterator it = Sprites::loaded.find(filename);
 
-    if(Sprites::loaded.end() != it) return it->second;
-
-    Texture* texture = new Texture();
-    if(texture->loadFromFile(filename)) {
-      Sprite* sprite = new Sprite();
-      sprite->setTexture(*texture);
-      Vector<int> pos = box.getPosition();
-      box.top = 0;
-      box.left = 0;
-      sprite->setTextureRect(box);
-      sprite->setOrigin(pos.x, pos.y);
-      sprite->setScale(1, 1);
-      Sprites::loaded.insert(pair<string, Sprite*>(
-        filename,
-        sprite
-      ));
-      return sprite;
+    if(Sprites::loaded.end() != it) {
+      texture = it->second;
+    } else {
+      texture = new Texture();
+      if(!texture->loadFromFile(filename)) {
+        delete sprite;
+        delete texture;
+        throw new TextureNotFound(filename);
+      };
     };
 
-    delete texture;
-    throw new TextureNotFound(filename);
+    sprite->setTexture(*texture);
+    Vector<int> pos = box.getPosition();
+    box.top = 0;
+    box.left = 0;
+    sprite->setTextureRect(box);
+    sprite->setOrigin(pos.x, pos.y);
+    sprite->setScale(1, 1);
+
+    Sprites::loaded.insert(pair<string, Texture*>(
+      filename,
+      texture
+    ));
+
+    return sprite;
   };
 
   void Sprites::clear() {
-    for(map<string, Sprite*>::iterator it = Sprites::loaded.begin(); it != Sprites::loaded.end(); ++it) {
-      delete it->second->getTexture();
+    for(map<string, Texture*>::iterator it = Sprites::loaded.begin(); it != Sprites::loaded.end(); ++it) {
       delete it->second;
     };
   };
