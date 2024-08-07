@@ -15,6 +15,7 @@ namespace Game {
   : Object2D(spriteSheet, box) {
     this->health = Health(this, base_health);
     this->clip = Ammo(this, base_ammo);
+    this->attack_delay.start(0);
   };
 
   Character* Character::create(string spriteSheet, Box box) {

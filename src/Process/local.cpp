@@ -4,6 +4,9 @@
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
   unsigned int GameProcess::money = 1500;
+  Sound GameProcess::open_sound = Sound("open.ogg");
+  Sound GameProcess::click_sound = Sound("click.ogg");
+  Music GameProcess::theme_music = Music("default.ogg");
  
   void GameProcess::execute() {
     while(this->isRunning()) {
@@ -43,7 +46,11 @@ namespace Game {
       ) this->resume();
       else if(pauseRequested && this->menu == nullptr) this->pause();
       else if(Input::isPressed(Keyboard::S)) this->pause(true);
-
+      
+      if(this->paused && GameProcess::theme_music.getStatus() != Music::Paused)
+        GameProcess::theme_music.pause();
+      else if(!this->paused && GameProcess::theme_music.getStatus() == Music::Paused)
+        GameProcess::theme_music.play();
       Input::update();
       Mouse::update();
     };
@@ -104,6 +111,8 @@ namespace Game {
   };
 
   GameProcess::~GameProcess() {
+    Sprites::clear();
+    
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       Object* object = this->objects.get(i);
       this->objects.remove(object);
@@ -120,5 +129,8 @@ namespace Game {
     
     this->gp = this;
     this->window.setFramerateLimit(60);
+
+    GameProcess::theme_music.setVolume(30);
+    GameProcess::theme_music.play();
   };
 };

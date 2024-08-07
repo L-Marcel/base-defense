@@ -8,6 +8,7 @@ namespace Game{
 
   void ReturnButton::step() {
     if(this->isHovered()) {
+      if(Mouse::isLeftPressed()) GameProcess::click_sound.play();
       if(Mouse::isLeftDown()) this->animate(1, 1, 2, false);
       else this->animate(1, 1, 1, false);
       if(Mouse::isLeftReleased()) GameProcess::navigate(this->create_previous_menu());

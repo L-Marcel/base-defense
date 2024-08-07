@@ -12,7 +12,8 @@ namespace Game {
 
   void Player::step() {    
     this->health.heal(regeneration / 60.0);
-    
+    this->attack_delay.tick();
+
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
@@ -65,8 +66,10 @@ namespace Game {
     this->position = path.end;
     this->direction = path.angle();
 
-    if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
+    if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
+    } else if(this->animationFinished && Input::isDown(Keyboard::R)){
+      this->recharge();
     };
   };
   
@@ -79,7 +82,7 @@ namespace Game {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
       bullet->canBeBlocked = canBeBlocked;
-      
+
       float chance = (float(rand()) / RAND_MAX);
       if(chance >= (this->not_consume_ammo_chance / 100.0)) {
         this->clip.consume(1);
@@ -87,10 +90,22 @@ namespace Game {
 
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
-      this->animate(8, 6, 1, false);
+      this->animate(12, 6, 1, false);
     } else {
-      this->animate(8, 6, 1, false);
       this->empty_clip_sound.play();
+    };
+    this->attack_delay.start(1/this->attack_speed);    
+  };
+
+  void Player::recharge(){
+    const Base* base = Base::get();
+    if(base->clip.get() > 0 && this->clip.get() < this->clip.getLimit()){
+      this->recharge_sound.play();
+      unsigned int blankAmmo = this->clip.getLimit() - this->clip.get();
+      this->clip.recharge(base->clip.get());
+      base->clip.consume(blankAmmo);
+      this->animate(8, 5, 2, false);
+      this->attack_delay.start(1);
     };
   };
 
@@ -102,6 +117,7 @@ namespace Game {
     };
 
     Player::player = player;
+    player->attack_speed = 1.4;
     player->speed = 5.0;
     player->damage = 35;
     player->regeneration = 1;

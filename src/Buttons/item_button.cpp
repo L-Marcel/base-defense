@@ -25,20 +25,27 @@ namespace Game {
       ShopMenu::description = this->item->description(this->item);
 
       if(Mouse::isLeftReleased()) {
-        if(Shop::purchase(this->item) && this->item->rarity > 0) {
-          this->destroy();
-          this->text->destroy();
-          for(unsigned int i = 0; i < this->menu->objects.length(); i++) {
-            Object2D* object = this->menu->objects.get(i);
-            if(object == this) {
-              this->menu->objects.remove(i);
-              this->menu->texts.remove(i);
-              break;
-            };
-          };
+        bool bought = Shop::purchase(this->item);
+        if(bought) this->buy_sound.play();
+        if(bought && this->item->rarity > 0) {
+          this->visible = false;
+          this->text->visible = false;
         };
       };
     } else this->animate(1, 1, 0, false);
+
+    if(!this->visible && this->buy_sound.getStatus() == Sound::Stopped) {
+      this->destroy();
+      this->text->destroy();
+      for(unsigned int i = 0; i < this->menu->objects.length(); i++) {
+        Object2D* object = this->menu->objects.get(i);
+        if(object == this) {
+          this->menu->objects.remove(i);
+          this->menu->texts.remove(i);
+          break;
+        };
+      };
+    };
   };
 
   ItemButton::~ItemButton() {};

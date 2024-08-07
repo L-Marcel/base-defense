@@ -12,7 +12,8 @@ namespace Game {
 
   void Enemy::step() {
     this->health.heal(this->regeneration / 60.0);
-    
+    this->attack_delay.tick();
+
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
@@ -129,7 +130,7 @@ namespace Game {
       };
 
       this->rotation = this->direction - 90.0;
-      bool canShoot = this->path.isStopped();
+      bool canShoot = this->path.isStopped() && this->attack_delay.isFinished();
       if(canShoot) {
         this->animate(8, 6, 1, false);
         this->shoot();
@@ -150,6 +151,7 @@ namespace Game {
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
+    enemy->attack_delay.start(1/enemy->attack_speed);
     enemy->scale(2);
     GameProcess::add(enemy);
 
@@ -164,6 +166,7 @@ namespace Game {
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
+    this->attack_delay.start(1/this->attack_speed);
   };
 
   void Enemy::dropKits() {

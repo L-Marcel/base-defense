@@ -171,7 +171,7 @@ namespace Game {
           return 1.1 + (0.1 * count);
         },
         [](Item* item) {
-          return "Aumenta a velocidade de disparo em +" + to_string(int((item->upgrade() - 1.0) * 100)) + "%";
+          return "Aumenta a velocidade de disparo em +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "%";
         },
         [](Item* item) {
           Player::get()->attack_speed *= item->upgrade();
@@ -192,7 +192,7 @@ namespace Game {
           return 1.1 + (0.05 * count);
         },
         [](Item* item) {
-          return "O reparo da base fica +" + to_string(int((item->upgrade() - 1.0) * 100)) + "% rápido";
+          return "O reparo da base fica +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "% rápido";
         },
         [](Item* item) {
           Base::get()->regeneration *= item->upgrade();
@@ -213,7 +213,7 @@ namespace Game {
           return 1.1 + (0.05 * count);
         },
         [](Item* item) {
-          return "A recuperação de vida fica +" + to_string(int((item->upgrade() - 1.0) * 100)) + "% rápida";
+          return "A recuperação de vida fica +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "% rápida";
         },
         [](Item* item) {
           Player::get()->regeneration *= item->upgrade();
@@ -234,7 +234,7 @@ namespace Game {
           return 1.2 + (0.1 * max(count - 1, 0));
         },
         [](Item* item) {
-          return "Aumenta a velocidade de disparo das sentinelas em +" + to_string(int((item->upgrade() - 1.0) * 100)) + "%";
+          return "Aumenta a velocidade de disparo das sentinelas em +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "%";
         },
         [](Item* item) {
           Sentry::attack_speed *= item->upgrade();

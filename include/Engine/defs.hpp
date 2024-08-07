@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <typeinfo>
 #include <string>
 #include <iostream>
 #include <cmath>
@@ -11,6 +10,8 @@
 #include <map>
 #include <locale>
 #include <codecvt>
+#include <vector>
+#include <stack>
 
 #define PI 3.14159265359
 
