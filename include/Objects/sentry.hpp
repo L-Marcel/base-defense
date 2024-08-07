@@ -1,5 +1,6 @@
 #pragma once
 #include <Objects.hpp>
+#include <Misc/timer.hpp>
 
 namespace Game {
   class Sentry : public Object2D {
@@ -22,6 +23,8 @@ namespace Game {
       bool right = true;
       static float not_consume_ammo_chance;
       static float attack_speed;
+      Timer attack_delay;
+
       Sound shoot_sound = Sound("shoot.mp3");
     protected:
       /// @brief Cria uma instância da sentinela

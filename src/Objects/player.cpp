@@ -12,7 +12,8 @@ namespace Game {
 
   void Player::step() {    
     this->health.heal(regeneration / 60.0);
-    
+    this->attack_delay.tick();
+
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
@@ -65,7 +66,7 @@ namespace Game {
     this->position = path.end;
     this->direction = path.angle();
 
-    if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
+    if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
     };
 
@@ -83,7 +84,7 @@ namespace Game {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
       bullet->canBeBlocked = canBeBlocked;
-      
+
       float chance = (float(rand()) / RAND_MAX);
       if(chance >= (this->not_consume_ammo_chance / 100.0)) {
         this->clip.consume(1);
@@ -91,11 +92,12 @@ namespace Game {
 
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
-      this->animate(8, 6, 1, false);
+      this->animate(16, 6, 1, false);
     } else {
-      this->animate(8, 6, 1, false);
+      this->animate(16, 6, 1, false);
       this->empty_clip_sound.play();
     };
+    this->attack_delay.start(1/this->attack_speed);    
   };
 
   void Player::recharge(){
