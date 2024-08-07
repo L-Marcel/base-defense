@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/collision.hpp>
 #include <Objects.hpp>
+#include <Sound.hpp>
 
 namespace Game {
   class GameProcess {
@@ -25,6 +26,9 @@ namespace Game {
       Clock clock;
     public:
       static unsigned int money;
+      static Sound open_sound;
+      static Sound close_sound;
+      static Sound click_sound;
 
       /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo

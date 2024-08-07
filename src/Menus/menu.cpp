@@ -11,6 +11,7 @@ namespace Game {
   Menu::~Menu() {};
 
   void Menu::close() {
+    GameProcess::close_sound.play();
     for(unsigned int i = 0; i < this->objects.length(); i++) {
       this->objects.get(i)->destroy();
     };

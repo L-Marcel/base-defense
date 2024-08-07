@@ -19,6 +19,7 @@ namespace Game {
   
   void GameProcess::navigate(Menu* menu) {
     if(GameProcess::gp->menu != nullptr) GameProcess::gp->menu->close();
+    if(menu != nullptr) GameProcess::open_sound.play();
     GameProcess::gp->menu = menu;
   };
 };

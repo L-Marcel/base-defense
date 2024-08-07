@@ -4,6 +4,9 @@
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
   unsigned int GameProcess::money = 1500;
+  Sound GameProcess::open_sound = Sound("open.ogg");
+  Sound GameProcess::close_sound = Sound("close.ogg");
+  Sound GameProcess::click_sound = Sound("click.ogg");
  
   void GameProcess::execute() {
     while(this->isRunning()) {
