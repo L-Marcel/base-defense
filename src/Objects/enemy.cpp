@@ -146,7 +146,7 @@ namespace Game {
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(600.f, 100.f);
-    enemy->damage = 0;
+    enemy->damage = 10;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;

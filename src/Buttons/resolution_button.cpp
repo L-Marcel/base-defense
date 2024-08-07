@@ -17,7 +17,7 @@ namespace Game{
   ResolutionButton::~ResolutionButton() {};
 
   ResolutionButton* ResolutionButton::create(Resolution resolution) {
-    string sprite = to_string(resolution.x) + "x" + to_string(resolution.y) + "_button.png";
+    string sprite = to_string(int(resolution.x)) + "x" + to_string(int(resolution.y)) + "_button.png";
 
     ResolutionButton* resolutionButton = new ResolutionButton(sprite, Box(53, 16, 106, 32));
     resolutionButton->resolution = resolution;
