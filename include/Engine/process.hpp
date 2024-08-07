@@ -2,6 +2,7 @@
 #include <Engine/collision.hpp>
 #include <Objects.hpp>
 #include <Sound/sound.hpp>
+#include <Sound/music.hpp>
 
 namespace Game {
   class GameProcess {

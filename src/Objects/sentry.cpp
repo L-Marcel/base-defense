@@ -3,7 +3,7 @@
 
 namespace Game {
   float Sentry::not_consume_ammo_chance = 0;
-  float Sentry::attack_speed = 1;
+  float Sentry::attack_speed = 0.4;
   
   string Sentry::type() {
     return "Sentry";
@@ -35,7 +35,7 @@ namespace Game {
       this->direction = Math::pointDirection(this->position - nearest->position);
       this->rotation = this->direction;
 
-      if(this->animationFinished) {
+      if(this->attack_delay.isFinished()) {
         float chance = (float(rand()) / RAND_MAX);
         if(chance >= (this->not_consume_ammo_chance / 100.0)) {
           base->clip.consume(1);
@@ -45,6 +45,7 @@ namespace Game {
       };
     } else if(this->animationFinished) {
       this->animate(1, 1, 2 + int(!this->right), false);
+      this->attack_delay.start(1/this->attack_speed);
     };
   };
 
@@ -81,7 +82,7 @@ namespace Game {
     sentry->setCircle(256);
     sentry->animate(1, 1, 2, false);
     GameProcess::add(sentry);
-    sentry->attack_delay.start(0);
+    sentry->attack_delay.start(1/sentry->attack_speed);
     Collision::create(sentry, "Enemy");
 
     return sentry;
