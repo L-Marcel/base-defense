@@ -1,4 +1,5 @@
 #include <Sound.hpp>
+#include <Engine/errors.hpp>
 
 namespace Game {
   Music::Music(string filename) {

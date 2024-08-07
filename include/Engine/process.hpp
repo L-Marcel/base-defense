@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/collision.hpp>
 #include <Objects.hpp>
-#include <Sound.hpp>
+#include <Sound/sound.hpp>
 
 namespace Game {
   class GameProcess {
@@ -15,7 +15,7 @@ namespace Game {
       Window window = Window(
         VideoMode(1280, 720), 
         "Base Defense", 
-        sf::Style::Close | sf::Style::Titlebar
+        NORMAL_SCREEN
       );
       
       View view = View(Point(0, 0), Resolution(1280, 720));
@@ -27,8 +27,8 @@ namespace Game {
     public:
       static unsigned int money;
       static Sound open_sound;
-      static Sound close_sound;
       static Sound click_sound;
+      static Music theme_music;
 
       /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo
