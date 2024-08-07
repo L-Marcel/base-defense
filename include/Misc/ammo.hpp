@@ -12,6 +12,10 @@ namespace Game {
       /// @return a quantia
       unsigned int get();
 
+      /// @brief Retorna o limite da quantia de munição
+      /// @return o limite
+      unsigned int getLimit();
+
       /// @brief Retorna a porcentagem de munição
       /// @return a porcentagem de `0` a `1`
       float percent();

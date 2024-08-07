@@ -68,6 +68,10 @@ namespace Game {
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
     };
+
+    if(this->animationFinished && Input::isDown(Keyboard::R)){
+      this->recharge();
+    };
   };
   
   Player::~Player() {
@@ -91,6 +95,16 @@ namespace Game {
     } else {
       this->animate(8, 6, 1, false);
       this->empty_clip_sound.play();
+    };
+  };
+
+  void Player::recharge(){
+    const Base* base = Base::get();
+    if(base->clip.get() > 0 && this->clip.get() < this->clip.getLimit()){
+      unsigned int blankAmmo = this->clip.getLimit() - this->clip.get();
+      this->clip.recharge(base->clip.get());
+      base->clip.consume(blankAmmo);
+      this->animate(12, 5, 2, false);
     };
   };
 
