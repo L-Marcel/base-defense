@@ -14,8 +14,6 @@ namespace Game {
 
       /// @brief Cria uma instância da torre
       static Tower* create();
-
-      Sound impact_sound = Sound("tower_impact.wav");
     protected:
       /// @brief Cria uma instância da torre
       /// @param spriteSheet página de textura do sprite da torre
