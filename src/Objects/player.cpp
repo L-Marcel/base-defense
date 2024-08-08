@@ -12,7 +12,7 @@ namespace Game {
 
   void Player::step() {    
     this->health.heal(regeneration / 60.0);
-    
+
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
@@ -55,6 +55,7 @@ namespace Game {
     Point mouse = Mouse::position();
     if(mouse != this->position) {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
+      this->player_leg->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
     if(Mouse::isRightDown()) {
@@ -64,6 +65,13 @@ namespace Game {
     Segment path = this->path.getPath(this->position, this->speed);
     this->position = path.end;
     this->direction = path.angle();
+
+    this->player_leg->position.x = this->position.x;
+    this->player_leg->position.y = this->position.y;
+
+    if(this->path.isStopped()){
+      this->player_leg->animate(12, 8, 1, true);
+    }
 
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
@@ -110,6 +118,9 @@ namespace Game {
 
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
+    player->player_leg = Legs::create("player_legs.png", Box(16, 13, 32, 32));
+    player->player_leg->scale(2);
+    GameProcess::add(player->player_leg);
 
     if(Player::player != nullptr) {
       delete Player::player;

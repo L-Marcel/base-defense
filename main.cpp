@@ -8,7 +8,7 @@ int main() {
   GameProcess::setResolution(R1280x720);
    
   Music music("default.ogg");
-  music.setVolume(30);
+  music.setVolume(0);
   music.play();
 
   Background::create();
