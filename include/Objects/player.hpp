@@ -6,7 +6,7 @@
 #include <Input.hpp>
 
 namespace Game {
-  class Legs;
+  class Image;
   class Player : public Character {
     public:
       virtual string type();

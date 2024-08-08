@@ -84,6 +84,7 @@ namespace Game {
   
   Player::~Player() {
     Player::player = nullptr;
+    GameProcess::destroy(this->player_leg);
   };
 
   void Player::shoot(bool canBeBlocked) {
