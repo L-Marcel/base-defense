@@ -80,7 +80,7 @@ namespace Game {
     protected:
       /// @brief Cria uma instância do objeto 2D
       /// @param spriteSheet página de textura do sprite do objeto 2D
-      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      /// @param box uma caixa que informa a origem do sprite e as dimensões dele
       Object2D(string spriteSheet, Box box);
       Object2D();
   };

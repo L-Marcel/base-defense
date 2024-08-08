@@ -71,7 +71,7 @@ namespace Game {
 
     if(this->path.isStopped()){
       this->player_leg->animate(12, 8, 1, true);
-    }
+    };
 
     if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
@@ -118,7 +118,7 @@ namespace Game {
 
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
-    player->player_leg = Legs::create("player_legs.png", Box(16, 13, 32, 32));
+    player->player_leg = Image::create("player_legs.png", Box(16, 13, 32, 32));
     player->player_leg->scale(2);
     GameProcess::add(player->player_leg);
 

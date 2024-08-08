@@ -1,6 +1,6 @@
 #pragma once
 #include <Misc/pathfinder.hpp>
-#include <Objects/legs.hpp>
+#include <Objects/image.hpp>
 #include <Character.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>
@@ -33,7 +33,7 @@ namespace Game {
       Pathfinder path;
       Sound shoot_sound = Sound("shoot.mp3");
       Sound empty_clip_sound = Sound("empty_clip.mp3");
-      Legs* player_leg = nullptr;
+      Image* player_leg = nullptr;
       bool safe = true;
     protected:
       using Character::Character;
