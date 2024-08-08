@@ -3,10 +3,11 @@
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
-  unsigned int GameProcess::money = 0;
   int GameProcess::current = 0;
   int GameProcess::max = 10;
 
+  unsigned int GameProcess::money = 1500;
+ 
   void GameProcess::execute() {
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();

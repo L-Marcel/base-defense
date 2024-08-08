@@ -24,6 +24,9 @@ namespace Game {
       /// @brief Retorna o ponteiro da base
       /// @return o ponteiro
       const static Base* get();
+
+      static bool friendly_fire;
+      static bool vengeful_bullets;
     protected:
       using Character::Character;
       static Base* base;

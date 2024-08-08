@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Objects/object.hpp>
 
 namespace Game {
   class Ammo {
@@ -11,6 +11,10 @@ namespace Game {
       /// @brief Retorna a quantia total de munição
       /// @return a quantia
       unsigned int get();
+
+      /// @brief Retorna o limite da quantia de munição
+      /// @return o limite
+      unsigned int getLimit();
 
       /// @brief Retorna a porcentagem de munição
       /// @return a porcentagem de `0` a `1`

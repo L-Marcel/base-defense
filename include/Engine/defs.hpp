@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <typeinfo>
 #include <string>
 #include <iostream>
 #include <cmath>
@@ -9,6 +8,11 @@
 #include <sstream>
 #include <functional>
 #include <time.h>
+#include <map>
+#include <locale>
+#include <codecvt>
+#include <vector>
+#include <stack>
 
 #define PI 3.14159265359
 
@@ -26,11 +30,6 @@
 
 #define NORMAL_SCREEN sf::Style::Close | sf::Style::Titlebar
 #define FULLSCREEN sf::Style::Fullscreen
-
-#define HEALTH_UPGRADE 0
-#define REGENERATION_UPGRADE 1
-#define BASE_UPGRADE 2
-#define REPAIR_UPGRADE 3
 
 using namespace std;
 
@@ -52,6 +51,13 @@ namespace Game {
   sf::Color typedef Color;
   sf::Drawable typedef Drawable;
   sf::FloatRect typedef FloatRect;
+
+  enum Rarity {
+    GUARANTEED,
+    COMMON,
+    RARE,
+    EPIC
+  };
 
   template <typename T> 
     using Vector = sf::Vector2<T>;

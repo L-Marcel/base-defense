@@ -1,5 +1,5 @@
 #pragma once
-#include <Objects.hpp>
+#include <Objects/object_2d.hpp>
 #include <Input.hpp>
 #include <Objects/text.hpp>
 

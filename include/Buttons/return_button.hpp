@@ -1,8 +1,8 @@
 #pragma once
-#include <Objects.hpp>
+//#include <Buttons/button.hpp>
 #include <Input.hpp>
 
-namespace Game{
+namespace Game {
   class Menu;
   class ReturnButton : public Button {
     public:
@@ -22,5 +22,4 @@ namespace Game{
       using Button::Button;
       Menu* menu = nullptr;
   };
-
 };

@@ -5,6 +5,10 @@ namespace Game {
     return this->total;
   };
 
+  unsigned int Ammo::getLimit(){
+    return this->limit;
+  };
+
   float Ammo::percent() {
     return float(this->total / this->limit);
   };

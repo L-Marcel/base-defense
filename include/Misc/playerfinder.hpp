@@ -1,7 +1,6 @@
 #pragma once
 #include <Engine/math.hpp>
 #include <Objects/player.hpp>
-#include <stack>
 
 namespace Game {
   class Playerfinder {

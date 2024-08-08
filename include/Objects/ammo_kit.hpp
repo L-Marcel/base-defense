@@ -1,3 +1,4 @@
+#pragma once
 #include <Objects/object_2d.hpp>
 #include <Misc/timer.hpp>
 #include <Engine.hpp>
@@ -16,6 +17,8 @@ namespace Game {
       /// @brief Cria uma instancia do AmmoKit
       /// @param enemyPosition a posição do kit
       static AmmoKit* create(Point enemyPosition);
+
+      static const unsigned int charge;
     protected:
       Timer timer;
   };

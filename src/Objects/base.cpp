@@ -3,6 +3,8 @@
 
 namespace Game {
   Base* Base::base = nullptr;
+  bool Base::vengeful_bullets = false;
+  bool Base::friendly_fire = true;
   
   string Base::type() {
     return "Base";

@@ -15,6 +15,7 @@ int main() {
   Limit::create();
   Base::create();
   Player::create();
+  Interface::create();
 
   gp.execute();
 

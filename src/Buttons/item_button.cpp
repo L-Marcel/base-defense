@@ -2,6 +2,7 @@
 #include <Menus/shop_menu.hpp>
 #include <Objects/player.hpp>
 #include <Objects/base.hpp>
+#include <Misc/shop.hpp>
 
 namespace Game {
   string ItemButton::type() {
@@ -9,59 +10,56 @@ namespace Game {
   };
 
   void ItemButton::step() {
+    if(this->item->price() > GameProcess::money) {
+      Color color = Color::White;
+      color.a = 125;
+      this->sprite->setColor(color);
+      this->text->setColor(Color::Red);
+    } else {
+      this->sprite->setColor(Color::White);
+      this->text->setColor(Color::White);
+    };
+
     if(this->isHovered()) {
       this->animate(1, 1, 1, false);
-      ShopMenu::description = this->description;
+      ShopMenu::description = this->item->description(this->item);
 
       if(Mouse::isLeftReleased()) {
-        this->action();
-        GameProcess::resume();
+        if(Shop::purchase(this->item) && this->item->rarity > 0) {
+          this->destroy();
+          this->text->destroy();
+          for(unsigned int i = 0; i < this->menu->objects.length(); i++) {
+            Object2D* object = this->menu->objects.get(i);
+            if(object == this) {
+              this->menu->objects.remove(i);
+              this->menu->texts.remove(i);
+              break;
+            };
+          };
+        };
       };
     } else this->animate(1, 1, 0, false);
   };
 
   ItemButton::~ItemButton() {};
 
-  ItemButton* ItemButton::create(unsigned short int item) {
-    string texture = "health_upgrade.png";
-    wstring description = L"Aumenta a vida em +10 pontos";
-    function<void()> action = [](){
-      Player::get()->health.upgrade(10);
-    };
+  ItemButton* ItemButton::create(ShopMenu* menu, unsigned short int rarity) {
+    Item* item = Shop::get_offer(rarity);
 
-    switch(item) {
-      case BASE_UPGRADE:
-        texture = "base_upgrade.png";
-        description = L"Aumenta a vida da base em +10 pontos";
-        action = [](){
-          Base::get()->health.upgrade(10);
-        };
-        break;
-      case REPAIR_UPGRADE:
-        texture = "repair_upgrade.png";
-        description = L"O reparo da base fica 20% mais rápido";
-        action = [](){
-          Base::get()->regeneration *= 1.2;
-        };
-        break;
-      case REGENERATION_UPGRADE:
-        texture = "regeneration_upgrade.png";
-        description = L"Aumenta a recuperação de vida em 20%";
-        action = [](){
-          Player::get()->regeneration *= 1.2;
-        };
-      default:
-        break;
-    };
+    Text* text = Text::create(CENTER, to_string(item->price()));
+    text->depth = 510;
+    menu->texts.add(text);
 
-    ItemButton* itemButton = new ItemButton(texture, Box(28, 28, 56, 56));
+    ItemButton* itemButton = new ItemButton(item->name + "_upgrade.png", Box(28, 28, 56, 56));
+    itemButton->menu = menu;
+    itemButton->item = item;
     itemButton->animate(1, 1, 0, false);
     itemButton->pausable = false;
-    itemButton->action = action;
     itemButton->depth = 500;
     itemButton->position = CENTER;
-    itemButton->description = description;
     itemButton->scale(3);
+    itemButton->text = text;
+    menu->objects.add(itemButton);
 
     GameProcess::add(itemButton);
     return itemButton;
