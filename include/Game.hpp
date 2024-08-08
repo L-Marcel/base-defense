@@ -5,5 +5,6 @@
 #include <Objects/enemy.hpp>
 #include <Objects/background.hpp>
 #include <Objects/limit.hpp>
+#include <Misc/timer.hpp>
 #include <Objects/base.hpp>
 #include <Objects/medical_kit.hpp>

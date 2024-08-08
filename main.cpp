@@ -15,7 +15,6 @@ int main() {
   Limit::create();
   Base::create();
   Player::create();
-  Enemy::create();
 
   gp.execute();
 

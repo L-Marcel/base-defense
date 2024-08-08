@@ -25,6 +25,7 @@ namespace Game {
           this->health.damage(bullet->damage);
           if(this->free_queued){
             this->dropKits();
+            GameProcess::current--;
           }
         }
       }
@@ -142,11 +143,11 @@ namespace Game {
     GameProcess::money += 5 + rand() % 5;
   };
 
-  Enemy* Enemy::create() {
+  Enemy* Enemy::create(float x, float y) {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
-    enemy->position = Point(600.f, 100.f);
+    enemy->position = Point(x, y);
     enemy->damage = 0;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
@@ -154,8 +155,8 @@ namespace Game {
     enemy->attack_delay.start(0);
     enemy->scale(2);
     GameProcess::add(enemy);
-
     Collision::create(enemy, "Bullet");
+    GameProcess::current++;
 
     return enemy;
   };

@@ -25,6 +25,8 @@ namespace Game {
       Clock clock;
     public:
       static unsigned int money;
+      static int current; //Quantidade atual de inimigos
+      static int max; //Quantidade máxima de inimigos
 
       /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo

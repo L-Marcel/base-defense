@@ -18,7 +18,9 @@ namespace Game {
       ~Enemy();
 
       /// @brief Cria uma instância do Enemy
-      static Enemy* create();
+      /// @param x Posição de início na horizontal
+      /// @param y Posição de início na vertical
+      static Enemy* create(float x, float y);
 
       /// @brief Realiza um disparo
       void shoot();

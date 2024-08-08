@@ -4,7 +4,9 @@
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
   unsigned int GameProcess::money = 0;
- 
+  int GameProcess::current = 0;
+  int GameProcess::max = 10;
+
   void GameProcess::execute() {
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
@@ -117,7 +119,7 @@ namespace Game {
     if(this->gp != nullptr) {
       delete this->gp;
     };
-    
+    srand (time(NULL));
     this->gp = this;
     this->window.setFramerateLimit(60);
   };
