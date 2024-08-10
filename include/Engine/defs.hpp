@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include <functional>
+#include <time.h>
 #include <map>
 #include <locale>
 #include <codecvt>

@@ -3,6 +3,9 @@
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
+  int GameProcess::current = 0;
+  int GameProcess::max = 10;
+
   unsigned int GameProcess::money = 1500;
   Sound GameProcess::open_sound = Sound("open.ogg");
   Sound GameProcess::click_sound = Sound("click.ogg");
@@ -126,7 +129,7 @@ namespace Game {
     if(this->gp != nullptr) {
       delete this->gp;
     };
-    
+    srand (time(NULL));
     this->gp = this;
     this->window.setFramerateLimit(60);
 

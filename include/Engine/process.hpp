@@ -27,6 +27,8 @@ namespace Game {
       Clock clock;
     public:
       static unsigned int money;
+      static int current;
+      static int max;
       static Sound open_sound;
       static Sound click_sound;
       static Music theme_music;
