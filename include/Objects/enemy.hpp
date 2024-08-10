@@ -36,6 +36,7 @@ namespace Game {
       static Wall* wbc;
       static Wall* wcd;
       static Wall* wda;
+      static unsigned int amount;
     protected:
       using Character::Character;
       double range = 200.0;

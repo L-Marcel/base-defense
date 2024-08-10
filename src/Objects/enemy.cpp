@@ -1,6 +1,8 @@
 #include <Objects/enemy.hpp>
+#include <Misc/spawn.hpp>
 
 namespace Game {
+  unsigned int Enemy::amount = 0;
   Wall* Enemy::wab = nullptr;
   Wall* Enemy::wbc = nullptr;
   Wall* Enemy::wcd = nullptr;
@@ -19,16 +21,16 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(bullet->isAlly){
+        if(bullet->isAlly) {
           collider->destroy();
           collider->visible = false;
           this->health.damage(bullet->damage);
-          if(this->free_queued){
+          if(this->free_queued) {
+            Enemy::amount--;
             this->dropKits();
-            GameProcess::current--;
-          }
-        }
-      }
+          };
+        };
+      };
     };
 
     const Player* player = Player::get();
@@ -148,15 +150,15 @@ namespace Game {
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(x, y);
-    enemy->damage = 10;
+    enemy->damage = 5;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
     enemy->attack_delay.start(1/enemy->attack_speed);
     enemy->scale(2);
+    Enemy::amount++;
     GameProcess::add(enemy);
     Collision::create(enemy, "Bullet");
-    GameProcess::current++;
 
     return enemy;
   };
@@ -171,8 +173,8 @@ namespace Game {
   };
 
   void Enemy::dropKits() {
-    bool dropAmmoKit = (rand() % 100) < 100;
-    bool dropMedKit = (rand() % 100) < 100;
+    bool dropAmmoKit = (rand() % 100) < 45;
+    bool dropMedKit = (rand() % 100) < 25;
 
     if(dropAmmoKit && dropMedKit) {
       MedicalKit* medkit = MedicalKit::create(this->position);

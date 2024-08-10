@@ -47,14 +47,18 @@ namespace Game {
     if(items != nullptr) {
       map<string, unsigned short int>::iterator it = items->find(item->name);
       if(it != items->end() && it->second > 0) {
+        GameProcess::money -= item->price();
+        item->action(item);
         it->second--;
+        return true;
       } else {
         return false;
       };
     };
 
-    item->action(item);
     GameProcess::money -= item->price();
+    item->action(item);
+
     return true;
   };
 

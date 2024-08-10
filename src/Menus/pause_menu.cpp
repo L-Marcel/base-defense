@@ -20,6 +20,7 @@ namespace Game {
 
     pauseMenu->objects.add(ResumeButton::create());
     pauseMenu->objects.add(OptionsButton::create());
+    pauseMenu->objects.add(RestartButton::create());
     pauseMenu->objects.add(CloseButton::create());
 
     float y = 125;

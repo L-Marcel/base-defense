@@ -49,7 +49,7 @@ namespace Game {
         this->health.heal(MedicalKit::heal);
       } else if(type == "AmmoKit") {
         collider->destroy();
-        this->clip.recharge(AmmoKit::charge);
+        Base::get()->clip.recharge(AmmoKit::charge);
       };
     };
     

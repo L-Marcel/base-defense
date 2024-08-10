@@ -40,6 +40,9 @@ namespace Game {
       /// @brief Define o alinhamento do texto para o meio dele
       void setAlignCenter();
 
+      /// @brief Define o alinhamento do texto para a direita dele
+      void setAlignRight();
+
       /// @brief Carrega o arquivo da fonte
       /// @param filename o nome do arquivo
       void loadFontFromFile(string filename);

@@ -1,17 +1,16 @@
-#include <Engine.hpp>
-#include <Input.hpp>
+#include <Game.hpp>
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
-  int GameProcess::current = 0;
-  int GameProcess::max = 10;
 
-  unsigned int GameProcess::money = 1500;
+  unsigned int GameProcess::money = 30;
   Sound GameProcess::open_sound = Sound("open.ogg");
   Sound GameProcess::click_sound = Sound("click.ogg");
   Music GameProcess::theme_music = Music("default.ogg");
  
   void GameProcess::execute() {
+    this->restart();
+
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 
@@ -58,8 +57,16 @@ namespace Game {
       Mouse::update();
     };
 
-    for(unsigned int i = 0; i < this->objects.length(); i++) {
-      Object* object = this->objects.get(i);
+    this->clear();
+  };
+
+  void GameProcess::clear() {
+    this->restarted = true;
+    this->menu = nullptr;
+    this->queueFree.clear();
+
+    while(this->objects.length() > 0) {
+      Object* object = this->objects.get(0);
       this->objects.remove(object);
       object->free();
     };
@@ -78,6 +85,15 @@ namespace Game {
   };
 
   void GameProcess::nextFrame() {
+    if(this->restarted && this->objects.length() == 0) {
+      Background::create();
+      Spawn::create();
+      Base::create();
+      Player::create();
+      Interface::create();
+      this->restarted = false;
+    };
+
     if(this->frame < 60) this->frame++;
     else {
       this->frame = 0;
@@ -100,6 +116,7 @@ namespace Game {
         object->step();
       };
 
+      if(this->restarted) return;
       if(object->visible) object->draw();
     };
 

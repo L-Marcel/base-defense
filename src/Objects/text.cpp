@@ -33,6 +33,11 @@ namespace Game {
     this->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
   };
 
+  void Text::setAlignRight() {
+    FloatRect textBounds = this->text.getLocalBounds();
+    this->text.setOrigin(textBounds.left + textBounds.width, textBounds.top + textBounds.height / 2.0f);
+  };
+
   void Text::setPosition(Point position) {
     this->text.setPosition(position);
   };
