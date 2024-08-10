@@ -12,7 +12,7 @@ namespace Game{
       using Button::free;
       ~RestartButton();
 
-      /// @brief Cria uma instância de um botão que fecha o jogo
+      /// @brief Cria uma instância de um botão que reinicia o jogo
       static RestartButton* create();
     protected:
       using Button::Button;

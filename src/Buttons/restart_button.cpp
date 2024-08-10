@@ -18,7 +18,7 @@ namespace Game{
   RestartButton::~RestartButton() {};
 
   RestartButton* RestartButton::create() {
-    RestartButton* restartButton = new RestartButton("close_button.png", Box(53, 16, 106, 32));
+    RestartButton* restartButton = new RestartButton("restart_button.png", Box(53, 16, 106, 32));
     restartButton->animate(1, 1, 0, false);
     restartButton->pausable = false;
     restartButton->depth = 500;

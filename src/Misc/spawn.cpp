@@ -25,7 +25,7 @@ namespace Game {
       this->spawn();
       this->spawn_delay.start((1/this->spawn_speed) + (rand() % 8));
     } else if(this->amount == 0 && Enemy::amount == 0 && this->wave < 15) {
-      GameProcess::pause(true);
+      if(this->wave > 0) GameProcess::pause(true);
       this->wave_delay.start((4 + (rand() % 3)) * 4.0);
       this->wave = min(int(this->wave + 1), 15);
       this->amount = ((int(this->wave) - 1) * 1) + 5; 

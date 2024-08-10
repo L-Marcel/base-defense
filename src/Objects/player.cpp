@@ -112,10 +112,6 @@ namespace Game {
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
 
-    if(Player::player != nullptr) {
-      delete Player::player;
-    };
-
     Player::player = player;
     player->attack_speed = 1.4;
     player->speed = 5.0;

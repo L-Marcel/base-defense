@@ -70,8 +70,6 @@ namespace Game {
       this->objects.remove(object);
       object->free();
     };
-
-    this->objects.clear();
   };
 
   void GameProcess::sort() {
@@ -132,13 +130,7 @@ namespace Game {
 
   GameProcess::~GameProcess() {
     Sprites::clear();
-    
-    for(unsigned int i = 0; i < this->objects.length(); i++) {
-      Object* object = this->objects.get(i);
-      this->objects.remove(object);
-      object->free();
-    };
-
+    this->clear();
     this->gp = nullptr;
   };
 
@@ -146,7 +138,8 @@ namespace Game {
     if(this->gp != nullptr) {
       delete this->gp;
     };
-    srand (time(NULL));
+
+    srand(time(NULL));
     this->gp = this;
     this->window.setFramerateLimit(60);
 
