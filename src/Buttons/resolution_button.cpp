@@ -7,6 +7,7 @@ namespace Game{
 
   void ResolutionButton::step() {
     if(this->isHovered()) {
+      if(Mouse::isLeftPressed()) GameProcess::click_sound.play();
       if(Mouse::isLeftDown()) this->animate(1, 1, 2, false);
       else this->animate(1, 1, 1, false);
 
@@ -17,7 +18,7 @@ namespace Game{
   ResolutionButton::~ResolutionButton() {};
 
   ResolutionButton* ResolutionButton::create(Resolution resolution) {
-    string sprite = to_string(resolution.x) + "x" + to_string(resolution.y) + "_button.png";
+    string sprite = to_string(int(resolution.x)) + "x" + to_string(int(resolution.y)) + "_button.png";
 
     ResolutionButton* resolutionButton = new ResolutionButton(sprite, Box(53, 16, 106, 32));
     resolutionButton->resolution = resolution;

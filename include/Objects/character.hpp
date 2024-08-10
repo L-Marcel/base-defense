@@ -20,7 +20,7 @@ namespace Game {
       mutable Ammo clip;
       mutable float damage = 10;
       mutable float regeneration = 0;
-      mutable float not_consume_ammo_change = 0;
+      mutable float not_consume_ammo_chance = 0;
       mutable float attack_speed = 1;
       mutable Timer attack_delay;
     protected:

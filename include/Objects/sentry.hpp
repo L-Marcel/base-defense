@@ -18,7 +18,7 @@ namespace Game {
       /// @brief Realiza um disparo
       void shoot();
 
-      float damage = 50;
+      float damage = 0;
       bool energized = true;
       bool right = true;
       static float not_consume_ammo_chance;

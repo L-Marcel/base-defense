@@ -20,8 +20,11 @@ namespace Game {
           bullet->bounce_sound.play();
           bullet->bounce_sound.setVolume(50);
   
-          if(Base::friendly_fire || !bullet->isAlly) 
-            Base::get()->health.damage(bullet->damage /2.5);
+          if(Base::friendly_fire || !bullet->isAlly) {
+            if(bullet->isAlly) Base::get()->health.damage(bullet->damage / 10.0);
+            else Base::get()->health.damage(bullet->damage / 2.5);
+          };
+            
           if(Base::vengeful_bullets) bullet->isAlly = true;
 
           switch(this->side) {

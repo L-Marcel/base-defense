@@ -131,7 +131,7 @@ namespace Game {
       };
 
       this->rotation = this->direction - 90.0;
-      bool canShoot = this->path.isStopped();
+      bool canShoot = this->path.isStopped() && this->attack_delay.isFinished();
       if(canShoot) {
         this->animate(8, 6, 1, false);
         this->shoot();
@@ -148,11 +148,11 @@ namespace Game {
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(x, y);
-    enemy->damage = 0;
+    enemy->damage = 10;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
-    enemy->attack_delay.start(0);
+    enemy->attack_delay.start(1/enemy->attack_speed);
     enemy->scale(2);
     GameProcess::add(enemy);
     Collision::create(enemy, "Bullet");
@@ -167,6 +167,7 @@ namespace Game {
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
+    this->attack_delay.start(1/this->attack_speed);
   };
 
   void Enemy::dropKits() {

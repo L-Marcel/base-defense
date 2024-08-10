@@ -68,9 +68,7 @@ namespace Game {
 
     if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletCanBeBlocked);
-    };
-
-    if(this->animationFinished && Input::isDown(Keyboard::R)){
+    } else if(this->animationFinished && Input::isDown(Keyboard::R)){
       this->recharge();
     };
   };
@@ -92,9 +90,8 @@ namespace Game {
 
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
-      this->animate(16, 6, 1, false);
+      this->animate(12, 6, 1, false);
     } else {
-      this->animate(16, 6, 1, false);
       this->empty_clip_sound.play();
     };
     this->attack_delay.start(1/this->attack_speed);    
@@ -103,10 +100,12 @@ namespace Game {
   void Player::recharge(){
     const Base* base = Base::get();
     if(base->clip.get() > 0 && this->clip.get() < this->clip.getLimit()){
+      this->recharge_sound.play();
       unsigned int blankAmmo = this->clip.getLimit() - this->clip.get();
       this->clip.recharge(base->clip.get());
       base->clip.consume(blankAmmo);
-      this->animate(12, 5, 2, false);
+      this->animate(8, 5, 2, false);
+      this->attack_delay.start(1);
     };
   };
 
@@ -118,6 +117,7 @@ namespace Game {
     };
 
     Player::player = player;
+    player->attack_speed = 1.4;
     player->speed = 5.0;
     player->damage = 35;
     player->regeneration = 1;

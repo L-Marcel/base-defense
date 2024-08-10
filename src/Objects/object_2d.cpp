@@ -34,31 +34,12 @@ namespace Game {
     };
   };
 
-  Object2D::~Object2D() {
-    if(this->sprite != nullptr) {
-      delete this->sprite->getTexture();
-      delete this->sprite;
-    };
-  };
+  Object2D::~Object2D() {};
 
   Object2D::Object2D() {};
   Object2D::Object2D(string spriteSheet, Box box) {
-    Texture* texture = new Texture();
-    this->sprite = new Sprite();
-
-    if(texture->loadFromFile("assets/sprites/" + spriteSheet)){
-      this->sprite->setTexture(*texture);
-      Vector<int> pos = box.getPosition();
-      box.top = 0;
-      box.left = 0;
-
-      this->fps = 0;
-      this->sprite->setTextureRect(box);
-      this->sprite->setOrigin(pos.x, pos.y);
-      this->sprite->setScale(1, 1);
-    } else {
-      throw new TextureNotFound(spriteSheet);
-    };
+    this->sprite = Sprites::load("assets/sprites/" + spriteSheet, box);
+    this->fps = 0;
   };
 
   Object2D* Object2D::create(string spriteSheet, Box box) {

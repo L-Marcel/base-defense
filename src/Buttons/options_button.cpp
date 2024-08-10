@@ -8,6 +8,7 @@ namespace Game{
 
   void OptionsButton::step() {
     if(this->isHovered()) {
+      if(Mouse::isLeftPressed()) GameProcess::click_sound.play();
       if(Mouse::isLeftDown()) this->animate(1, 1, 2, false);
       else this->animate(1, 1, 1, false);
 
