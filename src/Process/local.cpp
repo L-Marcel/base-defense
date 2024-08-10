@@ -47,7 +47,6 @@ namespace Game {
         this->menu != nullptr && this->menu->type() != "ShopMenu"
       ) this->resume();
       else if(pauseRequested && this->menu == nullptr) this->pause();
-      else if(Input::isPressed(Keyboard::S)) this->pause(true);
       
       if(this->paused && GameProcess::theme_music.getStatus() != Music::Paused)
         GameProcess::theme_music.pause();

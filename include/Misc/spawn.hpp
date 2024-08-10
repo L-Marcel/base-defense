@@ -26,6 +26,7 @@ namespace Game {
       static unsigned int amount;
       static unsigned int wave;
       static Timer wave_delay;
+      static Timer shop_delay;
     protected:
       /// @brief Cria uma instância do invocador do mapa
       Spawn();

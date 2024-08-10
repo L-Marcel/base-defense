@@ -4,6 +4,7 @@
 
 namespace Game {
   Timer Spawn::wave_delay;
+  Timer Spawn::shop_delay;
   float Spawn::spawn_speed = 0.50;
   unsigned int Spawn::amount = 0;
   unsigned int Spawn::wave = 0;
@@ -25,13 +26,19 @@ namespace Game {
       this->spawn();
       this->spawn_delay.start((1/this->spawn_speed) + (rand() % 8));
     } else if(this->amount == 0 && Enemy::amount == 0 && this->wave < 15) {
-      if(this->wave > 0) GameProcess::pause(true);
-      this->wave_delay.start((4 + (rand() % 3)) * 4.0);
+      int delay = 4 + (rand() % 3);
+      this->shop_delay.start(delay * 4.0);
+      this->wave_delay.start(delay* 8.0);
       this->wave = min(int(this->wave + 1), 15);
       this->amount = ((int(this->wave) - 1) * 1) + 5; 
       this->spawn_speed += 0.05;
       this->text->setText(to_string(this->wave) + "/15");
       this->text->setAlignRight();
+    };
+
+    if(!this->wave_delay.isFinished() && !this->shop_delay.isFinished()) {
+      this->shop_delay.tick();
+      if(this->wave > 1 && this->shop_delay.isFinished()) GameProcess::pause(true);
     };
   };
 
