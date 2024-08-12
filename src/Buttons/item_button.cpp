@@ -57,18 +57,18 @@ namespace Game {
     text->depth = 510;
     menu->texts.add(text);
 
-    ItemButton* itemButton = new ItemButton(item->name + "_upgrade.png", Box(28, 28, 56, 56));
-    itemButton->menu = menu;
-    itemButton->item = item;
-    itemButton->animate(1, 1, 0, false);
-    itemButton->pausable = false;
-    itemButton->depth = 500;
-    itemButton->position = CENTER;
-    itemButton->scale(3);
-    itemButton->text = text;
-    menu->objects.add(itemButton);
+    ItemButton* item_button = new ItemButton(item->name + "_upgrade.png", Box(28, 28, 56, 56));
+    item_button->menu = menu;
+    item_button->item = item;
+    item_button->animate(1, 1, 0, false);
+    item_button->pausable = false;
+    item_button->depth = 500;
+    item_button->position = CENTER;
+    item_button->scale(3);
+    item_button->text = text;
+    menu->objects.add(item_button);
 
-    GameProcess::add(itemButton);
-    return itemButton;
+    GameProcess::add(item_button);
+    return item_button;
   };
 };

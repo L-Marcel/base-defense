@@ -21,7 +21,7 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(bullet->isAlly) {
+        if(bullet->is_ally) {
           collider->destroy();
           collider->visible = false;
           this->health.damage(bullet->damage);
@@ -36,7 +36,7 @@ namespace Game {
     const Player* player = Player::get();
     if(player == nullptr) return;
 
-    if(this->animationFinished) {
+    if(this->animation_finished) {
       Segment path = this->path.getPath(this->position, this->speed, this->range);
       this->position = path.end;
 
@@ -173,24 +173,24 @@ namespace Game {
   };
 
   void Enemy::dropKits() {
-    bool dropAmmoKit = (rand() % 100) < 45;
-    bool dropMedKit = (rand() % 100) < 25;
+    bool drop_ammo_kit = (rand() % 100) < 45;
+    bool drop_med_kit = (rand() % 100) < 25;
 
-    if(dropAmmoKit && dropMedKit) {
-      MedicalKit* medkit = MedicalKit::create(this->position);
-      AmmoKit* ammokit = AmmoKit::create(this->position);
+    if(drop_ammo_kit && drop_med_kit) {
+      MedicalKit* med_kit = MedicalKit::create(this->position);
+      AmmoKit* ammo_kit = AmmoKit::create(this->position);
 
-      ammokit->position.x += 20.0;
-      medkit->position.x -= 20.0;
+      ammo_kit->position.x += 20.0;
+      med_kit->position.x -= 20.0;
 
-      GameProcess::add(ammokit);
-      GameProcess::add(medkit);
-    } else if(dropAmmoKit) {
-      AmmoKit* ammokit = AmmoKit::create(this->position);
-      GameProcess::add(ammokit);
-    } else if(dropMedKit) {
-      MedicalKit* medkit = MedicalKit::create(this->position);
-      GameProcess::add(medkit);
+      GameProcess::add(ammo_kit);
+      GameProcess::add(med_kit);
+    } else if(drop_ammo_kit) {
+      AmmoKit* ammo_kit = AmmoKit::create(this->position);
+      GameProcess::add(ammo_kit);
+    } else if(drop_med_kit) {
+      MedicalKit* med_kit = MedicalKit::create(this->position);
+      GameProcess::add(med_kit);
     };
   };
 };

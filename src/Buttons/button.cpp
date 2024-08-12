@@ -24,12 +24,12 @@ namespace Game{
 
   Button::Button() {};
 
-  Button::Button(string spriteSheet, Box box) 
-  : Object2D(spriteSheet, box) {};
+  Button::Button(string sprite_sheet, Box box) 
+  : Object2D(sprite_sheet, box) {};
 
-  Button* Button::create(string sprite, Box box, bool pauseBt) {
+  Button* Button::create(string sprite, Box box, bool pause_button) {
     Button* button = new Button(sprite, box);
-    button->pausable = !pauseBt;
+    button->pausable = !pause_button;
     GameProcess::add(button);
     return button;
   };

@@ -13,7 +13,7 @@ namespace Game {
     this->attack_delay.tick();
     const Base* base = Base::get();
     this->energized = base != nullptr && base->clip.get() > 0;
-    if(!this->energized && this->animationFinished) {
+    if(!this->energized && this->animation_finished) {
       this->animate(1, 1, int(!this->right), false);
       return;
     };
@@ -43,7 +43,7 @@ namespace Game {
         
         this->shoot();
       };
-    } else if(this->animationFinished) {
+    } else if(this->animation_finished) {
       this->animate(1, 1, 2 + int(!this->right), false);
       this->attack_delay.start(1/this->attack_speed);
     };
@@ -52,7 +52,7 @@ namespace Game {
   void Sentry::shoot() {
     Bullet* bullet = Bullet::create(this, true);
     bullet->damage = this->damage;
-    bullet->canBeBlocked = false;
+    bullet->can_be_blocked = false;
     bullet->depth = 225;
     bullet->direction = this->rotation + 180;
     
@@ -72,8 +72,8 @@ namespace Game {
 
   Sentry::~Sentry() {};
 
-  Sentry::Sentry(string spriteSheet, Box box) 
-  : Object2D(spriteSheet, box) {};
+  Sentry::Sentry(string sprite_sheet, Box box) 
+  : Object2D(sprite_sheet, box) {};
 
   Sentry* Sentry::create() {
     Sentry* sentry = new Sentry("sentry.png", Box(15, 8, 20, 16));

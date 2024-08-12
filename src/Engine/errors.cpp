@@ -1,5 +1,4 @@
 #include <Engine.hpp>
-#include <stdexcept>
 
 namespace Game {
   TextureNotFound::TextureNotFound(string filename) : message("Não foi possível carregar a textura '" + filename + "'!") {};

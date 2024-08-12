@@ -8,27 +8,50 @@ namespace Game {
   void CoinDisplay::step() {
     string content = to_string(GameProcess::money);
     this->hud->setText(content);
+    if(GameProcess::in("ShopMenu")) {
+      if(this->depth == 300) {
+        this->depth = 500;
+        this->scale(3);
+        this->hud->depth = 500;
+        this->hud->setSize(27);
+        GameProcess::sort();
+      };
 
-    if(content.length() < 3){
-      this->position = Point(1210, 25);
-      this->hud->setPosition(Point(1250, 25));
+      Size size = this->hud->getSize();
+      float x = (66 + size.x) / 2.0;
+      
+      this->position = Point(CENTER.x - x + 25.5, CENTER.y + 100);
+      this->hud->setPosition(Point(CENTER.x - x + 66, CENTER.y + 100));
+      this->hud->setAlignLeft();
+    } else {
+      if(this->depth == 500) {
+        this->depth = 300;
+        this->scale(2);
+        this->hud->depth = 300;
+        this->hud->setSize(27);
+        GameProcess::sort();
+      };
+
+      this->position = Point(1250, 30);
+      this->hud->setPosition(Point(1220, 30));
+      this->hud->setAlignRight();
     };
-    this->hud->setAlignCenter();
   };
 
   CoinDisplay::~CoinDisplay() {};
 
   CoinDisplay* CoinDisplay::create() {
-    CoinDisplay* coinDisplay = new CoinDisplay("coin.png", Box(8.5, 8.5, 17, 17));
-    coinDisplay->scale(2);
-    coinDisplay->depth = 400;
-    coinDisplay->position = Point(1190, 25);
-    GameProcess::add(coinDisplay);
+    CoinDisplay* coin_display = new CoinDisplay("coin.png", Box(8.5, 8.5, 17, 17));
+    coin_display->scale(2);
+    coin_display->depth = 300;
+    coin_display->position = Point(1190, 25);
+    coin_display->pausable = false;
+    GameProcess::add(coin_display);
 
     Text* hud = Text::create(Point(1240, 25), "0", 18);
     hud->setAlignCenter();
-    hud->depth = 400;
-    coinDisplay->hud = hud;
-    return coinDisplay;
+    hud->depth = 300;
+    coin_display->hud = hud;
+    return coin_display;
   };
 };

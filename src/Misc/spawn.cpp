@@ -22,19 +22,31 @@ namespace Game {
       collider->destroy();
     };
     
-    if(this->spawn_delay.isFinished() && this->wave_delay.isFinished() && this->amount > 0) {
+    if(
+      this->spawn_delay.isFinished() && 
+      this->wave_delay.isFinished() && 
+      this->amount > 0
+    ) {
       this->spawn();
       this->spawn_delay.start((1/this->spawn_speed) + (rand() % 8));
-    } else if(this->amount == 0 && Enemy::amount == 0 && this->wave < 15) {
+    } else if(
+      this->amount == 0 && 
+      Enemy::amount == 0 && 
+      this->wave < FINAL_WAVE
+    ) {
       int delay = 4 + (rand() % 3);
       this->shop_delay.start(delay * 4.0);
-      this->wave_delay.start(delay* 8.0);
-      this->wave = min(int(this->wave + 1), 15);
+      this->wave_delay.start(delay * 8.0);
+      this->wave = min(int(this->wave + 1), FINAL_WAVE);
       this->amount = ((int(this->wave) - 1) * 1) + 5; 
       this->spawn_speed += 0.05;
-      this->text->setText(to_string(this->wave) + "/15");
-      this->text->setAlignRight();
-    };
+      this->text->setText(to_string(this->wave) + "/" + to_string(FINAL_WAVE));
+      this->text->setAlignCenter();
+    } else if(
+      this->amount == 0 && 
+      Enemy::amount == 0 && 
+      this->wave == FINAL_WAVE
+    ) GameProcess::victory();
 
     if(!this->wave_delay.isFinished() && !this->shop_delay.isFinished()) {
       this->shop_delay.tick();
@@ -47,10 +59,10 @@ namespace Game {
   Spawn::Spawn() {};
 
   void Spawn::create() {
-    Text* text = Text::create(Point(1260, 30), "1/15");
-    text->setAlignRight();
+    Text* text = Text::create(CENTER, "1/15");
+    text->setAlignCenter();
+    text->depth = 1;
 
-    text->depth = 200;
     Spawn* left = new Spawn();
     left->position = Point(-110, 360);
     left->setRectangle(200, 720);

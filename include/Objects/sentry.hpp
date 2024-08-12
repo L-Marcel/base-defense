@@ -28,8 +28,8 @@ namespace Game {
       Sound shoot_sound = Sound("shoot.mp3");
     protected:
       /// @brief Cria uma instância da sentinela
-      /// @param spriteSheet página de textura do sprite da sentinela
+      /// @param sprite_sheet página de textura do sprite da sentinela
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Sentry(string spriteSheet, Box box);
+      Sentry(string sprite_sheet, Box box);
   };
 };

@@ -18,13 +18,13 @@ namespace Game {
       this->safe = false;
     };
 
-    bool bulletCanBeBlocked = true;
+    bool bulletcan_be_blocked = true;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
-        bulletCanBeBlocked = false;
+        bulletcan_be_blocked = false;
         Base* base = (Base*) collider;
         if(this->path.isStopped()) {
           base->health.heal(1.0/60.0 * base->regeneration);
@@ -40,7 +40,7 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(!bullet->isAlly){
+        if(!bullet->is_ally){
           collider->destroy();
           this->health.damage(bullet->damage);
         }
@@ -67,8 +67,8 @@ namespace Game {
     this->direction = path.angle();
 
     if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->shoot(bulletCanBeBlocked);
-    } else if(this->animationFinished && Input::isDown(Keyboard::R)){
+      this->shoot(bulletcan_be_blocked);
+    } else if(this->animation_finished && Input::isDown(Keyboard::R)){
       this->recharge();
     };
   };
@@ -77,11 +77,11 @@ namespace Game {
     Player::player = nullptr;
   };
 
-  void Player::shoot(bool canBeBlocked) {
+  void Player::shoot(bool can_be_blocked) {
     if(this->clip.get() > 0) {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
-      bullet->canBeBlocked = canBeBlocked;
+      bullet->can_be_blocked = can_be_blocked;
 
       float chance = (float(rand()) / RAND_MAX);
       if(chance >= (this->not_consume_ammo_chance / 100.0)) {

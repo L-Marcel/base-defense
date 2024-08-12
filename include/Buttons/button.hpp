@@ -17,18 +17,18 @@ namespace Game{
       /// @brief Cria uma instância de um botão
       /// @param sprite sprite do botão
       /// @param box caixa que informa a origem e tamanho do sprite
-      /// @param pauseBt se é um botão de tela de pause
+      /// @param pause_button se é um botão de tela de pause
       /// @return uma instância de um botão
-      static Button* create(string sprite, Box box, bool pauseBt);
+      static Button* create(string sprite, Box box, bool pause_button);
       
       /// @brief Diz se o mouse está em cima do botão
       /// @return `true` se estiver, `false` caso contrário
       bool isHovered();
     protected:
       /// @brief Cria uma instância do botão
-      /// @param spriteSheet página de textura do sprite do botão
+      /// @param sprite_sheet página de textura do sprite do botão
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Button(string spriteSheet, Box box);
+      Button(string sprite_sheet, Box box);
       Button();
   };
-}
+};

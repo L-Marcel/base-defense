@@ -22,8 +22,8 @@ namespace Game {
       const static Player* get();
 
       /// @brief Realiza um disparo
-      /// @param canBeBlocked se o disparo pode ser bloqueado
-      void shoot(bool canBeBlocked = true);
+      /// @param can_be_blocked se o disparo pode ser bloqueado
+      void shoot(bool can_be_blocked = true);
 
       /// @brief Recarrega a munição
       void recharge();

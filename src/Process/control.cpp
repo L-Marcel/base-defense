@@ -6,7 +6,7 @@ namespace Game {
   };
 
   void GameProcess::destroy(Object* object) {
-    GameProcess::gp->queueFree.add(object);
+    GameProcess::gp->queue_free.add(object);
   };
 
   unsigned short int GameProcess::length() {
@@ -17,11 +17,18 @@ namespace Game {
     return GameProcess::gp->objects.get(index);
   };
 
+  void GameProcess::sort() {
+    GameProcess::gp->objects.sort([](Object* a, Object* b) {
+      return a->depth <= b->depth;
+    });
+  };
+
   void GameProcess::restart() {
     GameProcess::resume();
     GameProcess::gp->clear();
     GameProcess::gp->paused = false;
 
+    GameProcess::money = 30;
     Shop::reset();
     Shop::common_stock = {
       {"base", 7},

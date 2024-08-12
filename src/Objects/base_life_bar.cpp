@@ -15,12 +15,12 @@ namespace Game {
       return;
     };
 
-    if(this->lifePercent > base->health.percent()) {
-      this->lifePercent = max(this->lifePercent - 0.015f, base->health.percent());
+    if(this->life_percent > base->health.percent()) {
+      this->life_percent = max(this->life_percent - 0.015f, base->health.percent());
     } else {
-      this->lifePercent = min(this->lifePercent + 0.015f, base->health.percent());
+      this->life_percent = min(this->life_percent + 0.015f, base->health.percent());
     };
-    this->rectangle.setSize(Point(this->lifePercent * 230, 26));
+    this->rectangle.setSize(Point(this->life_percent * 230, 26));
 
     stringstream stream;
     stream << fixed << setprecision(2) << base->health.get();
@@ -39,18 +39,18 @@ namespace Game {
   BaseLifeBar::~BaseLifeBar() {};
 
   BaseLifeBar* BaseLifeBar::create() {
-    BaseLifeBar* lifeBar = new BaseLifeBar("base_life_bar.png",Box(72.5, 12.5, 145, 25));
-    lifeBar->scale(2);
-    lifeBar->depth = 200;
-    lifeBar->position = Point(152, 82);
-    lifeBar->setRectangle(230,26);
-    lifeBar->rectangle.setFillColor(Color(72, 74, 119, 255));
-    GameProcess::add(lifeBar);
+    BaseLifeBar* life_bar = new BaseLifeBar("base_life_bar.png",Box(72.5, 12.5, 145, 25));
+    life_bar->scale(2);
+    life_bar->depth = 200;
+    life_bar->position = Point(152, 82);
+    life_bar->setRectangle(230,26);
+    life_bar->rectangle.setFillColor(Color(72, 74, 119, 255));
+    GameProcess::add(life_bar);
 
     Text* hud = Text::create(Point(174, 83), "100.00", 18);
     hud->setAlignCenter();
     hud->depth = 300;
-    lifeBar->hud = hud;
-    return lifeBar;
+    life_bar->hud = hud;
+    return life_bar;
   };
 };

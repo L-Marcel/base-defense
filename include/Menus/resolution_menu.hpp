@@ -15,8 +15,8 @@ namespace Game{
       static ResolutionMenu* create();
     protected:
       /// @brief Cria uma instância do menu de pausa
-      /// @param spriteSheet página de textura do sprite do menu de pausa
+      /// @param sprite_sheet página de textura do sprite do menu de pausa
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      ResolutionMenu(string spriteSheet, Box box);
+      ResolutionMenu(string sprite_sheet, Box box);
   };
 };

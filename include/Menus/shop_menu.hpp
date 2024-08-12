@@ -16,9 +16,9 @@ namespace Game{
       static string description;
     protected:
       /// @brief Cria uma instância do menu de pausa
-      /// @param spriteSheet página de textura do sprite do menu de pausa
+      /// @param sprite_sheet página de textura do sprite do menu de pausa
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      ShopMenu(string spriteSheet, Box box);
+      ShopMenu(string sprite_sheet, Box box);
 
       Text* information = nullptr;
   };

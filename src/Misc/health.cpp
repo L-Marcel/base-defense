@@ -1,4 +1,5 @@
 #include <Misc/health.hpp>
+#include <Engine/process.hpp>
 
 namespace Game {
   float Health::get() {
@@ -13,6 +14,8 @@ namespace Game {
     this->total = max(this->total - amount, 0.0f);
     if(this->total <= 0 && this->object != nullptr) {
       this->object->destroy();
+      string type = this->object->type();
+      if(type == "Player" || type == "Base") GameProcess::defeat();
     };
   };
 
