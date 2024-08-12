@@ -8,6 +8,10 @@ namespace Game {
     return this->total;
   };
 
+  float Health::getLimit(){
+    return this->limit;
+  };
+
   float Health::percent() {
     return this->total/this->limit;
   };

@@ -18,7 +18,7 @@ namespace Game {
   Base* Base::create() {
     Base* base = new Base();
     base->health = Health(base, 100);
-    base->clip = Ammo(base, 30);
+    base->clip = Ammo(base, 32);
     base->depth = -50;
     base->regeneration = 1;
     base->position = CENTER;
