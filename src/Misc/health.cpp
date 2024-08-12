@@ -8,6 +8,10 @@ namespace Game {
     return this->total;
   };
 
+  float Health::getLimit(){
+    return this->limit;
+  };
+
   float Health::percent() {
     return this->total/this->limit;
   };
@@ -15,8 +19,8 @@ namespace Game {
   void Health::damage(float amount) {
     this->total = max(this->total - amount, 0.0f);
     if(this->total <= 0 && this->object != nullptr) {
-      this->object->destroy();
       string type = this->object->type();
+      this->object->destroy();
       if(type == "Player") {
         Player* player = (Player*) this->object;
         player->legs->destroy();

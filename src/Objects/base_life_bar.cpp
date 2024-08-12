@@ -6,7 +6,7 @@ namespace Game {
   };
 
   void BaseLifeBar::step() {
-    const  Base* base = Base::get();
+    const Base* base = Base::get();
 
     if(base == nullptr) {
       this->hud->setText("0.00");
@@ -20,6 +20,7 @@ namespace Game {
     } else {
       this->life_percent = min(this->life_percent + 0.015f, base->health.percent());
     };
+    
     this->rectangle.setSize(Point(this->life_percent * 230, 26));
 
     stringstream stream;

@@ -17,6 +17,7 @@ namespace Game {
     bullet->depth = 50;
     bullet->position = object->position;
     bullet->setCircle(3);
+    bullet->circle.setPosition(bullet->position);
     bullet->scale(2);
     bullet->direction = object->rotation + 90;
     bullet->speed = 14;

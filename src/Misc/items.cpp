@@ -34,10 +34,10 @@ namespace Game {
           return "Repara imediatamente " + to_string(int(item->upgrade() * 100)) + "% da base";
         },
         [](Item* item) {
-          Base::get()->health.heal(item->upgrade() * Base::get()->health.get());
+          Base::get()->health.heal(item->upgrade() * Base::get()->health.getLimit());
         },
         []() {
-          return 10 + round(0.25 * Base::get()->health.get());
+          return 10 + round(0.25 * Base::get()->health.getLimit());
         },
         GUARANTEED
       )
@@ -53,10 +53,10 @@ namespace Game {
           return "Restaura imediatamente " + to_string(int(item->upgrade() * 100)) + "% da munição";
         },
         [](Item* item) {
-          Base::get()->clip.recharge(item->upgrade() * Base::get()->clip.get());
+          Base::get()->clip.recharge(item->upgrade() * Base::get()->clip.getLimit());
         },
         []() {
-          return 10 + round(0.25 * Base::get()->clip.get());
+          return 10 + round(0.25 * Base::get()->clip.getLimit());
         },
         GUARANTEED
       )

@@ -38,8 +38,8 @@ namespace Game {
       this->shop_delay.start(delay * 4.0);
       this->wave_delay.start(delay * 8.0);
       this->wave = min(int(this->wave + 1), FINAL_WAVE);
-      this->amount = ((int(this->wave) - 1) * 1) + 5; 
-      this->spawn_speed += 0.05;
+      this->amount = floor((int(this->wave) - 1) * 0.75) + 5; 
+      this->spawn_speed += 0.025;
       this->text->setText(to_string(this->wave) + "/" + to_string(FINAL_WAVE));
       this->text->setAlignCenter();
     } else if(

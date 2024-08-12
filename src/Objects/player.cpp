@@ -14,17 +14,19 @@ namespace Game {
     this->health.heal(regeneration / 60.0);
     this->attack_delay.tick();
 
+    if(Base::get() == nullptr) return;
+
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
 
-    bool bulletcan_be_blocked = true;
+    bool bullet_can_be_blocked = true;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
-        bulletcan_be_blocked = false;
+        bullet_can_be_blocked = false;
         Base* base = (Base*) collider;
         if(this->path.isStopped()) {
           base->health.heal(1.0/60.0 * base->regeneration);
@@ -78,7 +80,7 @@ namespace Game {
     this->legs->position.x = this->position.x;
     this->legs->position.y = this->position.y;
     if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->shoot(bulletcan_be_blocked);
+      this->shoot(bullet_can_be_blocked);
     } else if(this->animation_finished && Input::isDown(Keyboard::R)){
       this->recharge();
     };
