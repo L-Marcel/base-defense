@@ -18,15 +18,15 @@ namespace Game{
   ReturnButton::~ReturnButton() {};
 
   ReturnButton* ReturnButton::create(function<Menu*()> create_previous_menu) {
-    ReturnButton* returnButton = new ReturnButton("return_button.png", Box(53, 16, 106, 32));
-    returnButton->create_previous_menu = create_previous_menu;
-    returnButton->animate(1, 1, 0, false);
-    returnButton->pausable = false;
-    returnButton->depth = 500;
-    returnButton->position = CENTER;
-    returnButton->scale(3);
+    ReturnButton* return_button = new ReturnButton("return_button.png", Box(53, 16, 106, 32));
+    return_button->create_previous_menu = create_previous_menu;
+    return_button->animate(1, 1, 0, false);
+    return_button->pausable = false;
+    return_button->depth = 500;
+    return_button->position = CENTER;
+    return_button->scale(3);
 
-    GameProcess::add(returnButton);
-    return returnButton;
+    GameProcess::add(return_button);
+    return return_button;
   };
 };

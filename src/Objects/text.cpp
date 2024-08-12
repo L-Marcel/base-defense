@@ -28,9 +28,24 @@ namespace Game {
     return text;
   };
 
+  Size Text::getSize() {
+    FloatRect text_bounds = this->text.getLocalBounds();
+    return Size(text_bounds.width, text_bounds.height);
+  };
+
   void Text::setAlignCenter() {
-    FloatRect textBounds = this->text.getLocalBounds();
-    this->text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+    FloatRect text_bounds = this->text.getLocalBounds();
+    this->text.setOrigin(text_bounds.left + text_bounds.width / 2.0f, text_bounds.top + text_bounds.height / 2.0f);
+  };
+
+  void Text::setAlignRight() {
+    FloatRect text_bounds = this->text.getLocalBounds();
+    this->text.setOrigin(text_bounds.left + text_bounds.width, text_bounds.top + text_bounds.height / 2.0f);
+  };
+
+  void Text::setAlignLeft() {
+    FloatRect text_bounds = this->text.getLocalBounds();
+    this->text.setOrigin(text_bounds.left, text_bounds.top + text_bounds.height / 2.0f);
   };
 
   void Text::setPosition(Point position) {

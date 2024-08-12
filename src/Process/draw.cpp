@@ -21,7 +21,7 @@ namespace Game {
       image = min(image, (object->frames - 1) * old.width);
     }
     
-    object->animationFinished = image == (object->frames - 1) * old.width;
+    object->animation_finished = image == (object->frames - 1) * old.width;
     object->sprite->setTextureRect(Box(image, old.top, old.width, old.height));
     object->sprite->setPosition(object->position.x, object->position.y);
     object->sprite->setRotation(object->rotation);

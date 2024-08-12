@@ -31,11 +31,13 @@ namespace Game {
       Sound shoot_sound = Sound("shoot.mp3");
       bool focusingBase = true;
       Playerfinder path;
+      Object2D* legs = nullptr;
 
       static Wall* wab;
       static Wall* wbc;
       static Wall* wcd;
       static Wall* wda;
+      static unsigned int amount;
     protected:
       using Character::Character;
       double range = 200.0;

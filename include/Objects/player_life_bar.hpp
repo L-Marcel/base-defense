@@ -15,7 +15,7 @@ namespace Game {
       static PlayerLifeBar* create();
     protected:
       using Object2D::Object2D;
-      float lifePercent = 1;
+      float life_percent = 1;
       Text* hud;
   };
 };
