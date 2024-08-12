@@ -11,7 +11,8 @@ namespace Game {
   };
 
   Base::~Base() {
-    this->base = nullptr;
+    if(!GameProcess::in("DefeatMenu")) GameProcess::defeat();
+    Base::base = nullptr;
   };
 
   Base* Base::create() {

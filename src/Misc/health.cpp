@@ -1,5 +1,7 @@
 #include <Misc/health.hpp>
 #include <Engine/process.hpp>
+#include <Objects/player.hpp>
+#include <Objects/enemy.hpp>
 
 namespace Game {
   float Health::get() {
@@ -15,7 +17,15 @@ namespace Game {
     if(this->total <= 0 && this->object != nullptr) {
       this->object->destroy();
       string type = this->object->type();
-      if(type == "Player" || type == "Base") GameProcess::defeat();
+      if(type == "Player") {
+        Player* player = (Player*) this->object;
+        player->legs->destroy();
+        player->legs = nullptr;
+      } else if(type == "Enemy") {
+        Enemy* enemy = (Enemy*) this->object;
+        enemy->legs->destroy();
+        enemy->legs = nullptr;
+      };
     };
   };
 

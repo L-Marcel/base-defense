@@ -5,11 +5,9 @@
 #include <Objects/bullet.hpp>
 #include <Objects/medical_kit.hpp>
 #include <Objects/ammo_kit.hpp>
-#include <Objects/image.hpp>
 #include <Sound.hpp>
 
 namespace Game {
-  class Image;
   class Enemy : public Character {
     public:
       virtual string type();
@@ -33,7 +31,7 @@ namespace Game {
       Sound shoot_sound = Sound("shoot.mp3");
       bool focusingBase = true;
       Playerfinder path;
-      Image* enemy_legs = nullptr;
+      Object2D* legs = nullptr;
 
       static Wall* wab;
       static Wall* wbc;

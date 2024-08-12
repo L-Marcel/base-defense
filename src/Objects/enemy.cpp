@@ -132,18 +132,20 @@ namespace Game {
         this->direction = path.angle();
       };
 
-      this->enemy_legs->position.x = this->position.x;
-      this->enemy_legs->position.y = this->position.y;
+      if(this->legs == nullptr) return;
 
-      if(!this->path.isStopped()){
-        if(this->enemy_legs->animationFinished) this->enemy_legs->animate(8, 8, 0, true);
-      } else{
-        this->enemy_legs->animate(8, 1, 0, false, 0);
-      }
+      this->legs->position.x = this->position.x;
+      this->legs->position.y = this->position.y;
+
+      if(!this->path.isStopped() && this->legs->animation_finished) {
+        this->legs->animate(8, 8, 0, true);
+      } else if(this->path.isStopped() && !this->legs->animation_finished) {
+        this->legs->animate(8, 1, 0, false);
+      };
       
       this->rotation = this->direction - 90.0;
       bool canShoot = this->path.isStopped() && this->attack_delay.isFinished();
-      this->enemy_legs->rotation = this->rotation;
+      this->legs->rotation = this->rotation;
 
       if(canShoot) {
         this->animate(8, 6, 1, false);
@@ -154,14 +156,13 @@ namespace Game {
 
   Enemy::~Enemy() {
     GameProcess::money += 5 + rand() % 5;
-    GameProcess::destroy(this->enemy_legs);
   };
 
   Enemy* Enemy::create(float x, float y) {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
-    enemy->enemy_legs = Image::create("enemy_legs.png", Box(16, 16, 32, 32));
-    enemy->enemy_legs->scale(2);
-    GameProcess::add(enemy->enemy_legs);
+    enemy->legs = Object2D::create("enemy_legs.png", Box(16, 16, 32, 32));
+    enemy->legs->scale(2);
+    enemy->legs->depth = 99;
 
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);

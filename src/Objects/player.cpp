@@ -52,11 +52,13 @@ namespace Game {
         Base::get()->clip.recharge(AmmoKit::charge);
       };
     };
+
+    if(this->legs == nullptr) return;
     
     Point mouse = Mouse::position();
     if(mouse != this->position) {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
-      this->player_leg->rotation = Math::pointDirection(mouse - this->position) - 90.0;
+      this->legs->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
     if(Mouse::isRightDown()) {
@@ -64,11 +66,17 @@ namespace Game {
     };
 
     Segment path = this->path.getPath(this->position, this->speed);
+    if(this->position != path.end && this->legs->animation_finished) {
+      this->legs->animate(8, 8, 0, true);
+    } else if(this->position == path.end && !this->legs->animation_finished) {
+      this->legs->animate(8, 1, 0, false);
+    };
+    
     this->position = path.end;
     this->direction = path.angle();
 
-    this->player_leg->position.x = this->position.x;
-    this->player_leg->position.y = this->position.y;
+    this->legs->position.x = this->position.x;
+    this->legs->position.y = this->position.y;
     if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletcan_be_blocked);
     } else if(this->animation_finished && Input::isDown(Keyboard::R)){
@@ -77,8 +85,8 @@ namespace Game {
   };
   
   Player::~Player() {
+    if(!GameProcess::in("DefeatMenu")) GameProcess::defeat();
     Player::player = nullptr;
-    GameProcess::destroy(this->player_leg);
   };
 
   void Player::shoot(bool can_be_blocked) {
@@ -115,9 +123,9 @@ namespace Game {
 
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
-    player->player_leg = Image::create("player_legs.png", Box(16, 13, 32, 32));
-    player->player_leg->scale(2);
-    GameProcess::add(player->player_leg);
+    player->legs = Object2D::create("player_legs.png", Box(16, 13, 32, 32));
+    player->legs->scale(2);
+    player->legs->depth = 149;
 
     Player::player = player;
     player->attack_speed = 1.4;
