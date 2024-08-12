@@ -56,6 +56,7 @@ namespace Game {
     Point mouse = Mouse::position();
     if(mouse != this->position) {
       this->rotation = Math::pointDirection(mouse - this->position) - 90.0;
+      this->player_leg->rotation = Math::pointDirection(mouse - this->position) - 90.0;
     };
 
     if(Mouse::isRightDown()) {
@@ -66,6 +67,8 @@ namespace Game {
     this->position = path.end;
     this->direction = path.angle();
 
+    this->player_leg->position.x = this->position.x;
+    this->player_leg->position.y = this->position.y;
     if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
       this->shoot(bulletcan_be_blocked);
     } else if(this->animation_finished && Input::isDown(Keyboard::R)){
@@ -75,6 +78,7 @@ namespace Game {
   
   Player::~Player() {
     Player::player = nullptr;
+    GameProcess::destroy(this->player_leg);
   };
 
   void Player::shoot(bool can_be_blocked) {
@@ -111,6 +115,9 @@ namespace Game {
 
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
+    player->player_leg = Image::create("player_legs.png", Box(16, 13, 32, 32));
+    player->player_leg->scale(2);
+    GameProcess::add(player->player_leg);
 
     Player::player = player;
     player->attack_speed = 1.4;

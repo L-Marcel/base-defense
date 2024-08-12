@@ -1,10 +1,12 @@
 #pragma once
 #include <Misc/pathfinder.hpp>
+#include <Objects/image.hpp>
 #include <Character.hpp>
 #include <Sound.hpp>
 #include <Input.hpp>
 
 namespace Game {
+  class Image;
   class Player : public Character {
     public:
       virtual string type();
@@ -32,6 +34,7 @@ namespace Game {
       Sound shoot_sound = Sound("shoot.mp3");
       Sound empty_clip_sound = Sound("empty_clip.mp3");
       Sound recharge_sound = Sound("recharge.wav");
+      Image* player_leg = nullptr;
       bool safe = true;
     protected:
       using Character::Character;
