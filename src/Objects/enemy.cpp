@@ -1,6 +1,8 @@
 #include <Objects/enemy.hpp>
+#include <Misc/spawn.hpp>
 
 namespace Game {
+  unsigned int Enemy::amount = 0;
   Wall* Enemy::wab = nullptr;
   Wall* Enemy::wbc = nullptr;
   Wall* Enemy::wcd = nullptr;
@@ -12,27 +14,29 @@ namespace Game {
 
   void Enemy::step() {
     this->health.heal(this->regeneration / 60.0);
-    
+    this->attack_delay.tick();
+
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(bullet->isAlly){
+        if(bullet->is_ally) {
           collider->destroy();
           collider->visible = false;
           this->health.damage(bullet->damage);
-          if(this->free_queued){
+          if(this->free_queued) {
+            Enemy::amount--;
             this->dropKits();
-          }
-        }
-      }
+          };
+        };
+      };
     };
 
     const Player* player = Player::get();
     if(player == nullptr) return;
 
-    if(this->animationFinished) {
+    if(this->animation_finished) {
       Segment path = this->path.getPath(this->position, this->speed, this->range);
       this->position = path.end;
 
@@ -138,8 +142,9 @@ namespace Game {
       }
       
       this->rotation = this->direction - 90.0;
+      bool canShoot = this->path.isStopped() && this->attack_delay.isFinished();
       this->enemy_legs->rotation = this->rotation;
-      bool canShoot = this->path.isStopped();
+
       if(canShoot) {
         this->animate(8, 6, 1, false);
         this->shoot();
@@ -152,7 +157,7 @@ namespace Game {
     GameProcess::destroy(this->enemy_legs);
   };
 
-  Enemy* Enemy::create() {
+  Enemy* Enemy::create(float x, float y) {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
     enemy->enemy_legs = Image::create("enemy_legs.png", Box(16, 16, 32, 32));
     enemy->enemy_legs->scale(2);
@@ -160,14 +165,15 @@ namespace Game {
 
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
-    enemy->position = Point(600.f, 100.f);
-    enemy->damage = 0;
+    enemy->position = Point(x, y);
+    enemy->damage = 5;
     enemy->setCircle(12);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
+    enemy->attack_delay.start(1/enemy->attack_speed);
     enemy->scale(2);
+    Enemy::amount++;
     GameProcess::add(enemy);
-
     Collision::create(enemy, "Bullet");
 
     return enemy;
@@ -179,27 +185,28 @@ namespace Game {
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.setVolume(50);
     this->shoot_sound.play();
+    this->attack_delay.start(1/this->attack_speed);
   };
 
   void Enemy::dropKits() {
-    bool dropAmmoKit = (rand() % 100) < 100;
-    bool dropMedKit = (rand() % 100) < 100;
+    bool drop_ammo_kit = (rand() % 100) < 45;
+    bool drop_med_kit = (rand() % 100) < 25;
 
-    if(dropAmmoKit && dropMedKit) {
-      MedicalKit* medkit = MedicalKit::create(this->position);
-      AmmoKit* ammokit = AmmoKit::create(this->position);
+    if(drop_ammo_kit && drop_med_kit) {
+      MedicalKit* med_kit = MedicalKit::create(this->position);
+      AmmoKit* ammo_kit = AmmoKit::create(this->position);
 
-      ammokit->position.x += 20.0;
-      medkit->position.x -= 20.0;
+      ammo_kit->position.x += 20.0;
+      med_kit->position.x -= 20.0;
 
-      GameProcess::add(ammokit);
-      GameProcess::add(medkit);
-    } else if(dropAmmoKit) {
-      AmmoKit* ammokit = AmmoKit::create(this->position);
-      GameProcess::add(ammokit);
-    } else if(dropMedKit) {
-      MedicalKit* medkit = MedicalKit::create(this->position);
-      GameProcess::add(medkit);
+      GameProcess::add(ammo_kit);
+      GameProcess::add(med_kit);
+    } else if(drop_ammo_kit) {
+      AmmoKit* ammo_kit = AmmoKit::create(this->position);
+      GameProcess::add(ammo_kit);
+    } else if(drop_med_kit) {
+      MedicalKit* med_kit = MedicalKit::create(this->position);
+      GameProcess::add(med_kit);
     };
   };
 };

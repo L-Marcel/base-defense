@@ -6,7 +6,7 @@ namespace Game {
 
   void Wall::step() { 
     this->energized = Base::get() != nullptr;
-    bool wasEnabled = this->enabled;
+    bool was_enabled = this->enabled;
     this->enabled = this->energized;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
@@ -16,13 +16,16 @@ namespace Game {
       } else if(type == "Bullet" && collider->depth <= this->depth) {
         Bullet* bullet = (Bullet*) collider;
 
-        if(bullet->canBeBlocked && this->enabled) {
+        if(bullet->can_be_blocked && this->enabled) {
           bullet->bounce_sound.play();
           bullet->bounce_sound.setVolume(50);
   
-          if(Base::friendly_fire || !bullet->isAlly) 
-            Base::get()->health.damage(bullet->damage /2.5);
-          if(Base::vengeful_bullets) bullet->isAlly = true;
+          if(Base::friendly_fire || !bullet->is_ally) {
+            if(bullet->is_ally) Base::get()->health.damage(bullet->damage / 10.0);
+            else Base::get()->health.damage(bullet->damage / 2.5);
+          };
+            
+          if(Base::vengeful_bullets) bullet->is_ally = true;
 
           switch(this->side) {
             case 0:
@@ -47,11 +50,11 @@ namespace Game {
           };
         };
 
-        bullet->canBeBlocked = false;
+        bullet->can_be_blocked = false;
       };
     };
 
-    bool changed = wasEnabled != this->enabled;
+    bool changed = was_enabled != this->enabled;
     if(changed && this->enabled) {
       this->on_sound.play();
       this->animate(8, 4, 0, true);
@@ -63,8 +66,8 @@ namespace Game {
 
   Wall::~Wall() {};
 
-  Wall::Wall(string spriteSheet, Box box) 
-  : Object2D(spriteSheet, box) {};
+  Wall::Wall(string sprite_sheet, Box box) 
+  : Object2D(sprite_sheet, box) {};
 
   Wall* Wall::create(unsigned short int side) {
     Wall* wall;

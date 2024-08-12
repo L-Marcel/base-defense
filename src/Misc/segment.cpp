@@ -30,11 +30,11 @@ namespace Game {
     this->end = point;
   };
 
-  Segment Segment::create(Point from, Point to, float maxLength) {
+  Segment Segment::create(Point from, Point to, float max_length) {
     Segment path(from, to);
 
     path.end = path.start + Math::pointInRadius(
-      min(double(maxLength), path.length()), 
+      min(double(max_length), path.length()), 
       path.angle()
     );
     
@@ -43,26 +43,26 @@ namespace Game {
 
   bool Segment::hasPoint(float x, float y) const {
     float dx = this->end.x - this->start.x;
-    bool xIsValid = false;
+    bool x_is_valid = false;
     float xx = 0;
     if(dx == 0) {
-      xIsValid = x == this->start.x;
+      x_is_valid = x == this->start.x;
     } else {
       xx = (x - this->start.x) / dx;
-      xIsValid = xx >= 0 && xx <= 1;
+      x_is_valid = xx >= 0 && xx <= 1;
     };
 
     float dy = this->end.y - this->start.y;
-    bool yIsValid = false;
+    bool y_is_valid = false;
     float yy = 0;
     if(dy == 0) {
-      yIsValid = y == this->start.y;
+      y_is_valid = y == this->start.y;
     } else {
       yy = (y - this->start.y) / dy;
-      yIsValid = yy >= 0 && yy <= 1;
+      y_is_valid = yy >= 0 && yy <= 1;
     };
 
-    return xIsValid && yIsValid && (dx == 0 || dy == 0 || xx == yy);
+    return x_is_valid && y_is_valid && (dx == 0 || dy == 0 || xx == yy);
   };
 
   bool Segment::hasPoint(Point point) const {

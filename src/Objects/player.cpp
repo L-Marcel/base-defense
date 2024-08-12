@@ -12,18 +12,19 @@ namespace Game {
 
   void Player::step() {    
     this->health.heal(regeneration / 60.0);
+    this->attack_delay.tick();
 
     if(GameProcess::getFrame() % 60 == 0) {
       this->safe = false;
     };
 
-    bool bulletCanBeBlocked = true;
+    bool bulletcan_be_blocked = true;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Base") {
         this->safe = true;
-        bulletCanBeBlocked = false;
+        bulletcan_be_blocked = false;
         Base* base = (Base*) collider;
         if(this->path.isStopped()) {
           base->health.heal(1.0/60.0 * base->regeneration);
@@ -39,7 +40,7 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(!bullet->isAlly){
+        if(!bullet->is_ally){
           collider->destroy();
           this->health.damage(bullet->damage);
         }
@@ -48,7 +49,7 @@ namespace Game {
         this->health.heal(MedicalKit::heal);
       } else if(type == "AmmoKit") {
         collider->destroy();
-        this->clip.recharge(AmmoKit::charge);
+        Base::get()->clip.recharge(AmmoKit::charge);
       };
     };
     
@@ -68,16 +69,9 @@ namespace Game {
 
     this->player_leg->position.x = this->position.x;
     this->player_leg->position.y = this->position.y;
-
-    if(this->path.isStopped()){
-      this->player_leg->animate(12, 8, 1, true);
-    };
-
-    if(this->animationFinished && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
-      this->shoot(bulletCanBeBlocked);
-    };
-
-    if(this->animationFinished && Input::isDown(Keyboard::R)){
+    if(this->attack_delay.isFinished() && (Input::isDown(Keyboard::Q) || Mouse::isLeftDown())) {
+      this->shoot(bulletcan_be_blocked);
+    } else if(this->animation_finished && Input::isDown(Keyboard::R)){
       this->recharge();
     };
   };
@@ -87,12 +81,12 @@ namespace Game {
     GameProcess::destroy(this->player_leg);
   };
 
-  void Player::shoot(bool canBeBlocked) {
+  void Player::shoot(bool can_be_blocked) {
     if(this->clip.get() > 0) {
       Bullet* bullet = Bullet::create(this, true);
       bullet->damage = this->damage;
-      bullet->canBeBlocked = canBeBlocked;
-      
+      bullet->can_be_blocked = can_be_blocked;
+
       float chance = (float(rand()) / RAND_MAX);
       if(chance >= (this->not_consume_ammo_chance / 100.0)) {
         this->clip.consume(1);
@@ -100,20 +94,22 @@ namespace Game {
 
       this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
       this->shoot_sound.play();
-      this->animate(8, 6, 1, false);
+      this->animate(12, 6, 1, false);
     } else {
-      this->animate(8, 6, 1, false);
       this->empty_clip_sound.play();
     };
+    this->attack_delay.start(1/this->attack_speed);    
   };
 
   void Player::recharge(){
     const Base* base = Base::get();
     if(base->clip.get() > 0 && this->clip.get() < this->clip.getLimit()){
+      this->recharge_sound.play();
       unsigned int blankAmmo = this->clip.getLimit() - this->clip.get();
       this->clip.recharge(base->clip.get());
       base->clip.consume(blankAmmo);
-      this->animate(12, 5, 2, false);
+      this->animate(8, 5, 2, false);
+      this->attack_delay.start(1);
     };
   };
 
@@ -123,11 +119,8 @@ namespace Game {
     player->player_leg->scale(2);
     GameProcess::add(player->player_leg);
 
-    if(Player::player != nullptr) {
-      delete Player::player;
-    };
-
     Player::player = player;
+    player->attack_speed = 1.4;
     player->speed = 5.0;
     player->damage = 35;
     player->regeneration = 1;

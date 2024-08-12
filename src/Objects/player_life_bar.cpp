@@ -6,46 +6,51 @@ namespace Game {
   };
 
   void PlayerLifeBar::step() {
-    GameProcess::draw(this->rectangle);
+    const Player* player = Player::get();
 
-    if(this->lifePercent > this->player->health.percent()) {
-      this->lifePercent = max(this->lifePercent - 0.015f, this->player->health.percent());
-    } else {
-      this->lifePercent = min(this->lifePercent + 0.015f, this->player->health.percent());
+    if(player == nullptr) {
+      this->hud->setText("0.00");
+      this->hud->setAlignCenter();
+      this->rectangle.setSize(Point(0, 20));
+      return;
     };
-    this->rectangle.setSize(Point(this->lifePercent * 230, 20));
+
+    if(this->life_percent > player->health.percent()) {
+      this->life_percent = max(this->life_percent - 0.015f, player->health.percent());
+    } else {
+      this->life_percent = min(this->life_percent + 0.015f, player->health.percent());
+    };
+    this->rectangle.setSize(Point(this->life_percent * 230, 26));
 
     stringstream stream;
-    stream << fixed << setprecision(2) << this->player->health.get();
+    stream << fixed << setprecision(2) << player->health.get();
     string content = stream.str();
     this->hud->setText(content);
+    this->hud->setAlignCenter();
+  };
 
-    if(content.length() == 6) {
-      this->hud->setPosition(Point(142, 29));
-    } else if(content.length() == 5) {
-      this->hud->setPosition(Point(144, 29));
-    } else if(content.length() == 4) {
-      this->hud->setPosition(Point(150, 29));
-    };
+  void PlayerLifeBar::draw() {
+    this->rectangle.setPosition(Point(173,31));
+    GameProcess::animate(this);
+    GameProcess::draw(*this->sprite);
+    GameProcess::draw(this->rectangle);
   };
 
   PlayerLifeBar::~PlayerLifeBar() {};
   
   PlayerLifeBar* PlayerLifeBar::create() {
-    PlayerLifeBar* lifeBar = new PlayerLifeBar();
-    lifeBar->depth = 500;
-    lifeBar->position = Point(140, 30);
-    lifeBar->setRectangle(230,20);
-    lifeBar->rectangle.setFillColor(Color::Red);
-    GameProcess::add(lifeBar);
+    PlayerLifeBar* life_bar = new PlayerLifeBar("player_life_bar.png", Box(72.5, 12.5, 145, 25));;
+    life_bar->scale(2);
+    life_bar->depth = 200;
+    life_bar->position = Point(152, 30);
+    life_bar->setRectangle(230,26);
+    life_bar->rectangle.setFillColor(Color(232, 59, 59, 255));
+    GameProcess::add(life_bar);
 
-    stringstream stream;
-    stream << fixed << setprecision(2) << lifeBar->player->health.get();
-    string content = stream.str();
-
-    Text* hud = Text::create(Point(142, 29), content, 18);
-    hud->depth = 600;
-    lifeBar->hud = hud;
-    return lifeBar;
+    Text* hud = Text::create(Point(174, 32), "100.00", 18);
+    hud->setAlignCenter();
+    hud->depth = 300;
+    life_bar->hud = hud;
+    return life_bar;
   };
 };

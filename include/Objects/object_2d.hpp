@@ -13,9 +13,9 @@ namespace Game {
       virtual ~Object2D();
 
       /// @brief Cria uma instância do objeto 2D
-      /// @param spriteSheet página de textura do sprite do objeto 2D
+      /// @param sprite_sheet página de textura do sprite do objeto 2D
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      static Object2D* create(string spriteSheet, Box box);
+      static Object2D* create(string sprite_sheet, Box box);
 
       /// Sprite ==================================
       Sprite* sprite = nullptr;
@@ -24,21 +24,21 @@ namespace Game {
       float image = 0;
       double rotation = 0; 
       bool loop = true;
-      bool animationFinished = false;
+      bool animation_finished = false;
       /// =========================================
 
       /// Collision ===============================
       List<Collision> collisions;
       List<Object2D> colliders;
 
-      bool hasRectangle = false;
+      bool has_rectangle = false;
       Rectangle rectangle = Rectangle();
-      float rectangleHeight = 0;
-      float rectangleWidth = 0;
+      float rectangle_height = 0;
+      float rectangle_width = 0;
 
-      bool hasCircle = false;
+      bool has_circle = false;
       Circle circle = Circle();
-      float circleRadius = 0;
+      float circle_radius = 0;
       /// =========================================
       
       /// Movement ================================
@@ -49,13 +49,13 @@ namespace Game {
      
       /// @brief Inicia uma das animações disponíveis para o objeto 2D
       /// @param fps o número de frames por segundo
-      /// @param textureRow a linha da animação na textura (do sprite)
+      /// @param texture_row a linha da animação na textura (do sprite)
       /// @param loop se é animação deve ficar se repetindo
       /// @param image o íncide do frame da animação
       void animate(
         float fps,
         unsigned short int frames,
-        unsigned short int textureRow, 
+        unsigned short int texture_row, 
         bool loop = true, 
         float image = 0
       );
@@ -65,9 +65,9 @@ namespace Game {
       void scale(float scale);
 
       /// @brief Muda a escala do objeto 2D
-      /// @param xScale a escala x
-      /// @param yScale a escala y
-      void scale(float xScale, float yScale);
+      /// @param x_scale a escala x
+      /// @param y_scale a escala y
+      void scale(float x_scale, float y_scale);
 
       /// @brief Cria uma colisão retangular
       /// @param width a largura do retângulo
@@ -79,9 +79,9 @@ namespace Game {
       void setCircle(float radius);
     protected:
       /// @brief Cria uma instância do objeto 2D
-      /// @param spriteSheet página de textura do sprite do objeto 2D
-      /// @param box uma caixa que informa a origem do sprite e as dimensões dele
-      Object2D(string spriteSheet, Box box);
+      /// @param sprite_sheet página de textura do sprite do objeto 2D
+      /// @param box uma caixa que informa a origem do sprite e as dimesões dele
+      Object2D(string sprite_sheet, Box box);
       Object2D();
   };
 };

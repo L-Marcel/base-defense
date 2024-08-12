@@ -6,14 +6,16 @@ namespace Game {
   };
 
   void Tower::step() {
-    bool baseIsEnergized = Base::get() != nullptr;
+    bool base_is_energized = Base::get() != nullptr;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
       if(type == "Bullet" && collider->depth <= this->depth) {
         Bullet* bullet = (Bullet*) collider;
-        if(baseIsEnergized && (Base::friendly_fire || !bullet->isAlly)) 
-          Base::get()->health.damage(bullet->damage / 5.0);
+        if(base_is_energized && (Base::friendly_fire || !bullet->is_ally)) {
+          if(bullet->is_ally) Base::get()->health.damage(bullet->damage / 15.0);
+          else Base::get()->health.damage(bullet->damage / 5.0);
+        };
         collider->destroy();
       };
     };
@@ -21,8 +23,8 @@ namespace Game {
 
   Tower::~Tower() {};
 
-  Tower::Tower(string spriteSheet, Box box) 
-  : Object2D(spriteSheet, box) {};
+  Tower::Tower(string sprite_sheet, Box box) 
+  : Object2D(sprite_sheet, box) {};
 
   Tower* Tower::create() {
     Tower* tower = new Tower("tower.png", Box(8, 8, 16, 16));

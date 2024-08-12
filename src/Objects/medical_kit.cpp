@@ -15,13 +15,13 @@ namespace Game {
   MedicalKit::~MedicalKit() {};
 
   MedicalKit* MedicalKit::create(Point position) {
-    MedicalKit* medkit = new MedicalKit("medkit.png", Box(5, 6, 12, 10));
-    medkit->setCircle(10);
-    medkit->scale(2);
-    medkit->depth = 50;
-    medkit->position = position;
-    medkit->position.y += 20.0;
-    medkit->timer.start(10);
-    return medkit;
+    MedicalKit* med_kit = new MedicalKit("med_kit.png", Box(6, 5, 12, 10));
+    med_kit->setCircle(10);
+    med_kit->scale(2);
+    med_kit->depth = 50;
+    med_kit->position = position;
+    med_kit->position.y += 20.0;
+    med_kit->timer.start(10);
+    return med_kit;
   };
 };

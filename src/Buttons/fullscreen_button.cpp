@@ -7,9 +7,9 @@ namespace Game{
 
   void FullscreenButton::step() {
     if(this->isHovered()) {
+      if(Mouse::isLeftPressed()) GameProcess::click_sound.play();
       if(Mouse::isLeftDown()) this->animate(1, 1, 2, false);
       else this->animate(1, 1, 1, false);
-
       if(Mouse::isLeftReleased()) GameProcess::changeFullscreen();
     } else this->animate(1, 1, 0, false);
   };
@@ -17,14 +17,14 @@ namespace Game{
   FullscreenButton::~FullscreenButton() {};
 
   FullscreenButton* FullscreenButton::create() {
-    FullscreenButton* fullscreenButton = new FullscreenButton("fullscreen_button.png", Box(53, 16, 106, 32));
-    fullscreenButton->animate(1, 1, 0, false);
-    fullscreenButton->pausable = false;
-    fullscreenButton->depth = 500;
-    fullscreenButton->position = CENTER;
-    fullscreenButton->scale(3);
+    FullscreenButton* fullscreen_button = new FullscreenButton("fullscreen_button.png", Box(53, 16, 106, 32));
+    fullscreen_button->animate(1, 1, 0, false);
+    fullscreen_button->pausable = false;
+    fullscreen_button->depth = 500;
+    fullscreen_button->position = CENTER;
+    fullscreen_button->scale(3);
 
-    GameProcess::add(fullscreenButton);
-    return fullscreenButton;
+    GameProcess::add(fullscreen_button);
+    return fullscreen_button;
   };
 };

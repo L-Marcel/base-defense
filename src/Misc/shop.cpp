@@ -47,14 +47,18 @@ namespace Game {
     if(items != nullptr) {
       map<string, unsigned short int>::iterator it = items->find(item->name);
       if(it != items->end() && it->second > 0) {
+        GameProcess::money -= item->price();
+        item->action(item);
         it->second--;
+        return true;
       } else {
         return false;
       };
     };
 
-    item->action(item);
     GameProcess::money -= item->price();
+    item->action(item);
+
     return true;
   };
 
@@ -90,12 +94,12 @@ namespace Game {
 
     for(unsigned int i = 0; i < options.size(); i++) {
       string option = options.at(i);
-      bool alreadyInShowcase = false;
+      bool already_in_showcase = false;
       for(unsigned int j = 0; j < Shop::showcase->length(); j++) {
-        if(Shop::showcase[j] == option) alreadyInShowcase = true;
+        if(Shop::showcase[j] == option) already_in_showcase = true;
       };
 
-      if(!alreadyInShowcase && items.at(option) > 0) available_options.push_back(option);
+      if(!already_in_showcase && items.at(option) > 0) available_options.push_back(option);
     };
 
     return available_options;

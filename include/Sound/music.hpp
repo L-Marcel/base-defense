@@ -1,4 +1,5 @@
-#include <Engine.hpp>
+#pragma once
+#include <Engine/defs.hpp>
 
 namespace Game {
   class Music : public sf::Music {
@@ -7,4 +8,4 @@ namespace Game {
       /// @param filename o arquivo da música 
       Music(string filename);
   };
-}
+};

@@ -10,17 +10,7 @@ namespace Game {
     return "Base";
   };
 
-  void Base::step() {
-    stringstream stream;
-    stream << fixed << setprecision(2) << this->health.get();
-    string content = stream.str();
-
-    this->hud->setText(content);
-    this->hud->setPosition(Point(632 - (content.length() * 8), 400));
-  };
-
   Base::~Base() {
-    this->hud->setText("0");
     this->base = nullptr;
   };
 
@@ -60,9 +50,6 @@ namespace Game {
     Enemy::wbc = Wall::create(1);
     Enemy::wcd = Wall::create(3);
     Enemy::wda = Wall::create(0);
-
-    Text* hud = Text::create(Point(640, 400), to_string(base->health.get()));
-    base->hud = hud;
 
     return base;
   };

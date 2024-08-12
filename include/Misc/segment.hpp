@@ -34,8 +34,8 @@ namespace Game {
       /// @brief Cria um segmento formado pelo ponto incial e o ponto que satisfaz o comprimento máximo do segmento mas está dentro da mesma reta que o ponto final desejado
       /// @param from o ponto inicial
       /// @param to o ponto final
-      /// @param maxLength o comprimento máximo
-      static Segment create(Point from, Point to, float maxLength);
+      /// @param max_length o comprimento máximo
+      static Segment create(Point from, Point to, float max_length);
 
       /// @brief Diz se um determinado ponto pertence ao segmento
       /// @param x a coordenada x do ponto

@@ -7,3 +7,4 @@
 #include <Buttons/resolution_button.hpp>
 #include <Buttons/fullscreen_button.hpp>
 #include <Buttons/item_button.hpp>
+#include <Buttons/restart_button.hpp>

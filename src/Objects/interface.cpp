@@ -12,8 +12,10 @@ namespace Game {
     interface->depth = 500;
     GameProcess::add(interface);
 
-    PlayerLifeBar* playerLB = PlayerLifeBar::create();
-    interface->parts.add(playerLB);
+    PlayerLifeBar::create();
+    BaseLifeBar::create();
+    AmmoDisplay::create();
+    CoinDisplay::create();
 
     return interface;
   };

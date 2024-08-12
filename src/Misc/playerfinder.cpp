@@ -141,11 +141,11 @@ namespace Game {
 
   bool Playerfinder::isFacingPlayer(Point position) {
     Segment path(position, Player::get()->position);
-    bool hasAnyIntersection =
+    bool has_any_intersection =
       (this->ab & path && path.end.y > this->ab.start.y && this->ab != path) ||
       (this->bc & path && path.end.x < this->bc.start.x && this->bc != path) ||
       (this->cd & path && path.end.y < this->cd.start.y && this->cd != path) ||
       (this->da & path && path.end.x > this->da.start.x && this->da != path);
-    return !hasAnyIntersection;
+    return !has_any_intersection;
   };
 };

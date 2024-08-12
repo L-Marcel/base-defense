@@ -19,10 +19,9 @@ namespace Game {
       List<Object2D> objects;
       List<Text> texts;
     protected:
-      
       /// @brief Cria uma instância do menu
-      /// @param spriteSheet página de textura do sprite do menu
+      /// @param sprite_sheet página de textura do sprite do menu
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Menu(string spriteSheet, Box box);
+      Menu(string sprite_sheet, Box box);
   };
 };

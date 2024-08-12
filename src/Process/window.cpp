@@ -20,7 +20,7 @@ namespace Game {
       gp->window.create(
         VideoMode(gp->view.getSize().x, gp->view.getSize().y),
         "Base Defense",
-        sf::Style::Close | sf::Style::Titlebar
+        NORMAL_SCREEN
       );
       gp->window.setView(view);
       gp->window.setFramerateLimit(60);
@@ -28,7 +28,7 @@ namespace Game {
       gp->fullscreen = true;
       View view(sf::FloatRect(0, 0, 1280, 720));
       sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
-      gp->window.create(desktopMode, "teste", sf::Style::Fullscreen);
+      gp->window.create(desktopMode, "teste", FULLSCREEN);
       gp->window.setView(view);
       Resolution res(desktopMode.width, desktopMode.height);
       gp->window.setFramerateLimit(60);

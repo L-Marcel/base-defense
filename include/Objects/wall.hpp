@@ -25,8 +25,8 @@ namespace Game {
       unsigned short int side = 0;
       
       /// @brief Cria uma instância da parede
-      /// @param spriteSheet página de textura do sprite da parede
+      /// @param sprite_sheet página de textura do sprite da parede
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Wall(string spriteSheet, Box box);
+      Wall(string sprite_sheet, Box box);
   };
 };

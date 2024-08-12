@@ -5,11 +5,11 @@ namespace Game {
   class Shop {
     protected:
       static map<string, Item> items;
+    public:
+      static string showcase[3];
       static map<string, unsigned short int> common_stock;
       static map<string, unsigned short int> rare_stock;
       static map<string, unsigned short int> epic_stock;
-    public:
-      static string showcase[3];
 
       /// @brief Compra um item, se puder
       /// @param item o item
