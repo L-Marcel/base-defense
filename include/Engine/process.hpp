@@ -23,6 +23,7 @@ namespace Game {
       unsigned short int frame = 0;
       bool paused = false;
       bool fullscreen = false;
+      bool restarted = false;
     private:
       Clock clock;
     public:
@@ -40,6 +41,9 @@ namespace Game {
       
       /// @brief Inicia o loop do jogo
       void execute();
+
+      /// @brief Limpa os objetos da memória
+      void clear();
 
       /// @brief Reordenada a ordem dos objetos com base no `depth` de cada um
       void sort();
@@ -85,6 +89,9 @@ namespace Game {
       /// @param index o índice desse objeto
       /// @return o ponteiro para o objeto obtído
       static Object* get(unsigned short int index);
+
+      /// @brief Reinicia o jogo
+      static void restart();
       /// =========================================
 
       /// Metódos de desenho ======================

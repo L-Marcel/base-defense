@@ -18,7 +18,9 @@ namespace Game {
       ~Enemy();
 
       /// @brief Cria uma instância do Enemy
-      static Enemy* create();
+      /// @param x Posição de início na horizontal
+      /// @param y Posição de início na vertical
+      static Enemy* create(float x, float y);
 
       /// @brief Realiza um disparo
       void shoot();
@@ -34,6 +36,7 @@ namespace Game {
       static Wall* wbc;
       static Wall* wcd;
       static Wall* wda;
+      static unsigned int amount;
     protected:
       using Character::Character;
       double range = 200.0;

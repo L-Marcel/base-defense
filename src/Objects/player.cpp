@@ -49,7 +49,7 @@ namespace Game {
         this->health.heal(MedicalKit::heal);
       } else if(type == "AmmoKit") {
         collider->destroy();
-        this->clip.recharge(AmmoKit::charge);
+        Base::get()->clip.recharge(AmmoKit::charge);
       };
     };
     
@@ -111,10 +111,6 @@ namespace Game {
 
   Player* Player::create() {
     Player* player = new Player("player.png", Box(16, 13, 32, 32), 6);
-
-    if(Player::player != nullptr) {
-      delete Player::player;
-    };
 
     Player::player = player;
     player->attack_speed = 1.4;

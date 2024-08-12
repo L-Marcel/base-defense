@@ -1,14 +1,16 @@
-#include <Engine.hpp>
-#include <Input.hpp>
+#include <Game.hpp>
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
-  unsigned int GameProcess::money = 1500;
+
+  unsigned int GameProcess::money = 30;
   Sound GameProcess::open_sound = Sound("open.ogg");
   Sound GameProcess::click_sound = Sound("click.ogg");
   Music GameProcess::theme_music = Music("default.ogg");
  
   void GameProcess::execute() {
+    this->restart();
+
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 
@@ -45,7 +47,6 @@ namespace Game {
         this->menu != nullptr && this->menu->type() != "ShopMenu"
       ) this->resume();
       else if(pauseRequested && this->menu == nullptr) this->pause();
-      else if(Input::isPressed(Keyboard::S)) this->pause(true);
       
       if(this->paused && GameProcess::theme_music.getStatus() != Music::Paused)
         GameProcess::theme_music.pause();
@@ -55,13 +56,19 @@ namespace Game {
       Mouse::update();
     };
 
-    for(unsigned int i = 0; i < this->objects.length(); i++) {
-      Object* object = this->objects.get(i);
+    this->clear();
+  };
+
+  void GameProcess::clear() {
+    this->restarted = true;
+    this->menu = nullptr;
+    this->queueFree.clear();
+
+    while(this->objects.length() > 0) {
+      Object* object = this->objects.get(0);
       this->objects.remove(object);
       object->free();
     };
-
-    this->objects.clear();
   };
 
   void GameProcess::sort() {
@@ -75,6 +82,15 @@ namespace Game {
   };
 
   void GameProcess::nextFrame() {
+    if(this->restarted && this->objects.length() == 0) {
+      Background::create();
+      Spawn::create();
+      Base::create();
+      Player::create();
+      Interface::create();
+      this->restarted = false;
+    };
+
     if(this->frame < 60) this->frame++;
     else {
       this->frame = 0;
@@ -97,6 +113,7 @@ namespace Game {
         object->step();
       };
 
+      if(this->restarted) return;
       if(object->visible) object->draw();
     };
 
@@ -112,13 +129,7 @@ namespace Game {
 
   GameProcess::~GameProcess() {
     Sprites::clear();
-    
-    for(unsigned int i = 0; i < this->objects.length(); i++) {
-      Object* object = this->objects.get(i);
-      this->objects.remove(object);
-      object->free();
-    };
-
+    this->clear();
     this->gp = nullptr;
   };
 
@@ -126,7 +137,8 @@ namespace Game {
     if(this->gp != nullptr) {
       delete this->gp;
     };
-    
+
+    srand(time(NULL));
     this->gp = this;
     this->window.setFramerateLimit(60);
 
