@@ -6,7 +6,6 @@ namespace Game {
   };
 
   void PlayerLifeBar::step() {
-    GameProcess::draw(this->rectangle);
     const Player* player = Player::get();
 
     if(player == nullptr) {
@@ -40,7 +39,7 @@ namespace Game {
   PlayerLifeBar::~PlayerLifeBar() {};
   
   PlayerLifeBar* PlayerLifeBar::create() {
-    PlayerLifeBar* lifeBar = new PlayerLifeBar("player_life_bar.png", Box(72.5,12.5, 145, 25));;
+    PlayerLifeBar* lifeBar = new PlayerLifeBar("player_life_bar.png", Box(72.5,12.5, 145, 25));
     lifeBar->scale(2);
     lifeBar->depth = 200;
     lifeBar->position = Point(152, 30);

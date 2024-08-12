@@ -15,7 +15,7 @@ namespace Game {
   AmmoKit::~AmmoKit() {};
 
   AmmoKit* AmmoKit::create(Point position) {
-    AmmoKit* ammokit = new AmmoKit("ball.png", Box(8, 8, 16, 16));
+    AmmoKit* ammokit = new AmmoKit("ammokit.png", Box(6, 5, 12, 10));
     ammokit->setCircle(10);
     ammokit->scale(2);
     ammokit->depth = 50;
