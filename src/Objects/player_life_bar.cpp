@@ -6,7 +6,6 @@ namespace Game {
   };
 
   void PlayerLifeBar::step() {
-    GameProcess::draw(this->rectangle);
     const Player* player = Player::get();
 
     if(player == nullptr) {

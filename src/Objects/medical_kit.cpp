@@ -15,7 +15,7 @@ namespace Game {
   MedicalKit::~MedicalKit() {};
 
   MedicalKit* MedicalKit::create(Point position) {
-    MedicalKit* medkit = new MedicalKit("medkit.png", Box(5, 6, 12, 10));
+    MedicalKit* medkit = new MedicalKit("medkit.png", Box(6, 5, 12, 10));
     medkit->setCircle(10);
     medkit->scale(2);
     medkit->depth = 50;
