@@ -169,6 +169,7 @@ namespace Game {
     enemy->position = Point(x, y);
     enemy->damage = 5;
     enemy->setCircle(12);
+    enemy->circle.setPosition(enemy->position);
     enemy->circle.setFillColor(Color::Blue);
     enemy->depth = 100;
     enemy->attack_delay.start(1/enemy->attack_speed);

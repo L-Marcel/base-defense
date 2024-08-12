@@ -12,6 +12,10 @@ namespace Game {
       /// @return a quantia
       float get();
 
+      /// @brief Retorna o limite da quantia de vida
+      /// @return o limite
+      float getLimit();
+
       /// @brief Retorna a porcentagem de vida total
       /// @return a porcentagem de `0` a `1`
       float percent();

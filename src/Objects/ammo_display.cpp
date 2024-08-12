@@ -6,7 +6,7 @@ namespace Game {
   };
 
   void AmmoDisplay::step() {
-    const  Base* base = Base::get();
+    const Base* base = Base::get();
     const Player* player = Player::get();
 
     if(base == nullptr || player == nullptr) {
