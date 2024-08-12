@@ -13,6 +13,7 @@
 #include <codecvt>
 #include <vector>
 #include <stack>
+#include <stdexcept>
 
 #define PI 3.14159265359
 
@@ -30,6 +31,8 @@
 
 #define NORMAL_SCREEN sf::Style::Close | sf::Style::Titlebar
 #define FULLSCREEN sf::Style::Fullscreen
+
+#define FINAL_WAVE 15
 
 using namespace std;
 
@@ -62,6 +65,7 @@ namespace Game {
   template <typename T> 
     using Vector = sf::Vector2<T>;
   Vector<float> typedef Point;
+  Point typedef Size;
   Vector<float> typedef Resolution;
 
   template <typename T> class Vector4 {

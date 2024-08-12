@@ -31,7 +31,7 @@ namespace Game {
       void destroy();
 
       /// @brief Cria uma instância do objeto
-      /// @param spriteSheet página de textura do sprite do objeto
+      /// @param sprite_sheet página de textura do sprite do objeto
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Object* create();
 

@@ -12,7 +12,7 @@ namespace Game {
   class Base : public Character {
     public:
       virtual string type();
-      virtual void step();
+      using Character::step;
       using Character::collision;
       using Character::draw;
       using Character::free;
@@ -30,6 +30,5 @@ namespace Game {
     protected:
       using Character::Character;
       static Base* base;
-      Text* hud;
   };
 };

@@ -22,8 +22,8 @@ namespace Game {
       const static Player* get();
 
       /// @brief Realiza um disparo
-      /// @param canBeBlocked se o disparo pode ser bloqueado
-      void shoot(bool canBeBlocked = true);
+      /// @param can_be_blocked se o disparo pode ser bloqueado
+      void shoot(bool can_be_blocked = true);
 
       /// @brief Recarrega a munição
       void recharge();
@@ -32,6 +32,7 @@ namespace Game {
       Sound shoot_sound = Sound("shoot.mp3");
       Sound empty_clip_sound = Sound("empty_clip.mp3");
       Sound recharge_sound = Sound("recharge.wav");
+      Object2D* legs = nullptr;
       bool safe = true;
     protected:
       using Character::Character;

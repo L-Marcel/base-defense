@@ -21,7 +21,7 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(bullet->isAlly) {
+        if(bullet->is_ally) {
           collider->destroy();
           collider->visible = false;
           this->health.damage(bullet->damage);
@@ -36,7 +36,7 @@ namespace Game {
     const Player* player = Player::get();
     if(player == nullptr) return;
 
-    if(this->animationFinished) {
+    if(this->animation_finished) {
       Segment path = this->path.getPath(this->position, this->speed, this->range);
       this->position = path.end;
 
@@ -132,8 +132,21 @@ namespace Game {
         this->direction = path.angle();
       };
 
+      if(this->legs == nullptr) return;
+
+      this->legs->position.x = this->position.x;
+      this->legs->position.y = this->position.y;
+
+      if(!this->path.isStopped() && this->legs->animation_finished) {
+        this->legs->animate(8, 8, 0, true);
+      } else if(this->path.isStopped() && !this->legs->animation_finished) {
+        this->legs->animate(8, 1, 0, false);
+      };
+      
       this->rotation = this->direction - 90.0;
       bool canShoot = this->path.isStopped() && this->attack_delay.isFinished();
+      this->legs->rotation = this->rotation;
+
       if(canShoot) {
         this->animate(8, 6, 1, false);
         this->shoot();
@@ -147,6 +160,10 @@ namespace Game {
 
   Enemy* Enemy::create(float x, float y) {
     Enemy* enemy = new Enemy("enemy.png", Box(16, 16, 32, 32));
+    enemy->legs = Object2D::create("enemy_legs.png", Box(16, 16, 32, 32));
+    enemy->legs->scale(2);
+    enemy->legs->depth = 99;
+
     enemy->speed = 1.25;
     enemy->animate(8, 1, 0, false);
     enemy->position = Point(x, y);
@@ -173,24 +190,24 @@ namespace Game {
   };
 
   void Enemy::dropKits() {
-    bool dropAmmoKit = (rand() % 100) < 45;
-    bool dropMedKit = (rand() % 100) < 25;
+    bool drop_ammo_kit = (rand() % 100) < 45;
+    bool drop_med_kit = (rand() % 100) < 25;
 
-    if(dropAmmoKit && dropMedKit) {
-      MedicalKit* medkit = MedicalKit::create(this->position);
-      AmmoKit* ammokit = AmmoKit::create(this->position);
+    if(drop_ammo_kit && drop_med_kit) {
+      MedicalKit* med_kit = MedicalKit::create(this->position);
+      AmmoKit* ammo_kit = AmmoKit::create(this->position);
 
-      ammokit->position.x += 20.0;
-      medkit->position.x -= 20.0;
+      ammo_kit->position.x += 20.0;
+      med_kit->position.x -= 20.0;
 
-      GameProcess::add(ammokit);
-      GameProcess::add(medkit);
-    } else if(dropAmmoKit) {
-      AmmoKit* ammokit = AmmoKit::create(this->position);
-      GameProcess::add(ammokit);
-    } else if(dropMedKit) {
-      MedicalKit* medkit = MedicalKit::create(this->position);
-      GameProcess::add(medkit);
+      GameProcess::add(ammo_kit);
+      GameProcess::add(med_kit);
+    } else if(drop_ammo_kit) {
+      AmmoKit* ammo_kit = AmmoKit::create(this->position);
+      GameProcess::add(ammo_kit);
+    } else if(drop_med_kit) {
+      MedicalKit* med_kit = MedicalKit::create(this->position);
+      GameProcess::add(med_kit);
     };
   };
 };

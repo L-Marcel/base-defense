@@ -37,10 +37,10 @@ Defenda sua base para sobreviver e passar por hordas inteiras de inimigos que qu
 
 ## Autores
 Observações: exceto pelas músicas e sons, todos os `assets` utilizado no jogo foram feitos por nós.
-- `Antonio Henrique Barbosa Lima`;
-- `Arthur Queiroz Pires de Farias`;
-- `Lucas Marcel Silva de Brito`;
-- `Pedro Paulo Galvão Galindo de Oliveira`.
+- [`Antonio Henrique Barbosa Lima`](https://github.com/HenriqueeeBL);
+- [`Arthur Queiroz Pires de Farias`](https://github.com/MisterR2);
+- [`Lucas Marcel Silva de Brito`](https://github.com/L-Marcel);
+- [`Pedro Paulo Galvão Galindo de Oliveira`](https://github.com/Pedr0P4).
 
 ## Como jogar
 Proteja sua base, saia para coletar munição e vida quando necessário, junte moedas derrotando inimigos e faça a melhor sequência de melhorias que conseguir; evite atirar em direção a própria base quando estiver fora dela, pois suas balas também causaram dano a elas; evite o máximo de dano que puder fora da base e saiba tirar proveito das suas sentinelas.
@@ -48,6 +48,7 @@ Proteja sua base, saia para coletar munição e vida quando necessário, junte m
 ### Controles
 - `Botão direito do mouse`: andar;
 - `Q` / `Botão esquerdo do mouse`: atirar;
+- `R`: recarregar;
 - `Esc`: pausar.
 
 ## Melhorias e ofertas da loja
@@ -81,14 +82,14 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
 
 # Recursos implementados
 - `Vida`: o jogador, a base e os inimigos começam com `100` pontos de vida que são destruídos/mortos quando a vida chega 0;
-- `Munição`: o jogador tem uma quantidade limitada de munição no pente. Quando a munição do pente acaba ele recarrega automaticamente usando a munição armazenada na base, que também é limitada. Enquanto recarregar ele não pode atirar;
+- `Munição`: o jogador tem uma quantidade limitada de munição no pente. Quando a munição do pente acaba ele pode recarregar apertando `R` e usando a munição armazenada na base, que também é limitada. Enquanto recarregar ele não pode atirar;
 - `Movimentação`: o jogador pode se movimentar definindo um destino clicando com o `botão direito do mouse`. Os inimigos por padrão seguem o jogador quando ele está fora da base, quando ele está dentro eles priorizam atacar a base;
 - `Desbravador (pathfinding)`: as torres localizadas no vértices da base são consideradas obstáculos para a movimentação do jogador, assim como a base é considerada um obstáculo para os inimigos;
 - `Base`: a base é uma área segura para o jogador, os muros dela refletem as balas vindas de fora, mas sem deixar de tomar dano. O jogador pode sair e entrar livremente dela e nenhum inimigo pode entrar nela. As torres da base recebem dano reduzido;
 - `Disparo`: o jogador pode disparar uma bala na direção do mouse ao custo de sua munição apertando/segurando a tecla `Q` ou o `botão esquerdo do mouse`. Os inimigos também disparam, mas não possuem limite de munição;
-- `Otimização`: balas fora do mapa são destruídas;
+- `Otimização`: balas fora do mapa são destruídas e as páginas de texturas só são carregadas uma única vez;
 - `Sentinelas`: a base acompanha um total de 4 sentinelas que atacam os inimigos que se aproximam delas automaticamente. Elas são extremamente lentas e consomente a munição do jogador que não está no pente da arma dele, mas causam bastante dano e podem receber melhorias na loja;
-- `Hordas`: o jogo é dividido 15 hordas de tempo fixo, cada uma mais difícil que a anterior. O jogador vence o jogo se sobreviver a todas elas. Durante uma horda os inimigos sugem nas borda do mapa aleatoriamente;
+- `Hordas`: o jogo é dividido 15 hordas, cada uma mais difícil que a anterior. O jogador vence o jogo se sobreviver a todas elas. Durante uma horda uma quantidade fixa de inimigos surgem nas borda do mapa aleatoriamente, quando todos são derrotados a horda termina;
 - `Reparo da base`: o jogador repara a base automaticamente enquanto estiver dentro dela, mas é uma ação lenta. Se ele estiver em movimento a velocidade do reparo é diminuída;
 - `Espólios`: ao derrotar um inimigo, ele tem chance de deixa cair um kits de `vida` ou `munição`. Os kits somem após um tempo;
 - `Loja`: no final de cada horda o jogador pode comprar melhorias e/ou benefícios usando moedas. O jogador recebe uma quantidade de moedas quando derrota um inimigo e que pode variar um pouco;
@@ -110,6 +111,10 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
   - Fornece recursos para passar funções como parâmetros ou atributos, útil em alguns casos. Usamos principalmente para construir os itens da loja do jogo sem precisar usar muia herança no [`items.cpp`](src/Misc/items.cpp).
 - `locale` e `codecvt`:
   - Usadas para utilizarmos textos armazenados no formato de UTF-8.
+- `stdexcept`:
+  - Usada para adicionar erros customizados.
+- `time.h`:
+  - Usada para gerar uma `seed` em [`local.cpp`](src/Process/local.cpp) a ser usada no `srand`.
 
 # Recursos de bibliotecas externas usados
 - `SFML` - recursos da gráficos e sonoros do `SFML`;

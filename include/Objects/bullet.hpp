@@ -17,8 +17,8 @@ namespace Game {
       /// @param ally se o projétil é aliado ao jogador ou não
       static Bullet* create(Object2D* object, bool ally = false);
 
-      bool isAlly = false;
-      bool canBeBlocked = true;
+      bool is_ally = false;
+      bool can_be_blocked = true;
       float damage = 10;
       Sound bounce_sound = Sound("bounce.wav");
     protected:

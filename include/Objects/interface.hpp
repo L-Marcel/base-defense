@@ -17,4 +17,4 @@ namespace Game {
       /// @brief Cria uma instância da Interface
       static Interface* create();
   };
-}
+};

@@ -9,4 +9,4 @@ namespace Game {
       Sound(string filename);
       ~Sound();
   };
-}
+};

@@ -41,12 +41,12 @@ namespace Game {
 
       if((this->frame)/60 <= elapsed.asSeconds()) this->nextFrame();
 
-      bool pauseRequested = Input::isPressed(Keyboard::Escape);
+      bool pause_requested = Input::isPressed(Keyboard::Escape);
       if(
-        pauseRequested && this->paused && 
-        this->menu != nullptr && this->menu->type() != "ShopMenu"
+        pause_requested && this->paused && 
+        (this->in("PauseMenu") || this->in("ResolutionMenu"))
       ) this->resume();
-      else if(pauseRequested && this->menu == nullptr) this->pause();
+      else if(pause_requested && this->menu == nullptr) this->pause();
       
       if(this->paused && GameProcess::theme_music.getStatus() != Music::Paused)
         GameProcess::theme_music.pause();
@@ -62,19 +62,13 @@ namespace Game {
   void GameProcess::clear() {
     this->restarted = true;
     this->menu = nullptr;
-    this->queueFree.clear();
+    this->queue_free.clear();
 
     while(this->objects.length() > 0) {
       Object* object = this->objects.get(0);
       this->objects.remove(object);
       object->free();
     };
-  };
-
-  void GameProcess::sort() {
-    this->objects.sort([](Object* a, Object* b) {
-      return a->depth <= b->depth;
-    });
   };
 
   bool GameProcess::isRunning() {
@@ -100,7 +94,7 @@ namespace Game {
     this->window.clear();
 
     if(this->frame_instances_amount != this->objects.length() || !this->objects.isSorted()) {
-      this->sort();
+      GameProcess::sort();
       this->frame_instances_amount = this->objects.length();
     };
 
@@ -119,12 +113,13 @@ namespace Game {
 
     this->window.display();
 
-    for(unsigned int i = 0; i < this->queueFree.length(); i++) {
-      Object* object = this->queueFree.get(i);
+    for(unsigned int i = 0; i < this->queue_free.length(); i++) {
+      Object* object = this->queue_free.get(i);
       this->objects.remove(object);
-      this->queueFree.remove(i);
       object->free();
     };
+
+    this->queue_free.clear();
   };
 
   GameProcess::~GameProcess() {

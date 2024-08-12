@@ -31,6 +31,7 @@ namespace Game {
       Sound shoot_sound = Sound("shoot.mp3");
       bool focusingBase = true;
       Playerfinder path;
+      Object2D* legs = nullptr;
 
       static Wall* wab;
       static Wall* wbc;

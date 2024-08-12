@@ -7,8 +7,8 @@ namespace Game {
 
   Background::~Background() {};
 
-  Background::Background(string spriteSheet, Box box) 
-  : Object2D(spriteSheet, box) {};
+  Background::Background(string sprite_sheet, Box box) 
+  : Object2D(sprite_sheet, box) {};
 
   Background* Background::create() {
     Background* background = new Background("background.png", Box(0, 0, 640, 360));

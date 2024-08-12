@@ -21,7 +21,6 @@ namespace Game {
       void spawn();
 
       Text* text = nullptr;
-
       static float spawn_speed;
       static unsigned int amount;
       static unsigned int wave;

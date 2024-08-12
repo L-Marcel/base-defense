@@ -8,7 +8,7 @@ namespace Game {
   class GameProcess {
     protected:
       static GameProcess* gp;
-      List<Object> queueFree;
+      List<Object> queue_free;
       List<Object> objects;
       unsigned int frame_instances_amount = 0;
       Menu* menu = nullptr;
@@ -45,9 +45,6 @@ namespace Game {
       /// @brief Limpa os objetos da memória
       void clear();
 
-      /// @brief Reordenada a ordem dos objetos com base no `depth` de cada um
-      void sort();
-
       /// @brief Avança o jogo para o próximo frame
       void nextFrame();
 
@@ -67,9 +64,20 @@ namespace Game {
       /// @brief Continua o jogo
       static void resume();
 
+      /// @brief Declara fim de jogo
+      static void defeat();
+
+      /// @brief Declara vitória
+      static void victory();
+
       /// @brief Navega entre menus
       /// @param menu o ponteiro para o próximo menu
       static void navigate(Menu* menu = nullptr);
+
+      /// @brief Diz se está ou não em um determinado menu
+      /// @param menu o tipo do menu
+      /// @return `true` se estiver, `false` caso contrário
+      static bool in(string menu);
       /// =========================================
       
       /// Metódos de controle =====================
@@ -89,6 +97,9 @@ namespace Game {
       /// @param index o índice desse objeto
       /// @return o ponteiro para o objeto obtído
       static Object* get(unsigned short int index);
+
+      /// @brief Reordenada a ordem dos objetos com base no `depth` de cada um
+      static void sort();
 
       /// @brief Reinicia o jogo
       static void restart();

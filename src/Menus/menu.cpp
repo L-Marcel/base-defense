@@ -5,8 +5,8 @@ namespace Game {
     return "Menu";
   };
 
-  Menu::Menu(string spriteSheet, Box box) 
-  : Object2D(spriteSheet, box) {};
+  Menu::Menu(string sprite_sheet, Box box) 
+  : Object2D(sprite_sheet, box) {};
 
   Menu::~Menu() {};
 

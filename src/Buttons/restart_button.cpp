@@ -18,14 +18,14 @@ namespace Game{
   RestartButton::~RestartButton() {};
 
   RestartButton* RestartButton::create() {
-    RestartButton* restartButton = new RestartButton("restart_button.png", Box(53, 16, 106, 32));
-    restartButton->animate(1, 1, 0, false);
-    restartButton->pausable = false;
-    restartButton->depth = 500;
-    restartButton->position = CENTER;
-    restartButton->scale(3);
+    RestartButton* restart_button = new RestartButton("restart_button.png", Box(53, 16, 106, 32));
+    restart_button->animate(1, 1, 0, false);
+    restart_button->pausable = false;
+    restart_button->depth = 500;
+    restart_button->position = CENTER;
+    restart_button->scale(3);
 
-    GameProcess::add(restartButton);
-    return restartButton;
+    GameProcess::add(restart_button);
+    return restart_button;
   };
 };
