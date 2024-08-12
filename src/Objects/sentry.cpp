@@ -12,11 +12,14 @@ namespace Game {
   void Sentry::step() {
     this->attack_delay.tick();
     const Base* base = Base::get();
+
     this->energized = base != nullptr && base->clip.get() > 0;
     if(!this->energized && this->animation_finished) {
       this->animate(1, 1, int(!this->right), false);
       return;
     };
+
+    if(base == nullptr) return;
 
     Enemy* nearest = nullptr;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
@@ -51,7 +54,7 @@ namespace Game {
 
   void Sentry::shoot() {
     Bullet* bullet = Bullet::create(this, true);
-    bullet->damage = this->damage;
+    bullet->damage = 50;
     bullet->can_be_blocked = false;
     bullet->depth = 225;
     bullet->direction = this->rotation + 180;
