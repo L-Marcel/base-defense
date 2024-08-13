@@ -7,27 +7,32 @@ namespace Game {
   };
 
   void GameProcess::pause(bool shop) {
+    if(GameProcess::gp->restarted) return;
     GameProcess::gp->paused = true;
     if(shop) GameProcess::navigate(ShopMenu::create());
     else GameProcess::navigate(PauseMenu::create());
   };
 
-    void GameProcess::defeat() {
+  void GameProcess::defeat() {
+    if(GameProcess::gp->restarted) return;
     GameProcess::gp->paused = true;
     GameProcess::navigate(DefeatMenu::create());
   };
 
   void GameProcess::victory() {
+    if(GameProcess::gp->restarted) return;
     GameProcess::gp->paused = true;
     GameProcess::navigate(VictoryMenu::create());
   };
 
   void GameProcess::resume() {
+    if(GameProcess::gp->restarted) return;
     GameProcess::gp->paused = false;
     GameProcess::navigate();
   };
   
   void GameProcess::navigate(Menu* menu) {
+    if(GameProcess::gp->restarted) return;
     Input::update();
     Mouse::update();
     if(GameProcess::gp->menu != nullptr) GameProcess::gp->menu->close();
