@@ -11,8 +11,7 @@ namespace Game {
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;
-      using Object2D::Object2D;
-      virtual ~AmmoKit();
+      ~AmmoKit();
       
       /// @brief Cria uma instancia do AmmoKit
       /// @param enemyPosition a posição do kit
@@ -20,6 +19,7 @@ namespace Game {
 
       static const unsigned int charge;
     protected:
+      using Object2D::Object2D;
       Timer timer;
   };
 };

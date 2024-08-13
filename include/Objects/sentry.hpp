@@ -25,6 +25,7 @@ namespace Game {
       Timer attack_delay;
 
       Sound shoot_sound = Sound("shoot.mp3");
+      Point target;
     protected:
       /// @brief Cria uma instância da sentinela
       /// @param sprite_sheet página de textura do sprite da sentinela

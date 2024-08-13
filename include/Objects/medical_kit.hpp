@@ -11,7 +11,6 @@ namespace Game {
       using Object2D::collision;
       using Object2D::draw;
       using Object2D::free;
-      using Object2D::Object2D;
       virtual ~MedicalKit();
 
       /// @brief Cria uma instancia do MedicalKit
@@ -20,6 +19,7 @@ namespace Game {
 
       static const float heal;
     protected:
+      using Object2D::Object2D;
       Timer timer;
   };
 };
