@@ -14,7 +14,7 @@ namespace Game {
   };
 
   void Ammo::consume(unsigned int amount) {
-    if(amount > this->total) {
+    if(amount >= this->total) {
       this->total = 0;
     } else {
       this->total = this->total - amount;

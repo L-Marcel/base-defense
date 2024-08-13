@@ -15,10 +15,10 @@ namespace Game {
           return "Cura imediatamente " + to_string(int(item->upgrade() * 100)) + "% de vida";
         },
         [](Item* item) {
-          Player::get()->health.heal(item->upgrade() * Player::get()->health.get());
+          Player::get()->health.heal(item->upgrade() * Player::get()->health.getLimit());
         },
         []() {
-          return 10 + round(0.25 * Player::get()->health.get());
+          return 10 + round(0.25 * Player::get()->health.getLimit());
         },
         GUARANTEED
       )

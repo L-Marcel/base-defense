@@ -87,7 +87,6 @@ namespace Game {
   };
   
   Player::~Player() {
-    if(!GameProcess::in("DefeatMenu")) GameProcess::defeat();
     Player::player = nullptr;
   };
 

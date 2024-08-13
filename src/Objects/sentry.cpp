@@ -21,25 +21,37 @@ namespace Game {
 
     if(base == nullptr) return;
 
-    Enemy* nearest = nullptr;
+    bool has_target = false;
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
-      string type = collider->type();
-      if(
-        type == "Enemy" &&
-        (
-          nearest == nullptr || 
-          Math::pointDistance(this->position, collider->position) < Math::pointDistance(this->position, nearest->position)
-        )
-      ) nearest = (Enemy*) collider;
+      if(collider->type() == "Enemy" && this->target == collider->position) {
+        has_target = true;
+        break;
+      };
     };
 
-    if(nearest != nullptr) {
-      this->direction = Math::pointDirection(this->position - nearest->position);
+    if(!has_target) {
+      for(unsigned int i = 0; i < this->colliders.length(); i++) {
+        Object2D* collider = this->colliders.get(i);
+        string type = collider->type();
+        if(type == "Enemy" &&
+          (
+            !has_target ||
+            Math::pointDistance(this->position, collider->position) < Math::pointDistance(this->position, target)
+          )
+        ) {
+          this->target = collider->position;
+          has_target = true;
+        };
+      };
+    };
+
+    if(has_target) {
+      this->direction = Math::pointDirection(this->position - this->target);
       this->rotation = this->direction;
 
-      if(this->attack_delay.isFinished()) {
-        float chance = (float(rand()) / RAND_MAX);
+      if(this->attack_delay.isFinished() && base->clip.get() > 0) {
+        float chance = (rand() % 10000) / 100.0;
         if(chance >= (this->not_consume_ammo_chance / 100.0)) {
           base->clip.consume(1);
         };

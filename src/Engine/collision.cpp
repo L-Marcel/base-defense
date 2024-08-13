@@ -2,7 +2,7 @@
 
 namespace Game{
 	void Collision::destroy() {
-		if(this->object) {
+		if(this->object != nullptr) {
 			this->object->collisions.remove(this);
 		};
 

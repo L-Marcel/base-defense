@@ -46,7 +46,7 @@ namespace Game {
         pause_requested && this->paused && 
         (this->in("PauseMenu") || this->in("ResolutionMenu"))
       ) this->resume();
-      else if(pause_requested && this->menu == nullptr) this->pause();
+      else if(pause_requested && this->menu == nullptr) this->pause(false);
       
       if(this->paused && GameProcess::theme_music.getStatus() != Music::Paused)
         GameProcess::theme_music.pause();
@@ -62,13 +62,13 @@ namespace Game {
   void GameProcess::clear() {
     this->restarted = true;
     this->menu = nullptr;
-    this->queue_free.clear();
-
-    while(this->objects.length() > 0) {
-      Object* object = this->objects.get(0);
-      this->objects.remove(object);
-      object->free();
+    
+    for(unsigned int i = 0; i < this->objects.length(); i++) {
+      this->objects.get(i)->free();
     };
+
+    this->objects.clear();
+    this->queue_free.clear();
   };
 
   bool GameProcess::isRunning() {
@@ -115,7 +115,12 @@ namespace Game {
 
     for(unsigned int i = 0; i < this->queue_free.length(); i++) {
       Object* object = this->queue_free.get(i);
+      string type = object->type();
       this->objects.remove(object);
+      if(
+        (type == "Player" || type == "Base") &&
+        !GameProcess::in("DefeatMenu")
+      ) GameProcess::defeat();
       object->free();
     };
 
