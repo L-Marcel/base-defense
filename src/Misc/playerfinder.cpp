@@ -51,6 +51,7 @@ namespace Game {
     float range
   ) {
     const Player* player = Player::get();
+    if(player == nullptr) return Segment(position);
 
     if(player->safe) {
       this->path = Segment();
@@ -140,6 +141,7 @@ namespace Game {
   };
 
   bool Playerfinder::isFacingPlayer(Point position) {
+    if(Player::get() == nullptr) return false;
     Segment path(position, Player::get()->position);
     bool has_any_intersection =
       (this->ab & path && path.end.y > this->ab.start.y && this->ab != path) ||

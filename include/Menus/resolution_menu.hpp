@@ -5,10 +5,10 @@ namespace Game{
   class ResolutionMenu : public Menu {
     public:
       virtual string type();
-      using Object2D::step;
-      using Object2D::collision;
-      using Object2D::draw;
-      using Object2D::free;
+      using Menu::step;
+      using Menu::collision;
+      using Menu::draw;
+      using Menu::free;
       ~ResolutionMenu();
 
       /// @brief Cria uma instância do menu de pausa

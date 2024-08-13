@@ -6,9 +6,9 @@ namespace Game{
     public:
       virtual string type();
       virtual void step();
-      using Object2D::collision;
-      using Object2D::draw;
-      using Object2D::free;
+      using Menu::collision;
+      using Menu::draw;
+      using Menu::free;
       ~ShopMenu();
 
       /// @brief Cria uma instância do menu de pausa
