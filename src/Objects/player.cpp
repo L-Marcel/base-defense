@@ -40,12 +40,13 @@ namespace Game {
     for(unsigned int i = 0; i < this->colliders.length(); i++) {
       Object2D* collider = this->colliders.get(i);
       string type = collider->type();
-      if(type == "Bullet"){
+      if(type == "Bullet") {
         Bullet* bullet = (Bullet*) collider;
         if(!bullet->is_ally && !collider->destroyed()){
           collider->destroy();
           this->health.damage(bullet->damage);
-        }
+          if(this->free_queued) return;
+        };
       } else if(type == "MedicalKit") {
         collider->destroy();
         this->health.heal(MedicalKit::heal);

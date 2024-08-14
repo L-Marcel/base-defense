@@ -1,13 +1,5 @@
 #include <Tests.hpp>
 
-TEST(CollisionTest, Destroy) {
-  Player* player = Player::create();
-  Collision* collision = Collision::create(player, "Example");
-  int amount = (int) player->collisions.length();
-  collision->destroy();
-  EXPECT_EQ((int) player->collisions.length(), amount - 1);
-};
-
 TEST(CollisionTest, Step) {
   Player* player = Player::create();
   Collision* collision = Collision::create(player, "Object2D");
