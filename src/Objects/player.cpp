@@ -42,7 +42,7 @@ namespace Game {
       string type = collider->type();
       if(type == "Bullet"){
         Bullet* bullet = (Bullet*) collider;
-        if(!bullet->is_ally){
+        if(!bullet->is_ally && !collider->destroyed()){
           collider->destroy();
           this->health.damage(bullet->damage);
         }
@@ -96,8 +96,7 @@ namespace Game {
       bullet->damage = this->damage;
       bullet->can_be_blocked = can_be_blocked;
 
-      float chance = (float(rand()) / RAND_MAX);
-      if(chance >= (this->not_consume_ammo_chance / 100.0)) {
+      if(Math::randomChance() >= (this->not_consume_ammo_chance / 100.0)) {
         this->clip.consume(1);
       };
 

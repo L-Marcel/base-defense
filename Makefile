@@ -2,7 +2,7 @@
 ## Isso aqui foi gerado usando IA, ok?
 ## ================================= ##
 
-FLAGS = -g -Wall -pedantic -Iinclude
+FLAGS = -g -Wall -Wextra -pedantic -Iinclude
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 LINUX_FLAGS = -lFLAC -lfreetype -logg -lopenal -lvorbis -lvorbisenc -lvorbisfile
 SRC_DIR = src
@@ -35,6 +35,9 @@ SFML_FLAGS += $(LINUX_FLAGS)
 endif
 
 all: $(EXEC) $(TEST_EXEC)
+
+valgrind: $(EXEC)
+	$(ENV) && valgrind --suppressions=./suppressions.supp --leak-check=full --show-leak-kinds=definite,possible --track-origins=yes --log-file=valgrind.log $(EXEC)
 
 run: $(EXEC)
 	$(ENV) && $(EXEC)
@@ -71,4 +74,4 @@ clean:
 	@$(RM) $(EXEC)
 	@$(RM) $(TEST_EXEC)
 
-.PHONY: all run dev compile test clean
+.PHONY: all valgrind run dev compile test clean
