@@ -23,16 +23,16 @@
         ```
         sudo apt install libopenal-dev
         ```
-- Dentro da raíz do projeto, execute `make dev` e vai compilar e executar o jogo.
+- Dentro da raiz do projeto, execute `make dev` e irá compilar e executar o jogo.
 
 ## Lista de comandos
-- `make` - vai compilar tanto o jogo como os testes;
-- `make test` - vai compilar e executar os testes;
-- `make dev` - vai compilar e executar o jogo;
-- `make run` - vai executar o jogo (se compilado);
-- `make compile` - vai compilar o jogo;
-- `make clean` - vai limpar o `_build`;
-- `make valgrind` - vai compilar e executar o jogo usando o `valgrind` (fica bem mais lento e precisa ter o `valgrind` instalado).
+- `make` - irá compilar tanto o jogo como os testes;
+- `make test` - irá compilar e executar os testes;
+- `make dev` - irá compilar e executar o jogo;
+- `make run` - irá executar o jogo (se compilado);
+- `make compile` - irá compilar o jogo;
+- `make clean` - irá limpar o `_build`;
+- `make valgrind` - irá compilar e executar o jogo usando o `valgrind` (fica bem mais lento e precisa ter o `valgrind` instalado).
 
 # Sobre o jogo
 Defenda sua base para sobreviver e passar por hordas inteiras de inimigos que querem sua cabeça nesse jogo produzido como projeto da disciplina de `Linguagem de Programação` ofertada na `UFRN`.
@@ -57,7 +57,7 @@ Exceto pela música, sons e fontes, todos os `assets` utilizados no jogo foram f
 Esperamos não ter esquecido ninguém. Deixamos as licenças dentro do repositório.
 
 ## Como jogar
-Proteja sua base, saia para coletar munição e vida quando necessário, junte moedas derrotando inimigos e faça a melhor sequência de melhorias que conseguir; evite atirar em direção a própria base quando estiver fora dela, pois suas balas também causaram dano a elas; evite o máximo de dano que puder fora da base e saiba tirar proveito das suas sentinelas.
+Proteja sua base, saia para coletar munição e vida quando necessário, junte moedas derrotando inimigos e faça a melhor sequência de melhorias que conseguir; evite atirar em direção à própria base quando estiver fora dela, pois suas balas também causarão dano a ela; evite o máximo de dano que puder fora da base e saiba tirar proveito das suas sentinelas.
 
 ### Controles
 - `Botão direito do mouse`: andar;
@@ -91,7 +91,7 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
   - `+20%` / `+20%` / `+30%` / `+40%`.
 ### Épicas
 - Ganha `20%` de chance de não consumir bala do pente (inclui sentinelas);
-- Disparos contra a própria base não causam mais dano;
+- Disparos contra à própria base não causam mais dano;
 - Balas ricocheteadas causam dano aos inimigos.
 
 # Recursos implementados
@@ -102,13 +102,13 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
 - `Base`: a base é uma área segura para o jogador, os muros dela refletem as balas vindas de fora, mas sem deixar de tomar dano. O jogador pode sair e entrar livremente dela e nenhum inimigo pode entrar nela. As torres da base recebem dano reduzido;
 - `Disparo`: o jogador pode disparar uma bala na direção do mouse ao custo de sua munição apertando/segurando a tecla `Q` ou o `botão esquerdo do mouse`. Os inimigos também disparam, mas não possuem limite de munição;
 - `Otimização`: balas fora do mapa são destruídas e as páginas de texturas só são carregadas uma única vez;
-- `Sentinelas`: a base acompanha um total de 4 sentinelas que atacam os inimigos que se aproximam delas automaticamente. Elas são extremamente lentas e consomente a munição do jogador que não está no pente da arma dele, mas causam bastante dano e podem receber melhorias na loja;
+- `Sentinelas`: a base acompanha um total de 4 sentinelas que atacam os inimigos que se aproximam delas automaticamente. Elas são extremamente lentas e consomem a munição do jogador que não está no pente da arma dele, mas causam bastante dano e podem receber melhorias na loja;
 - `Hordas`: o jogo é dividido 15 hordas, cada uma mais difícil que a anterior. O jogador vence o jogo se sobreviver a todas elas. Durante uma horda uma quantidade fixa de inimigos surgem nas borda do mapa aleatoriamente, quando todos são derrotados a horda termina;
 - `Reparo da base`: o jogador repara a base automaticamente enquanto estiver dentro dela, mas é uma ação lenta. Se ele estiver em movimento a velocidade do reparo é diminuída;
 - `Espólios`: ao derrotar um inimigo, ele tem chance de deixa cair um kits de `vida` ou `munição`. Os kits somem após um tempo;
 - `Loja`: no final de cada horda o jogador pode comprar melhorias e/ou benefícios usando moedas. O jogador recebe uma quantidade de moedas quando derrota um inimigo e que pode variar um pouco;
-- `Pausa`: o jogo pode ser pausado apertando `Esc`. Um menu aparecerá dando algumas opçãoes, entre elas a de fechar o jogo;
-- `Resoluções`: no menu de pausa há um botão de opções que leva a um menu de configuração de resolução. Há três resolução configuradas e a opção de tela cheia.
+- `Pausa`: o jogo pode ser pausado apertando `Esc`. Um menu aparecerá dando algumas opções, entre elas a de fechar o jogo;
+- `Resoluções`: no menu de pausa há um botão de opções que leva a um menu de configuração de resolução. Há três resoluções configuradas e a opção de tela cheia.
 
 # Recursos do C++ usados
 - `vector`:
@@ -132,4 +132,4 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
 
 # Recursos de bibliotecas externas usados
 - `SFML` - recursos da gráficos e sonoros do `SFML`;
-- `gtest` e `gmock` - biblitecas do `googletest` usadas nos [`tests`](tests).
+- `gtest` e `gmock` - bibliotecas do `googletest` usadas nos [`tests`](tests).
