@@ -1,3 +1,6 @@
+# Base Defense
+[![THUMBNAIL](/assets/thumbnail.png)](https://www.youtube.com/watch?v=HMqWopFdOXg)
+
 # Sumário
 - [Instruções para compilar e executar](#instruções-para-compilar-e-executar):
   - [Lista de comandos](#comandos-gerais);
@@ -30,18 +33,25 @@
 - `make dev` - vai compilar e executar o jogo;
 - `make run` - vai executar o jogo (se compilado);
 - `make compile` - vai compilar o jogo;
-- `make clean` - vai limpar o `_build`.
-- `make valgrind` - vai compilar e executar o jogo usando o valgrind (fica bem mais lento);
+- `make clean` - vai limpar o `_build`;
+- `make valgrind` - vai compilar e executar o jogo usando o `valgrind` (fica bem mais lento e precisa ter o `valgrind` instalado).
 
 # Sobre o jogo
 Defenda sua base para sobreviver e passar por hordas inteiras de inimigos que querem sua cabeça nesse jogo produzido como projeto da disciplina de `Linguagem de Programação` ofertada na `UFRN`.
 
 ## Autores
-Observações: exceto pelas músicas e sons, todos os `assets` utilizado no jogo foram feitos por nós.
 - [`Antonio Henrique Barbosa Lima`](https://github.com/HenriqueeeBL);
 - [`Arthur Queiroz Pires de Farias`](https://github.com/MisterR2);
 - [`Lucas Marcel Silva de Brito`](https://github.com/L-Marcel);
 - [`Pedro Paulo Galvão Galindo de Oliveira`](https://github.com/Pedr0P4).
+
+Exceto pela música, sons e fontes, todos os `assets` utilizados no jogo foram feitos por nós. Quanto ao restante do material, agradecemos:
+
+- Pixeloid: pelas fontes;
+- Jdsherbert: por alguns sons;
+- Shapeforms: pela música e por alguns sons.
+
+Esperamos não ter esquecido ninguém. Deixamos as licenças dentro do repositório.
 
 ## Como jogar
 Proteja sua base, saia para coletar munição e vida quando necessário, junte moedas derrotando inimigos e faça a melhor sequência de melhorias que conseguir; evite atirar em direção a própria base quando estiver fora dela, pois suas balas também causaram dano a elas; evite o máximo de dano que puder fora da base e saiba tirar proveito das suas sentinelas.
