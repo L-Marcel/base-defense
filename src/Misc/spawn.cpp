@@ -105,7 +105,10 @@ namespace Game {
     
     Size size = this->rectangle.getSize();
 
-    float local = ((Math::randomChance() - 50.0) / 100.0) / 1.5;
+    bool centered = Math::randomChance() >= 0.5;
+    float local = Math::randomChance() - 0.5;
+    if(centered) local /= 2.0;
+
     if(size.x > size.y) x += local * size.x;
     else y += local * size.y;
     
