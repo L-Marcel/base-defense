@@ -28,6 +28,7 @@ namespace Game {
           if(this->free_queued) {
             Enemy::amount--;
             this->dropKits();
+            return;
           };
         };
       };
