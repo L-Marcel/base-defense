@@ -28,6 +28,10 @@ namespace Game {
     };
   };
 
+  bool Object::destroyed() {
+    return this->free_queued;
+  };
+
   void Object::free() {
     delete this;
   };

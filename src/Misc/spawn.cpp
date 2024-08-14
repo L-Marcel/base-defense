@@ -38,7 +38,7 @@ namespace Game {
       this->shop_delay.start(delay * 4.0);
       this->wave_delay.start(delay * 8.0);
       this->wave = min(int(this->wave + 1), FINAL_WAVE);
-      this->amount = floor((int(this->wave) - 1) * 0.75) + 5; 
+      this->amount = floor((int(this->wave) - 1) * 0.85) + 5; 
       this->spawn_speed += 0.025;
       this->text->setText(to_string(this->wave) + "/" + to_string(FINAL_WAVE));
       this->text->setAlignCenter();
@@ -102,10 +102,12 @@ namespace Game {
 
     float x = this->position.x;
     float y = this->position.y;
-    sf::Vector2f size = this->rectangle.getSize();
+    
+    Size size = this->rectangle.getSize();
 
-    if(size.x > size.y) x += float(rand() /(RAND_MAX / size.x));
-    else y += float(rand() / (RAND_MAX / size.y));
+    float local = ((Math::randomChance() - 50.0) / 100.0);
+    if(size.x > size.y) x += local * size.x;
+    else y += local * size.y;
     
     Enemy::create(x, y);
   };

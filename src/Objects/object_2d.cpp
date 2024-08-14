@@ -34,7 +34,9 @@ namespace Game {
     };
   };
 
-  Object2D::~Object2D() {};
+  Object2D::~Object2D() {
+    delete this->sprite;
+  };
 
   Object2D::Object2D() {};
   Object2D::Object2D(string sprite_sheet, Box box) {
@@ -65,7 +67,7 @@ namespace Game {
     sf::IntRect old = this->sprite->getTextureRect();
     Vector<unsigned int> size = this->sprite->getTexture()->getSize();
 
-    this->sprite->setTextureRect(Box((int(floor(this->image)) * old.width) % (this->frames * old.width), (texture_row * old.height) % size.y, old.width, old.height));
+    this->sprite->setTextureRect(Box((static_cast<int>(floor(this->image)) * old.width) % (this->frames * old.width), (texture_row * old.height) % size.y, old.width, old.height));
   };
 
   void Object2D::scale(float scale) {

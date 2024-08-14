@@ -27,5 +27,9 @@ namespace Game {
     /// @param b o segundo ponto
     /// @return a distância
     double pointDistance(Point a, Point b = Point(0, 0));
+
+    /// @brief Gera um valor flutuante aleatório de 0 a 100
+    /// @return o valor
+    float randomChance();
   };
 };

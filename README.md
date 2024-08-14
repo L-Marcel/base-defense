@@ -31,6 +31,7 @@
 - `make run` - vai executar o jogo (se compilado);
 - `make compile` - vai compilar o jogo;
 - `make clean` - vai limpar o `_build`.
+- `make valgrind` - vai compilar e executar o jogo usando o valgrind (fica bem mais lento);
 
 # Sobre o jogo
 Defenda sua base para sobreviver e passar por hordas inteiras de inimigos que querem sua cabeça nesse jogo produzido como projeto da disciplina de `Linguagem de Programação` ofertada na `UFRN`.
