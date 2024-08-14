@@ -1,10 +1,8 @@
-# Base Defense
-[![THUMBNAIL](/assets/thumbnail.png)](https://www.youtube.com/watch?v=HMqWopFdOXg)
-
 # Sumário
 - [Instruções para compilar e executar](#instruções-para-compilar-e-executar):
   - [Lista de comandos](#comandos-gerais);
 - [Sobre o jogo](#sobre-o-jogo):
+  - [Prévia](#prévia);
   - [Autores](#autores);
   - [Como jogar](#como-jogar):
     - [Controles](#controles).
@@ -38,6 +36,11 @@
 
 # Sobre o jogo
 Defenda sua base para sobreviver e passar por hordas inteiras de inimigos que querem sua cabeça nesse jogo produzido como projeto da disciplina de `Linguagem de Programação` ofertada na `UFRN`.
+
+## Prévia
+Deixamos um vídeo pronto mostrado como é o jogo. Clique [aqui](https://www.youtube.com/watch?v=HMqWopFdOXg) ou na imagem para acessá-lo.
+
+[![THUMBNAIL](/assets/thumbnail.png)](https://www.youtube.com/watch?v=HMqWopFdOXg)
 
 ## Autores
 - [`Antonio Henrique Barbosa Lima`](https://github.com/HenriqueeeBL);
@@ -119,7 +122,7 @@ Observação: podem ser compradas mais de uma vez na mesma oferta, mas o preço 
 - `iomanip`;
 - `sstream`;
 - `functional`:
-  - Fornece recursos para passar funções como parâmetros ou atributos, útil em alguns casos. Usamos principalmente para construir os itens da loja do jogo sem precisar usar muia herança no [`items.cpp`](src/Misc/items.cpp).
+  - Fornece recursos para passar funções como parâmetros ou atributos, útil em alguns casos. Usamos principalmente para construir os itens da loja do jogo sem precisar usar muita herança no [`items.cpp`](src/Misc/items.cpp).
 - `locale` e `codecvt`:
   - Usadas para utilizarmos textos armazenados no formato de UTF-8.
 - `stdexcept`:
