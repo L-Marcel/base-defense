@@ -16,7 +16,7 @@ namespace Game {
       } else if(type == "Bullet" && collider->depth <= this->depth) {
         Bullet* bullet = (Bullet*) collider;
 
-        if(bullet->can_be_blocked && this->enabled) {
+        if(bullet->can_be_blocked && this->enabled && !collider->destroyed()) {
           bullet->bounce_sound.play();
           bullet->bounce_sound.setVolume(50);
   

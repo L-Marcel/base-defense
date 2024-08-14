@@ -61,10 +61,6 @@ namespace Game {
       /// @return o ponto inicial do segmento, se for o mais próximo, o ponto final, caso contrário
       Point getNearestVertex(Point point);
 
-      /// @brief Iguala um segmento a outro
-      /// @param other o outro segmento
-      void operator=(const Segment& other);
-
       /// @brief Diz se dois segmentos são iguais
       /// @param other o outro segmento
       /// @return `true` se forem, `false` caso contrário

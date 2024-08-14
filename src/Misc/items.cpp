@@ -12,7 +12,7 @@ namespace Game {
           return 0.25;
         },
         [](Item* item) {
-          return "Cura imediatamente " + to_string(int(item->upgrade() * 100)) + "% de vida";
+          return "Cura imediatamente " + to_string(static_cast<int>(item->upgrade() * 100)) + "% de vida";
         },
         [](Item* item) {
           Player::get()->health.heal(item->upgrade() * Player::get()->health.getLimit());
@@ -31,7 +31,7 @@ namespace Game {
           return 0.25;
         },
         [](Item* item) {
-          return "Repara imediatamente " + to_string(int(item->upgrade() * 100)) + "% da base";
+          return "Repara imediatamente " + to_string(static_cast<int>(item->upgrade() * 100)) + "% da base";
         },
         [](Item* item) {
           Base::get()->health.heal(item->upgrade() * Base::get()->health.getLimit());
@@ -50,7 +50,7 @@ namespace Game {
           return 0.25;
         },
         [](Item* item) {
-          return "Restaura imediatamente " + to_string(int(item->upgrade() * 100)) + "% da munição";
+          return "Restaura imediatamente " + to_string(static_cast<int>(item->upgrade() * 100)) + "% da munição";
         },
         [](Item* item) {
           Base::get()->clip.recharge(item->upgrade() * Base::get()->clip.getLimit());
@@ -74,10 +74,10 @@ namespace Game {
           else if(count > 2) boost = 30;
           else if(count > 1) boost = 20;
 
-          return float(boost);
+          return static_cast<float>(boost);
         },
         [](Item* item) {
-          return "Aumenta a vida da base em +" + to_string(int(item->upgrade())) + " pontos";
+          return "Aumenta a vida da base em +" + to_string(static_cast<int>(item->upgrade())) + " pontos";
         },
         [](Item* item) {
           Base::get()->health.upgrade(item->upgrade());
@@ -101,10 +101,10 @@ namespace Game {
           else if(count > 2) boost = 30;
           else if(count > 1) boost = 20;
 
-          return float(boost);
+          return static_cast<float>(boost);
         },
         [](Item* item) {
-          return "Aumenta a vida em +" + to_string(int(item->upgrade())) + " pontos";
+          return "Aumenta a vida em +" + to_string(static_cast<int>(item->upgrade())) + " pontos";
         },
         [](Item* item) {
           Player::get()->health.upgrade(item->upgrade());
@@ -124,7 +124,7 @@ namespace Game {
           return 2.0;
         },
         [](Item* item) {
-          return "Aumenta a munição do pente em +" + to_string(int(item->upgrade())) + " balas";
+          return "Aumenta a munição do pente em +" + to_string(static_cast<int>(item->upgrade())) + " balas";
         },
         [](Item* item) {
           Player::get()->clip.upgrade(item->upgrade());
@@ -147,10 +147,10 @@ namespace Game {
           if(count > 3) boost = 6;
           else if(count > 1) boost = 4;
 
-          return float(boost);
+          return static_cast<float>(boost);
         },
         [](Item* item) {
-          return "Aumenta a munição em +" + to_string(int(item->upgrade())) + " balas";
+          return "Aumenta a munição em +" + to_string(static_cast<int>(item->upgrade())) + " balas";
         },
         [](Item* item) {
           Base::get()->clip.upgrade(item->upgrade());
@@ -171,7 +171,7 @@ namespace Game {
           return 1.1 + (0.1 * count);
         },
         [](Item* item) {
-          return "Aumenta a velocidade de disparo em +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "%";
+          return "Aumenta a velocidade de disparo em +" + to_string(static_cast<int>(round((item->upgrade() - 1.0) * 100.0))) + "%";
         },
         [](Item* item) {
           Player::get()->attack_speed *= item->upgrade();
@@ -192,7 +192,7 @@ namespace Game {
           return 1.1 + (0.05 * count);
         },
         [](Item* item) {
-          return "O reparo da base fica +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "% rápido";
+          return "O reparo da base fica +" + to_string(static_cast<int>(round((item->upgrade() - 1.0) * 100.0))) + "% rápido";
         },
         [](Item* item) {
           Base::get()->regeneration *= item->upgrade();
@@ -213,7 +213,7 @@ namespace Game {
           return 1.1 + (0.05 * count);
         },
         [](Item* item) {
-          return "A recuperação de vida fica +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "% rápida";
+          return "A recuperação de vida fica +" + to_string(static_cast<int>(round((item->upgrade() - 1.0) * 100.0))) + "% rápida";
         },
         [](Item* item) {
           Player::get()->regeneration *= item->upgrade();
@@ -234,7 +234,7 @@ namespace Game {
           return 1.2 + (0.1 * max(count - 1, 0));
         },
         [](Item* item) {
-          return "Aumenta a velocidade de disparo das sentinelas em +" + to_string(int(round((item->upgrade() - 1.0) * 100.0))) + "%";
+          return "Aumenta a velocidade de disparo das sentinelas em +" + to_string(static_cast<int>(round((item->upgrade() - 1.0) * 100.0))) + "%";
         },
         [](Item* item) {
           Sentry::attack_speed *= item->upgrade();
@@ -254,7 +254,7 @@ namespace Game {
           return 0.2;
         },
         [](Item* item) {
-          return "Ganha " + to_string(int(item->upgrade() * 100)) + "% de chance de não consumir bala do pente (inclui sentinelas)";
+          return "Ganha " + to_string(static_cast<int>(item->upgrade() * 100)) + "% de chance de não consumir bala do pente (inclui sentinelas)";
         },
         [](Item* item) {
           Player::get()->not_consume_ammo_chance = item->upgrade();
@@ -273,10 +273,12 @@ namespace Game {
         []() {
           return 0;
         },
-        [](Item* item) {
+        [](Item* _) {
+          (void)_;
           return "Disparos contra a própria base não causam mais dano";
         },
-        [](Item* item) {
+        [](Item* _) {
+          (void)_;
           Base::friendly_fire = false;
         },
         []() {
@@ -292,10 +294,12 @@ namespace Game {
         []() {
           return 0;
         },
-        [](Item* item) {
+        [](Item* _) {
+          (void)_;
           return "Balas ricocheteadas causam dano aos inimigos";
         },
-        [](Item* item) {
+        [](Item* _) {
+          (void)_;
           Base::vengeful_bullets = true;
         },
         []() {

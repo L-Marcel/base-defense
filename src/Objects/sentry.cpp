@@ -15,7 +15,7 @@ namespace Game {
 
     this->energized = base != nullptr && base->clip.get() > 0;
     if(!this->energized && this->animation_finished) {
-      this->animate(1, 1, int(!this->right), false);
+      this->animate(1, 1, static_cast<int>(!this->right), false);
       return;
     };
 
@@ -51,15 +51,14 @@ namespace Game {
       this->rotation = this->direction;
 
       if(this->attack_delay.isFinished() && base->clip.get() > 0) {
-        float chance = (rand() % 10000) / 100.0;
-        if(chance >= (this->not_consume_ammo_chance / 100.0)) {
+        if(Math::randomChance() >= (this->not_consume_ammo_chance / 100.0)) {
           base->clip.consume(1);
         };
         
         this->shoot();
       };
     } else if(this->animation_finished) {
-      this->animate(1, 1, 2 + int(!this->right), false);
+      this->animate(1, 1, 2 + static_cast<int>(!this->right), false);
       this->attack_delay.start(1/this->attack_speed);
     };
   };
@@ -80,7 +79,7 @@ namespace Game {
 
     this->shoot_sound.setPitch(1 + ((rand() % 6) - 3) * 0.125);
     this->shoot_sound.play();
-    this->animate(8, 6, 4 + int(!this->right), false);
+    this->animate(8, 6, 4 + static_cast<int>(!this->right), false);
     this->right = !this->right;
     this->attack_delay.start(1/this->attack_speed);
   };
