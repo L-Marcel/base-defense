@@ -8,9 +8,9 @@ namespace Game {
   void Object2D::step() {};
 
   void Object2D::collision() { 
-    if(this->hasCircle){
+    if(this->has_circle){
       this->circle.setPosition(this->position.x, this->position.y);
-    } else if(this->hasRectangle) {
+    } else if(this->has_rectangle) {
       this->rectangle.setPosition(this->position.x, this->position.y);
     };
 
@@ -22,9 +22,9 @@ namespace Game {
   };
 
   void Object2D::draw() {
-    if(this->hasCircle){
+    if(this->has_circle){
       this->circle.setPosition(this->position.x, this->position.y);
-    } else if(this->hasRectangle) {
+    } else if(this->has_rectangle) {
       this->rectangle.setPosition(this->position.x, this->position.y);
     };
 
@@ -35,34 +35,17 @@ namespace Game {
   };
 
   Object2D::~Object2D() {
-    if(this->sprite != nullptr) {
-      delete this->sprite->getTexture();
-      delete this->sprite;
-    };
+    delete this->sprite;
   };
 
   Object2D::Object2D() {};
-  Object2D::Object2D(string spriteSheet, Box box) {
-    Texture* texture = new Texture();
-    this->sprite = new Sprite();
-
-    if(texture->loadFromFile("assets/sprites/" + spriteSheet)){
-      this->sprite->setTexture(*texture);
-      Vector<int> pos = box.getPosition();
-      box.top = 0;
-      box.left = 0;
-
-      this->fps = 0;
-      this->sprite->setTextureRect(box);
-      this->sprite->setOrigin(pos.x, pos.y);
-      this->sprite->setScale(1, 1);
-    } else {
-      throw new TextureNotFound(spriteSheet);
-    };
+  Object2D::Object2D(string sprite_sheet, Box box) {
+    this->sprite = Sprites::load("assets/sprites/" + sprite_sheet, box);
+    this->fps = 0;
   };
 
-  Object2D* Object2D::create(string spriteSheet, Box box) {
-    Object2D* instance = new Object2D(spriteSheet, box);
+  Object2D* Object2D::create(string sprite_sheet, Box box) {
+    Object2D* instance = new Object2D(sprite_sheet, box);
     GameProcess::add(instance);
     return instance;
   };
@@ -76,7 +59,7 @@ namespace Game {
     delete this;
   };
 
-  void Object2D::animate(float fps, unsigned short int frames, unsigned short int textureRow, bool loop, float image) {
+  void Object2D::animate(float fps, unsigned short int frames, unsigned short int texture_row, bool loop, float image) {
     this->image = image;
     this->frames = frames;
     this->loop = loop;
@@ -84,34 +67,34 @@ namespace Game {
     sf::IntRect old = this->sprite->getTextureRect();
     Vector<unsigned int> size = this->sprite->getTexture()->getSize();
 
-    this->sprite->setTextureRect(Box((int(floor(this->image)) * old.width) % (this->frames * old.width), (textureRow * old.height) % size.y, old.width, old.height));
+    this->sprite->setTextureRect(Box((static_cast<int>(floor(this->image)) * old.width) % (this->frames * old.width), (texture_row * old.height) % size.y, old.width, old.height));
   };
 
   void Object2D::scale(float scale) {
     this->sprite->setScale(scale, scale);
   };
 
-  void Object2D::scale(float xScale, float yScale) {
-    this->sprite->setScale(xScale, yScale);
+  void Object2D::scale(float x_scale, float y_scale) {
+    this->sprite->setScale(x_scale, y_scale);
   };
 
   void Object2D::setRectangle(float width, float height){
-    if(this->hasCircle) return;
+    if(this->has_circle) return;
 
     this->rectangle.setSize(Point(width, height));
     this->rectangle.setOrigin(width/2, height/2);
     this->rectangle.setPosition(this->position.x, this->position.y);
-    this->rectangleWidth = width;
-    this->rectangleHeight = height;
-    this->hasRectangle = true;
+    this->rectangle_width = width;
+    this->rectangle_height = height;
+    this->has_rectangle = true;
   };
 
   void Object2D::setCircle(float radius){
-    if(this->hasRectangle) return;
+    if(this->has_rectangle) return;
     this->circle.setRadius(radius);
     this->circle.setOrigin(radius, radius);
     this->circle.setPosition(this->position.x, this->position.y);
-    this->circleRadius = radius;
-    this->hasCircle = true;
+    this->circle_radius = radius;
+    this->has_circle = true;
   };
 };

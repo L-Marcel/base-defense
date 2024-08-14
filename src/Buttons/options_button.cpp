@@ -8,6 +8,7 @@ namespace Game{
 
   void OptionsButton::step() {
     if(this->isHovered()) {
+      if(Mouse::isLeftPressed()) GameProcess::click_sound.play();
       if(Mouse::isLeftDown()) this->animate(1, 1, 2, false);
       else this->animate(1, 1, 1, false);
 
@@ -18,14 +19,14 @@ namespace Game{
   OptionsButton::~OptionsButton() {};
 
   OptionsButton* OptionsButton::create() {
-    OptionsButton* optionsButton = new OptionsButton("options_button.png", Box(53, 16, 106, 32));
-    optionsButton->animate(1, 1, 0, false);
-    optionsButton->pausable = false;
-    optionsButton->depth = 500;
-    optionsButton->position = CENTER;
-    optionsButton->scale(3);
+    OptionsButton* options_button = new OptionsButton("options_button.png", Box(53, 16, 106, 32));
+    options_button->animate(1, 1, 0, false);
+    options_button->pausable = false;
+    options_button->depth = 500;
+    options_button->position = CENTER;
+    options_button->scale(3);
 
-    GameProcess::add(optionsButton);
-    return optionsButton;
+    GameProcess::add(options_button);
+    return options_button;
   };
 };

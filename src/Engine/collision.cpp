@@ -2,10 +2,6 @@
 
 namespace Game{
 	void Collision::destroy() {
-		if(this->object) {
-			this->object->collisions.remove(this);
-		};
-
 		delete this;
 	};
 
@@ -15,9 +11,9 @@ namespace Game{
 			if(candidate->type() == this->collider && this->object != candidate) {
 				Object2D* collider = (Object2D*) candidate;
 				if(
-					hasCirclesCollision(this->object, collider) ||
-					hasCircleAndRectangleCollision(this->object, collider) ||
-					hasRectanglesCollision(this->object, collider)
+					has_circles_collision(this->object, collider) ||
+					has_circle_and_rectangle_collision(this->object, collider) ||
+					has_rectangles_collision(this->object, collider)
 				) {
 					this->object->colliders.add(collider);
 				};
@@ -25,15 +21,17 @@ namespace Game{
 		};
 	};
 
-	bool Collision::hasCirclesCollision(Object2D* first, Object2D* second) {
-		if(!first->hasCircle || !second->hasCircle) return false;
+	bool Collision::has_circles_collision(Object2D* first, Object2D* second) {
+		if(first == nullptr || second == nullptr) return false;
+    if(!first->has_circle || !second->has_circle) return false;
 		float dist = Math::pointDistance(first->circle.getPosition(), second->circle.getPosition());
 		return dist < (first->circle.getRadius() + second->circle.getRadius());
 	};
 
-	bool Collision::hasCircleAndRectangleCollision(Object2D* first, Object2D* second) {
-		if(!first->hasCircle || !second->hasRectangle) {
-			if(!second->hasCircle || !first->hasRectangle) {
+	bool Collision::has_circle_and_rectangle_collision(Object2D* first, Object2D* second) {
+		if(first == nullptr || second == nullptr) return false;
+    if(!first->has_circle || !second->has_rectangle) {
+			if(!second->has_circle || !first->has_rectangle) {
 				return false;
 			};
 
@@ -50,63 +48,64 @@ namespace Game{
 		float xx = abs(first->circle.getPosition().x - second->rectangle.getPosition().x);
 		float yy = abs(first->circle.getPosition().y - second->rectangle.getPosition().y);
 
-		float dist;
-		float rectHeight = second->rectangle.getSize().y;
-		float rectWidth = second->rectangle.getSize().x;
+		float dist = 0.0;
+		float rect_height = second->rectangle.getSize().y;
+		float rect_width = second->rectangle.getSize().x;
 
-		unsigned short int rectRegion = 1;
+		unsigned short int rect_region = 1;
 
 		if(
-			((cx > rx-rectWidth/2 && cx < rx+rectWidth/2) && cy > ry+rectHeight/2) ||
-			((cx > rx-rectWidth/2 && cx < rx+rectWidth/2) && cy < ry-rectHeight/2)
+			((cx > rx-rect_width/2 && cx < rx+rect_width/2) && cy > ry+rect_height/2) ||
+			((cx > rx-rect_width/2 && cx < rx+rect_width/2) && cy < ry-rect_height/2)
 		) {
-			rectRegion = 1;
+			rect_region = 1;
 			dist = yy;
 		};
 
 		if(
-			((cy > ry-rectHeight/2 && cy < ry+rectHeight/2) && cx > rx+rectWidth/2) ||
-			((cy > ry-rectHeight/2 && cy < ry+rectHeight/2) && cx < rx-rectWidth/2)
+			((cy > ry-rect_height/2 && cy < ry+rect_height/2) && cx > rx+rect_width/2) ||
+			((cy > ry-rect_height/2 && cy < ry+rect_height/2) && cx < rx-rect_width/2)
 		) {
-			rectRegion = 2;
+			rect_region = 2;
 			dist = xx;
 		};
 
 		if(
-			(cx < rx-rectWidth/2 && cy < ry-rectHeight/2) ||
-			(cx > rx+rectWidth/2 && cy < ry-rectHeight/2) ||
-			(cx < rx-rectWidth/2 && cy > ry+rectHeight/2) ||
-			(cx > rx+rectWidth/2 && cy > ry+rectHeight/2)
+			(cx < rx-rect_width/2 && cy < ry-rect_height/2) ||
+			(cx > rx+rect_width/2 && cy < ry-rect_height/2) ||
+			(cx < rx-rect_width/2 && cy > ry+rect_height/2) ||
+			(cx > rx+rect_width/2 && cy > ry+rect_height/2)
 		){
-			if(abs(xx - rectWidth/2) < 17 && abs(xx - rectWidth/2) > 4){
-				rectRegion = 3;
+			if(abs(xx - rect_width/2) < 17 && abs(xx - rect_width/2) > 4){
+				rect_region = 3;
 				dist = (sqrt((xx*xx) + (yy*yy)))+6;
-			} else if(abs(yy - rectHeight/2) < 10){
-				rectRegion = 3;
+			} else if(abs(yy - rect_height/2) < 10){
+				rect_region = 3;
 				dist = (sqrt((xx*xx) + (yy*yy)))+2;
-			} else if(abs(xx - rectWidth/2) <= 4){
-				rectRegion = 3;
+			} else if(abs(xx - rect_width/2) <= 4){
+				rect_region = 3;
 				dist = (sqrt((xx*xx) + (yy*yy)))+10;
 			} else{
-				rectRegion = 3;
+				rect_region = 3;
 				dist = sqrt((xx*xx) + (yy*yy));
 			};
 		};
 
-		switch(rectRegion){
+		switch(rect_region) {
 			case 1:
-				return dist < first->circle.getRadius() + rectHeight/2;
+				return dist < first->circle.getRadius() + rect_height/2;
 			case 2:
-				return dist < first->circle.getRadius() + rectWidth/2;
+				return dist < first->circle.getRadius() + rect_width/2;
 			case 3:
-				return dist < first->circle.getRadius() + Math::pointDistance(Point(rectHeight/2, rectWidth/2));
+				return dist < first->circle.getRadius() + Math::pointDistance(Point(rect_height/2, rect_width/2));
 			default:
 				return false;
 		};
 	};
 
-	bool Collision::hasRectanglesCollision(Object2D* first, Object2D* second) {
-		if(!first->hasRectangle || !second->hasRectangle) return false;
+	bool Collision::has_rectangles_collision(Object2D* first, Object2D* second) {
+		if(first == nullptr || second == nullptr) return false;
+    if(!first->has_rectangle || !second->has_rectangle) return false;
 
 		float x1 = first->rectangle.getPosition().x;
 		float y1 = first->rectangle.getPosition().y;
@@ -123,13 +122,13 @@ namespace Game{
 		float h2 = second->rectangle.getSize().y;
 		float w2 = second->rectangle.getSize().x;
 
-		unsigned short int rectRegion = 1;
+		unsigned short int rect_region = 1;
 
 		if(
 			((x1 >= x2-w2/2 && x1 <= x2+w2/2) && y1 >= y2+h2/2) ||
 			((x1 >= x2-w2/2 && x1 <= x2+w2/2) && y1 <= y2-h2/2)
 		) {
-			rectRegion = 1;
+			rect_region = 1;
 			dist = yy;
 		};
 
@@ -137,7 +136,7 @@ namespace Game{
 			((y1 >= y2-h2/2 && y1 <= y2+h2/2) && x1 >= x2+w2/2) ||
 			((y1 >= y2-h2/2 && y1 <= y2+h2/2) && x1 <= x2-w2/2)
 		) {
-			rectRegion = 2;
+			rect_region = 2;
 			dist = xx;
 		};
 
@@ -147,10 +146,10 @@ namespace Game{
 			(x1 < x2-w2/2 && y1 > y2+h2/2) ||
 			(x1 > x2+w2/2 && y1 > y2+h2/2)
 		) {
-			rectRegion = 3;
+			rect_region = 3;
 		};
 
-		switch(rectRegion){
+		switch(rect_region){
 			case 1:
 				return dist < (h1 + h2)/2;
 			case 2:

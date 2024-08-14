@@ -30,8 +30,12 @@ namespace Game {
       /// @brief Coloca o objeto na lista de objetos a serem apagados
       void destroy();
 
+      /// @brief Diz se o objeto está em fila para ser destruído
+      /// @return `true` se estiver, `false` caso contrário
+      bool destroyed();
+
       /// @brief Cria uma instância do objeto
-      /// @param spriteSheet página de textura do sprite do objeto
+      /// @param sprite_sheet página de textura do sprite do objeto
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
       static Object* create();
 

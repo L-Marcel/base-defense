@@ -15,8 +15,8 @@ namespace Game {
       static Background* create();
     protected:
       /// @brief Cria uma instância do plano de fundo
-      /// @param spriteSheet página de textura do sprite do plano de fundo
+      /// @param sprite_sheet página de textura do sprite do plano de fundo
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Background(string spriteSheet, Box box);
+      Background(string sprite_sheet, Box box);
   };
 };

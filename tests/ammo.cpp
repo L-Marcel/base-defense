@@ -1,16 +1,14 @@
 #include <Tests.hpp>
 
 TEST(AmmoTest, Control) {
-  GameProcess gp;
   Player* player = Player::create();
-  Ammo ammo(player);
 
-  ammo.shoot(1);
-  EXPECT_FLOAT_EQ(ammo.get(), 19.0);
-  ammo.shoot(19);
-  EXPECT_FLOAT_EQ(ammo.get(), 0.0);
-  ammo.recharge(0);
-  EXPECT_FLOAT_EQ(ammo.get(), 0.0);
-  ammo.recharge(20);
-  EXPECT_FLOAT_EQ(ammo.get(), 20.0);
+  player->clip.consume(1);
+  EXPECT_EQ((int) player->clip.get(), 5);
+  player->clip.consume(5);
+  EXPECT_EQ((int) player->clip.get(), 0);
+  player->clip.recharge(0);
+  EXPECT_EQ((int) player->clip.get(), 0);
+  player->clip.recharge(20);
+  EXPECT_EQ((int) player->clip.get(), 6);
 };

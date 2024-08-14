@@ -1,6 +1,5 @@
 #pragma once
 #include <Engine/math.hpp>
-#include <vector>
 
 namespace Game {
   template <typename T> class List {

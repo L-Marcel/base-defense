@@ -28,5 +28,9 @@ namespace Game {
       Point difference = a - b;
       return sqrt((difference.x * difference.x) + (difference.y * difference.y));
     };
+
+    float randomChance() {
+      return static_cast<float>(rand()) / RAND_MAX;
+    };
   };
 };

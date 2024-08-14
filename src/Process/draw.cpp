@@ -13,7 +13,7 @@ namespace Game {
     sf::IntRect old = object->sprite->getTextureRect();
     object->image += object->fps/60.f;
 
-    int image = int(floor(object->image)) * old.width;
+    int image = static_cast<int>(floor(object->image)) * old.width;
 
     if(object->loop) {
       image = image % (object->frames * old.width);
@@ -21,7 +21,7 @@ namespace Game {
       image = min(image, (object->frames - 1) * old.width);
     }
     
-    object->animationFinished = image == (object->frames - 1) * old.width;
+    object->animation_finished = image == (object->frames - 1) * old.width;
     object->sprite->setTextureRect(Box(image, old.top, old.width, old.height));
     object->sprite->setPosition(object->position.x, object->position.y);
     object->sprite->setRotation(object->rotation);

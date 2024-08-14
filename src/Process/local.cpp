@@ -1,10 +1,16 @@
-#include <Engine.hpp>
-#include <Input.hpp>
+#include <Game.hpp>
 
 namespace Game {
   GameProcess* GameProcess::gp = nullptr;
+
+  unsigned int GameProcess::money = 30;
+  Sound GameProcess::open_sound = Sound("open.ogg");
+  Sound GameProcess::click_sound = Sound("click.ogg");
+  Music GameProcess::theme_music = Music("default.ogg");
  
   void GameProcess::execute() {
+    this->restart();
+
     while(this->isRunning()) {
       Time elapsed = this->clock.getElapsedTime();
 
@@ -35,27 +41,34 @@ namespace Game {
 
       if((this->frame)/60 <= elapsed.asSeconds()) this->nextFrame();
 
-      bool pauseRequested = Input::isPressed(Keyboard::Escape);
-      if(pauseRequested && this->paused) this->resume();
-      else if(pauseRequested) this->pause();
-
+      bool pause_requested = Input::isPressed(Keyboard::Escape);
+      if(
+        pause_requested && this->paused && 
+        (this->in("PauseMenu") || this->in("ResolutionMenu"))
+      ) this->resume();
+      else if(pause_requested && this->menu == nullptr) this->pause(false);
+      
+      if(this->paused && GameProcess::theme_music.getStatus() != Music::Paused)
+        GameProcess::theme_music.pause();
+      else if(!this->paused && GameProcess::theme_music.getStatus() == Music::Paused)
+        GameProcess::theme_music.play();
       Input::update();
       Mouse::update();
     };
 
+    this->clear();
+  };
+
+  void GameProcess::clear() {
+    this->restarted = true;
+    this->menu = nullptr;
+    
     for(unsigned int i = 0; i < this->objects.length(); i++) {
-      Object* object = this->objects.get(i);
-      this->objects.remove(object);
-      object->free();
+      this->objects.get(i)->free();
     };
 
     this->objects.clear();
-  };
-
-  void GameProcess::sort() {
-    this->objects.sort([](Object* a, Object* b) {
-      return a->depth <= b->depth;
-    });
+    this->queue_free.clear();
   };
 
   bool GameProcess::isRunning() {
@@ -63,6 +76,15 @@ namespace Game {
   };
 
   void GameProcess::nextFrame() {
+    if(this->restarted && this->objects.length() == 0) {
+      Background::create();
+      Spawn::create();
+      Base::create();
+      Player::create();
+      Interface::create();
+      this->restarted = false;
+    };
+
     if(this->frame < 60) this->frame++;
     else {
       this->frame = 0;
@@ -72,7 +94,7 @@ namespace Game {
     this->window.clear();
 
     if(this->frame_instances_amount != this->objects.length() || !this->objects.isSorted()) {
-      this->sort();
+      GameProcess::sort();
       this->frame_instances_amount = this->objects.length();
     };
 
@@ -85,26 +107,29 @@ namespace Game {
         object->step();
       };
 
+      if(this->restarted) return;
       if(object->visible) object->draw();
     };
 
     this->window.display();
 
-    for(unsigned int i = 0; i < this->queueFree.length(); i++) {
-      Object* object = this->queueFree.get(i);
+    for(unsigned int i = 0; i < this->queue_free.length(); i++) {
+      Object* object = this->queue_free.get(i);
+      string type = object->type();
       this->objects.remove(object);
-      this->queueFree.remove(i);
+      if(
+        (type == "Player" || type == "Base") &&
+        !GameProcess::in("DefeatMenu")
+      ) GameProcess::defeat();
       object->free();
     };
+
+    this->queue_free.clear();
   };
 
   GameProcess::~GameProcess() {
-    for(unsigned int i = 0; i < this->objects.length(); i++) {
-      Object* object = this->objects.get(i);
-      this->objects.remove(object);
-      object->free();
-    };
-
+    Sprites::clear();
+    this->clear();
     this->gp = nullptr;
   };
 
@@ -112,8 +137,12 @@ namespace Game {
     if(this->gp != nullptr) {
       delete this->gp;
     };
-    
+
+    srand(time(NULL));
     this->gp = this;
     this->window.setFramerateLimit(60);
+
+    GameProcess::theme_music.setVolume(30);
+    GameProcess::theme_music.play();
   };
 };

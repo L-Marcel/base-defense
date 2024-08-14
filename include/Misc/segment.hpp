@@ -34,8 +34,8 @@ namespace Game {
       /// @brief Cria um segmento formado pelo ponto incial e o ponto que satisfaz o comprimento máximo do segmento mas está dentro da mesma reta que o ponto final desejado
       /// @param from o ponto inicial
       /// @param to o ponto final
-      /// @param maxLength o comprimento máximo
-      static Segment create(Point from, Point to, float maxLength);
+      /// @param max_length o comprimento máximo
+      static Segment create(Point from, Point to, float max_length);
 
       /// @brief Diz se um determinado ponto pertence ao segmento
       /// @param x a coordenada x do ponto
@@ -60,10 +60,6 @@ namespace Game {
       /// @param point o ponto
       /// @return o ponto inicial do segmento, se for o mais próximo, o ponto final, caso contrário
       Point getNearestVertex(Point point);
-
-      /// @brief Iguala um segmento a outro
-      /// @param other o outro segmento
-      void operator=(const Segment& other);
 
       /// @brief Diz se dois segmentos são iguais
       /// @param other o outro segmento

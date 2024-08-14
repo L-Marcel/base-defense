@@ -1,13 +1,14 @@
 #pragma once
 #include <Engine/collision.hpp>
 #include <Objects.hpp>
+#include <Sound/sound.hpp>
+#include <Sound/music.hpp>
 
 namespace Game {
-  class 
-  GameProcess {
+  class GameProcess {
     protected:
       static GameProcess* gp;
-      List<Object> queueFree;
+      List<Object> queue_free;
       List<Object> objects;
       unsigned int frame_instances_amount = 0;
       Menu* menu = nullptr;
@@ -15,16 +16,22 @@ namespace Game {
       Window window = Window(
         VideoMode(1280, 720), 
         "Base Defense", 
-        sf::Style::Close | sf::Style::Titlebar
+        NORMAL_SCREEN
       );
       
       View view = View(Point(0, 0), Resolution(1280, 720));
       unsigned short int frame = 0;
       bool paused = false;
       bool fullscreen = false;
+      bool restarted = false;
     private:
       Clock clock;
     public:
+      static unsigned int money;
+      static Sound open_sound;
+      static Sound click_sound;
+      static Music theme_music;
+
       /// Métodos de execução =====================
       /// @brief Cria uma instância de processo do jogo
       GameProcess();
@@ -35,8 +42,8 @@ namespace Game {
       /// @brief Inicia o loop do jogo
       void execute();
 
-      /// @brief Reordenada a ordem dos objetos com base no `depth` de cada um
-      void sort();
+      /// @brief Limpa os objetos da memória
+      void clear();
 
       /// @brief Avança o jogo para o próximo frame
       void nextFrame();
@@ -51,14 +58,26 @@ namespace Game {
       static void close();
 
       /// @brief Pausa o jogo
-      static void pause();
+      /// @param shop diz se o menu é a loja
+      static void pause(bool shop = false);
 
       /// @brief Continua o jogo
       static void resume();
 
+      /// @brief Declara fim de jogo
+      static void defeat();
+
+      /// @brief Declara vitória
+      static void victory();
+
       /// @brief Navega entre menus
       /// @param menu o ponteiro para o próximo menu
       static void navigate(Menu* menu = nullptr);
+
+      /// @brief Diz se está ou não em um determinado menu
+      /// @param menu o tipo do menu
+      /// @return `true` se estiver, `false` caso contrário
+      static bool in(string menu);
       /// =========================================
       
       /// Metódos de controle =====================
@@ -78,6 +97,12 @@ namespace Game {
       /// @param index o índice desse objeto
       /// @return o ponteiro para o objeto obtído
       static Object* get(unsigned short int index);
+
+      /// @brief Reordenada a ordem dos objetos com base no `depth` de cada um
+      static void sort();
+
+      /// @brief Reinicia o jogo
+      static void restart();
       /// =========================================
 
       /// Metódos de desenho ======================

@@ -13,15 +13,11 @@ namespace Game {
       ~Tower();
 
       /// @brief Cria uma instância da torre
-      /// @param base a base a qual a torre pertence
-      static Tower* create(Base* base);
-
-      Base* base = nullptr;
-      bool energized = true;
+      static Tower* create();
     protected:
       /// @brief Cria uma instância da torre
-      /// @param spriteSheet página de textura do sprite da torre
+      /// @param sprite_sheet página de textura do sprite da torre
       /// @param box uma caixa que informa a origem do sprite e as dimesões dele
-      Tower(string spriteSheet, Box box);
+      Tower(string sprite_sheet, Box box);
   };
 };

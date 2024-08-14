@@ -1,4 +1,4 @@
-#include<Tests.hpp>
+#include <Tests.hpp>
 
 TEST(SegmentTest, Parallel) {
   Segment a(0, 0, 1, 0);

@@ -2,12 +2,6 @@
 
 namespace Game {
   void Bullet::step(){
-    // if(this->hasCircle){
-    //   this->GameProcess::draw(this->circle);
-    // } else if(this->hasRectangle) {
-    //   this->GameProcess::draw(this->rectangle);
-    // };
-
     this->position += Math::pointInRadius(this->speed, this->direction);
     this->rotation = this->direction;
   };
@@ -23,15 +17,12 @@ namespace Game {
     bullet->depth = 50;
     bullet->position = object->position;
     bullet->setCircle(3);
+    bullet->circle.setPosition(bullet->position);
     bullet->scale(2);
     bullet->direction = object->rotation + 90;
     bullet->speed = 14;
-    bullet->ally = ally;
+    bullet->is_ally = ally;
     GameProcess::add(bullet);
     return bullet;
-  };
-
-  bool Bullet::isAlly() {
-    return this->ally;
   };
 };

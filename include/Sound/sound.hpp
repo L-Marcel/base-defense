@@ -1,4 +1,5 @@
-#include <Engine.hpp>
+#pragma once
+#include <Engine/defs.hpp>
 
 namespace Game {
   class Sound : public sf::Sound {
@@ -8,4 +9,4 @@ namespace Game {
       Sound(string filename);
       ~Sound();
   };
-}
+};
