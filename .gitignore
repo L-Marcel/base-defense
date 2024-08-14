@@ -1,5 +1,4 @@
 _build
-valgrind.log
 _release/**/main*
 _release/**/test_main*
 _release/**/tests*

@@ -18,7 +18,7 @@ namespace Game {
 
   void Health::damage(float amount) {
     this->total = max(this->total - amount, 0.0f);
-    if(this->total <= 0 && this->object != nullptr) {
+    if(this->total <= 0 && this->object != nullptr && !this->object->destroyed()) {
       string type = this->object->type();
       this->object->destroy();
       if(type == "Player") {
