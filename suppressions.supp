@@ -1,0 +1,55 @@
+{
+   dlopen
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:malloc
+   fun:_dl_map_object_deps
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+   fun:_dl_catch_error
+   fun:_dlerror_run
+   fun:dlopen_implementation
+   fun:dlopen@@GLIBC_2.34
+}
+{
+   libnvidia
+   Memcheck:ReallocZero
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   fun:call_init
+   fun:_dl_init
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+}
+{
+   libnvidia_posix
+   Memcheck:BadSize
+   fun:posix_memalign
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   fun:call_init
+   fun:_dl_init
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+}

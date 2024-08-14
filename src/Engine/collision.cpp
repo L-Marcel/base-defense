@@ -2,10 +2,6 @@
 
 namespace Game{
 	void Collision::destroy() {
-		if(this->object != nullptr) {
-			this->object->collisions.remove(this);
-		};
-
 		delete this;
 	};
 
@@ -15,9 +11,9 @@ namespace Game{
 			if(candidate->type() == this->collider && this->object != candidate) {
 				Object2D* collider = (Object2D*) candidate;
 				if(
-					has_circlesCollision(this->object, collider) ||
-					has_circleAndRectangleCollision(this->object, collider) ||
-					has_rectanglesCollision(this->object, collider)
+					has_circles_collision(this->object, collider) ||
+					has_circle_and_rectangle_collision(this->object, collider) ||
+					has_rectangles_collision(this->object, collider)
 				) {
 					this->object->colliders.add(collider);
 				};
@@ -25,14 +21,16 @@ namespace Game{
 		};
 	};
 
-	bool Collision::has_circlesCollision(Object2D* first, Object2D* second) {
-		if(!first->has_circle || !second->has_circle) return false;
+	bool Collision::has_circles_collision(Object2D* first, Object2D* second) {
+		if(first == nullptr || second == nullptr) return false;
+    if(!first->has_circle || !second->has_circle) return false;
 		float dist = Math::pointDistance(first->circle.getPosition(), second->circle.getPosition());
 		return dist < (first->circle.getRadius() + second->circle.getRadius());
 	};
 
-	bool Collision::has_circleAndRectangleCollision(Object2D* first, Object2D* second) {
-		if(!first->has_circle || !second->has_rectangle) {
+	bool Collision::has_circle_and_rectangle_collision(Object2D* first, Object2D* second) {
+		if(first == nullptr || second == nullptr) return false;
+    if(!first->has_circle || !second->has_rectangle) {
 			if(!second->has_circle || !first->has_rectangle) {
 				return false;
 			};
@@ -50,7 +48,7 @@ namespace Game{
 		float xx = abs(first->circle.getPosition().x - second->rectangle.getPosition().x);
 		float yy = abs(first->circle.getPosition().y - second->rectangle.getPosition().y);
 
-		float dist;
+		float dist = 0.0;
 		float rect_height = second->rectangle.getSize().y;
 		float rect_width = second->rectangle.getSize().x;
 
@@ -93,7 +91,7 @@ namespace Game{
 			};
 		};
 
-		switch(rect_region){
+		switch(rect_region) {
 			case 1:
 				return dist < first->circle.getRadius() + rect_height/2;
 			case 2:
@@ -105,8 +103,9 @@ namespace Game{
 		};
 	};
 
-	bool Collision::has_rectanglesCollision(Object2D* first, Object2D* second) {
-		if(!first->has_rectangle || !second->has_rectangle) return false;
+	bool Collision::has_rectangles_collision(Object2D* first, Object2D* second) {
+		if(first == nullptr || second == nullptr) return false;
+    if(!first->has_rectangle || !second->has_rectangle) return false;
 
 		float x1 = first->rectangle.getPosition().x;
 		float y1 = first->rectangle.getPosition().y;

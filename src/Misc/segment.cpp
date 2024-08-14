@@ -87,12 +87,6 @@ namespace Game {
     };
   };
 
-  void Segment::operator=(const Segment& other) {
-    this->empty = other.empty;
-    this->start = other.start;
-    this->end = other.end;
-  };
-
   bool Segment::operator==(const Segment& other) const {
     return this->empty == other.empty && (
       (other.start == this->start && other.end == this->end) || (other.start == this->end && other.end == this->start)

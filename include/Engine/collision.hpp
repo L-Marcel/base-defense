@@ -26,18 +26,18 @@ namespace Game{
       /// @param first primeiro objeto
       /// @param second segundo objeto
       /// @return `true` se houver uma colisão, `false` caso contrário
-      static bool has_circlesCollision(Object2D* first, Object2D* second);
+      static bool has_circles_collision(Object2D* first, Object2D* second);
 
       /// @brief Checa a colisão entre um círculo e um retângulo
       /// @param first primeiro objeto
       /// @param second segundo objeto
       /// @return `true` se houver uma colisão, `false` caso contrário
-      static bool has_circleAndRectangleCollision(Object2D* first, Object2D* second);
+      static bool has_circle_and_rectangle_collision(Object2D* first, Object2D* second);
 
       /// @brief Checa a colisão entre dois retângulos
       /// @param first primeiro objeto
       /// @param second segundo objeto
       /// @return `true` se houver uma colisão, `false` caso contrário
-      static bool has_rectanglesCollision(Object2D* first, Object2D* second);
+      static bool has_rectangles_collision(Object2D* first, Object2D* second);
   };
 };

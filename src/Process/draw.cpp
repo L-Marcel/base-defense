@@ -13,7 +13,7 @@ namespace Game {
     sf::IntRect old = object->sprite->getTextureRect();
     object->image += object->fps/60.f;
 
-    int image = int(floor(object->image)) * old.width;
+    int image = static_cast<int>(floor(object->image)) * old.width;
 
     if(object->loop) {
       image = image % (object->frames * old.width);
